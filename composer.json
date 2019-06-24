@@ -1,7 +1,0 @@
-{
-    "require": {
-        "google/apiclient": "2.0",
-        "phpoffice/phpspreadsheet": "^1.7",
-        "asimlqt/php-google-spreadsheet-client": "^3.0"
-    }
-}
