@@ -8,4 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'ProxyManager\\' => array($vendorDir . '/ocramius/proxy-manager/src'),
+    'Imagick' => array($vendorDir . '/calcinai/php-imagick/src'),
+    'Evenement' => array($vendorDir . '/evenement/evenement/src'),
+    'Alchemy' => array($vendorDir . '/alchemy/binary-driver/src'),
 );

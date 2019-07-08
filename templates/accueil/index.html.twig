@@ -1,20 +1,194 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Rembourseo{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block main %}
+    <main>
+        <div class="bloc1">
+            <div class="eligible">
+                <div class="presentation">
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto, sequi?</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, dolore.</p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore, consequatur?</p>
+                </div>
+            
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                <div class="box">
+                    <div class="title_box">
+                        <h2>Vérifier votre éligibilité</h2>
+                    </div> <!-- fin class="title_box" -->
+                    {{form_start(form) }}
+                    <div class="choisir_enseigne">
+                        
+                            {{form_errors(form.enseigne)}}
+                            {{form_label(form.enseigne)}}
+                            {{form_widget(form.enseigne, {'attr':{'list': 'select_enseigne'}}) }}
+                            {{form_help(form.enseigne)}}
+                         <datalist id="select_enseigne"> 
+                            <option value="">Sélectionner votre enseigne</option>
+                            <option value="auchan">Auchan</option>
+                            <option value="alinea">Aliné</option>
+                            <option value="boulanger">Boulanger</option>
+                            <option value="but">BUT</option>
+                            <option value="carrefour">Carrefour</option>
+                            <option value="casino">Casino</option>
+                            <option value="conforama">Conforama</option>
+                            <option value="darty">Darty</option>
+                            <option value="leclerc">E.Leclerc</option>
+                            <option value="fnac">Fnac</option>
+                        </datalist>
+                    </div> <!-- fin class="choisir_enseigne" -->
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/UwAmp/www/project-cb2019/src/Controller/AccueilController.php'|file_link(0) }}">src/Controller/AccueilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/UwAmp/www/project-cb2019/templates/accueil/index.html.twig'|file_link(0) }}">templates/accueil/index.html.twig</a></code></li>
-    </ul>
-</div>
+                    <div class="date_achat">
+                        {{form_errors(form.date_achat)}}
+                        {{form_label(form.date_achat)}}
+                        {{form_widget(form.date_achat)}}
+                        {{form_help(form.date_achat)}} 
+                        <!-- <label for="date">Date d'achat :</label>
+                        <input type="date" name="date"> -->
+                    </div> <!-- fin class="date_achat" -->
+
+                    <div class="prix_article">
+                        {{form_errors(form.prix)}}
+                        {{form_label(form.prix)}}
+                        {{form_widget(form.prix)}}
+                        {{form_help(form.prix)}} 
+                        <!-- <label for="prix">Prix de votre article :</label>
+                        <input type="text"> -->
+                    </div> <!-- fin class="prix_article" -->
+
+                    <div class="categorie">
+                        {{form_errors(form.categorie)}}
+                        {{form_label(form.categorie)}}
+                        {{form_widget(form.categorie, {'attr': {'list': 'cat'}}) }}
+                        {{form_help(form.categorie)}}                     
+                        <datalist id="cat">
+                            <option value="">Sélectionner la catégorie</option>
+                            <option value="informatique">Informatique</option>
+                            <option value="tv">Téléviseurs</option>
+                            <option value="telephonie">Téléphonie</option>
+                            <option value="electro">Electroménager</option>
+                            <option value="photo_camera">Photo et caméra</option>
+                            <option value="console">Console et jeux</option>
+                            <option value="son">Son</option>
+                        </datalist>
+                    </div> <!-- fin class="categorie" -->
+
+                    <div class="mag_internet">
+                        {{form_errors(form.magasin_ou_internet)}}
+                        {{form_label(form.magasin_ou_internet)}}
+                        {{form_widget(form.magasin_ou_internet)}}
+                        {{form_help(form.magasin_ou_internet)}}  
+                        <!--<label for="mag_internet">L'avez-vous acheté en magasin ?</label>
+                        <input type="checkbox">oui
+                        <input type="checkbox">non-->
+                    </div> <!-- fin class="mag_internet" -->
+                    {{form_widget(form.submit)}}
+                </div> <!-- fin class="box" -->
+            </div><!-- fin class="ok" -->
+        </div> <!-- fin class="bloc1" -->
+        <hr class="hr_header">
+
+        <div class="bloc2">
+            <div class="titre_etapes">
+                <h2>3 étapes pour faire votre demande de remboursement de la différence</h2>
+            </div> <!-- fin class="titre_etapes" -->
+
+            <div class="les_etapes">
+                <div class="etape">
+                    <h3>1. Vérifier votre éligibilité</h3>
+                    <p>Tester votre éligibilité en quelques secondes</p>
+                </div>
+
+                <div class="etape">
+                    <h3>2. Valider votre demande</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur veniam ex aut ipsa impedit quod!</p>
+                </div>
+
+                <div class="etape">
+                    <h3>3. Nous nous occupons du reste!</h3>
+                    <p>Nous effectuons les recherches à votre place et vous alertons de la baisse de prix trouvé</p>
+                </div>
+            </div> <!-- fin class="les_etapes" -->
+        </div> <!-- fin class="bloc2" -->
+        <hr class="hr_header">
+
+
+        <div class="bloc3">
+            <div class="titre_pourquoi">
+                <h2>Pourquoi R€mbourseo ?</h3>
+            </div> <!-- fin class="titre_pourquoi" -->
+
+            <div class="nous_vous">
+                <div class="nous">
+                    <div class="title_nous">
+                        <h4>Nous</h4>
+                    </div>
+
+                    <div class="arrow_box">
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+                        <hr class="hr_header">
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p> 
+                        <hr class="hr_header">
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+                    </div>
+                    
+                </div> <!-- fin class="nous" -->
+
+                <div class="vous">
+                    <div class="title_vous">
+                        <h4>Démarches effectuées par vous-même</h4>
+                    </div>
+
+                    <div class="arrow_box2">
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+                        <hr class="hr_header">
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p> 
+                        <hr class="hr_header">
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+                    </div>
+
+                </div> <!-- fin class="vous" -->
+            </div> <!-- fin class="nous_vous" -->
+
+        </div> <!-- fin class="bloc3" -->
+        <hr class="hr_header">
+
+        <div class="bloc4"> 
+            <div class="title_enseignes">
+                <h2>Magasins éligibles</h2>
+            </div> <!-- fin class="title_enseignes" -->
+
+            <div class="liste_enseignes">
+                <div class="auchan">logo auchan</div>
+                <div class="boulanger">logo boulanger</div>
+                <div class="conforama">logo confo</div>
+                <div class="darty">logo darty</div>
+                <div class="leclerc">logo leclerc</div>
+                <div class="fnac">logo fnac</div>
+            </div> <!-- fin class="liste_enseignes" -->
+        </div> <!-- fin class="bloc4" -->
+        <hr class="hr_header">
+
+        <div class="bloc5">
+            <div class="title_qui">
+                <h2>Qui sommes-nous ?</h3>
+            </div>
+
+            <div class="qui_sommes_nous">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis vero, accusantium qui officiis officia possimus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem vitae assumenda quidem laborum nesciunt quod repudiandae corrupti alias corporis, hic debitis dignissimos harum sapiente fugiat qui? Mollitia sed dolores nostrum.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum laboriosam non dolore vitae dignissimos est!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus eos mollitia aliquid nam, quo consequuntur?</p>
+            </div>
+        </div> <!-- fin class="bloc5" -->
+        <hr class="hr_header">
+
+        <div class="bloc6"> 
+            <div class="title_avis_clients">
+                <h2>Avis de nos clients</h3>
+            </div> <!-- fin class="title_reseaux" -->
+    </main>
+
 {% endblock %}
+
+

@@ -1,22 +1,150 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EnseigneController!{% endblock %}
+{% block stylesheet %} 
+    <link rel="stylesheet" href="{{asset('style.css')}}">
+{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block title %}{{enseigne.nomEnseigne}}{% endblock %}
 
-<div class="example-wrapper">
+{% block main %}
 
-    <h1>Hello {{ controller_name }}! </h1>
+<div class="container">
+  <div class="row" >
+    <h1>Formulaire</h1>
+    {{form_start(form, {'action': path('facture', {'nom_enseigne' : enseigne.nomEnseigne|lower}), 'method': 'POST'}) }}
+        <div class="les_infos">
+            <h3>Vos informations de commandes</h3>
+              <section>
+                  <div class="nom_magasin">
+                      {% if form.magasin is defined %}
+                        {{ form_label(form.magasin) }}
+                        {{ form_errors(form.magasin) }}
+                        {{ form_widget(form.magasin, {'id': 'nom_mag'}) }}
+                        {{ form_help(form.magasin) }}
+                      {% endif %}
+                  </div> <!-- fin class="nom_magasin" -->
 
-    Les différentes enseignes prises charge par Coming-Back sont: 
-    <ul>
-   {% for categorie in categories %}
-   	<li>{{ categorie.nomCategorie}}</li>
-   {% endfor %}
-   </ul>
+                  <div class="marque">
+                      {{ form_label(form.marque) }}
+                      {{ form_errors(form.marque) }}
+                      {{ form_widget(form.marque, {'id': 'mar'}) }}
+                      {{ form_help(form.marque) }}
+                  </div> <!-- fin class="marque" -->
+
+                  <div class="reference">
+                      {{ form_label(form.reference) }}
+                      {{ form_errors(form.reference) }}
+                      {{ form_widget(form.reference, {'id': 'ref'}) }}
+                      {{ form_help(form.reference) }}
+                  </div> <!-- fin class="reference" -->
+
+                  <div class="numero_commande">
+                      {{ form_label(form.numero_commande) }}
+                      {{ form_widget(form.numero_commande, {'id': 'num_com'}) }}
+                      <img src="{{asset('img/i.png')}}">
+                      {{ form_help(form.numero_commande) }}
+                      
+                  </div> <!-- fin class="numero_commande" -->
+
+                  <div class="commentaires">
+                      {{ form_label(form.commentaires) }}
+                      {{ form_widget(form.commentaires, {'id': 'com'}) }}
+                      {{ form_help(form.commentaires) }}
+                  </div> <!-- fin class="marque" -->
+              </section>
+
+            <h3>Vos coordonnées</h3>
+              <section>
+                  <div class="nom">
+                      {{ form_label(form.nom) }}
+                      {{ form_errors(form.nom) }}
+                      {{ form_widget(form.nom, {'id': 'nom'}, {'attr': {'value': user.nom}}) }}
+                  </div> <!-- fin class="nom" -->
+                
+                  <div class="prenom">
+                      {{ form_label(form.prenom) }}
+                      {{ form_errors(form.prenom) }}
+                      {{ form_widget(form.prenom, {'id': 'prenom'}, {'attr': {'value': user.prenom}}) }}
+                  </div> <!-- fin class="prenom" -->
+
+                  <div class="mail">
+                      {{ form_label(form.mail) }}
+                      {{ form_errors(form.mail) }}
+                      {{ form_widget(form.mail, {'id': 'mail'}, {'attr': {'value': user.mail}}) }}
+                  </div> <!-- fin class="mail" -->
+
+                  <div class="telephone">
+                      {{ form_label(form.telephone) }}
+                      {{ form_errors(form.telephone) }}
+                      {{ form_widget(form.telephone, {'id': 'tel'}, {'attr': {'value': user.numero_telephone}}) }}
+                  </div> <!-- fin class="telephone" -->
+
+                  <div class="adresse">
+                      {{ form_label(form.adresse) }}
+                      {{ form_errors(form.adresse) }}
+                      {{ form_widget(form.adresse, {'id': 'adresse'}, {'attr': {'value': user.adresse}}) }}
+                  </div> <!-- fin class="adresse" -->
+                  
+              </section>
+                  <div></div> <!-- fin class="marque" -->
+                  <div></div> <!-- fin class="marque" -->
+
+          <h3>Valider</h3>
+              <section>
+                <img id="facture_jpg" alt="Votre facture est en cours de chargement">
+              </section>  
+    
+      </div>
+  </div>
 </div>
 {% endblock %}
+
+{% block javascript %}<script>
+
+$(document).ready(function() {
+    var form = $("#form-enseigne");    
+    form.validate({
+        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+    });
+
+    var form = $("#form-enseigne");
+    form.children("div").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex)
+        {
+          if(currentIndex == 1){
+            if(form.valid()){
+              var url = "validation-auchan";
+              var donnees = form.serialize();
+              $.post(url, donnees,
+                function(data,status){
+                  var path = data.path.split('/')
+                  path = "/" +  path[path.length -1]
+                  document.getElementById("facture_jpg").src = path
+                  
+                });
+
+            }
+          }
+          if (currentIndex > newIndex){return true;}
+          else{
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+          }
+        },
+        onFinishing: function (event, currentIndex)
+        {            
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex)
+        {
+            alert("Submitted!");
+        }
+    });
+});
+</script>
+{% endblock %}
+

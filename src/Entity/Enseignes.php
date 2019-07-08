@@ -15,11 +15,11 @@ class Enseignes
     /**
      * @var int
      *
-     * @ORM\Column(name="id_enseignes", type="integer", nullable=false)
+     * @ORM\Column(name="id_enseigne", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idEnseignes;
+    private $idEnseigne;
 
     /**
      * @var string
@@ -27,6 +27,13 @@ class Enseignes
      * @ORM\Column(name="nom_enseigne", type="string", length=100, nullable=false)
      */
     private $nomEnseigne;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logo_enseigne", type="string", length=100, nullable=false)
+     */
+    private $logoEnseigne;
 
     /**
      * @var string
@@ -42,9 +49,9 @@ class Enseignes
      */
     private $delaiRetour;
 
-    public function getIdEnseignes(): ?int
+    public function getIdEnseigne(): ?int
     {
-        return $this->idEnseignes;
+        return $this->idEnseigne;
     }
 
     public function getNomEnseigne(): ?string
@@ -55,6 +62,18 @@ class Enseignes
     public function setNomEnseigne(string $nomEnseigne): self
     {
         $this->nomEnseigne = $nomEnseigne;
+
+        return $this;
+    }
+
+    public function getLogoEnseigne(): ?string
+    {
+        return $this->logoEnseigne;
+    }
+
+    public function setLogoEnseigne(string $logoEnseigne): self
+    {
+        $this->logoEnseigne = $logoEnseigne;
 
         return $this;
     }

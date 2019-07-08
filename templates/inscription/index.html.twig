@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block main %}
+<div class="container">
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.plainPassword.first) }}
+        {{ form_row(form.plainPassword.second) }}      
+    {{ form_end(form) }}
+    
+    {% for message in app.flashes('warning') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+    Si vous possédez déjà un compte, <a href="{{ path('connexion') }}">cliquez ici </a>!
+</div>
+{% endblock %}

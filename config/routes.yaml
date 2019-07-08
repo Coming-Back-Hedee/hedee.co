@@ -2,7 +2,9 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-
+logout:
+    path: /deconnexion
+    
 foire_aux_questions:
     path: /faq
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
@@ -17,7 +19,19 @@ conditions:
       template: 'utile/cgv.html.twig'
 
 a_propos:
-    path: /a-propos
+    path: /qui-sommes-nous
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
     defaults:
-      template: 'utile/a_propos/cgv.html.twig'
+      template: 'utile/a_propos.html.twig'
+
+comment_ca_marche:
+    path: /comment_ca_marche
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+      template: 'utile/how.html.twig'  
+
+contact:
+    path: /contact
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+      template: 'utile/contact.html.twig' 

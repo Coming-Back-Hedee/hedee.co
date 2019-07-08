@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EnseigneController!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="row" >
+
+  {{form_start(form, {'action': path('facture', {'nom_enseigne' : enseigne.nomEnseigne|lower}), 'method': 'POST'}) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.mail) }}
+    {{ form_row(form.telephone) }}
+    {{ form_row(form.adresse) }}
+    {{ form_row(form.ville) }}
+    {{ form_row(form.code_postal) }}
+    {{ form_row(form.numero_commande) }}
+  {{form_end(form)}}
+  </div>
+</div>
+{% endblock %}
+

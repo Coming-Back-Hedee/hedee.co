@@ -1,4 +1,10 @@
 {
+    "alchemy/binary-driver": {
+        "version": "5.1.0"
+    },
+    "calcinai/php-imagick": {
+        "version": "v0.1.2"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -93,6 +99,9 @@
     "egulias/email-validator": {
         "version": "2.1.8"
     },
+    "evenement/evenement": {
+        "version": "v2.1.0"
+    },
     "fig/link-util": {
         "version": "1.0.0"
     },
@@ -140,6 +149,9 @@
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "setasign/fpdf": {
+        "version": "1.8.1"
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
@@ -498,6 +510,9 @@
     },
     "symfony/yaml": {
         "version": "v4.3.1"
+    },
+    "tecnickcom/tcpdf": {
+        "version": "6.2.26"
     },
     "twig/twig": {
         "version": "v2.11.3"

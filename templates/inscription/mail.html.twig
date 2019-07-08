@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de la création de votre compte Rembourseo</title>
+</head>
+<body>
+    <p>
+        Bonjour {{user.prenom}},
+        Bienvenue chez Rembourseo <br>
+        Cliquez sur ce lien pour accéder à votre espace.
+
+        <a href="{{absolute_url(path('info_client'))}}">Accéder à mon compte</a>
+    </p>
+</body>
+</html>
