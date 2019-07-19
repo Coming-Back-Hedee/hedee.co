@@ -36,6 +36,17 @@ class MagasinsRepository extends ServiceEntityRepository
     }
     */
 
+    public function findByJustNom($value)
+    {
+        return $this->createQueryBuilder('m')
+            ->select('m.nomMagasin')
+            ->andWhere('m.enseigne = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     /*
     public function findOneBySomeField($value): ?Magasins
     {

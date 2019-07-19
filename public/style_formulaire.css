@@ -10,35 +10,180 @@ body {
     min-height:960px;
 }
 
-.les_infos {
+.row {
+    min-height: 100px;
+    width:75%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20px;
     background-color: #f2f2f2;
     border-radius : 1%;
     margin: 25px auto;
 	-moz-box-shadow: 0 0 10px #a7a7a7;  
 	-webkit-box-shadow: 0 0 10px #a7a7a7;  
     box-shadow: 0 0 5px #a7a7a7;  
+    padding-top : 30px;
+    padding-bottom: 40px
+}
+
+/* CSS SOUS MENU FORMULAIRE */
+.current-info.audible {
+    display:none
+}
+
+.steps ul li   {
+    display:inline;
+    list-style: none;
+    padding-left: 10px;
+}
+
+.steps ul li a {
+    text-decoration: none;
+}
+
+/*page informations de commande - votre achat*/
+.steps ul .first.current a {
+    background-color: #00A5C8;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px
+}
+
+.steps ul .disabled a, .steps ul .done a {
+    background-color: #fff;
+    padding: 15px;
+    color: #000;
+    border: solid 1px #ccc;
+    border-radius: 5px
+}
+
+.steps ul .disabled.last a {
+    background-color: #fff;
+    padding: 15px;
+    color: #000;
+    border: solid 1px #ccc;
+    border-radius: 5px
+}
+
+#cp, #mar, #ref, #demandes_magasin_numeroCommande, 
+#demandes_magasin_commentaires, 
+#demandes_magasin_client_adresse_nom_rue,
+#demandes_magasin_client_adresse_complements,
+#demandes_magasin_client_adresse_ville,
+#demandes_magasin_client_adresse_code_postal,
+#demandes_internet_client_adresse_nom_rue,
+#demandes_internet_client_adresse_complements,
+#demandes_internet_client_adresse_ville,
+#demandes_internet_client_adresse_code_postal,
+#url, #demandes_internet_numeroCommande, #demandes_internet_commentaires {
+    width: 60%; 
+    padding: 12px;   
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box;
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    resize: vertical;
+}    
+
+#demandes_magasin_facture {
+    padding-bottom: 45px
+}
+
+.facture, .marque, .reference, .numero_commande, .commentaires, .url {
+    margin: 15px 40px 15px 40px;
+}
+
+.url {
+    margin: 50px 40px 15px 40px;
+}
+
+.code_postal {
+    padding-top: 40px
+}
+
+.magasin_ou_internet {
+    margin: 30px 40px 20px 40px;
+}
+
+ .les_infos {
+    padding-top : 30px;
+    padding-bottom: 40px
 }
 
 .les_infos > section {
     margin-left:40px
 }
 
-.les_infos > h3 {
-    padding-top: 40px;
-    margin-left:40px
+.les_infos h3 {
+    margin: 30px 40px 15px 40px;
 }
 
-.row {
-    min-height: 960px;
-    width:65%;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:20px;
-    
+.marque_2,.reference_2, .numero_commande_2, .commentaires_2, .prix_article_2 {
+    display:flex
 }
 
-#nom_mag, #mar, #ref, #num_com, #com, #nom, #prenom, #mail, #tel, #adresse, #ville, #postal {
-    width: 50%; 
+.label_2 {
+    margin-right: 6px
+}
+
+.question_2 .btn  {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border:none;
+    font-family: 'Georgia', sans-serif; 
+}
+
+
+/* Title inutiles */
+.help-text {
+    display:none;
+}
+
+#steps-uid-0-h-0.title, #steps-uid-0-h-1.title, #steps-uid-0-h-2.title {
+    display:none
+}
+
+.actions ul li {
+    display:inline;
+    list-style: none;
+    padding-left: 15px;
+}
+
+.actions ul li a {
+    text-decoration: none;
+    background-color: #00A5C8;
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px
+}
+
+/*page informations client - vos coordonnées*/
+.steps ul .first.done a {
+    background-color: #00A5C8;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.steps ul .current a {
+    background-color: #00A5C8;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.steps ul .last.done a {
+    background-color: #fff;
+    padding: 15px;
+    color: #000;
+    border: solid 1px #ccc;
+    border-radius: 5px
+}
+
+#nom, #prenom, #num, #nom_rue, #complements, #ville, #code_postal {
+    width: 60%; 
     padding: 12px;   
     border: 1px solid #ccc; 
     border-radius: 4px; 
@@ -47,3 +192,67 @@ body {
     margin-bottom: 16px; 
     resize: vertical;
 }
+
+.nom, .prenom, .telephone, .nom_rue, .complements, .ville, .code_postal, .code_postal_2 {
+    margin: 15px 40px 15px 40px;
+}
+
+.info_client {
+    padding-top : 45px
+}
+
+/*Page Valider*/
+.steps ul .done a {
+    background-color: #00A5C8;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+}
+
+.steps ul .last.current a {
+    background-color: #00A5C8;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+}
+
+#facture_jpg {
+    padding : 45px 0 45px 40px;
+}
+
+/*Formulaire : boutons bas de page*/
+.actions ul li a {}
+
+
+
+/**********PARTIE RESPONSIVE DESIGN***********/
+            /***POUR MOBILE***/
+@media screen and (max-width:767.98px){ 
+    .steps ul li a {
+        display:block;
+        width: 50%;
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center
+
+    }
+}
+
+
+            /***POUR TABLETTE***/
+@media (min-width: 768px) and (max-width:991.98px){ 
+    .steps ul li a{
+        display: block;
+        width: 50%;
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center
+    }
+}
+
+
+            /***POUR GD ECRAN***/
+@media screen and (min-width: 1025px){ }
+

@@ -29,6 +29,7 @@ class ClientsRepository extends ServiceEntityRepository implements UserLoaderInt
             ->getQuery()
             ->getOneOrNullResult();
     }
+    
 
     // /**
     //  * @return Clients[] Returns an array of Clients objects

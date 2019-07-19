@@ -13,11 +13,10 @@ use Symfony\Component\Form\FormTypeInterface;
 class AdresseType extends AbstractType
 {
 
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom_rue', TextType::class, ['label' => 'Nom de rue'])
+            ->add('nom_rue', TextType::class, ['label' => 'Adresse'])
             ->add('complements', TextType::class, ['label' => 'Compléments', 'required' => false])
             ->add('ville', TextType::class, ['label' => 'Ville'])
             ->add('code_postal', NumberType::class,   ['label' => 'Code postal'])            

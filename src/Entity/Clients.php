@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -50,30 +52,31 @@ class Clients implements UserInterface, \Serializable
     private $email;
 
     /**
-     * @ORM\Column(type="bigint", nullable=true)
+     * @ORM\Column(type="string", nullable=true, length=10)
      * @Assert\NotBlank()
      */
-    private $numero_telephone;
+    private $numeroTelephone;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Adresses", cascade={"persist"})
-     */
-    private $adresse;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $id_parrain;
+    private $idParrain;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private $code_parrainage;
+    private $codeParrainage;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $points_fidelite;
+    private $nbParrainage;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $solde;
 
     /**
      * @var array
@@ -99,15 +102,29 @@ class Clients implements UserInterface, \Serializable
     */
     private $token;
 
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Demandes", mappedBy="client", orphanRemoval=true)
+     */
+    private $demandes;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Adresses", cascade={"persist", "remove"})
+     */
+    private $adresse;
+
     public function __construct()
     {
         $this->isActive = true;
+        $this->solde = 0;
+        $this->nbParrainage = 0;
         $this->roles = ['ROLE_USER'];
+    
+        $this->demandes = new ArrayCollection();
+        
     }
      
-    /*
-     * Get id
-     */
     public function getId()
     {
         return $this->id;
@@ -156,17 +173,11 @@ class Clients implements UserInterface, \Serializable
         return $this;
     }
  
-    /*
-     * Get email
-     */
     public function getEmail()
     {
         return $this->email;
     }
- 
-    /*
-     * Set email
-     */
+
     public function setEmail($email)
     {
         $this->email = $email;
@@ -175,60 +186,62 @@ class Clients implements UserInterface, \Serializable
 
     public function getNumeroTelephone(): ?int
     {
-        return $this->numero_telephone;
+        return $this->numeroTelephone;
     }
 
-    public function setNumeroTelephone(int $numero_telephone): self
+    public function setNumeroTelephone(int $numeroTelephone): self
     {
-        $this->numero_telephone = $numero_telephone;
+        $this->numeroTelephone = $numeroTelephone;
 
         return $this;
     }
 
-    public function getAdresse(): ?Adresses
+    public function setIdParrain($idParrain)
     {
-        return $this->adresse;
-    }
-
-    public function setAdresse(Adresses $adresse): self
-    {
-        $this->adresse = $adresse;
-
+        $this->idParrain = $idParrain;
         return $this;
     }
 
-    public function setIdParrain($id_parrain)
+    public function getIdParrain() :?string
     {
-        $this->id_parrain = $id_parrain;
+        return $this->idParrain;
+    }
+
+    public function setCodeParrainage() :self
+    {
+        $prefixe = ['xnlp', 'xhcs', 'xdhm', 'xluj', 'xftd', 'xmia', 'xmtn', 'xmil'];
+        $choix = rand(0,count($prefixe)-1);
+        
+        $codeParrainage = $prefixe[$choix] . ($this->getId()+417);
+        $this->codeParrainage = $codeParrainage;
         return $this;
     }
 
-    public function getIdParrain()
+    public function getCodeParrainage(): ?string
     {
-        return $this->id_parrain;
+        return $this->codeParrainage;
     }
 
-    /*public function setCodeParrainage()
+    public function setNbParrainage($nbParrainage)
     {
-        $code = substr($user->getNom(), 0, 2) . $user->getId() . $user->getPrenom()[0] . substr($user->getCodePostal(), 2, 3);
-        $this->code_parrainage = $code;
-        return $this;
-    }*/
-
-    public function getCodeParrainage()
-    {
-        return $this->code_parrainage;
-    }
-
-    public function setPointFidelite($points_fidelite)
-    {
-        $this->points_fidelite = $points_fidelite;
+        $this->nbParrainage = $nbParrainage;
         return $this;
     }
 
-    public function getPointsFidelite()
+    public function getNbParrainage()
     {
-        return $this->points_fidelite;
+        return $this->nbParrainage;
+    }
+
+    public function setSolde($solde)
+    {
+        $this->solde = $solde;
+        return $this;
+    }
+
+    public function getSolde()
+    {
+        return $this->solde;
     }
 
     /*
@@ -330,6 +343,51 @@ class Clients implements UserInterface, \Serializable
     public function getSalt(){}
 
     public function getUsername(){}
+
+    
+
+    /**
+     * @return Collection|Demandes[]
+     */
+    public function getDemandes(): Collection
+    {
+        return $this->demandes;
+    }
+
+    public function addDemande(Demandes $demande): self
+    {
+        if (!$this->demandes->contains($demande)) {
+            $this->demandes[] = $demande;
+            $demande->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemande(Demandes $demande): self
+    {
+        if ($this->demandes->contains($demande)) {
+            $this->demandes->removeElement($demande);
+            // set the owning side to null (unless already changed)
+            if ($demande->getClient() === $this) {
+                $demande->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAdresse(): ?Adresses
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Adresses $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
 }
 
 

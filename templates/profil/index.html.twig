@@ -1,7 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Espace client{% endblock %}
 
 {% block main %}
-<h1>Liste de mes dossiers</h1>
+<main>
+    <div class="container">
+        <h1>Bienvenue dans votre espace client {{ user.nom }}</h1>
+        <div>
+            <div class="menu_profil">
+                <ul>
+                    <li> <a href="{{ path('profil') }}" class="active">Mes demandes</a> </li>
+                    <li> <a href="{{ path('remboursement') }}">Mes remboursements</a> </li>
+                    <li> <a href="{{ path('parrainage') }}">Mes parrainages</a> </li>
+                    <li> <a href="{{ path('info_client') }}">Mes informations</a> </li>
+                </ul>
+            </div> <!-- fin class="menu" -->
+            <div class="recap">
+                <table class="table" border="1">
+                    <thead>
+                        <tr>
+                            <th>Vos demandes</th>
+                            <th>Numéro de dossier</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mes-demandes">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="boxed"><a href="{{ path('accueil') }}">Déposer une nouvelle demande de remboursement</a></div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block javascript %}
+<script>
+    $(document).ready(function() {
+        var table = document.getElementById("mes-demandes");
+        {% for demande in demandes %}
+            var tr = document.createElement('TR');
+            var td1 = document.createElement('TD');
+            td1.innerHTML = "Date demande:  {{demande.dateAchat|date('m/d/Y')}}";
+            td1.innerHTML += "<br>Produit: {{demande.marqueProduit}} {{demande.referenceProduit}}";
+            td1.innerHTML += "<br>Voir facture"
+            var td2 = document.createElement('TD');
+            td2.innerHTML = "{{demande.numeroDossier}}"
+            var td3 = document.createElement('TD');
+            td3.innerHTML = "{{demande.statut}}"          
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            table.appendChild(tr)
+        {% endfor %}
+    });
+</script>
 {% endblock %}

@@ -18,7 +18,7 @@ header {
 }
 
 .logo {
-    width : 30%;
+    width : 25%;
     min-height: 50px;
     text-align:center;
 }
@@ -40,7 +40,7 @@ header {
 }
 
 .menu {
-    width : 70%;
+    width : 75%;
     min-height: 50px;
     text-align:center;
     padding-top: 15px;
@@ -58,6 +58,68 @@ header {
     font-size: 1em;
     font-weight: bold;
     margin-right: 5%
+}
+
+#myBtn {
+    width :20%;
+    background-color: #eb7150;
+    color: white;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius : 0.75em;
+    cursor: pointer;
+    font-family: 'Georgia', sans-serif;
+}
+
+#myBtn a {
+    color : #fff
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px #00000033;
+  z-index: 1;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+.togglemenu {
+    display:none;
+}
+
+.menu2 {
+    display:none;
+}
+
+.menu2 > ul {
+    display:none;
 }
 
 .hr_header {
@@ -108,16 +170,26 @@ main {
 }
 
 .title_box h2 {
-    text-align:center
+    text-align:center;
+    margin-bottom: 35px
 }
 
-.categorie, .choisir_enseigne, .date_achat, .prix_article, .mag_internet, .affichage_msg {
+#paragraph_id1, #paragraph_id2, #paragraph_id3, #paragraph_id4 {
+    width:80%;
+    margin-left:auto;
+    margin-right:auto;
+    height:30px;
+    color:red;
+	display: none;
+}
+
+.categorie, .choisir_enseigne, .date_achat, .prix_article, .mag_internet, .affichage_msg, .remise {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
 } 
 
-.box #prix, .box #datepicker, .box #select_enseigne, .box #cat_produit {
+.box #form_prix, .box #datepicker, .box #select_enseigne, .box #cat_produit, .box #remise {
     width: 100%; 
     padding: 12px;   
     border: 1px solid #ccc; 
@@ -126,6 +198,22 @@ main {
     margin-top: 6px; 
     margin-bottom: 16px; 
     resize: vertical;
+}
+
+.categorie_2, .choisir_enseigne_2, .date_achat_2, .prix_article_2 {
+    display:flex
+}
+
+.label_2 {
+    margin-right: 6px
+}
+
+.question_2 .btn  {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border:none;
+    font-family: 'Georgia', sans-serif; 
 }
 
 .box #mag_internet {
@@ -153,25 +241,31 @@ main {
 }
 
 .affichage_msg .demander {
-    width: 40%;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;     
 }
 
+.msg {
+    width: 40%;
+    height: 40px;
+    color: green;
+    text-align:center
+}
+
 #soumettre {
-    background-color: #00A5C8;
-    color: white;
+    /* background-color: #00A5C8; */
+    width: 100%;
+    color: white; 
     padding: 12px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: 1s;
+    font-size: 18px
 }
 
-#soumettre:hover {
-    background-color: #eb7150;
-}
 
 /* 2e BLOC - etapes pour demande de remboursement */
 .bloc2 {
@@ -180,11 +274,13 @@ main {
     width:100%;
     margin-top: -17px;
     padding-top: 40px;
+    padding-bottom : 25px;
     overflow:hidden
 }
 
 .titre_etapes {
-    text-align:center
+    text-align:center;
+    padding-bottom: 25px;
 }
 
 .les_etapes {
@@ -193,16 +289,46 @@ main {
 
 .etape {
     text-align:center;
+    width: 100%
+}
+
+.etape > h3 {
+    margin-left: 15px;
+    margin-right:10px
+}
+
+.etape > p {
+    margin-left: 15px;
+    margin-right:15px
+}
+
+#question  {
+    width: 25%;
+    height : 5em;
+    fill: #eb7150
+}
+
+#checked {
+    width: 25%;
+    height : 5em;
+    fill: #eb7150
+}
+
+#euro {
+    width: 25%;
+    height : 5em;
+    fill: #eb7150
 }
 
 /* 3e BLOC - Pourquoi Rembourseo */
 .bloc3 {
     background-color: #fff ;
-    min-height: 400px;
+    min-height: 250px;
     width:100%;
     margin-top: -17px;
     padding-top: 40px;
-    overflow:hidden
+    overflow:hidden;
+    padding-bottom : 25px;
 }
 
 .titre_pourquoi {
@@ -212,19 +338,19 @@ main {
 .nous_vous {
     display:flex;
     width:100%;
-    min-height: 400px
+    min-height: 250px;
 }
 
 .nous {
     width : 35%;
-    margin-left: auto;
-    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .vous {
     width : 35%;
-    margin-left: auto;
-    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .title_nous , .title_vous {
@@ -234,8 +360,27 @@ main {
 .arrow_box {
 	position: relative;
 	background: #00A5C8;
-    border: 5px solid #00a5c8;
+    border-bottom: 5px solid #00a5c8;
+    border-top: 5px solid #00a5c8;
     border-radius : 10px;
+}
+
+.avantages {
+    display:flex;
+}
+
+.pouce_up {
+    padding-left: 10px;
+    padding-right:10px
+}
+
+.pouce_up > img {
+    padding-top: 10px;
+    width: 80%;
+    height: 40px;
+}
+
+.arrow_box div > p {
     padding-left: 10px;
     padding-right:10px
 }
@@ -267,8 +412,27 @@ main {
 .arrow_box2 {
 	position: relative;
 	background: #d9dedf;
-    border: 5px solid #d9dedf;
+    border-bottom: 5px solid #d9dedf;
+    border-top: 5px solid #d9dedf;
     border-radius : 10px;
+}
+
+.inconvenients {
+    display:flex;
+}
+
+.pouce_down {
+    padding-left: 10px;
+    padding-right:10px
+}
+
+.pouce_down > img {
+    padding-top: 10px;
+    width: 80% ;
+    height: 40px;
+}
+
+.arrow_box2 div > p {
     padding-left: 10px;
     padding-right:10px
 }
@@ -298,13 +462,14 @@ main {
 }
 
 
-/* 4e BLOC - Magasins éligibles */
+/* 4e BLOC - Enseignes éligibles */
 .bloc4 {
     background-color: #e8f0f0 ;
-    min-height: 250px;
+    min-height: 300px;
     width:100%;
     margin-top: -17px;
     padding-top: 40px;
+    padding-bottom : 25px;
     overflow:hidden 
 }
 
@@ -313,14 +478,28 @@ main {
 }
 
 .liste_enseignes {
-    display: flex;
     width: 100%;
 }
 
-.liste_enseignes > div {
-    margin:0 auto
+.slideshow {
+    width: 475px;
+    height: 200px;
+    overflow: hidden;
+    margin-left:auto;
+    margin-right:auto;
 }
 
+.slideshow ul {
+    /* 9 images donc 9 x 100% */
+   width: 900%;
+   height: 200px;
+   padding:0; margin:0;
+   list-style: none;
+}
+
+.slideshow li {
+   float: left;
+}
 
 /* 5e BLOC - Qui sommes nous ? */
 .bloc5 {
@@ -329,6 +508,7 @@ main {
     width:100%;
     margin-top: -17px;
     padding-top: 40px;
+    padding-bottom : 25px;
     overflow:hidden 
 }
 
@@ -349,6 +529,7 @@ main {
     width:100%;
     margin-top: -17px;
     padding-top: 40px;
+    padding-bottom : 25px;
     overflow:hidden 
 }
 
@@ -398,6 +579,10 @@ footer {
     opacity: 1;
 }
 
+.infos_site {
+    width: 100%;
+}
+
 .infos_site > p  {
     margin-top: 20px;
     font-size : 14px;
@@ -407,53 +592,12 @@ footer {
 .infos_site > p > a {
     color : #fff;
     text-decoration: none;
-    margin-right: 3px;
-    margin-left: 3px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 .infos_site > p :hover {
     text-decoration: underline;
-}
-
-.dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-menu a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-menu a:hover {background-color: #f1f1f1;}
-
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
 }
 
 /* The Modal (background) */
@@ -492,4 +636,56 @@ footer {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.menu_profil {
+    width : 75%;
+    min-height: 30px;
+    margin: 5%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+}
+
+.menu_profil ul li  {
+    display:inline-block;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+.menu_profil ul li a {
+    text-decoration:underline;
+    color : #000;
+    font-size: 1em;
+    font-weight: bold;
+    margin-right: 5%
+}
+
+.menu_profil ul li a.active {
+    pointer-events: none;
+    cursor: default;
+    color: blue;
+  }
+
+.recap{
+    margin: 5%;
+    width: 70%;
+    margin-top: 20px;
+}
+
+.boxed{
+    margin: 5%;
+    padding: 15px;
+    text-align: center;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;    
+}
+
+.share > div {
+    margin: auto;
+    color : #3d3d3d99
 }

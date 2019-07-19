@@ -2,24 +2,26 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Enseignes
  *
  * @ORM\Table(name="enseignes")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\EnseignesRepository")
  */
 class Enseignes
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="id_enseigne", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idEnseigne;
+    private $id;
 
     /**
      * @var string
@@ -31,27 +33,23 @@ class Enseignes
     /**
      * @var string
      *
-     * @ORM\Column(name="logo_enseigne", type="string", length=100, nullable=false)
+     * @ORM\Column(name="logo_enseigne", type="string", length=100, nullable=true)
      */
     private $logoEnseigne;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="info_enseigne", type="text", length=65535, nullable=false)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Categories")
      */
-    private $infoEnseigne;
+    private $categories;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="delai_retour", type="integer", nullable=false)
-     */
-    private $delaiRetour;
-
-    public function getIdEnseigne(): ?int
+    public function __construct()
     {
-        return $this->idEnseigne;
+        $this->categories = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getNomEnseigne(): ?string
@@ -78,26 +76,28 @@ class Enseignes
         return $this;
     }
 
-    public function getInfoEnseigne(): ?string
+    /**
+     * @return Collection|Categories[]
+     */
+    public function getCategories(): Collection
     {
-        return $this->infoEnseigne;
+        return $this->categories;
     }
 
-    public function setInfoEnseigne(string $infoEnseigne): self
+    public function addCategory(Categories $category): self
     {
-        $this->infoEnseigne = $infoEnseigne;
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
 
         return $this;
     }
 
-    public function getDelaiRetour(): ?int
+    public function removeCategory(Categories $category): self
     {
-        return $this->delaiRetour;
-    }
-
-    public function setDelaiRetour(int $delaiRetour): self
-    {
-        $this->delaiRetour = $delaiRetour;
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
 
         return $this;
     }

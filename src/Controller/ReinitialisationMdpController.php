@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use App\Form\ResettingType;
+use App\Form\ReinitialisationMdpType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -41,7 +41,6 @@ class ReinitialisationMdpController extends AbstractController
 
             $em = $this->getDoctrine()->getManager();
 
-            // voir l'épisode 2 de cette série pour retrouver la méthode loadUserByUsername:
             $user = $em->getRepository(Clients::class)->loadUserByUsername($form->getData()['email']);
 
             // aucun email associé à ce compte.
@@ -103,7 +102,7 @@ class ReinitialisationMdpController extends AbstractController
             throw new AccessDeniedHttpException();
         }
 
-        $form = $this->createForm(ResettingType::class, $user);
+        $form = $this->createForm(ReinitialisationMdpType::class, $user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -125,7 +124,7 @@ class ReinitialisationMdpController extends AbstractController
 
         }
 
-        return $this->render('reinitalisation_mdp/index.html.twig', [
+        return $this->render('reinitialisation_mdp/index.html.twig', [
             'form' => $form->createView()
         ]);
         

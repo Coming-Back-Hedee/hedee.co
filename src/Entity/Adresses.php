@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormTypeInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdressesRepository")
  */
-class Adresses extends AbstractType
+class Adresses
 {
     /**
      * @ORM\Id()
@@ -37,6 +37,7 @@ class Adresses extends AbstractType
      * @ORM\Column(type="string", length=5)
      */
     private $code_postal;
+
 
     public function getId(): ?int
     {
@@ -90,4 +91,5 @@ class Adresses extends AbstractType
 
         return $this;
     }
+
 }

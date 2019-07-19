@@ -6,30 +6,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use App\Form\AdresseType;
+use App\Form\DemandesMagasinType;
+use App\Form\DemandesInternetType;
+
 use App\Entity\Adresses;
+use App\Entity\Clients;
 use App\Entity\Enseignes;
-use App\Entity\Formulaire;
 use App\Entity\Demandes;
+use App\Entity\Magasins;
 
+use App\Services\Mailer;
 
+/**
+ * @Route("/demande-remboursement")
+ */
 class EnseigneController extends AbstractController
 {
     /**
-     * @Route("/demande-remboursement", name="enseigne")
+     * @Route("/", name="enseigne")
      */
-    public function index(Request $request)
+    public function index(Request $request, Mailer $mailer)
     {
         //On récupère les informations de la page d'accueil
-        $post = $request->request->get('form');
+        $post = $request->request->get('eligibilite');
         
         //On stocke les informations de la page d'accueil
         $session = $request->getSession();
@@ -39,57 +44,108 @@ class EnseigneController extends AbstractController
             $session->set('date_achat', $post['date_achat']);
             $session->set('categorie', $post['categorie']);
             $session->set('prix', $post['prix']);
-            $session->set('remise', $post['remise']);
         }
-
+        
         //On vérifie que le client est connecté
         if(!$this->isGranted('ROLE_USER')){
             return $this->redirectToRoute('connexion');
         }
         
-        //On vérifie que le client a entré une enseigne valide
-        $nom_bdd = ucfirst($session->get('enseigne'));
-        $repo = $this->getDoctrine()->getRepository(Enseignes::class);
-        $enseigne =  $repo->findOneBy(['nomEnseigne' => $nom_bdd]);
-        
         $user = $this->getUser();
+        
+        //On vérifie que le client a entré une enseigne valide
+        $nom_enseigne = ucfirst($session->get('enseigne'));
+        $repoEnseigne = $this->getDoctrine()->getRepository(Enseignes::class);
+        $enseigne =  $repoEnseigne->findOneBy(['nomEnseigne' => $nom_enseigne]);
+        
+        $demande = new Demandes();
+        $demande->setClient($user);
+
+        $repoDemandes = $this->getDoctrine()->getRepository(Demandes::class);
+        $demandes = $repoDemandes->findAll();
+        $count = count($demandes);
+        $demande->setNumeroDossier($count);
+        $session->set('numDossier', $demande->getNumeroDossier());
 
         if($enseigne == null){
             return $this->render('enseigne/404_enseigne.html.twig');
         }
+
+        $formMagasin = $this->createForm(DemandesMagasinType::class, $demande,[
+           'validation_groups' => array('User', 'inscription'),
+        ]);
+        $formMagasin->handleRequest($request); 
+         
+        $formInternet = $this->createForm(DemandesInternetType::class, $demande,[
+            'validation_groups' => array('User', 'inscription'),
+         ]);
+        $formInternet->handleRequest($request); 
         
-        //var_dump($session->get('prix')); 0= false 1= true
-
-        $form = new Formulaire();
-
-        $form = $this->createFormBuilder($form, ['attr' => ['id' => 'form-enseigne']])
-        //informations de la commande
-            ->add('magasin', TextType::class, ['label' => 'Magasin d\'achat'])
-            ->add('marque', TextType::class, ['label' => 'Marque du produit'])
-            ->add('reference', TextType::class, ['label' => 'Référence du produit'])
-            ->add('numero_commande', TextType::class,   ['label' => 'Numéro de commande',
-            'help' => 'Le numéro de commande se trouve sur votre facture',
-            'required' => false
-            ])
-            ->add('commentaires', TextType::class,   ['label' => 'Commentaires',
-            'help' => 'Vous pouvez renseigner ici toutes informations complémentaires',
-            'required' => false
-            ])
-            //coordonnées du client
-            ->add('nom', TextType::class, ['label' => 'Nom'])
-            ->add('prenom', TextType::class, ['label' => 'Prénom'])
-            ->add('mail', EMailType::class, ['label' => 'Adresse mail'])
-            ->add('telephone', NumberType::class, ['label' => 'Numéro de téléphone'])
-            ->add('adresse', AdresseType::class, ['label' => 'Adresse'])
-
-            ->add('submit', SubmitType::class, ['label' => 'Valider'])
-            ->getForm();            
-
+        
+        $this->handle_form($user, $demande, $formMagasin, $session, $mailer);
+        $this->handle_form($user, $demande, $formInternet, $session, $mailer);
+        
         return $this->render('enseigne/index.html.twig', [
             'enseigne' => $enseigne,
-            'post' => $post,
-            'form' => $form->CreateView(), 
+            //'form1' => $formMagasin->CreateView(), 
+            //'form2' => $formInternet->CreateView(), 
             'user' => $user,
         ]);
+    }
+    
+    /**
+     * @Route("/magasin", name="mag")
+     */
+    public function formMagasin(Request $request){
+        $response = new Response();
+        $user = $this->getUser();
+        $demande = new Demandes();
+        $demande->setClient($user);
+        $formMagasin = $this->createForm(DemandesMagasinType::class, $demande,[
+            'validation_groups' => array('User', 'inscription'),
+        ]);
+        $formMagasin->handleRequest($request);
+
+        return $this->render('enseigne/magasin.html.twig', ['form1' => $formMagasin->CreateView(), 'user' => $user]);
+    }
+
+
+    /**
+     * @Route("/internet", name="internet")
+     */
+    public function formInternet(Request $request){
+        $response = new Response();
+        $user = $this->getUser();
+        $demande = new Demandes();
+        $demande->setClient($user);
+        $formInternet = $this->createForm(DemandesInternetType::class, $demande);
+        $formInternet->handleRequest($request); 
+
+        return $this->render('enseigne/internet.html.twig', ['form1' => $formInternet->CreateView(), 'user' => $user]);
+    }
+
+    public function handle_form($user, $demande, $form, $session, Mailer $mailer){
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            
+            $demande->setPrixAchat($session->get('prix'));
+            $dateAchat = \DateTime::createFromFormat('m-d-Y', $session->get('date_achat'));
+            $demande->setCategorieProduit($session->get('categorie'));
+            $demande->setEnseigne($session->get('enseigne'));
+            $demande->setDateAchat($dateAchat);
+
+            $em->persist($user);
+            $em->persist($demande);
+            $em->flush();
+
+            $bodyMail = $mailer->createBodyMail('enseigne/mail2.html.twig', [ 'user' => $user,
+                'demande' => $demande
+            ]);
+            $mailer->sendMessage('from@email.com', $user->getEmail(), 'Confirmation du dépot de dossier', $bodyMail);
+
+            //$data = ['path' => $demande];
+            //return new JsonResponse($data);
+            return $this->redirectToRoute('profil');
+        }
     }
 }

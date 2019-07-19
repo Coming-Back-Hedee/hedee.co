@@ -27,9 +27,34 @@ class Magasins
     private $enseigne;
 
      /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Adresses", cascade={"persist"})
+     * @ORM\Column(type="string", length=255)
      */
     private $adresse;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $ville;
+
+     /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $codePostal;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $region;
+
+     /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $email;
 
     public function getId(): ?int
     {
@@ -65,9 +90,71 @@ class Magasins
         return $this->adresse;
     }
 
-    public function setAdresse(Adresses $adresse): self
+    public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setVille(string $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setCodePostal(string $codePostal): self
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+
+    public function getRegion(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setRegion(string $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

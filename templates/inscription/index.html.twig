@@ -4,11 +4,18 @@
 
 {% block main %}
 <div class="container">
+
+    {% if user.idParrain is defined %}
+        Vous utilisez le code parrainage {{ code }} pour vous inscrire
+    {% endif %}
     {{ form_start(form) }}
         {{ form_row(form.email) }}
         {{ form_row(form.plainPassword.first) }}
-        {{ form_row(form.plainPassword.second) }}      
-    {{ form_end(form) }}
+        {{ form_row(form.plainPassword.second) }}
+        {% if user.idParrain is not defined %}
+            {{ form_row(form.codeParrainage, {'id' :'test'}) }} 
+        {% endif %}
+    {{ form_end(form, {'render_rest': false}) }}
     
     {% for message in app.flashes('warning') %}
         <div class="flash-notice">

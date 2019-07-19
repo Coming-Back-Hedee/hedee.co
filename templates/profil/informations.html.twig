@@ -3,30 +3,24 @@
 {% block title %}Hello ProfilController!{% endblock %}
 
 {% block main %}
-<div class="container">
-    <table class="table" border="1">
-        <tbody>
-            <tr>
-                <td>Nom Prénom</td>
-                <td>{{app.user.nom}} {{app.user.prenom}}</td>
-            </tr>
-            <tr>
-                <td>Adresse mail</td>
-                <td>{{app.user.email}}</td>
-            <tr>
-            <tr>
-                <td>Code parrainage</td>
-                <td>{{app.user.codeParrainage}}</td>
-            </tr>
-            <tr>
-                <td>Numéro de téléphone</td>
-                <td>{{app.user.numeroTelephone}}</td>
-            </tr>
-            <tr>
-                <td>Adresse</td>
-                <td>{{app.user.adresse.nomRue}}</td>
-            </tr>
-            </tbody>
-    </table>
-</div>
+    <main>
+        <div class="container">
+            <div class="menu_profil">
+                <ul>
+                    <li> <a href="{{ path('profil') }}">Mes demandes</a> </li>
+                    <li> <a href="{{ path('remboursement') }}" >Mes remboursements</a> </li>
+                    <li> <a href="{{ path('parrainage') }}" >Mes parrainages</a> </li>
+                    <li> <a href="{{ path('info_client') }}" class="active">Mes informations</a> </li>
+                </ul>
+            </div> <!-- fin class="menu" -->
+            {{ form_start(form)}}
+            {{ form_end(form)}}
+            {#{{app.user.adresse.nomRue}} 
+                             {% if app.user.complements is defined %}
+                                <br>{{app.user.adresse.complements}}
+                            {% endif %}
+                            <br>{{app.user.adresse.ville|capitalize}} 
+                            <br>{{app.user.adresse.codePostal}}#}
+        </div>
+    </main>
 {% endblock %}
