@@ -1,0 +1,131 @@
+/** RESET CSS **/
+html, body, div, main,  {
+    margin:0;
+    padding:0;
+}
+
+body {
+    font-family: 'Georgia', sans-serif;
+    width: 100%;
+    min-height:960px;
+}
+
+.container {
+    min-height: 100px;
+    width:80%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:-21px;  
+}
+
+.menu_profil {
+    width:90%;
+    border:none
+}
+
+.menu_profil nav ul {
+    padding:0;
+    margin:0;
+    list-style-type: none;
+    background-color: #ccc;
+    text-align:center
+}
+
+.menu_profil nav li  {
+   width:180px;
+   min-height:100px;
+   margin:0;
+   padding:0;
+   border-right: 1px solid #ccc;
+   text-align:center;
+   line-height:40px;
+   display:inline;
+}
+
+.menu_profil nav li:hover {
+    background-color: orange;
+    transition: 1s
+}
+
+.menu_profil nav li a {
+    text-decoration:none;
+    display: inline-block;
+    margin:0 15px;
+    font-size: 15px;
+}
+
+.container > h1 {
+    text-align: center;
+}
+
+.recap {
+    width:90%
+}
+
+.table  {
+    border:none;
+    width: 100%;
+    background-color: pink;
+}
+
+.thead {
+    width:100%;
+    border:none; 
+}
+
+th {
+    border:none;
+    text-align:left;
+    padding: 10px 10px 10px 10px;
+}
+
+td {
+    border:none;
+    padding: 10px 10px 10px 10px;
+}
+
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){
+    .menu_profil nav li  {
+        width :100%;
+        min-height:20px;
+        display:block;
+     }
+
+    .recap {
+        width:90%
+    }
+
+    th {
+        padding: none;
+        font-size: 0.75em;
+    }
+    
+    td {
+        padding: none;
+        font-size: 0.75em;
+    }
+}
+
+
+/* **************  POUR TABLETTE  ********************* */
+@media (min-width: 768px) and (max-width:991.98px){
+    .menu_profil nav li  {
+        width :100%;
+        min-height: 20px;
+        display:block;
+     }
+
+     .recap {
+        width:90%
+    }
+}
+
+
+/* **************  POUR GRAND ECRAN  ********************* */
+@media screen and (min-width: 1025px){
+
+
+
+}

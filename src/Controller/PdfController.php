@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use App\Entity\Enseignes;
+use App\Entity\AlertePrix;
 
 class PdfController extends AbstractController
 {
@@ -20,6 +21,7 @@ class PdfController extends AbstractController
     {
 
         $session = $request->getSession();
+        //$token = $session->get('token');
         $nom_enseigne = $session->get('enseigne');
 
         if($request->request->has('demandes_internet')){
@@ -41,41 +43,50 @@ class PdfController extends AbstractController
         //    return $this->render('utile/404_enseigne.html.twig');
         //}
 
-        
-        
-                    
-        $pdf = new \FPDF();
+        //$pdf = new \FPDF();
+        $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        // remove default header/footer
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+
+        // set default monospaced font
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // set margins
+        $pdf->SetMargins(PDF_MARGIN_LEFT, 0, PDF_MARGIN_RIGHT);
+
+        // set auto page breaks
+        $pdf->SetAutoPageBreak(FALSE);
+
         $pdf->AddPage();
         //$pdf->Image('img/bg.jpg', 0, 0, $pdf->getPageWidth(), $pdf->getPageHeight());
-        $pdf->SetFont('Arial','',16);
+        $pdf->SetFont('dejavusans', '', 10);
       
         $this->entete_facture($enseigne, $pdf, $post, $session);      
         $this->cooordonnes_client($pdf, $post);
 
-        $this->rectangle_w_title($pdf, 25,100,40,30,'DF', 30, 47, utf8_decode("Catégorie") );
+        $this->rectangle_w_title($pdf, 25,100,40,30,'DF', 30, 46, "Catégorie");
         if($session->get('choix') == 'magasin'){
             $this->rectangle_w_title($pdf, 85,100,40,30,'DF', 90, 103, "Marque" );
-            $this->rectangle_w_title($pdf, 145,100,40,30,'DF', 150, 168, utf8_decode("Référence"));
+            $this->rectangle_w_title($pdf, 145,100,40,30,'DF', 150, 167, "Référence");
         }
         else{
             $this->rectangle_w_title($pdf, 85,100, 120,30,'DF', 90, 98, "URL" );
         }
         
-        $this->rectangle_w_title($pdf, 135,150,40,30,'DF', 140, 156, utf8_decode("Prix payé"));
-        $this->rectangle_w_title($pdf, 15,210,45,30,'DF', 17, 57, utf8_decode("Enseigne la moins chère") );
+        $this->rectangle_w_title($pdf, 135,150,40,30,'DF', 140, 155, "Prix payé");
+        /*$this->rectangle_w_title($pdf, 15,210,45,30,'DF', 17, 57, utf8_decode("Enseigne la moins chère") );
         $this->rectangle_w_title($pdf, 82.5,210,45,30,'DF', 85, 111, "Date du constat" );
         $this->rectangle_w_title($pdf, 150,210,45,30,'DF', 152, 181, utf8_decode("Prix le moins cher"));
-        $this->rectangle_w_title($pdf, 35,260,140,30,'DF', 40, 55, utf8_decode("Conseils"));
+        $this->rectangle_w_title($pdf, 35,260,140,30,'DF', 40, 70, utf8_decode("Différence de prix"));*/
         $this->details_table(115, $pdf, $post, $session);
-        $this->footer($pdf);
-        $dir = "C:/UwAmp/www/project-cb2019";
-        $path_pdf = $dir . "/public/facture" . $session->get('numDossier') . ".pdf";
-        $test1 = $pdf->Output('F', $path_pdf);
-        
-
-        
+        $this->footer($pdf, "En cours de recherche...");
+        $dir = getcwd();
+        $path_pdf = $dir . "\\factures\\" . $session->get('path') . ".pdf";
+        $test1 = $pdf->Output($path_pdf, 'F');
+                
         //$pdf_path = $dir . "/public/facture" . $session->get('numeroDossier') ."pdf";
-        $jpeg = $dir . "/public/facture" . $session->get('numDossier') .".png";
+        $jpeg = $dir . "/factures/" . $session->get('path') .".png";
         exec("magick convert $path_pdf -colorspace RGB -resize 800 $jpeg");
 
         $data = ['path' => $jpeg];
@@ -95,9 +106,9 @@ class PdfController extends AbstractController
         $pdf->SetLineWidth(0.7);
         $pdf->SetDrawColor(255);
         $pdf->Line($x1_blank, $y, $x2_blank, $y);
-        $pdf->SetFont('Arial','',10);
-        $x_text = $x1_blank+0.5;
-        $y_text = $y+1;
+        $pdf->SetFont('dejavusans', '', 8);
+        $x_text = $x1_blank+0.25;
+        $y_text = $y-2;
         $pdf->Text($x_text, $y_text, $title);
     }
 
@@ -105,31 +116,32 @@ class PdfController extends AbstractController
         $image = "../public/img/logo/" . $enseigne->getLogoEnseigne();
         $numCommande = $post['numeroCommande'];
         $dateAchat = $session->get('date_achat');
-        $pdf->SetFont('Arial','',12);
-        $pdf->Image($image, 10, 10, 33.78);
-        $pdf->Text(18,68,utf8_decode("Numéro de commande: "));
-        $pdf->Text(18,76,utf8_decode("Acheté le "));
+        $pdf->SetFont('dejavusans', '', 24);
+        $pdf->text(10, 10, $enseigne->getNomEnseigne());
+        $pdf->SetFont('dejavusans', '', 10);
+        $pdf->Text(18,63,"Numéro de commande: ");
+        $pdf->Text(18,71,"Acheté le ");
         $pdf->SetXY(64,63);
-        $pdf->Cell($pdf->GetStringWidth($numCommande)+6,7,utf8_decode($numCommande),1,0,'L',0);
+        $pdf->Cell($pdf->GetStringWidth($numCommande)+6,7,$numCommande,1,0,'L',0);
         $pdf->SetXY(40,71);
-        $pdf->Cell(28,7,utf8_decode("$dateAchat"),1,0,'L',0);
+        $pdf->Cell(28,7,$dateAchat,1,0,'L',0);
     }
 
     public function cooordonnes_client($pdf, $post){
         $nom = ucfirst($post['client']['nom']);
         $prenom = ucfirst($post['client']['prenom']);
         $telephone = $post['client']['numeroTelephone'];
-        /*$nom_rue = $post['client']['adresse']['nom_rue'];
+        $nom_rue = $post['client']['adresse']['nom_rue'];
         $complements = $post['client']['adresse']['complements'];
         $ville = ucfirst($post['client']['adresse']['ville']);
         $code_postal = $post['client']['adresse']['code_postal'];
         if($complements == "")
-            $adresse = utf8_decode("$prenom $nom\n$nom_rue\n$ville $code_postal");
+            $adresse = "$prenom $nom\n$nom_rue\n$ville $code_postal";
         else
             $adresse = "$prenom $nom\n$nom_rue\n$complements\n$ville $code_postal";
         $pdf->SetXY(140,35);
         $pdf->SetLeftMargin(143);
-        $pdf->Write(5, $adresse);*/
+        $pdf->Write(5, $adresse);
     }
 
     public function details_table($position, $pdf, $post, $session){
@@ -138,55 +150,57 @@ class PdfController extends AbstractController
         $pdf->SetDrawColor(183); // Couleur des filets
         $pdf->SetFillColor(255); // Couleur du fond
         $pdf->SetTextColor(198, 7, 1); // Couleur du texte
-        //$pdf->SetFont('Arial','',12);
+        //$pdf->SetFont('arial','',12);
         $pdf->SetXY(25,100);
-        $pdf->Cell(40,30,utf8_decode($categorie),0,0,'C',0);
-        $pdf->SetX(85,100);
+        $pdf->Cell(40,30,$categorie,0,0,'C',0);
+        $pdf->SetXY(88,105);
         if($session->get('choix') == 'magasin'){
             $marque = $post['marqueProduit'];
-            $pdf->Cell(40,30,utf8_decode($marque),0,0,'C',0);
-            $pdf->SetX(145,100);
+            $pdf->Cell(37,25,$marque,0,0,'C',0);
+            $pdf->SetXY(148,100);
             $reference = $post['referenceProduit'];
-            $pdf->Cell(40,30,utf8_decode($reference),0,0,'C',0);
+            $pdf->Cell(37,25,$reference,0,0,'C',0);
         }
         else{
             $url = $post['urlProduit'];
-            $pdf->Cell(120,30,utf8_decode($url),0,0,'C',0);
+            $pdf->MultiCell(120, 5, $url, 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
+            //$pdf->MultiCell(117,5,utf8_decode($url),0,'C',false);
             $pdf->SetDrawColor(0,0,255);
             $pdf->Link(85,100, 120, 30,$url);
         }
         $pdf->SetXY(135,150);
-        $pdf->Cell(40,30,utf8_decode($prix),0,0,'C',0);
+        $pdf->Cell(40,30,$prix,0,0,'C',0);
     }
 
-    public function footer($pdf){
+    public function footer($pdf, $texte){
         $pdf->SetDrawColor(0); // Couleur des filets
         $pdf->SetFillColor(15, 157, 232);
         $pdf->SetTextColor(0); // Couleur du texte
-        $pdf->SetFont('Arial','B',16);
+        $pdf->SetFont('dejavusans', '', 10);
         $pdf->SetLeftMargin(0);
         $pdf->SetRightMargin(0);
 
         $pdf->Rect(0,190, $pdf->GetPageWidth(), 10, 'DF');
         $pdf->SetX(0);
         $pdf->SetY(190);       
-        $pdf->Cell($pdf->GetPageWidth(),10,utf8_decode("En cours de recherche..."),1,0,'C',1);
-        //$pdf->Text(76,198,utf8_decode("En cours de recherche..."));
-        /*$pdf->SetX(0);
-        $pdf->SetY(180);
-        $pdf->Cell(0,8,utf8_decode('En cours de recherche...'),1,0,'C',1);
-        $pdf->SetY(200);
-        $pdf->SetFont('Arial','B',12);
-        $pdf->Cell(70,8,utf8_decode('Prix le moins cher constaté...'),1,0,'C',1);
-        $pdf->SetX(140);
-        $pdf->Cell(70,8,utf8_decode('Magasin le moins cher'),1,0,'C',1);
-        $pdf->SetX(0);
-        $pdf->SetY(230);
-        $pdf->Cell(70,8,utf8_decode('Date constatée'),1,0,'C',1);
-        $pdf->SetX($pdf->GetPageWidth()/2);
-        $pdf->Cell($pdf->GetPageWidth()/2,8,utf8_decode('Conseils'),1,0,'C',1);*/
-
-
+        $pdf->Cell($pdf->GetPageWidth(),10,utf8_decode($texte),1,0,'C',1);
         $pdf->Ln(); // Retour à la ligne
+        $this->rectangle_w_title($pdf, 15,210,45,30,'DF', 17, 54, "Enseigne la moins chère" );
+        $this->rectangle_w_title($pdf, 82.5,210,45,30,'DF', 85, 110, "Date du constat" );
+        $this->rectangle_w_title($pdf, 150,210,45,30,'DF', 152, 179, "Prix le moins cher");
+        $this->rectangle_w_title($pdf, 35,260,140,30,'DF', 40, 67, "Différence de prix");
+    }
+
+    public function details_footer($pdf, AlertePrix $alerte, $session){
+        $diffPrix = "Vous avez droit à " . $alerte->getDifferencePrix() . "€ de remboursement";
+        $pdf->SetXY(15,210);
+        $pdf->Cell(45,30,$alerte->getEnseigne(),0,0,'C',0);
+        $pdf->SetXY(82.5,210);
+        $pdf->Cell(45,30,date_format($alerte->getDate(),"d/m/Y"),0,0,'C',0);
+        $pdf->SetXY(150,210);     
+        $pdf->Cell(45,30,$alerte->getPrix(),0,0,'C',0);
+        $pdf->SetXY(35,260);
+        //$pdf->Text(55, 275, $diffPrix);
+        $pdf->Cell(140,30,$diffPrix,0,0,'C',0);
     }
 }

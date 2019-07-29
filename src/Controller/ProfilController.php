@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Clients;
 use App\Entity\Demandes;
+use App\Repository\DemandesRepository;
 
 use App\Form\InfoClientType;
 
@@ -80,4 +81,5 @@ class ProfilController extends AbstractController
             'form' => $form->CreateView(),
         ]);
     }
+
 }

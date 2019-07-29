@@ -34,16 +34,21 @@ class EnseigneController extends AbstractController
     public function index(Request $request, Mailer $mailer)
     {
         //On récupère les informations de la page d'accueil
-        $post = $request->request->get('eligibilite');
+        $post1 = $request->request->get('eligibilite');
         
         //On stocke les informations de la page d'accueil
         $session = $request->getSession();
-        if($post != null){    
+        if($post1 != null){    
             
-            $session->set('enseigne', $post['enseigne']);
-            $session->set('date_achat', $post['date_achat']);
-            $session->set('categorie', $post['categorie']);
-            $session->set('prix', $post['prix']);
+            $session->set('enseigne', $post1['enseigne']);
+            $session->set('date_achat', $post1['date_achat']);
+            $array_cat = array('Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
+            'Santé et beauté', 'Auto et moto', 'Sports et mode');
+            //var_dump($array_cat[$session->get('categorie')]);
+            $session->set('categorie', $array_cat[$post1['categorie']]);
+            $session->set('prix', $post1['prix']);
+            $session->set('path', $post1['_token']);
+
         }
         
         //On vérifie que le client est connecté
@@ -61,12 +66,6 @@ class EnseigneController extends AbstractController
         $demande = new Demandes();
         $demande->setClient($user);
 
-        $repoDemandes = $this->getDoctrine()->getRepository(Demandes::class);
-        $demandes = $repoDemandes->findAll();
-        $count = count($demandes);
-        $demande->setNumeroDossier($count);
-        $session->set('numDossier', $demande->getNumeroDossier());
-
         if($enseigne == null){
             return $this->render('enseigne/404_enseigne.html.twig');
         }
@@ -82,8 +81,8 @@ class EnseigneController extends AbstractController
         $formInternet->handleRequest($request); 
         
         
-        $this->handle_form($user, $demande, $formMagasin, $session, $mailer);
-        $this->handle_form($user, $demande, $formInternet, $session, $mailer);
+        $this->handle_form($user, $demande, $formInternet, $request, $mailer);
+        $this->handle_form($user, $demande, $formMagasin, $request, $mailer);
         
         return $this->render('enseigne/index.html.twig', [
             'enseigne' => $enseigne,
@@ -124,17 +123,54 @@ class EnseigneController extends AbstractController
         return $this->render('enseigne/internet.html.twig', ['form1' => $formInternet->CreateView(), 'user' => $user]);
     }
 
-    public function handle_form($user, $demande, $form, $session, Mailer $mailer){
+    public function handle_form($user, $demande, $form, $request, Mailer $mailer){
+        $session = $request->getSession();
+        $clientFile = null;
+        if($session->get('choix') == 'magasin'){
+            $file = $request->files->get('demandes_magasin');
+            $clientFile = $file['pieceJointe'];
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             
+            
+            $status = array('status' => "success","fileUploaded" => false);
+
+            if (!is_null($clientFile)) {
+                $originalFilename = pathinfo($clientFile->getClientOriginalName(), PATHINFO_FILENAME);
+                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = uniqid().'.'.$clientFile->guessExtension();
+
+                
+
+                try {
+                    $clientFile->move(
+                        $this->getParameter('upload_files_directory'),
+                        $newFilename
+                    );
+                    $status = array('status' => "success","fileUploaded" => true);
+                } catch (FileException $e) {
+                    
+                }
+                $demande->setPieceJointe($newFilename);
+            }
             $demande->setPrixAchat($session->get('prix'));
-            $dateAchat = \DateTime::createFromFormat('m-d-Y', $session->get('date_achat'));
+            $dateAchat = \DateTime::createFromFormat('d-m-Y', $session->get('date_achat'));
+            
             $demande->setCategorieProduit($session->get('categorie'));
             $demande->setEnseigne($session->get('enseigne'));
+            $path = "/factures/" . $session->get('path') . ".pdf";
+            $demande->setFacture($path);
             $demande->setDateAchat($dateAchat);
 
             $em->persist($user);
+            $em->persist($demande);
+            $em->flush();
+
+            $count = $demande->getId() + 1417;
+            $demande->setNumeroDossier($count);
+            
             $em->persist($demande);
             $em->flush();
 

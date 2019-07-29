@@ -1,0 +1,110 @@
+<div id="modal-header">
+    <span class="close">&times;</span>
+    <h2 id="modal-title">Connexion</h2>
+</div>
+<div id="modal-body">
+    <div id="connexion">
+        <form action="{{ path('connexion') }}" method="post" id="connect">
+            <div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <label for="username">Email:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+            </div>
+
+            <br>
+
+            <div>
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="_password" />
+            </div>
+            <a href="{{path('request_resetting')}}">J'ai oublié mon mot de passe</a>
+
+            <br>
+            {#
+            If you want to control the URL the user
+            is redirected to on success (more details below)
+            
+            #}
+
+            {% if app.session.count > 5 %}
+                <input type="hidden" name="_target_path" value="/demande-remboursement" />
+            {% else %}
+                <input type="hidden" name="_target_path" value="/profil" />
+            {% endif %}
+            <button type="submit" >Se connecter</button>
+        </form>
+        <button onclick="hideAndDisplayI();" >Créer un compte</button>
+    </div>
+    <div id="inscription" style="display:none;">
+        <form action="{{ path('inscription') }}" method="post" id="inscript">
+
+            {#
+            If you want to control the URL the user
+            is redirected to on success (more details below)
+            
+            #}
+            {{ form_start(form) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword.first) }}
+                {{ form_row(form.plainPassword.second) }}      
+            {{ form_end(form) }}
+            
+            {% for message in app.flashes('warning') %}
+                <div class="flash-notice">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% if app.session.count > 5 %}
+                <input type="hidden" name="_target_path" value="/demande-remboursement" />
+            {% else %}
+                <input type="hidden" name="_target_path" value="/profil" />
+            {% endif %}
+        </form>
+        <button onclick="hideAndDisplayC();" >Se connecter</button>
+    </div>
+</div>
+<script> 
+        var div_inscription = document.getElementById("inscription");  
+        var div_connexion = document.getElementById("connexion"); 
+        var span = document.getElementsByClassName("close")[0];
+        
+        function hideAndDisplayI(){
+            div_inscription.style.display = "block";
+            document.getElementById("modal-title").innerText = "Inscription"
+            div_connexion.style.display = "none"
+        }
+
+        function hideAndDisplayC(){
+            div_connexion.style.display = "block";
+            document.getElementById("modal-title").innerText = "Connexion"
+            div_inscription.style.display = "none"
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        $("#inscription_plainPassword_second").on("change", function(){
+            if(this.val() != $("#inscription_plainPassword_first").val()){}
+            if($("#inscription_plainPassword_first").val() != ""){}
+        })
+
+        var form = $("#inscript");    
+        form.validate({
+        rules: {
+            "inscription[email]":{
+                "required": true,
+                "email": true,
+                },
+            "inscription[plainPassword][first]":{
+                "required": true,
+            },
+            "inscription[plainPassword][second]":{
+                "required": true,
+                "equalTo": "#inscription_plainPassword_first"
+                }
+            },
+        });
+</script>

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace client{% endblock %}
+
+{% block main %}
+<main>
+    <div class="container">
+        <h1>Tous vos reboursements sont enregistrés ici{{ user.prenom }}</h1>
+		<div class="menu_profil">
+			<ul>
+				<li> <a href="{{ path('profil') }}">Mes demandes</a> </li>
+				<li> <a href="{{ path('remboursement') }}" class="active">Mes remboursements</a> </li>
+                <li> <a href="{{ path('parrainage') }}">Mes parrainages</a> </li>
+				<li> <a href="{{ path('info_client') }}">Mes informations</a> </li>
+			</ul>
+		</div> <!-- fin class="menu" -->
+    </div>
+</main>
+{% endblock %}

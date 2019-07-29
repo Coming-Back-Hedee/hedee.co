@@ -64,26 +64,6 @@
                     </div> <!-- fin class="choisir_enseigne" -->
                     <div id="paragraph_id2">Champs requis</div>
 
-                    <div class="date_achat">
-                        {{form_errors(form.date_achat)}}
-                        <div class="date_achat_2">
-                            <div class="label_2">
-                                {{form_label(form.date_achat)}}
-                            </div>
-
-                            <div class="question_2">
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="le délai est de 30 jours à partir de la date d'achat">
-                                    i
-                                </button>
-                            </div>
-                        </div><!-- fin class="date_achat_2" -->
-                        {{form_widget(form.date_achat, {'attr' : { 'placeholder' : 'Sélectionner votre date d\'achat'}, 'id': 'datepicker'})}}
-                        {{form_help(form.date_achat)}} 
-                        <!-- <label for="date">Date d'achat :</label>
-                        <input type="text" name="date" id="datepicker"> -->
-                    </div> <!-- fin class="date_achat" -->
-                    <div id="paragraph_id3">Champs requis</div>
-
                     <div class="prix_article">
                         {{form_errors(form.prix)}}
                         <div class="prix_article_2">
@@ -98,12 +78,34 @@
                             </div>
                         </div> <!-- fin class="prix_article_2" -->
                         {{form_widget(form.prix, {'attr': {'placeholder' : 'en euros',
-                        'onkeypress': "verifierCaracteres(event); return false;"}, 'id' : 'form_prix'}) }}
+                        'onkeypress': "return verifierCaracteres(event);"}, 'id' : 'form_prix'}) }}
                         {{form_help(form.prix)}} 
                         <!-- <label for="prix">Prix de votre article :</label>
                         <input type="text" placeholder="en euros"> -->
                     </div> <!-- fin class="prix_article" -->
                     <div id="paragraph_id4">Champs requis</div>
+                    
+                    <div class="date_achat">
+                        {{form_errors(form.date_achat)}}
+                        <div class="date_achat_2">
+                            <div class="label_2">
+                                {{form_label(form.date_achat)}}
+                            </div>
+
+                            <div class="question_2">
+                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" 
+                                title="le délai est de 30 jours à partir de la date d'achat">
+                                    i
+                                </button>
+                            </div>
+                        </div><!-- fin class="date_achat_2" -->
+                        {{form_widget(form.date_achat, {'attr' : { 'placeholder' : 'Sélectionner votre date d\'achat',
+                        'readonly': true}, 'id': 'datepicker'})}}
+                        {{form_help(form.date_achat)}} 
+                        <!-- <label for="date">Date d'achat :</label>
+                        <input type="text" name="date" id="datepicker"> -->
+                    </div> <!-- fin class="date_achat" -->
+                    <div id="paragraph_id3">Champs requis</div>
                     
                         
                     <div class="affichage_msg">
@@ -345,13 +347,18 @@
 {% block javascript %} 
 
 <script> 
-    console.log(document.getElementById('select_enseigne').validity.valueMissing); 
-    //document.getElementById('select_enseigne').setCustomValidity('Passwords must match.');
-    console.log(document.getElementById('select_enseigne').validationMessage);
-
     function verifierCaracteres(event) {
+        //console.log(event.keyCode);
+        var caracteres = [44, 46, 48, 49, 50, 51, 52 ,53, 54, 55, 56, 57]
+        if(caracteres.indexOf(event.keyCode) < 0){
+            event.preventDefault;
+            return false;
+        }
+        else{
+            return true;
+        }
 	 		
-        var keyCode = event.which ? event.which : event.keyCode;
+        /*var keyCode = event.which ? event.which : event.keyCode;
         var touche = String.fromCharCode(keyCode);
                 
         var champ = document.getElementById('form_prix');
@@ -360,7 +367,7 @@
                 
         if(caracteres.indexOf(touche) >= 0) {
             champ.value += touche;
-        }			
+        }	*/		
     }
 
     $("#soumettre").on("click", function (e) {
@@ -379,17 +386,29 @@
     });
 </script>
 <script>
-    /*$.ucfirst = function(str) {
-        var word = ""
-        var text = str;
-        if (text != ""){
-            var first = text[0].toUpperCase();
-            var rest = text.substring(1, text.length);
-             word = first + rest.toLowerCase();
-        }
-        
-        return word;
-    };*/
+    $("#form-eligibilite").validate({
+        rules: {
+            "eligibilite[categorie]":{
+                "required": true,
+            },
+            "eligibilite[enseigne]":{
+                "required": true,
+            },
+            "eligibilite[date_achat]":{
+                "required": true,
+            },
+            "eligibilite[prix]":{
+                "required": true,
+                "number": true,
+                "min": 20,
+                "regex_prix": /^[0-9]+(\.[0-9]{1,2})?$/
+            }
+        },
+    })
+
+
+</script>
+<script>
 
 	var url_enseigne = "{{ path('admin_utility_enseigne') }}";
     var select = document.getElementById("cat_produit");
@@ -413,24 +432,46 @@
                 array.push(element.nomEnseigne)
             })
             $('#select_enseigne').autocomplete({
-                source: array,
+                source: function( request, response ) {
+                            var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                            response( $.grep( array, function( item ){
+                                return matcher.test( item );
+                            }) );
+                        },
                 minLength: 1,
                 delay: 100,
             })
 
-            $('#select_enseigne').bind('change', function(){
+            $('#select_enseigne').on('change', function(){               
                 this.value = $.ucfirst(this.value)
-                console.log(this.value)
-                if(array.indexOf(this.value) < 0){                  
+                $.validator.addMethod(
+                    "validation_enseigne",
+                    function(value, element, array) {
+                    if(array.indexOf(value) < 0)
+                        return this.optional(element)
+                    else
+                        return true
+                    },"Nous ne prenons pas encore les demandes pour cette enseigne"
+                );
+                $('#select_enseigne').rules( "add", {
+                    "validation_enseigne": array
+                });
+                /*if(array.indexOf(this.value) < 0){
+                    array.indexOf(this.value)
+                    document.getElementById('select_enseigne').style.border = "1px solid red";               
                     document.getElementById("paragraph_id2").innerText = "Nous ne prenons pas encore les demandes pour cette enseigne ";
                     if(this.value == ""){
                         document.getElementById("paragraph_id2").innerText = "Champ requis";
                     }
-                    $("#paragraph_id2").show();                 
+                    
+                    $("#paragraph_id2").show();
+                                    
                 }
-                else{                 
+                else{
+                    document.getElementById('select_enseigne').setAttribute("aria-invalid", "false");
+                    document.getElementById('select_enseigne').style.border = "1px solid lightgrey";        
                     $("#paragraph_id2").hide();                                            
-                }
+                }*/
             });
         }
     });
@@ -467,70 +508,51 @@ $(document).ready(function() {
     //console.clear()
 
     var testinputs = function() {
+    var form = $('#form-eligibilite');
     var t=true;
             $('#cat_produit').each(function(i){
                 if ( $(this).val()=="" || $(this).val() == "0" ) {
-                t=false;
+                t=false
+                //document.getElementById('soumettre').style.background = "#DDDDDD"; ;
                 return false;
                 }
             })
 
             $('#select_enseigne').each(function(i){
-                if ( $(this).val()=="" ) {
-                t=false;
+                if ( $(this).val()=="" || document.getElementById('select_enseigne').style.border == "1px solid red") {
+                t=false
+                //document.getElementById('soumettre').style.background = "#DDDDDD"; ;
                 return false;
                 }
             })
 
             $('#datepicker').each(function(i){
                 if ( $(this).val()=="" ) {
-                t=false;
+                t=false
+                //document.getElementById('soumettre').style.background = "#DDDDDD"; ;
                 return false;
                 }
             })
 
             $('#form_prix').each(function(i){
-                if ( $(this).val()=="" ) {
-                t=false;
+                //console.log(document.getElementById('form_prix').getAttribute('aria-invalid'))
+                var input_prix = document.getElementById('form_prix');
+                if (input_prix.getAttribute('aria-invalid') == null || input_prix.getAttribute('aria-invalid') == true ) {
+                t=false
+                //document.getElementById('soumettre').style.background = "#DDDDDD"; 
                 return false;
                 }
             })
 
-            /* $('#remise').each(function(i){
-                if ( $(this).val()=="" ) {
-                t=false;
-                return false;
-                }
-            }) */
 
-
-   /* if (t && $('#form_prix').val() >= 20) {
-        $('#soumettre').prop( "disabled", false ) ; 
-            document.getElementById('soumettre').style.background = "#00A5C8";
-            document.getElementById('msg').innerText = "Vous êtes éligible" }
-
-    if (t && $('#form_prix').val() > 0 && $('#form_prix').val() < 20) {
-        $('#soumettre').prop( "disabled", true ) ; 
-            document.getElementById('msg').innerText = "Vous n'êtes pas éligible";
-            document.getElementById('msg').style.color = "red"}
-
-    if (t) {$('#soumettre').prop( "disabled", false ) ; 
-    document.getElementById('soumettre').style.background = "#00A5C8";
-    document.getElementById('msg').innerText = "Vous êtes éligible" }
-    else      $('#soumettre').prop( "disabled", true ) 
-
-    if ( $('#prix').val() > 0 && $('#prix').val() < 20) {
-        document.getElementById('msg').innerText = "Vous n'êtes pas éligible";
-        document.getElementById('msg').style.color = "red";
-        $('#soumettre').prop( "disabled", true )
-    } */
-
-    if (t) {$('#soumettre').prop( "disabled", false ) ;
+    if (t && form.valid()) {$('#soumettre').prop( "disabled", false ) ;
         document.getElementById('soumettre').style.background = "#00A5C8"; 
     } else {
-        $('#soumettre').prop( "disabled", true )
+       $('#soumettre').prop( "disabled", true )
+        document.getElementById('soumettre').style.background = "#DDDDDD"; 
     }
-
+    return t;
+    //document.getElementById('form-eligibilite').validate().valid()
     } 
 
     $(document).ready(function () {
@@ -547,7 +569,8 @@ $(document).ready(function() {
                 testinputs()
             })
 
-            $('#form_prix').on("change keyup", function(e){
+            $('#form_prix').on("change input keyup", function(e){
+                this.value = this.value.replace(",",".");
                 testinputs()
             })
 
@@ -563,55 +586,20 @@ $(document).ready(function() {
         var select = document.getElementById("cat_produit");
          
         select.onchange = function(){
-        if(this.options[select.selectedIndex].value == 0){
-            $("#paragraph_id1").show()
-            document.getElementById('cat_produit').style.border = "1px solid red";
-            document.getElementById("paragraph_id1").innerText = "Vous devez selectionnez une catégorie";
-        }
-        else{
-            if(document.getElementById("paragraph_id1").innerText != ""){
-                document.getElementById('cat_produit').style.border = "1px solid lightgrey";
-                document.getElementById("paragraph_id1").innerText = "";
-                $("#paragraph_id1").hide();
+            if(this.options[select.selectedIndex].value == 0){
+                $("#paragraph_id1").show()
+                document.getElementById('cat_produit').style.border = "1px solid red";
+                document.getElementById("paragraph_id1").innerText = "Vous devez selectionnez une catégorie";
             }
-        }
-    };
-            /*$("#paragraph_id1").hide();
-            $("#cat_produit").focusout(function () {
-                if($(pduit).val() == '') {
-                    $("#paragraph_id1").show();
-                    document.getElementById('cat_produit').style.border = "1px solid red";
-                } else {
-                    $("#paragraph_id1").hide();
+            else{
+                if(document.getElementById("paragraph_id1").innerText != ""){
                     document.getElementById('cat_produit').style.border = "1px solid lightgrey";
+                    document.getElementById("paragraph_id1").innerText = "";
+                    $("#paragraph_id1").hide();
                 }
-            });
-
-            $("#cat_produit").focus(function () {
-                document.getElementById('cat_produit').style.border = "none";
-                $("#paragraph_id1").hide();
-            });*/
-        }); 
-
-
-        $(document).ready(function () {
-            
-            $("#select_enseigne").focusout(function () {
-                if($('#select_enseigne').val() == '') {
-                    $("#paragraph_id2").show();
-                    document.getElementById('select_enseigne').style.border = "1px solid red";
-                } else {
-                    $("#paragraph_id2").hide();
-                    document.getElementById('select_enseigne').style.border = "1px solid lightgrey";
-                }
-            });
-
-            $("#select_enseigne").focus(function () {
-                document.getElementById('select_enseigne').style.border = "none";
-                $("#paragraph_id2").hide();
-            });
-        }); 
-
+            }
+        };
+    }); 
 
         $(document).ready(function () {
             

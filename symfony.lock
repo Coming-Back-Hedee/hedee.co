@@ -153,6 +153,12 @@
     "setasign/fpdf": {
         "version": "1.8.1"
     },
+    "setasign/fpdi": {
+        "version": "v2.2.0"
+    },
+    "setasign/fpdi-tcpdf": {
+        "version": "v2.2.0"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
     },

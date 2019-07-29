@@ -176,6 +176,7 @@ main {
 
 #paragraph_id1, #paragraph_id2, #paragraph_id3, #paragraph_id4 {
     width:80%;
+    font-size: small;
     margin-left:auto;
     margin-right:auto;
     height:30px;
@@ -196,7 +197,7 @@ main {
     border-radius: 4px; 
     box-sizing: border-box;
     margin-top: 6px; 
-    margin-bottom: 16px; 
+    margin-bottom: 10px; 
     resize: vertical;
 }
 
@@ -689,3 +690,10 @@ footer {
     margin: auto;
     color : #3d3d3d99
 }
+
+label.error{
+    font-size: small;
+    color:red;
+    margin-bottom: 20px;
+}
+

@@ -7,7 +7,7 @@
         <title>{% block title %}Rembourseo{% endblock %}</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="{{asset('js/modal.js')}}" type="text/javascript"></script>
-		<link rel="stylesheet" href="{{ asset('css/algolia-autocomplete.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 		<link rel="icon" href="{{asset('img/euro_orange.ico')}}">
 		<link rel="stylesheet" href="{{asset('css/modal.css')}}">
 		<link rel="stylesheet" href="{{asset('style.css')}}">
@@ -138,6 +138,52 @@
 		
 		<script src="{{asset('jquery/jquery-steps/build/jquery.steps.js')}}"></script>
 		<script src="{{asset('jquery/jquery-validate/dist/jquery.validate.js')}}"></script>
+		<script>
+			$.extend(jQuery.validator.messages, {
+				required: "Ce champ est requis",
+				//remote: "votre message",
+				email: "Veuillez entrer une adresse mail valide",
+				url: "Veuillez entrer une URL valide",
+				date: "Veuillez entrer un date valide",
+				//dateISO: "votre message",
+				number: "Verifiez que vous avez rentré un nombre valide",
+				//digits: "votre message",
+				//creditcard: "votre message",
+				equalTo: "Veuillez entrez la même valeur que pour le champ précédent",
+				//accept: "votre message",
+				maxlength: jQuery.validator.format("Au plus {0} caractères."),
+				minlength: jQuery.validator.format("Au moins {0} caractères."),
+				rangelength: jQuery.validator.format("Entre {0} et {1} caractères acceptés."),
+				range: jQuery.validator.format("Valeurs entre {0} et {1} acceptées."),
+				//max: jQuery.validator.format("votre message  inférieur ou égal à {0}."),
+				min: jQuery.validator.format("Nous ne prenons en compte que les achats supérieurs ou égal à {0}.")
+			});
+			
+			$.validator.addMethod(
+				"regex_tel",
+				function(value, element, regexp) {
+					if (regexp.constructor != RegExp)
+						regexp = new RegExp(regexp);
+					else if (regexp.global)
+						regexp.lastIndex = 0;
+						return this.optional(element) || regexp.test(value);
+				},"Le numéro n'est pas valide"
+			);
+
+			$.validator.addMethod(
+				"regex_prix",
+				function(value, element, regexp) {
+					if (regexp.constructor != RegExp)
+						regexp = new RegExp(regexp);
+					else if (regexp.global)
+						regexp.lastIndex = 0;
+						return this.optional(element) || regexp.test(value);
+				},"Le prix n'est pas valide"
+			);
+
+
+			
+		</script>
 		<!-- <script>
 					// Get the modal
 			var modal = document.getElementById("dataModal");
@@ -193,19 +239,11 @@
 					if (text != ""){
 						var first = text[0].toUpperCase();
 						var rest = text.substring(1, text.length);
-						word = first + rest.toLowerCase();
+						word = first + rest;
 					}
 					
 					return word;
 				};
-			var inputs = document.querySelectorAll('input')
-			console.log(inputs)
-			inputs.forEach(function(input){
-				if(input.required){
-					input.setAttribute("oninvalid", "this.setCustomValidity('Champ requis')")
-					input.setAttribute("oninput", "setCustomValidity('')")
-				}
-			} )
 			</script>
 			<script type="text/javascript">
 			var user = "{{app.user|json_encode|raw}}"

@@ -19,6 +19,46 @@ class DemandesRepository extends ServiceEntityRepository
         parent::__construct($registry, Demandes::class);
     }
 
+    /**
+     * @return Demandes[] Returns an array of Demandes objects
+     */
+    public function findClientReverse($value)
+    {
+        return $this->createQueryBuilder('d')
+        ->andWhere('d.client = :val')
+            ->setParameter('val', $value)
+            ->orderBy('d.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Demandes[] Returns an array of Demandes objects
+     */
+    public function findAllReverse()
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Demandes[] Returns an array of Demandes objects
+     */
+    public function findByReverse($value)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.statut = :val')
+            ->setParameter('val', $value)
+            ->orderBy('d.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Demandes[] Returns an array of Demandes objects
     //  */

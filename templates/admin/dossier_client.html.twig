@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block main %}
+<main>
+    <div class="container">
+        <a href="{{ path('admin') }}"><button>Retour</button></a>
+        <h1>Dossier numéro {{alerte.dossier.numeroDossier}}</h1>
+        <div class="tab">
+            <button class="tablinks active" onclick="openCity(event, 'info_achat')">Informations d'achat</button>
+            <button class="tablinks" onclick="openCity(event, 'historique')">Historique</button>
+            <button class="tablinks" onclick="openCity(event, 'fiche_client')">Fiche client</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="info_achat" class="tabcontent" style="display: block;">
+            <div>
+                <h3>Achat client</h3>
+                {% if alerte.dossier.urlProduit %}
+                    <p>Lien :<a href='{{alerte.dossier.urlProduit}}'> {{alerte.dossier.urlProduit}}</a></p>
+                {% endif %}
+
+                {% if alerte.dossier.marqueProduit %}
+                    <p>Marque :{{ alerte.dossier.marqueProduit }}</p>
+                    <p>Prix d'achat :{{ alerte.dossier.prixAchat }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <h3>Meilleure offre trouvée</h3>
+                {{form_start(form, {'attr' : {'autocomplete' : 'off', 'id' : 'form-admin'}}) }}
+                    <div id="colonne1">
+                        {{ form_label(form.prix) }}
+                        {{ form_widget(form.prix, {'id': 'prix'}) }}
+                    </div>
+                    <div id="colonne2">
+                        {{ form_label(form.enseigne) }}
+                        {{ form_widget(form.enseigne) }}
+                    </div>
+                    <div id="centre">
+                        {{ form_label(form.date) }}
+                        {{ form_widget(form.date) }}
+
+                    </div>
+                    <div>
+                        {{ form_label(form.differencePrix) }}
+                        {{ form_widget(form.differencePrix, {'attr' : {'readonly': true}, 'id': 'diffPrix'}) }}
+                        <button type="submit" style="float:right;">Alerter</button>
+                    </div>
+                {{form_end(form)}}
+            </div>
+            <div>
+                <button style="float:left;">Client remboursé</button>
+                <button style="float:right;">Client non remboursé</button>
+            </div>
+        </div>
+        <div id="historique" class="tabcontent">
+            <h1>Statut :{{ alerte.dossier.statut }}</h1>
+            <ol>
+            {% for alertePrix in alerte.dossier.alertesPrix %}
+                <li>
+                    Baisse de prix de {{ alertePrix.differencePrix }}€ constatée le {{ alertePrix.date|date("m/d/Y") }} 
+                    chez {{ alertePrix.enseigne }} 
+                </li>
+            {% endfor %}
+            </ol>
+
+        </div>
+
+        <div id="fiche_client" class="tabcontent">
+            <p>Prénom : {{alerte.dossier.client.prenom}}</p>
+            <p>Nom : {{alerte.dossier.client.nom}}</p>
+            <p>Numéro de téléphone : {{alerte.dossier.client.numeroTelephone}}</p>
+            <p>Email : {{alerte.dossier.client.email}}</p>
+            <p>Nombre de parrainage : {{alerte.dossier.client.nbParrainage}}</p>
+
+            
+        </div>
+
+
+    
+    </div>
+</main>
+{% endblock %}
+{% block javascript %}
+<script>
+
+    $("#prix").on("change", function (e) {
+        var diffPrix = document.getElementById("diffPrix");
+        diffPrix.value =  {{alerte.dossier.prixAchat}} - this.value;
+        
+    });
+
+    function openCity(evt, div_id) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(div_id).style.display = "block";
+    if(evt != null)
+        console.log(evt)
+        evt.currentTarget.className += " active";
+    }
+
+    //window.onload = openCity(null, 'info_achat');
+</script>
+{% endblock %}

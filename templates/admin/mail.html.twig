@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Alerte baisse de prix</title>
+</head>
+<body>
+    <p>
+        Bonjour {{dossier.client.prenom}}, <br>
+        Félicitations, vous avez le droit à un remboursement pour le dossier {{ dossier.numeroDossier }}. <br>
+        
+        Hedee s'occupe de toutes les démarches.
+
+        Cliquez sur ce lien pour accéder à votre espace.
+        <a href="{{absolute_url(path('info_client'))}}">Accéder à mon compte</a>
+    </p>
+</body>
+</html>

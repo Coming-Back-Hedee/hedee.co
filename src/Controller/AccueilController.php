@@ -28,7 +28,6 @@ class AccueilController extends AbstractController
     {
         $session = $request->getSession();
         $session->clear();
-
         $user = $this->getUser();
         $test = new EligibiliteTest();
 

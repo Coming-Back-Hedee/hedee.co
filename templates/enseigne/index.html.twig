@@ -12,7 +12,7 @@
         <div class="row" >
         
             <h1>Formulaire</h1>
-            <div class="magasin_ou_internet"><label for="choix"> Avez-vous acheté en magasin ou en ligne ?</label>
+            <div id="mole" class="magasin_ou_internet"><label for="choix"> Avez-vous acheté en magasin ou en ligne ?</label>
                         <input type="radio" name="choix" value="magasin" id="magasin"/> <label for="magasin">Magasin</label></input>
                         <input type="radio" name="choix" value="internet" id="internet" /> <label for="internet">En ligne</label></input>
             </div>
@@ -20,7 +20,15 @@
 
             </div>
         </div>
-        <div id="storage" style="display:none;"> </div>
+        <div id="dialog-message" title="Formulaire complet" style="display: none;">
+            <p>
+                <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+                Votre demande a bien été prise en compte.
+            </p>
+            <p>
+                <a href="{{ path('accueil') }}">Déposer une nouvelle annonce</a> .
+            </p>
+        </div>
     </div>
 </main>
 {% endblock %}
@@ -28,15 +36,18 @@
 {% block javascript %}
 {{ parent() }}
 <script>
-    var isValidURL = function (url) {
+    function verifierCaracteres(event) {	 		
+                        
+        var caracteres = [48, 49, 50, 51, 52 ,53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105]
+        if(caracteres.indexOf(event.keyCode) < 0){
+            event.preventDefault;
+            return false;
+        }
+        else{
+            return true;
+        }	
+    }
 
-        var urlPattern = "(https?|ftp)://(www\\.)?(((([a-zA-Z0-9.-]+\\.){1,}[a-zA-Z]{2,4}|localhost))|((\\d{1,3}\\.){3}(\\d{1,3})))(:(\\d+))?(/([a-zA-Z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?(\\?([a-zA-Z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*)?(#([a-zA-Z0-9._-]|%[0-9A-F]{2})*)?";
-
-        urlPattern = "^" + urlPattern + "$";
-        var regex = new RegExp(urlPattern);
-
-        return regex.test(url);
-    };
 var form = document.getElementById("test").innerHTML;
 $(document).ready(function() {
 
@@ -54,16 +65,13 @@ $(document).ready(function() {
                     $('#test').html(data);
                     var form = $("#form-enseigne");
                     step(form)
-                    document.getElementById("url").addEventListener("change", function(){                      
-                        if(!isValidURL(this.value)){
-                            console.log("adresse email invalable")
-                        }
-                    })
+                    
                 }
             });
         }
         if($("[name='choix']:checked").val() == "magasin"){
 		    var url = "{{ path('mag') }}";
+            
             $.ajax({
                 type: 'get',
                 url: url,
@@ -73,7 +81,6 @@ $(document).ready(function() {
                     step(form)
                 }
             });
-
         }           
     });
        
@@ -92,6 +99,7 @@ $(document).ready(function() {
             transitionEffect: "slideLeft",
             onStepChanging: function (event, currentIndex, newIndex)
             {
+            
             if(currentIndex == 1){
                 if(currentIndex < newIndex)
                     if(form.valid()){
@@ -99,20 +107,25 @@ $(document).ready(function() {
                         var url = "{{ path('facture') }}";
                         var donnees = form.serialize();
                         $.post(url, donnees, function(data,status){
-                                alert(status)
                                 var path = data.path.split('/')
-                                path = "/" +  path[path.length -1]
-                                console.log(path)
+                                path = "/factures/" +  path[path.length -1]
+                                //console.log(path)
                                 document.getElementById("facture_jpg").src = path;
                         
                         });
                     }
                 }
             if(currentIndex > newIndex){
+                if(newIndex == 0)
+                    $("#mole").show();
                 return true;
             }
             else{
                 form.validate().settings.ignore = ":disabled,:hidden";
+                if (form.valid()){
+                    $("#mole").hide();
+                    return true
+                }
                 return form.valid();
             }
 
@@ -125,15 +138,32 @@ $(document).ready(function() {
             onFinished: function (event, currentIndex)
             {   
                 var url = "/demande-remboursement/";
-                var donnees = form.serialize();
-                    $.post(url, donnees, function(data,status){
-                        console.log(status)
-                        console.log(data.path)
-                        /*if (status == "success"){
+                var form2 = document.getElementById("form-enseigne");
+                var donnees = new FormData(form2)               
 
-                        } */                  
-                    });
-                form.submit();
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: donnees,
+                    processData: false,  // indique à jQuery de ne pas traiter les données
+                    contentType: false ,  // indique à jQuery de ne pas configurer le contentType
+                //$.post(url, donnees, function(data,status){
+                    success:function(data){
+                        form.preventDefault(); 
+                    }             
+                });
+                $( "#dialog-message" ).dialog({
+                    closeOnEscape: false,
+                    open: function(event, ui) {
+                        $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                    },
+                    modal: true, draggable: false,
+                    buttons: {
+                        Ok: function() {
+                            document.location.href="{{ path('profil') }}";
+                        }
+                    }
+                });             
             }
         });
     }

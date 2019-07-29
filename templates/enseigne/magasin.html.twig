@@ -1,0 +1,214 @@
+        {{form_start(form1, {'attr': {'enctype': 'multipart/form-data', 'id': 'form-enseigne' }}) }}
+            <div class="les_infos">
+                <h3 style="display: none;">Vos informations de commandes</h3>
+                <section>  
+                    <div class="code_postal">
+                        {{ form_label(form1.ville) }}
+                        <br>
+                        {{ form_errors(form1.ville) }}
+                        {{ form_widget(form1.ville, {'attr' : {'placeholder' : 'Ex: Paris'}, 'id': 'cp'}) }}
+                        {{ form_help(form1.ville) }}
+                    </div>  <!-- fin class="code_postal" -->
+
+                    <div class="marque">
+                        {{ form_label(form1.marqueProduit) }}
+                        <br>
+                        {{ form_errors(form1.marqueProduit) }}
+                        {{ form_widget(form1.marqueProduit, {'attr': {'placeholder' : 'Ex: Sony, Apple, Asus'}, 'id': 'mar'}) }}
+                        {{ form_help(form1.marqueProduit) }}
+                    </div> <!-- fin class="marque" -->
+
+                    <div class="reference">
+                            <div class="reference_2">
+                                <div class="label_2">
+                                    {{ form_label(form1.referenceProduit) }}
+                                </div>
+
+                                <div class="question_2">
+                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Modèle, coloris">
+                                    i
+                                    </button>
+                                </div>
+                            </div>
+                        
+                        {{ form_errors(form1.referenceProduit) }}
+                        {{ form_widget(form1.referenceProduit, {'attr': {'placeholder' : 'Ex: Iphone 6S Or 64Go'}, 'id': 'ref'}) }}
+                        {{ form_help(form1.referenceProduit) }}
+                    </div> <!-- fin class="reference" -->
+
+                    <div class="numero_commande">
+                            <div class="numero_commande_2">
+                                <div class="label_2">
+                                    {{ form_label(form1.numeroCommande) }}
+                                </div>
+
+                                <div class="question_2">
+                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Le numéro de commande se trouve sur votre facture">
+                                    i
+                                    </button>
+                                </div>
+                            </div>
+                        
+                        {{ form_widget(form1.numeroCommande, {'attr': {'id': 'num_com'}} ) }}
+                       
+                        {{ form_help(form1.numeroCommande) }}
+                    </div> <!-- fin class="numero_commande" -->
+
+                    <div class="commentaires">
+                            <div class="commentaires_2">
+                                <div class="label_2">
+                                    {{ form_label(form1.commentaires) }}
+                                </div>
+
+                                <div class="question_2">
+                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Vous pouvez renseigner ici toutes informations complémentaires">
+                                    i
+                                    </button>
+                                </div>
+                            </div>
+     
+                        {{ form_widget(form1.commentaires, {'attr': {'id': 'com'}} ) }}
+                        {{ form_help(form1.commentaires) }}
+                    </div> <!-- fin class="commentaires" -->
+
+                    <div class="facture">
+                        {{ form_label(form1.pieceJointe ) }}
+                        <br>
+                        {{ form_widget(form1.pieceJointe, {'attr': {'id': 'pj'}} ) }}
+                    </div>
+                    </section>
+
+                <h3 style="display: none;">Vos coordonnées</h3>
+                <section>
+                    <div class="info_client">
+                        <div class="nom">
+                        {{ form_label(form1.client.nom) }}
+                        <br>
+                        {{ form_errors(form1.client.nom) }}
+                        {{ form_widget(form1.client.nom, {'id': 'nom'}) }} 
+                        </div>
+
+                        <div class="prenom">
+                            {{ form_label(form1.client.prenom) }}
+                        <br>
+                        {{ form_errors(form1.client.prenom) }}
+                        {{ form_widget(form1.client.prenom, {'id': 'prenom'}) }}
+                        </div>
+
+                        <div class="telephone">
+                        {{ form_label(form1.client.numeroTelephone) }}
+                        <br>
+                        {{ form_errors(form1.client.numeroTelephone) }}
+                        {{ form_widget(form1.client.numeroTelephone, {'id': 'num'}) }}
+                        </div>
+
+                        <div class="nom_rue">
+                        {{ form_label(form1.client.adresse.nom_rue) }}
+                        <br>
+                        {{ form_widget(form1.client.adresse.nom_rue) }}
+                        {{ form_errors(form1.client.adresse.nom_rue) }}
+                        </div>
+
+                        <div class="complements">
+                        {{ form_label(form1.client.adresse.complements) }}
+                        <br>
+                        {{ form_widget(form1.client.adresse.complements) }}
+                        {{ form_errors(form1.client.adresse.complements) }}
+                        </div>
+
+                        <div class="ville">
+                        {{ form_label(form1.client.adresse.ville) }}
+                        <br>
+                        {{ form_widget(form1.client.adresse.ville) }} 
+                        {{ form_errors(form1.client.adresse.ville) }}
+                        </div>
+
+                        <div class="code_postal_2">
+                        {{ form_label(form1.client.adresse.code_postal) }}
+                        <br>
+                        {{ form_widget(form1.client.adresse.code_postal, { attr: 
+                        {'onkeypress': "return verifierCaracteres(event);"}}) }}
+                        {{ form_errors(form1.client.adresse.code_postal) }}
+                        </div>
+   
+                    </div> <!-- fin class="info_client" -->            
+                </section>
+
+                <h3 style="display: none;">Valider</h3>
+                <section>
+                    <img id="facture_jpg" alt="Votre facture est en cours de chargement">
+                    {{ form_row(form1.cgu) }} 
+                    {{ form_row(form1._token) }}
+                </section>  
+            </div>
+        {{ form_end(form1, {'render_rest': false}) }}
+        <script>
+            var form = $("#form-enseigne");    
+                form.validate({
+                    rules: {
+                        "demandes_magasin[client][numeroTelephone]":{
+                            "required": true,
+                            "regex_tel": /^(0)[1-9][0-9]{8}$/
+                        },
+                        "demandes_magasin[client][adresse][code_postal]":{
+                            "minlength": 5,
+                            "maxlength": 5,
+                        }
+                    },
+                    messages: {
+                        "demandes_internet[cgu]": {
+                            required: "Vous devez accepter les conditions pour poursuivre le demande",
+                        
+                        }
+                    }                    
+                });
+            var url_marques = "{{ path('admin_utility_marques') }}";
+            var url_villes = "{{ path('admin_utility_villes') }}";
+            $.ajax({
+                dataType: "json",
+                url: url_villes,
+                success: function (data, status){
+                    var array = []
+                    data.villes.forEach(function(element){
+                        array.push(element.villes + " - " + element.codePostal)
+                    })
+                    $('#cp').autocomplete({
+                        source: function( request, response ) {
+                                    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                                    response( $.grep( array, function( item ){
+                                        return matcher.test( item );
+                                    }) );
+                                },
+                        minLength: 2,
+                        delay: 100,
+                    })
+                    $('#mar').bind('change', function(){
+                        this.value = $.ucfirst(this.value)
+                    });
+                }
+            });
+
+            $.ajax({
+                dataType: "json",
+                url: url_marques,
+                success: function (data, status){
+                    var array = []
+                    data.marques.forEach(function(element){
+                        array.push(element.nom)
+                    })
+                    $('#mar').autocomplete({
+                        source: function( request, response ) {
+                                    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                                    response( $.grep( array, function( item ){
+                                        return matcher.test( item );
+                                    }) );
+                                },
+                        minLength: 1,
+                        delay: 100,
+                    })
+                    $('#mar').bind('change', function(){
+                        this.value = $.ucfirst(this.value)
+                    });
+                }
+            });
+        </script>        

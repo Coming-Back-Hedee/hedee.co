@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 	
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use App\Repository\DemandesRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -78,15 +80,10 @@ class Demandes
     private $numeroCommande;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @Assert\NotBlank
      */
     private $numeroDossier;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $commentaires;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -105,18 +102,36 @@ class Demandes
     private $client;
 
     /**
-     * @ORM\Column(type="string", length=5, nullable=true)
-     */
-    private $codePostal;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ville;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AlertePrix", mappedBy="dossier")
+     */
+    private $alertesPrix;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $cgu;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pieceJointe;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $commentaires;
+
+
     public function __construct()
     {
         $this->statut =  "En cours";
+        $this->cgu =  false;
+        $this->alertesPrix = new ArrayCollection();
         //$this->setNumeroDossier();
         
     }
@@ -128,7 +143,7 @@ class Demandes
 
     public function setNumeroDossier($count)
     {
-        $this->numeroDossier = 1417 + $count;
+        $this->numeroDossier = $count;
         return $this;
     }
 
@@ -148,18 +163,6 @@ class Demandes
 
         return $this;
     }
-
-    /*public function getMagasinAchat(): ?string
-    {
-        return $this->magasinAchat;
-    }
-
-    public function setMagasinAchat(string $magasinAchat): self
-    {
-        $this->magasinAchat = $magasinAchat;
-
-        return $this;
-    }*/
     
     public function getPrixAchat(): ?string
     {
@@ -246,17 +249,6 @@ class Demandes
         return $this;
     }
 
-    public function getCommentaires()
-    {
-        return $this->commentaires;
-    }
-
-    public function setCommentaires(?text $commentaires)
-    {
-        $this->commentaires = $commentaires;
-
-        return $this;
-    }
     public function getFacture(): ?string
     {
         return $this->facture;
@@ -274,7 +266,7 @@ class Demandes
         return $this->statut;
     }
 
-    public function setStatut(?text $statut): self
+    public function setStatut(?string $statut): self
     {
         $this->statut = $statut;
 
@@ -293,18 +285,6 @@ class Demandes
         return $this;
     }
 
-    public function getCodePostal(): ?string
-    {
-        return $this->codePostal;
-    }
-
-    public function setCodePostal(?string $codePostal): self
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
     public function getVille(): ?string
     {
         return $this->ville;
@@ -316,4 +296,83 @@ class Demandes
 
         return $this;
     }
+
+    /**
+     * @return Collection|AlertePrix[]
+     */
+    public function getAlertesPrix(): Collection
+    {
+        return $this->alertesPrix;
+    }
+
+    public function hasAlertesPrix()
+    {
+        if ($this->alertesPrix->isEmpty()) {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public function addAlertesPrix(AlertePrix $alertesPrix): self
+    {
+        if (!$this->alertesPrix->contains($alertesPrix)) {
+            $this->alertesPrix[] = $alertesPrix;
+            $alertesPrix->setDemande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlertesPrix(AlertePrix $alertesPrix): self
+    {
+        if ($this->alertesPrix->contains($alertesPrix)) {
+            $this->alertesPrix->removeElement($alertesPrix);
+            // set the owning side to null (unless already changed)
+            if ($alertesPrix->getDemande() === $this) {
+                $alertesPrix->setDemande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCgu(): ?bool
+    {
+        return $this->cgu;
+    }
+
+    public function setCgu(bool $cgu): self
+    {
+        $this->cgu = $cgu;
+
+        return $this;
+    }
+
+    public function getPieceJointe(): ?string
+    {
+        return $this->pieceJointe;
+    }
+
+    public function setPieceJointe(?string $pieceJointe): self
+    {
+        $this->pieceJointe = $pieceJointe;
+
+        return $this;
+    }
+
+    public function getCommentaires(): ?string
+    {
+        return $this->commentaires;
+    }
+
+    public function setCommentaires(?string $commentaires): self
+    {
+        $this->commentaires = $commentaires;
+
+        return $this;
+    }
+
+   
 }

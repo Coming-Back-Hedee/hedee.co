@@ -1,4 +1,4 @@
-/** RESET CSS **/
+﻿/** RESET CSS **/
 html, body, div, main,  {
     margin:0;
     padding:0;
@@ -222,8 +222,13 @@ body {
     padding : 45px 0 45px 40px;
 }
 
-/*Formulaire : boutons bas de page*/
-.actions ul li a {}
+.actions ul li.disabled > a{
+    background-color: #DDDDDD;
+}
+
+
+/*Formulaire : boutons bas de page
+.actions ul li a {}*/
 
 
 

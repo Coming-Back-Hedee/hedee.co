@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de votre demande de prise en charge</title>
+</head>
+<body>
+    <p>
+        Bonjour {{user.prenom}},
+        Nous avons bien reçu votre demande de prise en charge n° {{ demande.numeroDossier }}. Notre service s'occupe de tout !
+        Vous trouverez en pièce jointe un récapitulatif de votre demande.
+        Cliquez sur ce lien pour accéder à votre espace. <a href="{{absolute_url(path('info_client'))}}">Accéder à mon compte</a>
+
+        Hedee        
+    </p>
+</body>
+</html>
