@@ -55,3 +55,19 @@ div#colonne2 {
 button.active{
 	background-color: #ccc;
 }
+
+.modif{
+  display: none;
+}
+
+.modif_link{
+  color:blue;
+}
+
+.modif_link:hover { 
+  text-decoration: underline;
+}
+
+.fas{
+  display: none;
+}

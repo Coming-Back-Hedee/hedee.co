@@ -33,7 +33,6 @@
          //var fond = document.getElementById("fond");
          
          window.onclick = function(event) {
-            //console.log(event.target)
             if (modal.style.display == "none"){
                if (event.target == show  || event.target == show.children[0] || event.target == button){            
                   event.preventDefault();  
@@ -42,8 +41,6 @@
                }
             }
             else{
-               //console.log(event.target)
-               console.log(ancestor(event.target, 'modal'))
                if (ancestor(event.target, 'modal') == null){
                      modal.style.display = "none";
                   }
@@ -55,7 +52,6 @@
 
    // Lorsque l'on clique sur show on affiche la fenêtre modale
       /*$('#show').click(function (e) {
-         console.log(modal.style.display);
          //On désactive le comportement du lien
          e.preventDefault();           
          if(modal.style.display == "none"){

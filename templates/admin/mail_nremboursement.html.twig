@@ -6,9 +6,9 @@
 </head>
 <body>
     <p>
-        Bienvenue chez Rembourseo, <br>
-        Il vous reste encore quelques informations à compléter pour finaliser votre compte.
-        Cliquez sur ce lien pour accéder à votre espace.
+        Bonjour {{dossier.client.prenom}}, <br>
+        Malheureusement, votre remboursement n'est pasconfirmé <br>
+
         {# pour que le lien fonctionne, il est indispensable que le lien soit absolu. #}
         <a href="{{absolute_url(path('info_client'))}}">Accéder à mon compte</a>
     </p>

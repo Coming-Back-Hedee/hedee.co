@@ -21,15 +21,7 @@ class InfoClientType extends AbstractType
             ->add('prenom', TextType::class, ['label' => 'Prenom'])
             ->add('nom', TextType::class, ['label' => 'Nom'])
             ->add('numeroTelephone', TextType::class, ['label' => 'Numéro de téléphone'])
-            ->add('adresse', CollectionType::class, [
-                'entry_type' => AdresseType::class,
-                'entry_options' => [
-                    'attr' => ['label' => 'Adresse'],
-                ],
-                'allow_add' => true,
-                'allow_delete' => true,
-            ])
-            
+            ->add('adresse',AdresseType::class, ['label' => 'Adresse'])           
             ->add('submit', SubmitType::class, ['label' => 'Valider']) 
             ;        
     }

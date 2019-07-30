@@ -17,22 +17,22 @@ class AlertePrix
     private $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $prix;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $enseigne;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $date;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $differencePrix;
 
@@ -40,6 +40,16 @@ class AlertePrix
      * @ORM\ManyToOne(targetEntity="App\Entity\Demandes", inversedBy="alertesPrix")
      */
     private $dossier;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $clotureR;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $clotureNR;
     
     public function getId(): ?int
     {
@@ -102,6 +112,30 @@ class AlertePrix
     public function setDossier(?Demandes $dossier): self
     {
         $this->dossier = $dossier;
+
+        return $this;
+    }
+
+    public function getClotureR(): ?bool
+    {
+        return $this->clotureR;
+    }
+
+    public function setClotureR(?bool $clotureR): self
+    {
+        $this->clotureR = $clotureR;
+
+        return $this;
+    }
+
+    public function getClotureNR(): ?bool
+    {
+        return $this->clotureNR;
+    }
+
+    public function setClotureNR(?bool $clotureNR): self
+    {
+        $this->clotureNR = $clotureNR;
 
         return $this;
     }

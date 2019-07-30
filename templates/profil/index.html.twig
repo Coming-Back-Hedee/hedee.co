@@ -48,20 +48,22 @@
                 success: function (data, status){
                     var nb = data.length
                     $.each(data, function(i, demande){
-                        var tr = document.createElement('TR');
-                        var td1 = document.createElement('TD');
-                        const date = new Date(demande.dateAchat.timestamp*1000)
-                        td1.innerHTML = "Date demande: "  + date.toLocaleDateString();
-                        td1.innerHTML += "<br>Produit: " + demande.marqueProduit + " " + demande.referenceProduit;
-                        td1.innerHTML += "<br> <a href='" + demande.facture + "'>Voir facture</a>"
-                        var td2 = document.createElement('TD');
-                        td2.innerHTML = demande.numeroDossier
-                        var td3 = document.createElement('TD');
-                        td3.innerHTML = demande.statut          
-                        tr.appendChild(td1);
-                        tr.appendChild(td2);
-                        tr.appendChild(td3);
-                        table.appendChild(tr)                        
+                        if (demande.statut != 'Remboursé'){
+                            var tr = document.createElement('TR');
+                            var td1 = document.createElement('TD');
+                            const date = new Date(demande.dateAchat.timestamp*1000)
+                            td1.innerHTML = "Date demande: "  + date.toLocaleDateString();
+                            td1.innerHTML += "<br>Produit: " + demande.marqueProduit + " " + demande.referenceProduit;
+                            td1.innerHTML += "<br> <a href='" + demande.facture + "' target='blank'>Voir facture</a>"
+                            var td2 = document.createElement('TD');
+                            td2.innerHTML = demande.numeroDossier
+                            var td3 = document.createElement('TD');
+                            td3.innerHTML = demande.statut          
+                            tr.appendChild(td1);
+                            tr.appendChild(td2);
+                            tr.appendChild(td3);
+                            table.appendChild(tr)
+                        }                       
                     });
                     test(nb, '#tab')               
                 }
@@ -99,21 +101,6 @@
                 css('display','table-row').animate({opacity:1}, 300);
             });          
         }
-        /*{% for demande in demandes %}
-            var tr = document.createElement('TR');
-            var td1 = document.createElement('TD');
-            td1.innerHTML = "Date demande:  {{demande.dateAchat|date('m/d/Y')}}";
-            td1.innerHTML += "<br>Produit: {{demande.marqueProduit}} {{demande.referenceProduit}}";
-            td1.innerHTML += "<br> <a href='{{demande.facture}}'>Voir facture</a>"
-            var td2 = document.createElement('TD');
-            td2.innerHTML = "{{demande.numeroDossier}}"
-            var td3 = document.createElement('TD');
-            td3.innerHTML = "{{demande.statut}}"          
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            tr.appendChild(td3);
-            table.appendChild(tr)
-        {% endfor %}*/
         window.onload = all_demandes()
     });
 </script>

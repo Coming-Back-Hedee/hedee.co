@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello ProfilController!{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' 
+    integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>	
+{% endblock %}
 
 {% block main %}
     <main>
@@ -13,14 +17,81 @@
                     <li> <a href="{{ path('info_client') }}" class="active">Mes informations</a> </li>
                 </ul>
             </div> <!-- fin class="menu" -->
-            {{ form_start(form)}}
-            {{ form_end(form)}}
-            {#{{app.user.adresse.nomRue}} 
-                             {% if app.user.complements is defined %}
-                                <br>{{app.user.adresse.complements}}
-                            {% endif %}
-                            <br>{{app.user.adresse.ville|capitalize}} 
-                            <br>{{app.user.adresse.codePostal}}#}
+            <div>
+                <table class="table" border="1">
+                    <tbody id="mes-demandes">
+                        <tr>
+                            <td>Nom</td>
+                            <td>{{ user.prenom }} {{ user.nom }}</td>
+                            <td>
+                                <span class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
+                                <div id="modif_p" class="modif">
+                                    {{ form_start(form) }}
+                                        {{ form_label(form.prenom) }}
+                                        {{ form_widget(form.prenom) }} <br>
+                                        {{ form_label(form.nom) }}
+                                        {{ form_widget(form.nom) }} <br>
+                                        <button type="submit">Changer</button> 
+                                        <button>Annuler</button>
+                                    {{ form_end(form, {'render_rest': false} ) }}
+                                </div>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Adresse mail</td>
+                            <td>{{ user.email }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Numéro de téléphone </td>
+                            <td>{{ user.numeroTelephone }}</td>
+                            <td>
+                                <span class="modif_link"><i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
+                                <div id="modif_p" class="modif">
+                                    {{ form_start(form) }}
+                                        {{ form_label(form.numeroTelephone) }}
+                                        {{ form_widget(form.numeroTelephone) }} <br>
+                                        <button type="submit">Changer</button> 
+                                        <button>Annuler</button>
+                                    {{ form_end(form, {'render_rest': false} ) }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Adresse</td>
+                            <td>{{ user.adresse.nomRue }} <br> {{ user.adresse.ville }} <br> {{ user.adresse.codePostal }}</td>
+                            <td>
+                                <span class="modif_link"><i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Compte complet</td>
+                            <td>Non</td>
+                            <td>Autoriser le mandat Sepa</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
+{% endblock %}
+{% block javascript %}
+    <script>
+        var icons = document.getElementsByClassName('modif_link')
+        console.log(icons)
+        Array.from(icons).forEach(function(icon){
+            icon.addEventListener('mouseover', function(){
+                icon.firstElementChild.style.display = "inline-block"
+            })
+            icon.addEventListener('mouseout', function(){
+                icon.firstElementChild.style.display = "none";
+            })
+            icon.addEventListener('click', function(){
+                this.style.display = "none";
+                icon.nextElementSibling.style.display = "block";
+            })
+        })
+    </script>
 {% endblock %}

@@ -4,7 +4,7 @@
 </div>
 <div id="modal-body">
     <div id="connexion">
-        <form action="{{ path('connexion') }}" method="post" id="connect">
+        <form action="{{ path('connexion') }}" method="post" id="connect" >
             <div>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <label for="username">Email:</label>
@@ -86,24 +86,78 @@
             modal.style.display = "none";
         }
 
-        $("#inscription_plainPassword_second").on("change", function(){
+        /*$("#inscription_plainPassword_second").on("change", function(){
             if(this.val() != $("#inscription_plainPassword_first").val()){}
             if($("#inscription_plainPassword_first").val() != ""){}
-        })
+        })*/
+        var form2 = $("#connect"); 
+        form2.validate({
+            rules: {
+                "_username":{
+                    "email": true,
+                    "required": true,
+                    "remote": {
+                        url: "/connexion2", 
+                        method: "POST",
+                        dataType: "json",
+                    },
+                },
+                "_password":{
+                    "required": true,
+                    "remote": {
+                        url: "/connexion3", 
+                        method: "POST",
+                        dataType: "json",
+                        data: 
+                        {                                
+                            "_password": function(){ return $('#password').val()},
+                            "_username": function(){ return $('#username').val()},
+                        },            
+                    },
+                }
+            },
+            messages:{
+                "_username":{ 
+                    "remote": jQuery.validator.format("{0} n'est pas une adresse utilisateur.")
+                },
+                "_password":{ 
+                    "remote": jQuery.validator.format("mauvais mot de passe.")
+                }
+            },
+            submitHandler: function(form){
+                form2.submit();
+             }
+        });
+
+
+        function submitForm(){
+            console.log($('#username').val())
+            return false;             
+        }
 
         var form = $("#inscript");    
         form.validate({
-        rules: {
-            "inscription[email]":{
-                "required": true,
-                "email": true,
+            rules: {
+                "inscription[email]":{
+                    "required": true,
+                    "email": true,
+                    "remote": {
+                            url: "/inscription2", 
+                            method: "POST",
+                            dataType: "json",
+                        },
                 },
-            "inscription[plainPassword][first]":{
-                "required": true,
+                "inscription[plainPassword][first]":{
+                    "required": true,
+                },
+                "inscription[plainPassword][second]":{
+                    "required": true,
+                    "equalTo": "#inscription_plainPassword_first"
+                }
             },
-            "inscription[plainPassword][second]":{
-                "required": true,
-                "equalTo": "#inscription_plainPassword_first"
+            messages:{
+                "inscription[email]":{ 
+                    "remote": jQuery.validator.format("{0} est déjà utilisée.")
                 }
             },
         });

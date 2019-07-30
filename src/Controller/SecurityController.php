@@ -12,22 +12,24 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/connexion", name="connexion")
      */
-    public function login(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, UserPasswordEncoderInterface $passwordEncoder)
+    public function login(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
+                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
     {
 
         if($this->isGranted('ROLE_USER')){
             return $this->redirectToRoute('profil');
         }
-
 
         // get the login error if there is one
         $error = $authUtils->getLastAuthenticationError();
@@ -42,41 +44,54 @@ class SecurityController extends AbstractController
         $form = $this->createForm(InscriptionType::class, $user,[
            'validation_groups' => array('User', 'inscription'),
         ]);        
-
-        $form->handleRequest($request);
-        $repo = $this->getDoctrine()->getRepository(Clients::class);
-        $email =  $repo->findOneBy(['email' => $user->getEmail()]);
-        if($email != null){
-            //var_dump($enseigne);
-            $session = $request->getSession();
-            $session->getFlashBag()->add('warning', "Cette adresse email est déjà utilisé.");
-            return $this->redirectToRoute('inscription');
-        }
-
-        $bodyMail = $mailer->createBodyMail('inscription/mail2.html.twig', [
-            'user' => $user
-        ]);
-        
-
-        if ($form->isSubmitted() && $form->isValid()) {
- 
-            // Encode le mot de passe
-            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
-            //$user->setEmail($form['email']);
- 
-            // Enregistre le membre en base
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-            $mailer->sendMessage('from@email.com', $user->getEmail(), 'Confirmation de la création de votre compte Rembourseo', $bodyMail);
- 
-        }
-
+            
         return $this->render('security/modal.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
             'form'          => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/connexion2", name="connexion2")
+     */
+    public function login2(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
+                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
+    {
+        
+            $post = $request->request;
+            $repo = $this->getDoctrine()->getRepository(Clients::class);
+            //$request->getSession()->set('em', $post);
+            $email =  $repo->findOneBy(['email' => $post->get('_username')]);
+            if($email != null){
+                $isAvailable = true;
+            }
+            else{
+                $isAvailable = false;
+            }
+              
+        $data = $isAvailable;   
+        return new JsonResponse($data);
+    }
+
+        /**
+     * @Route("/connexion3", name="connexion3")
+     */
+    public function login3(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
+                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
+    {
+        
+        $post = $request->request;
+        $repo = $this->getDoctrine()->getRepository(Clients::class);
+        $user =  $repo->findOneBy(['email' => $post->get('_username')]);
+        $isAvailable = false;
+        if ($user != null){
+            $plainPassword = $post->get('_password');
+            if($passwordEncoder->isPasswordValid($user, $plainPassword)){
+                $isAvailable = true;
+            }
+        }       
+        $data = $isAvailable;   
+        return new JsonResponse($data);
     }
 }

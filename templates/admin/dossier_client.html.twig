@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello AdminController!{% endblock %}
-
+{# {% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/admin.css')}}"> 
+{% endblock %}#}
 {% block main %}
 <main>
     <div class="container">
@@ -28,7 +30,7 @@
             </div>
             <div>
                 <h3>Meilleure offre trouvée</h3>
-                {{form_start(form, {'attr' : {'autocomplete' : 'off', 'id' : 'form-admin'}}) }}
+                {{form_start(form, {'attr' : {'autocomplete' : 'off', 'id' : 'form-alerte'}}) }}
                     <div id="colonne1">
                         {{ form_label(form.prix) }}
                         {{ form_widget(form.prix, {'id': 'prix'}) }}
@@ -50,8 +52,13 @@
                 {{form_end(form)}}
             </div>
             <div>
-                <button style="float:left;">Client remboursé</button>
-                <button style="float:right;">Client non remboursé</button>
+                {{form_start(formC, {'attr' : {'autocomplete' : 'off', 'id' : 'form-cloture'}}) }}
+                    {{ form_widget(formC.clotureR, {'attr' : {'type' : 'submit'}}) }}
+
+                    {{ form_widget(formC.clotureNR, {'attr' : {'type' : 'submit'}}) }}
+                    {#<button style="float:left;">Client remboursé</button>
+                    <button style="float:right;">Client non remboursé</button>#}
+                {{form_end(formC)}}
             </div>
         </div>
         <div id="historique" class="tabcontent">

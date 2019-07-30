@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Demandes;
 use App\Entity\AlertePrix;
+use App\Form\ClotureType;
 use App\Form\AlerteType;
 use App\Repository\DemandesRepository;
 
@@ -27,12 +28,10 @@ class AdminController extends AbstractController
      */
     public function index(Request $request)
     {
-        $repo = $this->getDoctrine()->getRepository(Demandes::class);
-        $demandes = $repo->findAll();
+        //$repo = $this->getDoctrine()->getRepository(Demandes::class);
+        //$demandes = $repo->findAll();
 
-        return $this->render('admin/index.html.twig', [
-            'demandes' => $demandes,
-        ]);
+        return $this->render('admin/index.html.twig');
     }
 
     /**
@@ -45,55 +44,69 @@ class AdminController extends AbstractController
         if ($dossier == null){
             return $this->render('enseigne/404_enseigne.html.twig');
         }
+
         $alerte = new AlertePrix();
         $alerte->setDossier($dossier);
-        var_dump($alerte->getDossier()->hasAlertesPrix());
-        $form= $this->createForm(AlerteType::class, $alerte);
-        
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-        //if ($request->getMethod() == 'POST'){
-            $em = $this->getDoctrine()->getManager();
-            $dir = getcwd();
 
-            // on récupère le récapitulatif 'd'achat du client
+        $form1= $this->createForm(AlerteType::class, $alerte);
+        $form2= $this->createForm(ClotureType::class, $alerte);
+
+        $form1->handleRequest($request);
+        $form2->handleRequest($request);
+
+        if ($request->isMethod('POST')) {
             $pdf = new FPDI();
-            $pdf->setPrintHeader(false);
-            $pdf->setPrintFooter(false);
-            $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-            $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-            $pdf->SetFooterMargin(0);
-            $pdf->SetAutoPageBreak(FALSE);
-            $pdf->setFontSubsetting(TRUE);           
-            $pdf->setSourceFile($dir . $dossier->getFacture());
-            $templateId = $pdf->importPage(1);
-            $pdf->AddPage();
-            $pdf->useTemplate($templateId, ['adjustPageSize' => true]);
+            $path_pdf = getcwd() . $dossier->getFacture();
+            $post = $request->request;
+            $this->forward('App\Controller\PdfController::recup_pdf', ['pdf'  => $pdf,  'path'  => $path_pdf]);
 
-            //On modifie le récapitulatif
-            $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => 'Alerte de prix']);
-            $this->forward('App\Controller\PdfController::details_footer', [
-                'pdf'  => $pdf,
-                'alerte' => $alerte, 
-                'session' => $request->getSession(),
-                'reset' => $alerte->getDossier()->hasAlertesPrix(),
-                ]);
 
-            $path_pdf = $dir . $dossier->getFacture();
+            if ($form2->isSubmitted() && $form2->isValid()) {
+                if(array_key_exists('clotureNR', $post->get('cloture'))){
+                    $statut = 'Non remboursé';
+                    $mail_objet = "Alerte de non remboursement";
+                    $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => 'Non remboursé']);
+                    
+                    $dossier->setStatut('Non remboursé');
+                    $bodyMail = $mailer->createBodyMail('admin/mail_nremboursement.html.twig', ['dossier' => $dossier]);
+                }
+
+                if(array_key_exists('clotureR', $post->get('cloture'))){
+                    $statut = 'Remboursé';
+                    $mail_objet = "Alerte de remboursement";
+                    $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => 'Remboursé']);
+                    $this->forward('App\Controller\PdfController::details_footer', [
+                        'pdf'  => $pdf,
+                        'alerte' => $alerte->getDossier()->getLastAlerte(), 
+                        'session' => $request->getSession(),
+                        ]);
+                    $dossier->setStatut('Remboursé');
+                    $bodyMail = $mailer->createBodyMail('admin/mail_remboursement.html.twig', ['dossier' => $dossier]);
+                }
+            }
+            
+            if ($form1->isSubmitted() && $form1->isValid()) {
+                $statut = "Alerte de prix";
+                $mail_objet = "Alerte baisse de prix";             
+
+                //On modifie le récapitulatif
+                $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => $statut]);
+                
+                $dossier->setStatut('Alerte prix');
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($alerte);
+                $em->flush();
+                $bodyMail = $mailer->createBodyMail('admin/mail_alerte.html.twig', ['dossier' => $dossier]);
+            }
             $test1 = $pdf->Output($path_pdf, 'F');
-            $dossier->setStatut('Alerte prix');
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($alerte);
-            $em->flush();
-
-            $bodyMail = $mailer->createBodyMail('admin/mail.html.twig', ['dossier' => $dossier]);
-            $mailer->sendMessage('from@email.com', $dossier->getClient()->getEmail(), 'Alerte baisse de prix', $bodyMail);
-
+            
+            $mailer->sendMessage('from@email.com', $dossier->getClient()->getEmail(), $mail_objet, $bodyMail);
         }
 
         return $this->render('admin/dossier_client.html.twig', [
             'alerte' => $alerte,
-            'form' => $form->CreateView(),
+            'form' => $form1->CreateView(),
+            'formC' => $form2->CreateView(),
         ]);
     }
 

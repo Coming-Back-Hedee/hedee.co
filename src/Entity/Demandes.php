@@ -305,6 +305,16 @@ class Demandes
         return $this->alertesPrix;
     }
 
+    public function getLastAlerte()
+    {
+        if (!$this->alertesPrix->isEmpty()) {
+            return $this->alertesPrix->last();
+        }
+        else{
+            return null;
+        }
+    }
+
     public function hasAlertesPrix()
     {
         if ($this->alertesPrix->isEmpty()) {

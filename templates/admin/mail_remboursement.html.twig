@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Remboursement</title>
+</head>
+<body>
+    <p>
+        Bonjour {{dossier.client.prenom}}, <br>
+        Votre remboursement  d'une valeur de {{dossier.lastAlerte.prix}} est confirmé. <br>
+        {# pour que le lien fonctionne, il est indispensable que le lien soit absolu. #}
+        <a href="{{absolute_url(path('info_client'))}}">Accéder à mon compte</a>
+    </p>
+</body>
+</html>

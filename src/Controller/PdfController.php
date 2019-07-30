@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use setasign\Fpdi\Tcpdf\Fpdi;
+use setasign\Fpdi\PdfReader;
+
 use App\Entity\Enseignes;
 use App\Entity\AlertePrix;
 
@@ -183,7 +186,7 @@ class PdfController extends AbstractController
         $pdf->Rect(0,190, $pdf->GetPageWidth(), 10, 'DF');
         $pdf->SetX(0);
         $pdf->SetY(190);       
-        $pdf->Cell($pdf->GetPageWidth(),10,utf8_decode($texte),1,0,'C',1);
+        $pdf->Cell($pdf->GetPageWidth(),10, $texte,1,0,'C',1);
         $pdf->Ln(); // Retour à la ligne
         $this->rectangle_w_title($pdf, 15,210,45,30,'DF', 17, 54, "Enseigne la moins chère" );
         $this->rectangle_w_title($pdf, 82.5,210,45,30,'DF', 85, 110, "Date du constat" );
@@ -202,5 +205,21 @@ class PdfController extends AbstractController
         $pdf->SetXY(35,260);
         //$pdf->Text(55, 275, $diffPrix);
         $pdf->Cell(140,30,$diffPrix,0,0,'C',0);
+    }
+
+    public function recup_pdf($pdf, $path){
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetFooterMargin(0);
+        $pdf->SetAutoPageBreak(FALSE);
+        $pdf->setFontSubsetting(TRUE);           
+        $pdf->setSourceFile($path);
+        $templateId = $pdf->importPage(1);
+        $pdf->AddPage();
+        $pdf->useTemplate($templateId, ['adjustPageSize' => true]);
+
+        //return $pdf;
     }
 }
