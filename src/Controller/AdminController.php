@@ -133,7 +133,7 @@ class AdminController extends AbstractController
      */
     public function getDemandesEnCours(Request $request, DemandesRepository $demandesRepository){
         
-        $demandes = $demandesRepository->findBy(['statut' => 'En cours']);
+        $demandes = $demandesRepository->findByReverse('En cours');
         $encoders = [new JsonEncoder()]; 
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
@@ -151,7 +151,7 @@ class AdminController extends AbstractController
      */
     public function getDemandesRemboursees(Request $request, DemandesRepository $demandesRepository){
         
-        $demandes = $demandesRepository->findBy(['statut' => 'Remboursé']);
+        $demandes = $demandesRepository->findByReverse('Remboursé');
         $encoders = [new JsonEncoder()]; 
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
@@ -169,7 +169,7 @@ class AdminController extends AbstractController
      */
     public function getDemandesNonRemboursees(Request $request, DemandesRepository $demandesRepository){
         
-        $demandes = $demandesRepository->findBy(['statut' => 'Non remboursé']);
+        $demandes = $demandesRepository->findByReverse('Non remboursé');
         $encoders = [new JsonEncoder()]; 
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
@@ -187,7 +187,7 @@ class AdminController extends AbstractController
      */
     public function getDemandesAlerte(Request $request, DemandesRepository $demandesRepository){
         
-        $demandes = $demandesRepository->findBy(['statut' => 'Alerte prix']);
+        $demandes = $demandesRepository->findByReverse('Alerte prix');
         $encoders = [new JsonEncoder()]; 
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);

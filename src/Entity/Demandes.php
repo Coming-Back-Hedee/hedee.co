@@ -126,10 +126,16 @@ class Demandes
      */
     private $commentaires;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hidden;
+
 
     public function __construct()
     {
         $this->statut =  "En cours";
+        $this->hidden =  false;
         $this->cgu =  false;
         $this->alertesPrix = new ArrayCollection();
         //$this->setNumeroDossier();
@@ -380,6 +386,18 @@ class Demandes
     public function setCommentaires(?string $commentaires): self
     {
         $this->commentaires = $commentaires;
+
+        return $this;
+    }
+
+    public function getHidden(): ?bool
+    {
+        return $this->hidden;
+    }
+
+    public function setHidden(bool $hidden): self
+    {
+        $this->hidden = $hidden;
 
         return $this;
     }

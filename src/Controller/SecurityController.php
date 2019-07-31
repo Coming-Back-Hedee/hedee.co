@@ -58,40 +58,23 @@ class SecurityController extends AbstractController
     public function login2(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
                         UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
     {
-        
-            $post = $request->request;
-            $repo = $this->getDoctrine()->getRepository(Clients::class);
-            //$request->getSession()->set('em', $post);
-            $email =  $repo->findOneBy(['email' => $post->get('_username')]);
-            if($email != null){
-                $isAvailable = true;
+        $isAvailable = false;
+        $post = $request->request;
+        $repo = $this->getDoctrine()->getRepository(Clients::class);
+        $user =  $repo->findOneBy(['email' => $post->get('_username')]);
+        if($user != null){
+            if ($post->has('_password')){
+                $plainPassword = $post->get('_password');
+                if($passwordEncoder->isPasswordValid($user, $plainPassword)){
+                    $isAvailable = true;
+                }
             }
             else{
-                $isAvailable = false;
-            }
-              
+                $isAvailable = true;
+            } 
+        }           
         $data = $isAvailable;   
         return new JsonResponse($data);
     }
 
-        /**
-     * @Route("/connexion3", name="connexion3")
-     */
-    public function login3(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
-                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
-    {
-        
-        $post = $request->request;
-        $repo = $this->getDoctrine()->getRepository(Clients::class);
-        $user =  $repo->findOneBy(['email' => $post->get('_username')]);
-        $isAvailable = false;
-        if ($user != null){
-            $plainPassword = $post->get('_password');
-            if($passwordEncoder->isPasswordValid($user, $plainPassword)){
-                $isAvailable = true;
-            }
-        }       
-        $data = $isAvailable;   
-        return new JsonResponse($data);
-    }
 }

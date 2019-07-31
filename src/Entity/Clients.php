@@ -46,7 +46,7 @@ class Clients implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank()
-     * @Assert\Length(max=60)
+     * @Assert\Length(max=80)
      * @Assert\Email()
      */
     private $email;
@@ -102,8 +102,6 @@ class Clients implements UserInterface, \Serializable
     */
     private $token;
 
-
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Demandes", mappedBy="client", orphanRemoval=true)
      */
@@ -116,7 +114,7 @@ class Clients implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->isActive = true;
+        $this->isActive = false;
         $this->solde = 0;
         $this->nbParrainage = 0;
         $this->roles = ['ROLE_USER'];

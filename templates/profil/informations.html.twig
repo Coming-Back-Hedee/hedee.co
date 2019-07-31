@@ -22,7 +22,7 @@
                     <tbody id="mes-demandes">
                         <tr>
                             <td>Nom</td>
-                            <td>{{ user.prenom }} {{ user.nom }}</td>
+                            <td>{{ user.prenom ~ " " ~ user.nom }}</td>
                             <td>
                                 <span class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
                                 <div id="modif_p" class="modif">
@@ -32,7 +32,7 @@
                                         {{ form_label(form.nom) }}
                                         {{ form_widget(form.nom) }} <br>
                                         <button type="submit">Changer</button> 
-                                        <button>Annuler</button>
+                                        <button class="cancel">Annuler</button>
                                     {{ form_end(form, {'render_rest': false} ) }}
                                 </div>
                             </td>
@@ -67,8 +67,8 @@
                         </tr>
                         <tr>
                             <td>Compte complet</td>
-                            <td>Non</td>
-                            <td>Autoriser le mandat Sepa</td>
+                            <td>{{ (user.isActive) ? 'Oui' : 'Non' }}</td>
+                            <td>{% if user.isActive %} Mandat signé {% else %} <a href="#">Autoriser le mandat sépa</a> {% endif %}</td>
                         </tr>
 
                     </tbody>
@@ -79,8 +79,16 @@
 {% endblock %}
 {% block javascript %}
     <script>
+        var annulations = document.getElementsByClassName('cancel');
+        Array.from(annulations).forEach(function(annulation){
+            annulation.addEventListener('click', function(){
+                //$('#info_client').preventDefault()
+                
+            })
+        })
+    </script>
+    <script>
         var icons = document.getElementsByClassName('modif_link')
-        console.log(icons)
         Array.from(icons).forEach(function(icon){
             icon.addEventListener('mouseover', function(){
                 icon.firstElementChild.style.display = "inline-block"
