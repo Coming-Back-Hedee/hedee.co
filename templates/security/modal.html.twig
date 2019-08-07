@@ -26,11 +26,8 @@
             
             #}
 
-            {% if app.session.count > 5 %}
-                <input type="hidden" name="_target_path" value="/demande-remboursement" />
-            {% else %}
-                <input type="hidden" name="_target_path" value="/profil" />
-            {% endif %}
+            <input type="hidden" name="_target_path" value="/" />
+
             <button type="submit" >Se connecter</button>
         </form>
         <button onclick="hideAndDisplayI();" >Créer un compte</button>
@@ -54,11 +51,7 @@
                     {{ message }}
                 </div>
             {% endfor %}
-            {% if app.session.count > 5 %}
-                <input type="hidden" name="_target_path" value="/demande-remboursement" />
-            {% else %}
-                <input type="hidden" name="_target_path" value="/profil" />
-            {% endif %}
+            <input type="hidden" name="_target_path" value="/" />
         </form>
         <button onclick="hideAndDisplayC();" >Se connecter</button>
     </div>
@@ -86,10 +79,6 @@
             modal.style.display = "none";
         }
 
-        /*$("#inscription_plainPassword_second").on("change", function(){
-            if(this.val() != $("#inscription_plainPassword_first").val()){}
-            if($("#inscription_plainPassword_first").val() != ""){}
-        })*/
         var form2 = $("#connect"); 
         form2.validate({
             rules: {
@@ -124,9 +113,9 @@
                     "remote": jQuery.validator.format("mauvais mot de passe.")
                 }
             },
-            submitHandler: function(form){
+            /*submitHandler: function(form){
                 form2.submit();
-             }
+             }*/
         });
 
 
@@ -144,6 +133,8 @@
                             url: "/inscription2", 
                             method: "POST",
                             dataType: "json",
+                            data: { "_username": function(){ return $('#inscription_email').val()},
+                        }, 
                         },
                 },
                 "inscription[plainPassword][first]":{

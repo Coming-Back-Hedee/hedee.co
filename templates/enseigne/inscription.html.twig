@@ -1,0 +1,60 @@
+<div id="connexion">
+        <div class="email">
+                    {{ form_label(form1.client.email) }}
+                    <br>
+                    {{ form_errors(form1.client.email) }}
+                    {{ form_widget(form1.client.email, {'id': 'email'}) }} 
+        </div>
+                                                
+        <div class="pswd1">
+                    {{ form_label(form1.client.plainPassword.first) }}
+                    <br>
+                    {{ form_errors(form1.client.plainPassword.first) }}
+                    {{ form_widget(form1.client.plainPassword.first, {'id': 'password1'}) }} 
+        </div>
+        <div id="inscription" class="pswd2">
+                    {{ form_label(form1.client.plainPassword.second) }}
+                    <br>
+                    {{ form_errors(form1.client.plainPassword.second) }}
+                    {{ form_widget(form1.client.plainPassword.second, {'id': 'password2'}) }} 
+        </div>      
+            
+        <input type="button" onclick="hideI();" value="Je possède déjà un compte">
+    </div>
+
+    <script>       
+        function hideI(){
+            radiobtn = document.getElementById("membre");
+            radiobtn.checked = true;
+            changeM();
+        }  
+            var form = $("#form-enseigne");  
+            console.log(form)    
+            form.validate({
+                rules: {
+                    "demandes[client][email]":{
+                        "required": true,
+                        "email": true,
+                        "remote": {
+                            url: "/inscription2", 
+                            method: "POST",
+                            data: {
+                                '_username' : function(){ return $('#email').val()}
+                                },
+                            dataType: "json",
+                        },
+                    },
+                    "demandes[client][plainPassword][second]":{
+                        "required": true,
+                        "equalTo": "#demandes_plainPassword_first"
+                    },
+                },
+                messages: {
+                    "demandes[client][email]":{
+                        remote: jQuery.validator.format("{0} est déjà utilisée.")
+                    },
+                    "demandes[client][plainPassword][second]":{
+                        "equalTo": "Les mots de passes ne sont pas identiques."
+                    }
+                }
+            })

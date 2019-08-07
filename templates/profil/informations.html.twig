@@ -9,14 +9,7 @@
 {% block main %}
     <main>
         <div class="container">
-            <div class="menu_profil">
-                <ul>
-                    <li> <a href="{{ path('profil') }}">Mes demandes</a> </li>
-                    <li> <a href="{{ path('remboursement') }}" >Mes remboursements</a> </li>
-                    <li> <a href="{{ path('parrainage') }}" >Mes parrainages</a> </li>
-                    <li> <a href="{{ path('info_client') }}" class="active">Mes informations</a> </li>
-                </ul>
-            </div> <!-- fin class="menu" -->
+            {% include 'profil/index.html.twig' %}
             <div>
                 <table class="table" border="1">
                     <tbody id="mes-demandes">
@@ -25,7 +18,7 @@
                             <td>{{ user.prenom ~ " " ~ user.nom }}</td>
                             <td>
                                 <span class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
-                                <div id="modif_p" class="modif">
+                                <div id="modif_p_id" class="modif">
                                     {{ form_start(form) }}
                                         {{ form_label(form.prenom) }}
                                         {{ form_widget(form.prenom) }} <br>
@@ -44,11 +37,28 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td>Date de naissance</td>
+                            <td>{{ user.dateNaissance }}</td>
+                            <td>
+                                <span class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
+                                <div id="modif_birth" class="modif">
+                                    {{ form_start(form) }}
+                                        {{ form_label(form.dateNaissance) }}
+                                        {{ form_widget(form.dateNaissance.day) }} 
+                                        {{ form_widget(form.dateNaissance.month) }}
+                                        {{ form_widget(form.dateNaissance.year) }}<br>
+                                        <button type="submit">Changer</button> 
+                                        <button>Annuler</button>
+                                    {{ form_end(form, {'render_rest': false} ) }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Numéro de téléphone </td>
                             <td>{{ user.numeroTelephone }}</td>
                             <td>
                                 <span class="modif_link"><i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
-                                <div id="modif_p" class="modif">
+                                <div id="modif_p_tel" class="modif">
                                     {{ form_start(form) }}
                                         {{ form_label(form.numeroTelephone) }}
                                         {{ form_widget(form.numeroTelephone) }} <br>
@@ -82,8 +92,7 @@
         var annulations = document.getElementsByClassName('cancel');
         Array.from(annulations).forEach(function(annulation){
             annulation.addEventListener('click', function(){
-                //$('#info_client').preventDefault()
-                
+                //$('#info_client').preventDefault()               
             })
         })
     </script>

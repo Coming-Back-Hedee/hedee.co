@@ -7,14 +7,7 @@
     <div class="container">
         <h1>Tous vos reboursements sont enregistrés ici{{ user.prenom }}</h1>
         
-		<div class="menu_profil">
-			<ul>
-				<li> <a href="{{ path('profil') }}">Mes demandes</a> </li>
-				<li> <a href="{{ path('remboursement') }}" >Mes remboursements</a> </li>
-                <li> <a href="{{ path('parrainage') }}" class="active">Mes parrainages</a> </li>
-				<li> <a href="{{ path('info_client') }}">Mes informations</a> </li>
-			</ul>
-		</div> <!-- fin class="menu" -->
+		{% include 'profil/index.html.twig' %}
 		<p>Nombre de parrainage {{ user.nbParrainage }}</p>
 
 		<p>Chaque parrainage vous fait gagner 5€</p>

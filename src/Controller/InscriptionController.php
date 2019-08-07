@@ -2,15 +2,19 @@
 namespace App\Controller;
  
 use App\Form\InscriptionType;
-use App\Security\FormLoginAuthenticator;
+use App\Form\DemandesInternetType;
 
 use App\Entity\Clients;
+use App\Entity\Demandes;
 use App\Services\Mailer;
+use App\Security\FormLoginAuthenticator;
 
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -100,21 +104,58 @@ class InscriptionController extends AbstractController
     /**
      * @Route("/inscription2", name="inscription2")
      */
-    public function inscription2(Request $request, Mailer $mailer, GuardAuthenticatorHandler $guardHandler, 
-                            FormLoginAuthenticator $authenticator, UserPasswordEncoderInterface $passwordEncoder)
+    public function inscription2(Request $request, RouterInterface $router)
     {
-        $post = $request->request;
-        $repo = $this->getDoctrine()->getRepository(Clients::class);
+        if($request->isXmlHttpRequest()){
+            $repo = $this->getDoctrine()->getRepository(Clients::class);
+            $post = $request->request;
 
-        $email =  $repo->findOneBy(['email' => $post->get('inscription')['email']]);
-        if($email == null){
-            $isAvailable = true;
+            $email =  $repo->findOneBy(['email' => $post->get('_username')]);
+            if($email == null){
+                $isAvailable = true;
+            }
+            else{
+                $isAvailable = false;
+            }
+            
+            $data = $isAvailable;   
+            return new JsonResponse($data);
         }
         else{
-            $isAvailable = false;
+            $url = $router->generate('accueil');
+
+            return new RedirectResponse($url);
         }
-          
-    $data = $isAvailable;   
-    return new JsonResponse($data);
+
+    }
+
+    /**
+     * @Route("/inscription3", name="inscription3")
+     */
+    public function inscription3(Request $request, Mailer $mailer,
+                     UserPasswordEncoderInterface $passwordEncoder, RouterInterface $router)
+    {
+        if($request->isXmlHttpRequest()){
+            $user = new Clients();        
+            $post = $request->request;
+            $user->setEmail($post->get('_username'));
+            $password = $passwordEncoder->encodePassword($user, $post->get('_password'));
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $bodyMail = $mailer->createBodyMail('inscription/mail2.html.twig', [
+                'user' => $user
+            ]);
+            $mailer->sendMessage('from@email.com', $user->getEmail(), 'Confirmation de la création de votre compte Rembourseo', $bodyMail);
+            return new JsonResponse(true);
+        } 
+        else{
+            $url = $router->generate('accueil');
+
+            return new RedirectResponse($url);
+        }       
     }
 }

@@ -22,29 +22,27 @@ class PdfController extends AbstractController
      */
     public function index(Request $request)
     {
-
+        $post = $request->request->get('demandes');
         $session = $request->getSession();
-        //$token = $session->get('token');
-        $nom_enseigne = $session->get('enseigne');
+        $token = $session->get('_csrf/demandes');
+        //$session->set('path', $post['_token']);
+        $session->set('date_achat',  \DateTime::createFromFormat('d-m-Y', $post['dateAchat']));
+        
+        $array_cat = array('Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
+            'Santé et beauté', 'Auto et moto', 'Sports et mode');
+            //var_dump($array_cat[$session->get('categorie')]);
+        $session->set('categorie', $array_cat[$post['categorieProduit']]);
 
-        if($request->request->has('demandes_internet')){
-            $post = $request->request->get('demandes_internet');
-            $session->set('choix', 'internet');
-        }
-        else{
-            $post = $request->request->get('demandes_magasin');
-            $session->set('choix', 'magasin');
-        }
-      
+        $nom_enseigne = $post['enseigne'];
+                 
+        $session->set('choix', $request->request->get('choix'));
+        
 
         $nom_bdd = ucfirst($nom_enseigne);
         $repo = $this->getDoctrine()->getRepository(Enseignes::class);
         $enseigne =  $repo->findOneBy(['nomEnseigne' => $nom_enseigne]);
         $nom = $enseigne->getNomEnseigne();
 
-        //if($enseigne == null){
-        //    return $this->render('utile/404_enseigne.html.twig');
-        //}
 
         //$pdf = new \FPDF();
         $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -83,13 +81,12 @@ class PdfController extends AbstractController
         $this->rectangle_w_title($pdf, 150,210,45,30,'DF', 152, 181, utf8_decode("Prix le moins cher"));
         $this->rectangle_w_title($pdf, 35,260,140,30,'DF', 40, 70, utf8_decode("Différence de prix"));*/
         $this->details_table(115, $pdf, $post, $session);
-        $this->footer($pdf, "En cours de recherche...");
+        //$this->footer($pdf, "En cours de recherche...");
         $dir = getcwd();
-        $path_pdf = $dir . "\\factures\\" . $session->get('path') . ".pdf";
+        $path_pdf = $dir . "\\factures\\" . $token . ".pdf";
         $test1 = $pdf->Output($path_pdf, 'F');
                 
-        //$pdf_path = $dir . "/public/facture" . $session->get('numeroDossier') ."pdf";
-        $jpeg = $dir . "/factures/" . $session->get('path') .".png";
+        $jpeg = $dir . "/factures/" . $token .".png";
         exec("magick convert $path_pdf -colorspace RGB -resize 800 $jpeg");
 
         $data = ['path' => $jpeg];
@@ -118,7 +115,7 @@ class PdfController extends AbstractController
     public function entete_facture($enseigne, $pdf, $post, $session){
         $image = "../public/img/logo/" . $enseigne->getLogoEnseigne();
         $numCommande = $post['numeroCommande'];
-        $dateAchat = $session->get('date_achat');
+        $dateAchat = $post['dateAchat'];
         $pdf->SetFont('dejavusans', '', 24);
         $pdf->text(10, 10, $enseigne->getNomEnseigne());
         $pdf->SetFont('dejavusans', '', 10);
@@ -135,13 +132,9 @@ class PdfController extends AbstractController
         $prenom = ucfirst($post['client']['prenom']);
         $telephone = $post['client']['numeroTelephone'];
         $nom_rue = $post['client']['adresse']['nom_rue'];
-        $complements = $post['client']['adresse']['complements'];
         $ville = ucfirst($post['client']['adresse']['ville']);
         $code_postal = $post['client']['adresse']['code_postal'];
-        if($complements == "")
-            $adresse = "$prenom $nom\n$nom_rue\n$ville $code_postal";
-        else
-            $adresse = "$prenom $nom\n$nom_rue\n$complements\n$ville $code_postal";
+        $adresse = "$prenom $nom\n$nom_rue\n$ville $code_postal";
         $pdf->SetXY(140,35);
         $pdf->SetLeftMargin(143);
         $pdf->Write(5, $adresse);
@@ -149,7 +142,7 @@ class PdfController extends AbstractController
 
     public function details_table($position, $pdf, $post, $session){
         $categorie = $session->get('categorie');
-        $prix = $session->get('prix');
+        $prix = $post['prixAchat'];
         $pdf->SetDrawColor(183); // Couleur des filets
         $pdf->SetFillColor(255); // Couleur du fond
         $pdf->SetTextColor(198, 7, 1); // Couleur du texte

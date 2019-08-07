@@ -4,22 +4,13 @@
     <link rel="stylesheet" href="{{asset('style.css')}}">
 {% endblock %}
 
-{% block title %}{{enseigne.nomEnseigne}}{% endblock %}
+{% block title %}{% endblock %}
 
 {% block main %}
 <main>
-    <div class="container">
-        <div class="row" >
-        
+    <div class="container">  
             <h1>Formulaire</h1>
-            <div id="mole" class="magasin_ou_internet"><label for="choix"> Avez-vous acheté en magasin ou en ligne ?</label>
-                        <input type="radio" name="choix" value="magasin" id="magasin"/> <label for="magasin">Magasin</label></input>
-                        <input type="radio" name="choix" value="internet" id="internet" /> <label for="internet">En ligne</label></input>
-            </div>
-            <div id="test">
-
-            </div>
-        </div>
+            {% include 'enseigne/formulaire.html.twig' %}
         <div id="dialog-message" title="Formulaire complet" style="display: none;">
             <p>
                 <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
@@ -38,7 +29,7 @@
 <script>
     function verifierCaracteres(event) {	 		
                         
-        var caracteres = [48, 49, 50, 51, 52 ,53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105]
+        var caracteres = [48, 49, 50, 51, 52 ,53, 54, 55, 56, 57]
         if(caracteres.indexOf(event.keyCode) < 0){
             event.preventDefault;
             return false;
@@ -48,133 +39,402 @@
         }	
     }
 
-var form = document.getElementById("test").innerHTML;
-$(document).ready(function() {
-
-    $('body').on('change', 'input[name=choix]', function() {
-        
+    function verifierCaracteres1(event) {
+        //console.log(event.keyCode);
+        var caracteres = [44, 46, 48, 49, 50, 51, 52 ,53, 54, 55, 56, 57]
+        if(caracteres.indexOf(event.keyCode) < 0){
+            event.preventDefault;
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    var form = document.getElementById("test").innerHTML;
+</script>
+<script>
+    $(document).ready(function() {
+        var form = $("#form-enseigne");
+        step(form)
+        attachDatepicker($( "#datepicker" ))
+        $('body').on('change', 'input[name=choix]', function() {
+            
+            /*form.validate({
+                errorPlacement: function errorPlacement(error, element) { element.before(error); },
+            });*/
+            if($("[name='choix']:checked").val() == "internet"){
+                var url = "{{ path('internet') }}";
+                $.ajax({
+                    type: 'get',
+                    url: url,
+                    success: function (data) {
+                        $('#test').html(data);
+                        var form = $("#form-enseigne");
+                        //step(form)
+                        attachDatepicker($( "#datepicker" ))                  
+                    }
+                });
+            }
+            if($("[name='choix']:checked").val() == "magasin"){
+                var url = "{{ path('mag') }}";
+                
+                $.ajax({
+                    type: 'get',
+                    url: url,
+                    success: function (data) {
+                        $('#test').html(data);
+                        var form = $("#form-enseigne");
+                        //step(form)
+                        attachDatepicker($( "#datepicker" ))
+                    }
+                });
+            }               
+        });
+       
+        var form = $("#form-enseigne");    
         form.validate({
             errorPlacement: function errorPlacement(error, element) { element.before(error); },
         });
-        if($("[name='choix']:checked").val() == "internet"){
-		    var url = "{{ path('internet') }}";
-            $.ajax({
-                type: 'get',
-                url: url,
-                success: function (data) {
-                    $('#test').html(data);
-                    var form = $("#form-enseigne");
-                    step(form)
+
+        function step(form){
+            form.children("div").steps({
+                headerTag: "h3",
+                bodyTag: "section",
+                transitionEffect: "slideLeft",
+                onStepChanging: function (event, currentIndex, newIndex)
+                {
+                if(currentIndex > newIndex){
+                    //form.valid()
+                    return true;
                     
+                }
+                else{
+                    if(currentIndex == 1){
+                        if($('[name=choix]:checked').length != 1)
+                            return false; 
+                        return form.valid();
+                    }
+                    
+                    if(currentIndex == 2){
+                        
+                        if($('[name=connect]:checked').length != 1 && {{app.user|json_encode|raw}} == null)
+                            return false;
+
+                        if($("[name='connect']:checked").val() == "membre"){
+
+                            $.ajax({
+                                type: 'post',
+                                url: '/connexion3',
+                                data: { "_username": $('#email').val() },
+                                datatype: "json",
+                                success: function (data){
+                                    $('#nom').val(data.nom);
+                                    $('#prenom').val(data.prenom);
+                                    $('#num').val(data.numeroTelephone);
+                                    $('#demandes_client_adresse_nom_rue').val(data.adresse.nomRue);
+                                    $('#demandes_client_adresse_ville').val(data.adresse.ville);
+                                    $('#cp_perso').val(data.adresse.codePostal);
+                                }
+                            });
+                            
+                        }
+
+                        if($("[name='connect']:checked").val() == "pmembre"){
+                            if(form.valid()){
+                                $.ajax({
+                                    type: 'post',
+                                    url: "{{ path('birth') }}",
+                                    async: false,
+                                    success: function (data, status){
+                                        if (document.getElementById("birth") == undefined)
+                                            $('.nom').after(data); 
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    if(currentIndex == 3){
+                        if(form.valid()){
+                            var url = "{{ path('facture') }}";
+                            var donnees = form.serialize();
+                            array_cat = ['Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
+                                'Santé et beauté', 'Auto et moto', 'Sports et mode'];
+                            $('#recap_ens').val($('#select_enseigne').val());
+                            $('#recap_cat').val(array_cat[$('#cat_produit').val()]);
+                            $('#recap_prix').val($('#form_prix').val());
+                            if($("[name='choix']:checked").val() == "magasin"){
+                                $('#recap_marque').val($('#mar').val());
+                                $('#recap_ref').val($('#ref').val());
+
+                            }
+                            if($("[name='choix']:checked").val() == "internet"){
+                                $('#recap_url').val($('#url').val());
+                            }
+                            $.post(url, donnees, function(data,status){                         
+                            });
+                        }
+                        return form.valid();
+                    }
+                    form.validate().settings.ignore = ":disabled,:hidden";
+                    return form.valid();
+                }
+
+                },
+                onStepChanged: function (event, currentIndex, priorIndex)
+                {   
+                    //passe directement à l'étape 4 si l'utilisateur est connecté
+                    if (currentIndex === 2 &&  priorIndex == 1 && $("[name='connect']:checked").val() != "pmembre" && 
+                        ({{app.user|json_encode|raw}} != null) || $('#steps-uid-0-t-4').parent().attr('aria-disabled') == false )
+                    {
+                        form.children("div").steps("next");
+                    }
+
+                    if (currentIndex === 2 &&  priorIndex == 3 && $("[name='connect']:checked").val() == "membre")
+                    {
+                        form.children("div").steps("previous");
+                    }
+                },
+                onFinishing: function (event, currentIndex)
+                {            
+                    form.validate().settings.ignore = ":disabled";
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex)
+                {   
+                    $.ajax({
+                        type: 'post',
+                        url: '/inscription3',
+                        data: { "_username": $('#email').val(), "_password": $('#password1').val() }
+                    });
+
+                    var url = "/demande-remboursement/";
+                    var form2 = document.getElementById("form-enseigne");
+                    var donnees = new FormData(form2)             
+
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: donnees,
+                        processData: false,  // indique à jQuery de ne pas traiter les données
+                        contentType: false ,  // indique à jQuery de ne pas configurer le contentType
+                    //$.post(url, donnees, function(data,status){
+                        /*success:function(data){
+                            form.preventDefault(); 
+                        } */            
+                    });
+                    $( "#dialog-message" ).dialog({
+                        closeOnEscape: false,
+                        open: function(event, ui) {
+                            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                        },
+                        modal: true, draggable: false,
+                        buttons: {
+                            Ok: function() {
+                                if({{app.user|json_encode|raw}} == null){
+                                    $.ajax({
+                                        url: '/connexion4',
+                                        type: "POST",
+                                        data: { "_username": $('#email').val() },
+                                        //processData: false,  // indique à jQuery de ne pas traiter les données
+                                        //contentType: false ,  // indique à jQuery de ne pas configurer le contentType           
+                                    });
+                                }
+                                document.location.href="{{ path('profil') }}";
+                            }
+                        }
+                    });             
                 }
             });
         }
-        if($("[name='choix']:checked").val() == "magasin"){
-		    var url = "{{ path('mag') }}";
-            
-            $.ajax({
-                type: 'get',
-                url: url,
-                success: function (data) {
-                    $('#test').html(data);
-                    var form = $("#form-enseigne");
-                    step(form)
-                }
-            });
-        }           
+        
     });
-       
-
-    
-    var form = $("#form-enseigne");    
-    form.validate({
-        errorPlacement: function errorPlacement(error, element) { element.before(error); },
-    });
-
-    var form = $("#form-enseigne");
-    function step(form){
-        form.children("div").steps({
-            headerTag: "h3",
-            bodyTag: "section",
-            transitionEffect: "slideLeft",
-            onStepChanging: function (event, currentIndex, newIndex)
-            {
-            
-            if(currentIndex == 1){
-                if(currentIndex < newIndex)
-                    if(form.valid()){
-                        document.getElementById("facture_jpg").src = "";
-                        var url = "{{ path('facture') }}";
-                        var donnees = form.serialize();
-                        $.post(url, donnees, function(data,status){
-                                var path = data.path.split('/')
-                                path = "/factures/" +  path[path.length -1]
-                                //console.log(path)
-                                document.getElementById("facture_jpg").src = path;
-                        
-                        });
-                    }
-                }
-            if(currentIndex > newIndex){
-                if(newIndex == 0)
-                    $("#mole").show();
-                return true;
-            }
-            else{
-                form.validate().settings.ignore = ":disabled,:hidden";
-                if (form.valid()){
-                    $("#mole").hide();
-                    return true
-                }
-                return form.valid();
-            }
-
-            },
-            onFinishing: function (event, currentIndex)
-            {            
-                form.validate().settings.ignore = ":disabled";
-                return form.valid();
-            },
-            onFinished: function (event, currentIndex)
-            {   
-                var url = "/demande-remboursement/";
-                var form2 = document.getElementById("form-enseigne");
-                var donnees = new FormData(form2)               
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: donnees,
-                    processData: false,  // indique à jQuery de ne pas traiter les données
-                    contentType: false ,  // indique à jQuery de ne pas configurer le contentType
-                //$.post(url, donnees, function(data,status){
-                    success:function(data){
-                        form.preventDefault(); 
-                    }             
-                });
-                $( "#dialog-message" ).dialog({
-                    closeOnEscape: false,
-                    open: function(event, ui) {
-                        $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                    },
-                    modal: true, draggable: false,
-                    buttons: {
-                        Ok: function() {
-                            document.location.href="{{ path('profil') }}";
-                        }
-                    }
-                });             
-            }
-        });
-    }
-    
-});
-
+        function attachDatepicker(val){    
+                val.datepicker({ 
+                            minDate: -30, maxDate: 0, 
+                            altField: "#datepicker",
+                            closeText: 'Fermer',
+                            prevText: 'Précédent',
+                            nextText: 'Suivant',
+                            currentText: 'Aujourd\'hui',
+                            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                            weekHeader: 'Sem.',
+                            dateFormat: 'dd-mm-yy' 
+            }); 
+        }
 </script>
+
+
 <script>
   $( function() {
     $( document ).tooltip();
   });
 </script>
+<script>
+        var changeM = function() {
+            if($("[name='connect']:checked").val() == "membre"){
+                var url = "{{ path('membre') }}";
+                $.ajax({
+                    type: 'get',
+                    url: url,
+                    success: function (data) {
+                        $('#auth').html(data);               
+                    }
+                });
+            }
+            
+            if($("[name='connect']:checked").val() == "pmembre"){
+                var url = "{{ path('pmembre') }}";
+                $.ajax({
+                    type: 'get',
+                    url: url,
+                    success: function (data) {
+                        $('#auth').html(data);               
+                    }
+                });
+            }               
+        }
+        $('body').on('change', 'input[name=connect]', changeM);
+        </script>
+
+        <script>            
+            var form = $("#form-enseigne");    
+            form.validate({
+                rules: {
+                    "demandes[categorieProduit]":{
+                        "required": true,
+                        "categorie": true,
+                    },
+                    "demandes[enseigne]":{
+                        "required": true,
+                    },
+                    "demandes[dateAchat]":{
+                        "required": true,
+                    },
+                    "demandes[prixAchat]":{
+                        "required": true,
+                        "number": true,
+                        "min": 20,
+                        "regex_prix": /^[0-9]+(\.[0-9]{1,2})?$/
+                    },
+                    "demandes[urlProduit]":{
+                        "required": true,
+                        "url": true,
+                    },
+                    "demandes[client][email]":{
+                        "required": true,
+                        "email": true,
+                        "remote": {
+                            param: {
+                                url: "/inscription2", 
+                                method: "POST",
+                                data: {
+                                    '_username' : function(){ return $('#email').val()}
+                                    },
+                                dataType: "json",
+                            },
+                            depends: function(element) {
+                                return $("#pmembre").is(":checked");
+                            }                             
+                        },
+                    },
+                    "demandes[client][plainPassword][first]":{
+                        "required": true,
+                        "remote": {
+                            param: {
+                                url: "/connexion2", 
+                                method: "POST",
+                                data: {                                
+                                    "_password": function(){ return $('#password1').val()},
+                                    "_username": function(){ return $('#email').val()},
+                                    }, 
+                                dataType: "json",
+                                async: false,
+                            },
+                            depends: function(element) {
+                                return $("#membre").is(":checked");
+                            }            
+                        },
+                    },
+                    "demandes[client][plainPassword][second]":{
+                        "required": true,
+                        "equalTo": {
+                            param :"#password1",
+                            depends: function(element) {
+                                return $("#pmembre").is(":checked");
+                            }
+                        }
+                    },
+                    "demandes[client][numeroTelephone]":{
+                        "required": true,
+                        "regex_tel": /^[1-9][0-9]{8}$/
+                    },
+                    "demandes[client][adresse][code_postal]":{
+                        "minlength": 5,
+                        "maxlength": 5,
+                    }
+                },
+                messages: {
+                    "demandes[cgu]": {
+                        required: "Vous devez accepter les conditions pour poursuivre le demande",                   
+                    },
+                    "demandes[client][email]":{
+                        remote: jQuery.validator.format("{0} est déjà utilisée.")
+                    },
+                    "demandes[client][plainPassword][first]":{
+                        "remote" : "mauvaise combinaison adresse email et mot de passe"
+                    },
+                    "demandes[client][plainPassword][second]":{
+                        "equalTo": "Les mots de passes ne sont pas identiques."
+                    },                   
+                }
+            });
+        </script>
+
+        <script>
+
+	var url_enseigne = "{{ path('admin_utility_enseigne') }}";   
+    $.ajax({
+        dataType: "json",
+        url: url_enseigne,
+        success: function (data, status){
+            var array = []
+            data.enseignes.forEach(function(element){
+                array.push(element.nomEnseigne)
+            })
+            $('#select_enseigne').autocomplete({
+                source: function( request, response ) {
+                            var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                            response( $.grep( array, function( item ){
+                                return matcher.test( item );
+                            }) );
+                        },
+                minLength: 1,
+                delay: 100,
+            })
+
+            $('#select_enseigne').on('change', function(){               
+                this.value = $.ucfirst(this.value)
+                $.validator.addMethod(
+                    "validation_enseigne",
+                    function(value, element, array) {
+                    if(array.indexOf(value) < 0)
+                        return this.optional(element)
+                    else
+                        return true
+                    },"Nous ne prenons pas encore les demandes pour cette enseigne"
+                );
+                $('#select_enseigne').rules( "add", {
+                    "validation_enseigne": array
+                });
+            });
+        }
+    });
+ 
+</script>
+   
 {% endblock %}
 

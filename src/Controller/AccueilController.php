@@ -28,27 +28,8 @@ class AccueilController extends AbstractController
     {
         $session = $request->getSession();
         $session->clear();
-        $user = $this->getUser();
-        $test = new EligibiliteTest();
 
-        $form= $this->createForm(EligibiliteType::class, $test);
-
-        /*$form->handleRequest($request); 
-            if ($form->isSubmitted()){
-                if($form->isValid()){
-                    var_dump("ok");
-                }
-                else{
-                    var_dump("oui");
-                    
-                }
-        }*/
-
-
-        return $this->render('accueil/index.html.twig', [
-            'form' => $form->CreateView(),
-            'user' => $user,           
-        ]);
+        return $this->render('accueil/index.html.twig');
     }
 
 }

@@ -1471,7 +1471,8 @@ $.fn.steps.setStep = function (index, step)
  **/
 $.fn.steps.skip = function (count)
 {
-    throw new Error("Not yet implemented!");
+    //throw new Error("Not yet implemented!");
+    return getStep(this, getCurrentIndex() + count);
 };
 
 /**

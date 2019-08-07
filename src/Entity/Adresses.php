@@ -38,6 +38,13 @@ class Adresses
      */
     private $code_postal;
 
+    public function bis_construct($form)
+    {
+        
+        $this->nom_rue = $form['nom_rue'];
+        $this->ville = $form['ville'];
+        $this->code_postal = $form['code_postal'];
+    }
 
     public function getId(): ?int
     {

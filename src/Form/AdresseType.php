@@ -17,7 +17,7 @@ class AdresseType extends AbstractType
     {
         $builder
             ->add('nom_rue', TextType::class, ['label' => 'Adresse'])
-            ->add('complements', TextType::class, ['label' => 'Compléments', 'required' => false])
+            //->add('complements', TextType::class, ['label' => 'Compléments', 'required' => false])
             ->add('ville', TextType::class, ['label' => 'Ville'])
             ->add('code_postal', NumberType::class,   ['label' => 'Code postal'])            
         ;

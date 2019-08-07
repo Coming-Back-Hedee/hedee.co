@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use App\Entity\Adresses;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientsRepository")
  * @UniqueEntity(fields="email", message="Cet email est déjà enregistré en base.")
@@ -39,7 +41,7 @@ class Clients implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
-     * @ORM\Column(type="string", length=128)
+     * @ORM\Column(type="string", length=128, nullable=true)
      */
     private $password;
  
@@ -112,6 +114,21 @@ class Clients implements UserInterface, \Serializable
      */
     private $adresse;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateNaissance;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $swiftBic;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $iban;
+
     public function __construct()
     {
         $this->isActive = false;
@@ -120,6 +137,18 @@ class Clients implements UserInterface, \Serializable
         $this->roles = ['ROLE_USER'];
     
         $this->demandes = new ArrayCollection();
+        
+    }
+
+    public function bis_construct($form)
+    {
+        $this->prenom = $form['prenom'];
+        $this->nom = $form['nom'];
+        //$this->email = $form['email'];
+        $this->numeroTelephone = $form['numeroTelephone'];
+
+        $this->adresse = new Adresses();
+        $this->adresse->bis_construct($form['adresse']);
         
     }
      
@@ -383,6 +412,42 @@ class Clients implements UserInterface, \Serializable
     public function setAdresse(?Adresses $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getDateNaissance(): ?\DateTimeInterface
+    {
+        return $this->dateNaissance;
+    }
+
+    public function setDateNaissance(?\DateTimeInterface $dateNaissance): self
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    public function getSwiftBic(): ?string
+    {
+        return $this->swiftBic;
+    }
+
+    public function setSwiftBic(?string $swiftBic): self
+    {
+        $this->swiftBic = $swiftBic;
+
+        return $this;
+    }
+
+    public function getIban(): ?string
+    {
+        return $this->iban;
+    }
+
+    public function setIban(?string $iban): self
+    {
+        $this->iban = $iban;
 
         return $this;
     }

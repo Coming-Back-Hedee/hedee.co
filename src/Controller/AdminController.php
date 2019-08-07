@@ -54,6 +54,7 @@ class AdminController extends AbstractController
         $form1->handleRequest($request);
         $form2->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
         if ($request->isMethod('POST')) {
             $pdf = new FPDI();
             $path_pdf = getcwd() . $dossier->getFacture();
@@ -68,6 +69,7 @@ class AdminController extends AbstractController
                     $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => 'Non remboursé']);
                     
                     $dossier->setStatut('Non remboursé');
+                    $em->flush();
                     $bodyMail = $mailer->createBodyMail('admin/mail_nremboursement.html.twig', ['dossier' => $dossier]);
                 }
 
@@ -81,19 +83,24 @@ class AdminController extends AbstractController
                         'session' => $request->getSession(),
                         ]);
                     $dossier->setStatut('Remboursé');
+                    $em->flush();
                     $bodyMail = $mailer->createBodyMail('admin/mail_remboursement.html.twig', ['dossier' => $dossier]);
                 }
             }
             
             if ($form1->isSubmitted() && $form1->isValid()) {
-                $statut = "Alerte de prix";
+                $statut = "Baisse de prix";
                 $mail_objet = "Alerte baisse de prix";             
 
                 //On modifie le récapitulatif
                 $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => $statut]);
-                
+                $this->forward('App\Controller\PdfController::details_footer', [
+                    'pdf'  => $pdf,
+                    'alerte' => $alerte, 
+                    'session' => $request->getSession(),
+                    ]);
                 $dossier->setStatut('Alerte prix');
-                $em = $this->getDoctrine()->getManager();
+                
                 $em->persist($alerte);
                 $em->flush();
                 $bodyMail = $mailer->createBodyMail('admin/mail_alerte.html.twig', ['dossier' => $dossier]);

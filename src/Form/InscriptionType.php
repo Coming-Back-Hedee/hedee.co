@@ -22,7 +22,7 @@ class InscriptionType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Adresse email'
             ])
-            ->add('codeParrainage', TextType::class, ['data_class' => null, 'mapped' => false, 'label' => 'Code parrainage', 'required' => false]) 
+            //->add('codeParrainage', TextType::class, ['data_class' => null, 'mapped' => false, 'label' => 'Code parrainage', 'required' => false]) 
             ->add('submit', SubmitType::class, ['label' => 'Valider']) 
             ;        
             if (in_array('registration', $options['validation_groups'])) {

@@ -1,0 +1,200 @@
+        {% form_theme form1 'bootstrap_4_layout.html.twig' %}
+        {{form_start(form1, {'attr': {'id': 'form-enseigne'} }) }}
+            <div class="les_infos">
+                <h3 style="display: none;">Eligibité</h3>
+                <section>
+                    <div class="categorie">                     
+                    <div class="categorie_2">
+                        <div class="label_2">
+                            {{form_label(form1.categorieProduit)}}
+                        </div>
+
+                        <div class="question_2">
+                            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                                            i
+                            </button>
+                        </div>
+                    </div> <!-- fin class="categorie_2" -->
+                                
+                                
+                    {{form_widget(form1.categorieProduit, {'attr': {'placeholder' : 'Sélectionner votre catégorie'}, 'id' : 'cat_produit'}) }}
+                    {{form_help(form1.categorieProduit)}}                     
+                </div> <!-- fin class="categorie" -->
+                <div id="paragraph_id1">Champs requis</div>
+
+                <div class="choisir_enseigne">
+                    {{form_errors(form1.enseigne)}}<br>
+                    <div class="choisir_enseigne_2">
+                        <div class="label_2">
+                            {{form_label(form1.enseigne)}}
+                        </div>
+
+                        <div class="question_2">
+                            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="si votre enseigne n'y figure pas, vous n'êtes pas éligible">
+                                            i
+                            </button>
+                        </div>
+                    </div> <!-- fin class="choisi_enseigne_2" -->
+                                
+                    {{form_widget(form1.enseigne, {'attr':{'placeholder' : 'Ex: Darty'}, 'id': 'select_enseigne' }) }}
+                    {{form_help(form1.enseigne)}}
+                </div> <!-- fin class="choisir_enseigne" -->
+                <div id="paragraph_id2">Champs requis</div>
+
+                <div class="prix_article">
+                    {{form_errors(form1.prixAchat)}}<br>
+                    <div class="prix_article_2">
+                        <div class="label_2">
+                            {{form_label(form1.prixAchat)}}
+                        </div>
+
+                        <div class="question_2">
+                            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Indiquer le prix sans les options">
+                                            i
+                            </button>
+                        </div>
+                    </div> <!-- fin class="prix_article_2" -->
+                    {{form_widget(form1.prixAchat, {'attr': {'placeholder' : 'en euros',
+                            'onkeypress': "return verifierCaracteres1(event);"}, 'id' : 'form_prix'}) }}
+                    {{form_help(form1.prixAchat)}} 
+                            <!-- <label for="prix">Prix de votre article :</label>
+                            <input type="text" placeholder="en euros"> -->
+                </div> <!-- fin class="prix_article" -->
+                <div id="paragraph_id4">Champs requis</div>
+                            
+                <div class="date_achat">
+                    {{form_errors(form1.dateAchat)}}<br>
+                    <div class="date_achat_2">
+                        <div class="label_2">
+                            {{form_label(form1.dateAchat)}}
+                        </div>
+
+                        <div class="question_2">
+                            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" 
+                                        title="le délai est de 30 jours à partir de la date d'achat">
+                                            i
+                            </button>
+                        </div>
+                    </div><!-- fin class="date_achat_2" -->
+                    {{form_widget(form1.dateAchat, {'attr' : { 'placeholder' : 'Sélectionner votre date d\'achat',
+                                'readonly': true}, 'id': 'datepicker'})}}
+                    {{form_help(form1.dateAchat)}} 
+                                <!-- <label for="date">Date d'achat :</label>
+                                <input type="text" name="date" id="datepicker"> -->
+                </div> <!-- fin class="date_achat" -->
+                <div id="paragraph_id3">Champs requis</div>
+                                            
+                {#{{form_row(form1._token)}}#}
+                </section>
+                <h3 style="display: none;">Informations d'achat</h3>
+                <section>  
+                    <div id="mole" class="magasin_ou_internet"><label for="choix"> Avez-vous acheté en magasin ou en ligne ?</label>
+                        <input type="radio" name="choix" value="magasin" id="magasin"/> <label for="magasin">Magasin</label></input>
+                        <input type="radio" name="choix" value="internet" id="internet" /> <label for="internet">En ligne</label></input>
+                    </div>
+                    <div id="test"></div>            
+                                   
+
+                    {#<div class="facture">
+                        {{ form_label(form1.pieceJointe ) }}
+                        <br>
+                        {{ form_widget(form1.pieceJointe, {'attr': {'id': 'num_com'}} ) }}
+                    </div>#}
+                </section>
+                
+                <h3 style="display: none;">Identification</h3>
+                <section>
+                    {% if form1.client.email is defined %}
+                        <div id="pre_auth" class="pre_auth" style="display: none;"><label for="connect"> Possédez vous un compte ?</label>
+                            <input type="radio" name="connect" value="membre" id="membre" checked/> <label for="membre">Oui</label></input>
+                            <input type="radio" name="connect" value="pmembre" id="pmembre" /> <label for="pmembre">Non</label></input>
+                        </div>
+                        <div id="auth">
+                            {% include 'enseigne/connexion.html.twig' %}
+                        </div>
+                    {% endif %}
+                </section>
+                
+                <h3 style="display: none;">Coordonnées</h3>
+                <section>
+                    <div id="info_client" class="info_client">
+
+                        <div class="prenom">
+                            {{ form_label(form1.client.prenom) }}
+                            <br>
+                            {{ form_errors(form1.client.prenom) }}
+                            {{ form_widget(form1.client.prenom, {'id': 'prenom'}) }}
+                        </div>  
+
+                        <div class="nom">
+                        {{ form_label(form1.client.nom) }}
+                        <br>
+                        {{ form_errors(form1.client.nom) }}
+                        {{ form_widget(form1.client.nom, {'id': 'nom'}) }} 
+                        </div>
+
+                        <div class="telephone">
+                            {{ form_label(form1.client.numeroTelephone) }}
+                            <br>
+                            {{ form_errors(form1.client.numeroTelephone) }}
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">+33</span>
+                                </div>
+                                {{ form_widget(form1.client.numeroTelephone, {'attr' : {'pattern' : '[0-9]{9}'}, 'id': 'num' }) }}
+                            </div>
+                        </div>
+
+                        <div class="nom_rue">
+                        {{ form_label(form1.client.adresse.nom_rue) }}
+                        <br>
+                        {{ form_widget(form1.client.adresse.nom_rue) }}
+                        {{ form_errors(form1.client.adresse.nom_rue) }}
+                        </div>
+
+                        {#<div class="complements">
+                        {{ form_label(form1.client.adresse.complements) }}
+                        <br>
+                        {{ form_widget(form1.client.adresse.complements) }}
+                        {{ form_errors(form1.client.adresse.complements) }}
+                        </div>#}
+
+                        <div class="ville">
+                        {{ form_label(form1.client.adresse.ville) }}
+                        <br>
+                        {{ form_widget(form1.client.adresse.ville) }} 
+                        {{ form_errors(form1.client.adresse.ville) }}
+                        </div>
+
+                        <div class="code_postal_2">
+                        {{ form_label(form1.client.adresse.code_postal) }}
+                        <br>
+                        {{ form_widget(form1.client.adresse.code_postal, { attr: 
+                        { 'onkeypress': "return verifierCaracteres(event);"}, 'id': 'cp_perso'}) }}
+                        {{ form_errors(form1.client.adresse.code_postal) }}
+                    </div> <!-- fin class="info_client" -->            
+                </section>
+
+                <h3 style="display: none;">Validation</h3>
+                <section>
+                    <label for="recap_ens">Enseigne</label><input id="recap_ens" type="text" readonly><br>
+                    <label for="recap_cat">Catégorie</label><input id="recap_cat" type="text" readonly><br>
+                {% if form1.marqueProduit is defined %}
+                    <label for="recap_marque">Marque</label><input id="recap_marque" type="text" readonly><br>
+                    <label for="recap_ref">Référence</label><input id="recap_ref" type="text" readonly><br>
+                    
+                {% else %}
+                    <label for="recap_url">Url</label><input id="recap_url" type="text" readonly><br>
+                {% endif %}
+                    <label for="recap_prix">Prix d'achat</label><input id="recap_prix" type="text" readonly><br>
+                    {#<img id="facture_jpg" alt="Votre facture est en cours de chargement">#}
+                    {{ form_row(form1.cgu) }} 
+                    {{ form_row(form1._token) }}
+                </section>
+            </div>
+        {{ form_end(form1, {'render_rest': false}) }}
+
+        
+
+
+        

@@ -182,16 +182,7 @@ body {
     border-radius: 5px
 }
 
-#nom, #prenom, #num, #nom_rue, #complements, #ville, #code_postal {
-    width: 60%; 
-    padding: 12px;   
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    box-sizing: border-box;
-    margin-top: 6px; 
-    margin-bottom: 16px; 
-    resize: vertical;
-}
+
 
 .nom, .prenom, .telephone, .nom_rue, .complements, .ville, .code_postal, .code_postal_2 {
     margin: 15px 40px 15px 40px;

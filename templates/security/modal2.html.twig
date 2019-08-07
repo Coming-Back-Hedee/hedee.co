@@ -1,0 +1,119 @@
+
+    <div id="connexion">
+        <div class="email">
+                    {{ form_label(form1.client.email) }}
+                    <br>
+                    {{ form_errors(form1.client.email) }}
+                    {{ form_widget(form1.client.email, {'attr' : {'onchange': 'check();' }, 'id': 'email'}) }} 
+        </div>
+                                                
+        <div class="pswd1">
+                    {{ form_label(form1.client.plainPassword.first) }}
+                    <br>
+                    {{ form_errors(form1.client.plainPassword.first) }}
+                    {{ form_widget(form1.client.plainPassword.first, {'attr' : {'onchange': 'check();' }, 'id': 'password1'}) }} 
+        </div>
+        <div id="inscription" class="pswd2" style="display:none;">
+                    {{ form_label(form1.client.plainPassword.second) }}
+                    <br>
+                    {{ form_errors(form1.client.plainPassword.second) }}
+                    {{ form_widget(form1.client.plainPassword.second, {'attr' : {'onchange': 'check();' }, 'id': 'password2'}) }} 
+        </div>
+            
+        <a href="{{path('request_resetting')}}" target="blank">J'ai oublié mon mot de passe</a>
+        <input type="button" onclick="hideAndDisplay(this);" value="Je ne possède pas de compte">
+    </div>
+
+<script> 
+        var div_inscription = document.getElementById("inscription");  
+        console.log(div_inscription)
+        function hideAndDisplay(button){
+            if(div_inscription.style.display == "block"){
+                console.log()
+                button.value= "Je ne possède pas de compte"
+                div_inscription.style.display = "none";
+
+            }
+            else{
+                console.log(div_inscription.style.display)
+                button.value = "Je possède un compte"
+                div_inscription.style.display = "block"
+           }
+        }        
+
+        var form2 = $("#connect"); 
+        form2.validate({
+            rules: {
+                "_username":{
+                    "email": true,
+                    "required": true,
+                    "remote": {
+                        url: "/connexion2", 
+                        method: "POST",
+                        dataType: "json",
+                    },
+                },
+                "_password":{
+                    "required": true,
+                    "remote": {
+                        url: "/connexion2", 
+                        method: "POST",
+                        dataType: "json",
+                        data: 
+                        {                                
+                            "_password": function(){ return $('#password').val()},
+                            "_username": function(){ return $('#username').val()},
+                        },            
+                    },
+                }
+            },
+            messages:{
+                "_username":{ 
+                    "remote": jQuery.validator.format("{0} n'est pas une adresse utilisateur.")
+                },
+                "_password":{ 
+                    "remote": jQuery.validator.format("mauvais mot de passe.")
+                }
+            },
+            /*submitHandler: function(form){
+                form2.submit();
+             }*/
+        });
+
+
+        function submitForm(){
+            return false;             
+        }
+
+        var form = $("#inscript");    
+        form.validate({
+            rules: {
+                "inscription[email]":{
+                    "required": true,
+                    "email": true,
+                    "remote": {
+                            url: "/inscription2", 
+                            method: "POST",
+                            dataType: "json",
+                            data: { "_username": function(){ return $('#inscription_email').val()},
+                        }, 
+                        },
+                },
+                "inscription[plainPassword][first]":{
+                    "required": true,
+                },
+                "inscription[plainPassword][second]":{
+                    "required": true,
+                    "equalTo": "#inscription_plainPassword_first"
+                }
+            },
+            messages:{
+                "inscription[email]":{ 
+                    "remote": jQuery.validator.format("{0} est déjà utilisée.")
+                },
+                "inscription[plainPassword][second]":{ 
+                    "equalTo": "Les mots de passes ne sont pas identiques."
+                }
+            },
+        });
+</script>

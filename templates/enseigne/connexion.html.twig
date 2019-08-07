@@ -1,0 +1,70 @@
+<div id="connexion">
+        <div class="email">
+                    {{ form_label(form1.client.email) }}
+                    <br>
+                    {{ form_errors(form1.client.email) }}
+                    {{ form_widget(form1.client.email, {'id': 'email'}) }} 
+        </div>
+                                                
+        <div class="pswd1">
+                    {{ form_label(form1.client.plainPassword.first) }}
+                    <br>
+                    {{ form_errors(form1.client.plainPassword.first) }}
+                    {{ form_widget(form1.client.plainPassword.first, {'id': 'password1'}) }} 
+        </div>
+        <div id="inscription" class="pswd2" style="display: none;">
+                    {{ form_label(form1.client.plainPassword.second) }}
+                    <br>
+                    {{ form_errors(form1.client.plainPassword.second) }}
+                    {{ form_widget(form1.client.plainPassword.second, {'id': 'password2'}) }} 
+        </div> 
+
+            
+        <a href="{{path('request_resetting')}}" target="blank">J'ai oublié mon mot de passe</a>
+        <input type="button" onclick="hideC();" value="Je ne possède pas de compte">
+    </div>
+    {% block javascript %}
+    <script>
+        function hideC(){
+            radiobtn = document.getElementById("pmembre");
+            radiobtn.checked = true;
+            changeM();
+        } 
+        $("#password1").on('input', function(){
+            var x = this.value;
+            $("#password2").val(x);
+        })         
+            /*var form = $("#form-enseigne");    
+            form.validate({
+                rules: {
+                    "demandes[client][email]":{
+                        "required": true,
+                        "email": true,
+                        "remote": {
+                            url: "/connexion2", 
+                            method: "POST",
+                            data: {
+                                '_username' : function(){ return $('#email').val()}
+                                },
+                            dataType: "json",
+                        },
+                    },
+                    "demandes[client][plainPassword][first]":{
+                        "required": true,
+                        "remote": {
+                            url: "/connexion2", 
+                            method: "POST",
+                            data: {                                
+                                "_password": function(){ return $('#password1').val()},
+                                "_username": function(){ return $('#email').val()},
+                                }, 
+                            dataType: "json",           
+                        },
+                    },
+                    "demandes[client][plainPassword][second]":{
+                        "required": false,
+                    }
+                },
+            })*/
+        </script>
+        {% endblock %}

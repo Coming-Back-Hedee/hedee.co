@@ -34,7 +34,7 @@ class ProfilController extends AbstractController
         $session->set('test', $demandes);
 
         //var_dump($user->getAdresse());
-        return $this->render('profil/index.html.twig', [
+        return $this->render('profil/demandes.html.twig', [
             'controller_name' => 'ProfilController',
             'user' => $user,
             'demandes' => $demandes,
@@ -42,28 +42,28 @@ class ProfilController extends AbstractController
     }
    
     /**
-     * @Route("/remboursement", name="remboursement")
+     * @Route("/gains", name="gains")
      */
     public function remboursements(Request $request)
     {
         $user = $this->getUser();
-        return $this->render('profil/remboursement.html.twig', [
+        return $this->render('profil/gains.html.twig', [
             'controller_name' => 'ProfilController',
             'user' => $user,
         ]);
     }
     
-    /**
-     * @Route("/parrainage", name="parrainage")
-     */
-    public function parrainages(Request $request)
+    // /**
+    // * @Route("/parrainage", name="parrainage")
+    // */
+    /*public function parrainages(Request $request)
     {
         $user = $this->getUser();
         return $this->render('profil/parrainage.html.twig', [
             'controller_name' => 'ProfilController',
             'user' => $user,
         ]);
-    }
+    }*/
 
     /**
      * @Route("/informations-generales", name="info_client")

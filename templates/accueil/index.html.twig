@@ -20,106 +20,13 @@
                 <div class="box">
                     <div class="title_box">
                         <h2>Vérifier votre éligibilité</h2>
-                    </div> <!-- fin class="title_box" -->
-
-                    <!-- <form>-->
-                    {{form_start(form, {'attr' : {'autocomplete' : 'off', 'id' : 'form-eligibilite'}, 'action': '/demande-remboursement/'}) }}                   
-                    <div class="categorie">
-                        {{form_errors(form.categorie)}}
-                        
-                            <div class="categorie_2">
-                                <div class="label_2">
-                                {{form_label(form.categorie)}}
-                                </div>
-
-                                <div class="question_2">
-                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
-                                    i
-                                    </button>
-                                </div>
-                            </div> <!-- fin class="categorie_2" -->
-                        
-                        
-                        {{form_widget(form.categorie, {'attr': {'placeholder' : 'Sélectionner votre catégorie'}, 'id' : 'cat_produit'}) }}
-                        {{form_help(form.categorie)}}                     
-                    </div> <!-- fin class="categorie" -->
-                    <div id="paragraph_id1">Champs requis</div>
-
-                    <div class="choisir_enseigne">
-                            {{form_errors(form.enseigne)}}
-                            <div class="choisir_enseigne_2">
-                            <div class="label_2">
-                                {{form_label(form.enseigne)}}
+                        </div> <!-- fin class="title_box" -->
+                        <a href="{{ path('enseigne') }}">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">Je récupère mon argent</button>
+                                <button type="button" class="btn"><span class="glyphicon glyphicon-play"></span></button>
                             </div>
-
-                            <div class="question_2">
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="si votre enseigne n'y figure pas, vous n'êtes pas éligible">
-                                i
-                                </button>
-                            </div>
-                        </div> <!-- fin class="choisi_enseigne_2" -->
-                        
-                            {{form_widget(form.enseigne, {'attr':{'placeholder' : 'Ex: Darty'}, 'id': 'select_enseigne' }) }}
-                            {{form_help(form.enseigne)}}
-                    </div> <!-- fin class="choisir_enseigne" -->
-                    <div id="paragraph_id2">Champs requis</div>
-
-                    <div class="prix_article">
-                        {{form_errors(form.prix)}}
-                        <div class="prix_article_2">
-                            <div class="label_2">
-                                {{form_label(form.prix)}}
-                            </div>
-
-                            <div class="question_2">
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Indiquer le prix sans les options">
-                                    i
-                                </button>
-                            </div>
-                        </div> <!-- fin class="prix_article_2" -->
-                        {{form_widget(form.prix, {'attr': {'placeholder' : 'en euros',
-                        'onkeypress': "return verifierCaracteres(event);"}, 'id' : 'form_prix'}) }}
-                        {{form_help(form.prix)}} 
-                        <!-- <label for="prix">Prix de votre article :</label>
-                        <input type="text" placeholder="en euros"> -->
-                    </div> <!-- fin class="prix_article" -->
-                    <div id="paragraph_id4">Champs requis</div>
-                    
-                    <div class="date_achat">
-                        {{form_errors(form.date_achat)}}
-                        <div class="date_achat_2">
-                            <div class="label_2">
-                                {{form_label(form.date_achat)}}
-                            </div>
-
-                            <div class="question_2">
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" 
-                                title="le délai est de 30 jours à partir de la date d'achat">
-                                    i
-                                </button>
-                            </div>
-                        </div><!-- fin class="date_achat_2" -->
-                        {{form_widget(form.date_achat, {'attr' : { 'placeholder' : 'Sélectionner votre date d\'achat',
-                        'readonly': true}, 'id': 'datepicker'})}}
-                        {{form_help(form.date_achat)}} 
-                        <!-- <label for="date">Date d'achat :</label>
-                        <input type="text" name="date" id="datepicker"> -->
-                    </div> <!-- fin class="date_achat" -->
-                    <div id="paragraph_id3">Champs requis</div>
-                    
-                        
-                    <div class="affichage_msg">
-                        <div class="demander">
-                        {# {{form_widget(form.submit,  {'id': 'soumettre'})}} #}
-                         <input type="submit" value="Demander le remboursement" id="soumettre"> 
-                         
-                         {{form_row(form._token)}}
-                        </div>
-                    </div><!-- fin class="affichage_msg" -->
-                {{form_end(form)}}
-                    
-                    <!--</form> -->
-                    
+                        </a>
                 </div> <!-- fin class="box" -->
             </div><!-- fin class="la_presentation" -->
         </div> <!-- fin class="bloc1" -->
@@ -357,56 +264,7 @@
         else{
             return true;
         }
-	 		
-        /*var keyCode = event.which ? event.which : event.keyCode;
-        var touche = String.fromCharCode(keyCode);
-                
-        var champ = document.getElementById('form_prix');
-                
-        var caracteres = '0123456789.,';
-                
-        if(caracteres.indexOf(touche) >= 0) {
-            champ.value += touche;
-        }	*/		
     }
-
-    $("#soumettre").on("click", function (e) {
-        if({{app.user|json_encode|raw}} == null){
-            soumettre = document.getElementById("soumettre")
-            var form = document.getElementById("form-eligibilite");
-            e.preventDefault();           
-            var donnees = $('#form-eligibilite').serialize()
-            $.post('/demande-remboursement/', donnees, function(data,status){
-                });
-
-            modalConnect(soumettre);
-            //return false;
-        }
-        
-    });
-</script>
-<script>
-    $("#form-eligibilite").validate({
-        rules: {
-            "eligibilite[categorie]":{
-                "required": true,
-            },
-            "eligibilite[enseigne]":{
-                "required": true,
-            },
-            "eligibilite[date_achat]":{
-                "required": true,
-            },
-            "eligibilite[prix]":{
-                "required": true,
-                "number": true,
-                "min": 20,
-                "regex_prix": /^[0-9]+(\.[0-9]{1,2})?$/
-            }
-        },
-    })
-
-
 </script>
 <script>
 

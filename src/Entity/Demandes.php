@@ -23,6 +23,10 @@ class Demandes
      */
     private $id;
 
+    /**
+     * @Assert\NotBlank()
+     */
+    private $accesCompte;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -96,8 +100,9 @@ class Demandes
     private $statut;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Clients", inversedBy="demandes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Clients", inversedBy="demandes", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * 
      */
     private $client;
 
@@ -400,7 +405,5 @@ class Demandes
         $this->hidden = $hidden;
 
         return $this;
-    }
-
-   
+    } 
 }

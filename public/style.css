@@ -1,5 +1,4 @@
-﻿/** RESET CSS **/
-html, body, div, header, main, footer  {
+﻿html, body, div, header, main, footer, .row, .container-fluid  {
     margin:0;
     padding:0;
 }
@@ -17,8 +16,56 @@ header {
     min-height: 50px;
 }
 
+.header1 {
+    display:flex;
+    width: 100%;
+}
+
+.toggle {
+    width: 20%;
+    margin-top: 40px;
+}
+
+.togglemenu {
+    display:block;
+    width : 20%;
+    height: 55px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.hamburger{
+    background:none;
+    position: relative;
+    top:0;
+    right:0;
+    line-height:15px;
+    padding:5px 15px 0px 0px;
+    color:#eb7150;
+    border:0;
+    font-size:2.8em;
+    cursor:pointer;
+    outline:none;
+    z-index:10000000000000;
+}
+
+.burger {
+    background:none;
+    position: relative;
+    top:0;
+    right:0;
+    line-height:15px;
+    padding:5px 15px 0px 0px;
+    color:grey;
+    border:0;
+    font-size:2.8em;
+    cursor:pointer;
+    outline:none;
+    z-index:10000000000000;
+}
+
 .logo {
-    width : 25%;
+    width : 50%;
     min-height: 50px;
     text-align:center;
 }
@@ -35,8 +82,9 @@ header {
     min-height: 50px;
 }
 
-.euro {
-    color: #00A5C8
+.recup_argent {
+    width: 15%;
+    margin:auto;
 }
 
 .menu {

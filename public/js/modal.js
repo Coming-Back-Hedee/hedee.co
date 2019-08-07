@@ -29,7 +29,7 @@
       function modalConnect(button){
          var modal = document.getElementById("modal");
          var show = document.getElementById("show");
-         var form = $("#eligibilite"); 
+         //var form = $("#eligibilite"); 
          //var fond = document.getElementById("fond");
          
          window.onclick = function(event) {
@@ -59,11 +59,10 @@
       $.ajax({
          type: 'get',
          url: url,
-         success: function (data, status) {
+         success: function (data) {
             $(id).html(data);
          }
       });
-
    
       // On definit la taille de la fenetre modale
       resizeModal();
@@ -71,6 +70,7 @@
       // Effet de transition     
       $('#fond').fadeIn(1000);   
       $('#fond').fadeTo("slow",0.8);
+      
       // Effet de transition   
       $(id).fadeIn(2000);
       
