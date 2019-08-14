@@ -50,6 +50,11 @@ class AlertePrix
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $clotureNR;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $montantCloture;
     
     public function getId(): ?int
     {
@@ -136,6 +141,18 @@ class AlertePrix
     public function setClotureNR(?bool $clotureNR): self
     {
         $this->clotureNR = $clotureNR;
+
+        return $this;
+    }
+
+    public function getMontantCloture(): ?float
+    {
+        return $this->montantCloture;
+    }
+
+    public function setMontantCloture(?float $montantCloture): self
+    {
+        $this->montantCloture = $montantCloture;
 
         return $this;
     }

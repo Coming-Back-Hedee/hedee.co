@@ -1,20 +1,55 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Espace client{% endblock %}
-
-{% block main %}
-<main>
-    <div class="container">
         <h1>Mon porte-monnaie</h1>
-		{% include 'profil/index.html.twig' %}
-		<div class="recap">
+		<div class="jumbotron">
+            <p>Hedee vous a fait gagner </p> 
+            <p>{{ controller_name }}€</p> 
+            <p>Depuis votre inscription</p>            
         </div>
-    </div>
-</main>
-{% endblock %}
-{% block javascript %}
-<script>
-    $(document).ready(function() {
-    }
-</script>
-{% endblock %}
+
+        <div class="card">
+            <div class="card-header">MON MODE DE VERSEMENT</div>
+            {% if user.modeVersement is null %}   
+                <div class="card-body"><a href="#" onClick="add(event, this)">Ajouter</a></div>  
+            {% else %}
+                <div class="card-body">
+                    <p> Compte Bancaire</p>
+                    <p> 
+                        {{ user.modeVersement.proprietaire ~ " ,IBAN *******"
+                         ~  user.modeVersement.iban|slice(user.modeVersement.iban|length-3, user.modeVersement.iban|length) }}
+                        <br>
+                        <a href="#" onClick="add(event, this)">Modifier</a>
+                    </p>
+                </div> 
+            {% endif %}
+                          
+
+            <div  id="form_versement" style="display: none;">
+            <h1>Merci de renseigner vos coordonnées bancaires</h1>
+                {{ form_start(form) }}
+                    {{ form_label(form.proprietaire) }}
+                    {{ form_widget(form.proprietaire) }} <br>
+                    {{ form_label(form.swiftBic) }}
+                    {{ form_widget(form.swiftBic) }} <br>
+                    {{ form_label(form.iban) }}
+                    {{ form_widget(form.iban) }} <br>
+                    {{ form_end(form) }}
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+            $('#mode_versement_proprietaire').val("{{ app.user.prenom ~ " " ~ app.user.nom }}")
+            var annulations = document.getElementsByClassName('cancel');
+            console.log(annulations)
+                Array.from(annulations).forEach(function(annulation){
+                    annulation.addEventListener('click', function(e){
+                        e.preventDefault()
+                        annulation.parentNode.parentNode.parentNode.style.display = "none"
+                        annulation.parentNode.parentNode.parentNode.previousElementSibling.style.display = "block"
+                    })
+                })
+            function add(e, link){
+                e.preventDefault()
+                document.getElementById('form_versement').style.display = "block"
+                link.parentNode.style.display = "none"
+            }
+        </script>      

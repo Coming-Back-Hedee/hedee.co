@@ -86,26 +86,11 @@
     .hamburger{
         background:none;
         position: relative;
-        top:0;
+        top: 20px;
         right:0;
         line-height:15px;
         padding:5px 15px 0px 0px;
         color:#eb7150;
-        border:0;
-        font-size:2.8em;
-        cursor:pointer;
-        outline:none;
-        z-index:10000000000000;
-    }
-
-    .burger {
-        background:none;
-        position: relative;
-        top:0;
-        right:0;
-        line-height:15px;
-        padding:5px 15px 0px 0px;
-        color:grey;
         border:0;
         font-size:2.8em;
         cursor:pointer;
@@ -374,21 +359,6 @@
         line-height:15px;
         padding:5px 15px 0px 0px;
         color:#eb7150;
-        border:0;
-        font-size:2.8em;
-        cursor:pointer;
-        outline:none;
-        z-index:10000000000000;
-    }
-
-    .burger {
-        background:none;
-        position: relative;
-        top:0;
-        right:0;
-        line-height:15px;
-        padding:5px 15px 0px 0px;
-        color:grey;
         border:0;
         font-size:2.8em;
         cursor:pointer;

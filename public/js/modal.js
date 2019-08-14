@@ -29,12 +29,13 @@
       function modalConnect(button){
          var modal = document.getElementById("modal");
          var show = document.getElementById("show");
+         
          //var form = $("#eligibilite"); 
          //var fond = document.getElementById("fond");
          
          window.onclick = function(event) {
             if (modal.style.display == "none"){
-               if (event.target == show  || event.target == show.children[0] || event.target == button){            
+               if (event.target == show  || ancestor(event.target, 'show') != null || event.target == button){        
                   event.preventDefault();  
                   showModal();
                return;
@@ -49,9 +50,9 @@
       }  
    
    // Lorsque l'on modifie la taille du navigateur la taille du fond change
-   $(window).resize(function () {
+   /*$(window).resize(function () {
       resizeModal()
-   });
+   });*/
 
    function showModal(){
       var id = '#modal';

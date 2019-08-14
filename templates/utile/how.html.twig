@@ -2,11 +2,39 @@
 
 {% block title %}Comment ça marche{% endblock %}
 
+{% block stylesheets %} 
+    {{ parent() }}
+    <link rel="stylesheet" href="{{asset('css/style_comment.css')}}">
+{% endblock %}
+
 {% block main %}
 
 <div class="example-wrapper">
 
-    <h1>Comment demander un remboursement chez Coming-Back</h1>
+        <div class="bloc_header"></div>
+        <div class="bloc1">
+
+        </div> <!-- fin class="bloc1" -->
+
+        <div class="bloc2">
+
+        </div> <!-- fin class="bloc2" -->
+
+        <div class="bloc3">
+
+        </div> <!-- fin class="bloc3" -->
+
+        <div class="bloc4">
+
+        </div> <!-- fin class="bloc4" -->
+
+        <div class="bloc5">
+            
+        </div> <!-- fin class="bloc5" -->
+
+        <div class="bloc6">
+            {# {% include 'footer.html.twig' %} #}
+        </div> <!-- fin class="bloc6" -->
 
 </div>
 {% endblock %}

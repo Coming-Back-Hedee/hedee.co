@@ -1,10 +1,69 @@
+{% extends 'base.html.twig' %}
 
-            <div class="menu_profil">
-                <ul>
-                    <li> <a href="{{ path('profil') }}" class="active">Mes demandes de remboursement</a> </li>
-                    
-                    {#<li> <a href="{{ path('parrainage') }}">Mes parrainages</a> </li>#}
-                    <li> <a href="{{ path('info_client') }}">Mes informations</a> </li>
-                    <li> <a href="{{ path('gains') }}">Mon porte-monnaie</a> </li>
+{% block title %}Hello AdminController!{% endblock %}
+{# {% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/admin.css')}}"> 
+{% endblock %}#}
+{% block main %}
+    <div class="container">
+    <h1>Bienvenue dans votre espace client {{ user.nom }}</h1>
+        <div class="row">
+            <div class="col-md-3 col-lg-3">
+                <ul class="nav nav-pills nav-stacked" id="profile_tab">
+                    <li class="active"><a data-toggle="tab" href="#demandes">Mes demandes de remboursement</a></li>
+                    <li><a data-toggle="tab" href="#info">Mes informations</a></li>
+                    <li><a data-toggle="tab" href="#porte_monnaie">Mon porte-monnaie</a></li>
                 </ul>
-            </div> <!-- fin class="menu" -->
+            </div>
+            <div class="col-md-9 col-lg-9">
+                <div class="tab-content">
+                    <div id="demandes" class="tab-pane fade in active">
+                    </div>
+                    <div id="info" class="tab-pane fade">
+                    </div>
+                    <div id="porte_monnaie" class="tab-pane fade">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+<script>        
+    $(document).ready(function() {
+        
+        $('.nav-pills a').click(function(){
+            var pills = this.getAttribute('href');
+            var url;
+            if(pills.substr(1) == 'porte_monnaie'){
+                url = "{{ path('gains') }}";
+            }
+            if(pills.substr(1) == 'info'){
+                url = "{{ path('info_client') }}";
+            }
+            if(pills.substr(1) == 'demandes'){
+                url = "{{ path('demandes') }}";
+            }
+                
+
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function (data) {
+                    $(pills).html(data);               
+                }
+            });
+        })
+        window.onload = function(){
+            $.ajax({
+                type: 'get',
+                url: "{{ path('demandes') }}",
+                success: function (data) {
+                    $("#demandes").html(data);               
+                }
+            });
+        }
+    })
+</script>
+
+{% endblock %}

@@ -120,14 +120,10 @@ class Clients implements UserInterface, \Serializable
     private $dateNaissance;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\ModeVersement", inversedBy="clients", cascade={"persist", "remove"})
      */
-    private $swiftBic;
+    private $modeVersement;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $iban;
 
     public function __construct()
     {
@@ -428,26 +424,14 @@ class Clients implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getSwiftBic(): ?string
+    public function getModeVersement(): ?ModeVersement
     {
-        return $this->swiftBic;
+        return $this->modeVersement;
     }
 
-    public function setSwiftBic(?string $swiftBic): self
+    public function setModeVersement(?ModeVersement $modeVersement): self
     {
-        $this->swiftBic = $swiftBic;
-
-        return $this;
-    }
-
-    public function getIban(): ?string
-    {
-        return $this->iban;
-    }
-
-    public function setIban(?string $iban): self
-    {
-        $this->iban = $iban;
+        $this->modeVersement = $modeVersement;
 
         return $this;
     }

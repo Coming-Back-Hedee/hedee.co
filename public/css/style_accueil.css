@@ -1,0 +1,79 @@
+﻿
+/* 1er BLOC - vérifier votre éligibilité*/
+.bloc1 {
+    background-image: url("../img/parcours_decouverte/Groupe\ 268.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 1200px;
+    width:100%;
+    /*display:flex;
+    flex-wrap:wrap; */
+}
+
+
+
+
+/* 2e BLOC - etapes pour demande de remboursement */
+.bloc2 {
+    background-image: url("../img/parcours_decouverte/Groupe\ 46.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 750px;
+    max-width: auto;
+}
+
+
+
+/* 4e BLOC - Enseignes éligibles */
+.bloc3 {
+    background-image: url("../img/parcours_decouverte/Groupe\ 48.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 1000px;
+    max-width: 100%;
+}
+
+.bloc4 {
+    background-image: url("../img/parcours_decouverte/Rectangle\ 32.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 500px;
+    max-width: 100%;
+}
+/* 5e BLOC - Qui sommes nous ? */
+.bloc5 {
+    background-image: url("../img/parcours_decouverte/Groupe\ 58.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 1098px;
+    max-width: 100%;
+}
+
+.bloc6 {
+    background-image: url("../img/parcours_decouverte/footer.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 554px;
+    max-width: 100%;
+}
+
+.footer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 93px);
+}
+
+.reseaux_sociaux {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.infos_hedee {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 5;
+}
+

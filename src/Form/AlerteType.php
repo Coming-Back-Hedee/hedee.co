@@ -19,6 +19,7 @@ class AlerteType extends AbstractType
             ->add('enseigne', TextType::class, ['label' => 'Enseigne la moins chère'])
             ->add('date', DateType::class, ['label' => 'Date du constat', 'widget' => 'single_text',])
             ->add('differencePrix', MoneyType::class, ['label' => 'Différence de prix', 'currency' => false])
+
         ;
     }
 

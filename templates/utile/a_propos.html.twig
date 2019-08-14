@@ -2,12 +2,41 @@
 
 {% block title %}À propos{% endblock %}
 
+{% block stylesheets %} 
+    {{ parent() }}
+    <link rel="stylesheet" href="{{asset('css/style_apropos.css')}}">
+{% endblock %}
+
 {% block main %}
 
 <div class="example-wrapper">
 
-    <h1>À propos de Coming-Back</h1>
+        <div class="bloc_header"></div>
+        <div class="bloc1">
 
+        </div> <!-- fin class="bloc5" -->
+
+        <div class="bloc2">
+
+        </div> <!-- fin class="bloc5" -->
+
+        <div class="bloc3">
+
+        </div> <!-- fin class="bloc5" -->
+
+        <div class="bloc4">
+
+        </div> <!-- fin class="bloc5" -->
+
+        <div class="bloc5">
+            <div class="bloc5bis">
+
+            </div>
+        </div> <!-- fin class="bloc5" -->
+
+        <div class="bloc6">
+            {# {% include 'footer.html.twig' %} #}
+        </div> <!-- fin class="bloc6" -->
 
 </div>
 {% endblock %}

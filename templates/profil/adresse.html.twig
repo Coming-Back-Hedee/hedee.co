@@ -1,0 +1,12 @@
+                                <div id="modif_p_adresse" class="modif">
+                                    {{ form_start(form) }}
+                                        {{ form_label(form.adresse.nomRue) }}   
+                                        {{ form_widget(form.adresse.nomRue) }} <br>
+                                        {{ form_label(form.adresse.ville) }}   
+                                        {{ form_widget(form.adresse.ville) }} <br>
+                                        {{ form_label(form.adresse.codePostal) }} 
+                                        {{ form_widget(form.adresse.codePostal) }} <br>
+                                        <button type="submit">Changer</button> 
+                                        <button>Annuler</button>
+                                    {{ form_end(form, {'render_rest': false} ) }}
+                                </div>

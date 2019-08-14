@@ -7,7 +7,7 @@
 <body>
     <p>
         Bonjour {{dossier.client.prenom}}, <br>
-        Votre remboursement  d'une valeur de {{dossier.lastAlerte.prix}} est confirmé. <br>
+        Votre remboursement  d'une valeur de {{ dossier.montantRemboursement }}€ est confirmé. <br>
         {# pour que le lien fonctionne, il est indispensable que le lien soit absolu. #}
         <a href="{{absolute_url(path('info_client'))}}">Accéder à mon compte</a>
     </p>

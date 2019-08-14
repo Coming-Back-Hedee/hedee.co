@@ -1,0 +1,32 @@
+﻿
+.bloc_header {
+    background-image: url("../img/parcours_decouverte/faq/Composant\ 2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 199px;
+    width:100%;
+}
+
+/* 1er BLOC - vérifier votre éligibilité*/
+
+.bloc1 {
+    background-color: white;
+    min-height: 590px;
+    max-width:100%;
+    margin-top: 5%;
+    margin-left: 22%;
+    margin-right: 15%;
+}
+
+
+/* 2e BLOC - etapes pour demande de remboursement */
+.bloc2 {
+    background-image: url("../img/parcours_decouverte/footer.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 554px;
+    max-width: 100%;
+}
+
+
+

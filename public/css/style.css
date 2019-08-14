@@ -1,4 +1,10 @@
-﻿html, body, div, header, main, footer, .row, .container-fluid  {
+﻿:root {
+    --main-bg-color: coral;
+    --main-txt-color: blue; 
+}
+
+
+html, body, div, header, main, .row, .container-fluid  {
     margin:0;
     padding:0;
 }
@@ -11,9 +17,8 @@ body {
 
 /* HEADER */
 header {
-    display: flex;
     flex-wrap:wrap;
-    min-height: 50px;
+    min-height: 80px;
 }
 
 .header1 {
@@ -37,26 +42,11 @@ header {
 .hamburger{
     background:none;
     position: relative;
-    top:0;
+    top: 20px;
     right:0;
     line-height:15px;
     padding:5px 15px 0px 0px;
     color:#eb7150;
-    border:0;
-    font-size:2.8em;
-    cursor:pointer;
-    outline:none;
-    z-index:10000000000000;
-}
-
-.burger {
-    background:none;
-    position: relative;
-    top:0;
-    right:0;
-    line-height:15px;
-    padding:5px 15px 0px 0px;
-    color:grey;
     border:0;
     font-size:2.8em;
     cursor:pointer;
@@ -109,13 +99,10 @@ header {
 }
 
 #myBtn {
-    width :20%;
-    background-color: #eb7150;
     color: white;
     padding: 10px;
     font-size: 1em;
     border: none;
-    border-radius : 0.75em;
     cursor: pointer;
     font-family: 'Georgia', sans-serif;
 }
@@ -158,10 +145,6 @@ header {
   background-color: #3e8e41;
 }
 
-.togglemenu {
-    display:none;
-}
-
 .menu2 {
     display:none;
 }
@@ -170,11 +153,7 @@ header {
     display:none;
 }
 
-.hr_header {
-   height:1px;
-   background-color: lightgrey;
-   border:none;
-}
+
 
 
 /* MAIN */
@@ -182,14 +161,14 @@ main {
     min-height: 960px;
 }
 
-/* 1er BLOC - vérifier votre éligibilité*/
-.bloc1 {
-    background-color: #00A5C8 ;
-    min-height: 540px;
-    width:100%;
-    margin-top: -8px;
-    /*display:flex;
-    flex-wrap:wrap; */
+
+.title_qui {
+    text-align:center;
+}
+
+.qui_sommes_nous {
+    width: 60%;
+    margin:0 auto
 }
 
 .la_presentation {
@@ -315,288 +294,14 @@ main {
     font-size: 18px
 }
 
-
-/* 2e BLOC - etapes pour demande de remboursement */
-.bloc2 {
-    background-color: #e8f0f0 ;
-    min-height: 300px;
-    width:100%;
-    margin-top: -17px;
-    padding-top: 40px;
-    padding-bottom : 25px;
-    overflow:hidden
-}
-
-.titre_etapes {
-    text-align:center;
-    padding-bottom: 25px;
-}
-
-.les_etapes {
-    display:flex;
-}
-
-.etape {
-    text-align:center;
-    width: 100%
-}
-
-.etape > h3 {
-    margin-left: 15px;
-    margin-right:10px
-}
-
-.etape > p {
-    margin-left: 15px;
-    margin-right:15px
-}
-
-#question  {
-    width: 25%;
-    height : 5em;
-    fill: #eb7150
-}
-
-#checked {
-    width: 25%;
-    height : 5em;
-    fill: #eb7150
-}
-
-#euro {
-    width: 25%;
-    height : 5em;
-    fill: #eb7150
-}
-
-/* 3e BLOC - Pourquoi Rembourseo */
-.bloc3 {
-    background-color: #fff ;
-    min-height: 250px;
-    width:100%;
-    margin-top: -17px;
-    padding-top: 40px;
-    overflow:hidden;
-    padding-bottom : 25px;
-}
-
-.titre_pourquoi {
-    text-align:center
-}
-
-.nous_vous {
-    display:flex;
-    width:100%;
-    min-height: 250px;
-}
-
-.nous {
-    width : 35%;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.vous {
-    width : 35%;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.title_nous , .title_vous {
-    text-align:center
-}
-
-.arrow_box {
-	position: relative;
-	background: #00A5C8;
-    border-bottom: 5px solid #00a5c8;
-    border-top: 5px solid #00a5c8;
-    border-radius : 10px;
-}
-
-.avantages {
-    display:flex;
-}
-
-.pouce_up {
-    padding-left: 10px;
-    padding-right:10px
-}
-
-.pouce_up > img {
-    padding-top: 10px;
-    width: 80%;
-    height: 40px;
-}
-
-.arrow_box div > p {
-    padding-left: 10px;
-    padding-right:10px
-}
-
-.arrow_box:after, .arrow_box:before {
-	bottom: 100%;
-	left: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-    pointer-events: none;
-}
-
-.arrow_box:after {
-	border-color: rgba(0, 165, 200, 0);
-	border-bottom-color: #00A5C8;
-	border-width: 15px;
-	margin-left: -15px;
-}
-.arrow_box:before {
-	border-color: rgba(0, 165, 200, 0);
-	border-bottom-color: #00a5c8;
-	border-width: 22px;
-	margin-left: -22px;
-}
-
-.arrow_box2 {
-	position: relative;
-	background: #d9dedf;
-    border-bottom: 5px solid #d9dedf;
-    border-top: 5px solid #d9dedf;
-    border-radius : 10px;
-}
-
-.inconvenients {
-    display:flex;
-}
-
-.pouce_down {
-    padding-left: 10px;
-    padding-right:10px
-}
-
-.pouce_down > img {
-    padding-top: 10px;
-    width: 80% ;
-    height: 40px;
-}
-
-.arrow_box2 div > p {
-    padding-left: 10px;
-    padding-right:10px
-}
-
-.arrow_box2:after, .arrow_box:before {
-	bottom: 100%;
-	left: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-
-.arrow_box2:after {
-	border-color: rgba(0, 165, 200, 0);
-	border-bottom-color: #d9dedf;
-	border-width: 15px;
-	margin-left: -15px;
-}
-.arrow_box2:before {
-	border-color: rgba(0, 165, 200, 0);
-	border-bottom-color: #d9dedf;
-	border-width: 22px;
-	margin-left: -22px;
-}
-
-
-/* 4e BLOC - Enseignes éligibles */
-.bloc4 {
-    background-color: #e8f0f0 ;
-    min-height: 300px;
-    width:100%;
-    margin-top: -17px;
-    padding-top: 40px;
-    padding-bottom : 25px;
-    overflow:hidden 
-}
-
-.title_enseignes {
-    text-align:center;
-}
-
-.liste_enseignes {
-    width: 100%;
-}
-
-.slideshow {
-    width: 475px;
-    height: 200px;
-    overflow: hidden;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-.slideshow ul {
-    /* 9 images donc 9 x 100% */
-   width: 900%;
-   height: 200px;
-   padding:0; margin:0;
-   list-style: none;
-}
-
-.slideshow li {
-   float: left;
-}
-
-/* 5e BLOC - Qui sommes nous ? */
-.bloc5 {
-    background-color: #fff ;
-    min-height: 300px;
-    width:100%;
-    margin-top: -17px;
-    padding-top: 40px;
-    padding-bottom : 25px;
-    overflow:hidden 
-}
-
-.title_qui {
-    text-align:center;
-}
-
-.qui_sommes_nous {
-    width: 60%;
-    margin:0 auto
-}
-
-
-/* 6e BLOC - Avis clients */
-.bloc6 {
-    background-color: #eb7150 ;
-    min-height: 200px;
-    width:100%;
-    margin-top: -17px;
-    padding-top: 40px;
-    padding-bottom : 25px;
-    overflow:hidden 
-}
-
 .title_avis_clients {
     text-align:center;
     width: 100%;
 }
 
 /* FOOTER - reseaux sociaux + infos site*/
-footer {
-    background-color: #3d3d3d ;
-    min-height: 100px;
-    width:100%;
-    margin-top: -17px;
-    padding-top: 40px;
-    overflow:hidden; 
-    text-align: center;
-}
+
+
 
 .reseaux_sociaux {
     margin-left: auto;
@@ -751,4 +456,27 @@ input.error{
     border-radius: 2px;
     background-color: #F08080;
     
+}
+
+.inline{
+    display: inline
+}
+
+.fixed_top{
+    margin: auto;
+    position: fixed;
+    top: 20;
+}
+
+.fbar-toggle {
+    z-index:3;
+}
+
+.navbar{
+    background-color: white;
+}
+
+.container{
+    margin: auto;
+    max-width: 1200px;
 }

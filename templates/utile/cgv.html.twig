@@ -2,11 +2,124 @@
 
 {% block title %}Conditions générales de vente{% endblock %}
 
+{% block stylesheets %} 
+    {{ parent() }}
+    
+{% endblock %}
+
 {% block main %}
 
 <div class="example-wrapper">
 
-    <h1>Conditions générales de vente</h1>
+			{#<nav class="navbar navbar-fixed-top">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>    
+					<a class="navbar-brand" href="{{ path('accueil') }}">
+						{#<img src="{{asset('img/parcours_decouverte/logo01.png')}}" class="img-responsive" alt="logo">
+						hedee.co
+					</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-left">
+						<li>
+							<button class="navbar-toggler" type="button" data-toggle="collapse" 
+								data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" 
+								aria-expanded="false" aria-label="Toggle navigation"class="hamburger">&#9776;
+							</button>
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#">Link</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Link</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Link</a>
+							</li> 
+						</ul>
+						</li>
+						<li>{% if is_granted('IS_AUTHENTICATED_FULLY') %}						
+											<button id="myBtn" class="dropbtn" href="#">
+												<i class="fa fa-user-circle-o" style="font-size:24px"></i>
+											</button>
+									{% else %}
+										<!-- <li> <button id="myBtn"><a href="{{ path('connexion') }}">Se connecter</a></button> </li> -->
+										<button id="show">
+											<a href="#"><i class="fa fa-user-circle-o" style="font-size:24px"></i></a>
+										</button> 
+
+									{% endif %}
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+					<li><a href="{{ path('enseigne') }}">
+						<button type="button" class="btn btn-outline-info">Je récupère mon argent</button>
+					</a></li>
+					</ul>
+				</div>
+			</nav>#}
+
+            <div class="container navbar fixed-top">
+                <nav class"nav navbar-nav navbar-right">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="nav-item">
+                                    <button type="button" data-toggle="collapse" data-target="#collapse_menu" class="hamburger">&#9776;
+                                    </button>
+                                    <ul id="collapse_menu" class="collapse">
+                                        <li><a href="{{ path('a_propos') }}">Pourquoi Hedee ?</a></li>
+                                        <li><a href="{{ path('comment_ca_marche') }}">Comment fonctionne Hedee ?</a></li>
+                                        <li><a href="{{ path('foire_aux_questions') }}">Vos questions</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="nav-item">
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}						
+                                        <button id="myBtn" class="dropbtn" href="#">
+                                            <i class="fa fa-user-circle-o" style="font-size:24px"></i>
+                                        </button>
+                                    {% else %}
+                                        <!-- <li> <button id="myBtn"><a href="{{ path('connexion') }}">Se connecter</a></button> </li> -->
+                                        <button id="show">
+                                            <a href="#"><i class="fa fa-user-circle-o" style="font-size:24px"></i></a>
+                                        </button> 
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <nav class="navbar navbar-expand-sm justify-content-center">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="nav-item">
+                                <a class="navbar-brand" href="{{ path('accueil') }}">
+                                    <img src="{{asset('img/logo.png')}}" class="img-responsive" alt="hedee.co">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                
+                <nav class"nav navbar-nav navbar-right" style="float: right;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div><a href="{{ path('enseigne') }}">
+                                    <button type="button" class="btn btn-outline-info">Je récupère mon argent</button>
+                                </a></div>
+                            </div>
+                        </div>
+					</div>
+                </nav>
+            </div>
 
 
 </div>

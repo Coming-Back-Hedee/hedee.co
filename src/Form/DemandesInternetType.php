@@ -26,22 +26,6 @@ class DemandesInternetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-            ->add('categorieProduit', ChoiceType::class, [ 'choices' => [
-                "Selectionnez votre categorie" => null,
-                'Produits électroniques' => 'produits_electroniques',
-                'Maisons et jardins' => 'maisons_et_jardins',
-                'Jeux vidéos et jouets' => 'jvideos_et_jouets',
-                'Santé et beauté' => 'sante_et_beaute',              
-                'Auto et moto' => 'auto_et_moto',
-                'Sports et mode' => 'sports_et_mode'
-            ],
-            'label' => 'Catégorie du produit d\'achat'
-            ])
-
-            ->add('enseigne', TextType::class, ['label' => 'Enseigne d\'achat'])
-            ->add('dateAchat', TextType::class, ['label' => 'Date d\'achat'])       
-            ->add('prixAchat', MoneyType::class, ['label' => 'Prix de l\'article', 'currency' => false])
             ->add('urlProduit', UrlType::class, ['label' => 'URL du produit d\'achat'])
             ->add('numeroCommande', TextType::class,   ['label' => 'Numéro de commande',
             'help' => 'Le numéro de commande se trouve sur votre facture',

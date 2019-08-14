@@ -59,6 +59,21 @@ class DemandesRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Demandes[] Returns an array of Demandes objects
+     */
+    public function findRefundedByUser($value)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.statut = :val1')
+            ->andWhere('d.client = :val2')
+            ->setParameter('val1', 'Remboursé')
+            ->setParameter('val2', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Demandes[] Returns an array of Demandes objects
     //  */

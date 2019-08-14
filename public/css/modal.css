@@ -23,13 +23,10 @@
 }
 
 #show{
-   width :20%;
-   background-color: #eb7150;
-   color: white;
+   background-color: white;
    padding: 10px;
    font-size: 1em;
    border: none;
-   border-radius : 0.75em;
    cursor: pointer;
    font-family: 'Georgia', sans-serif; 
 }

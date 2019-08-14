@@ -41,9 +41,9 @@ class Adresses
     public function bis_construct($form)
     {
         
-        $this->nom_rue = $form['nom_rue'];
-        $this->ville = $form['ville'];
-        $this->code_postal = $form['code_postal'];
+        $this->nom_rue = $form['nomRue'];
+        $this->ville = ucfirst($form['ville']);
+        $this->code_postal = $form['codePostal'];
     }
 
     public function getId(): ?int

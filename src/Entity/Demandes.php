@@ -101,7 +101,7 @@ class Demandes
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Clients", inversedBy="demandes", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn()
      * 
      */
     private $client;
@@ -135,6 +135,11 @@ class Demandes
      * @ORM\Column(type="boolean")
      */
     private $hidden;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $montantRemboursement;
 
 
     public function __construct()
@@ -403,6 +408,18 @@ class Demandes
     public function setHidden(bool $hidden): self
     {
         $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    public function getMontantRemboursement(): ?float
+    {
+        return $this->montantRemboursement;
+    }
+
+    public function setMontantRemboursement(?float $montantRemboursement): self
+    {
+        $this->montantRemboursement = $montantRemboursement;
 
         return $this;
     } 

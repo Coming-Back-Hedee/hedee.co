@@ -6,22 +6,15 @@
 
 {% block title %}{% endblock %}
 
+{% block stylesheets %}
+			<link rel="stylesheet" href="{{asset('style_formulaire.css')}}"> 
+{% endblock %}
+
 {% block main %}
-<main>
-    <div class="container">  
-            <h1>Formulaire</h1>
-            {% include 'enseigne/formulaire.html.twig' %}
-        <div id="dialog-message" title="Formulaire complet" style="display: none;">
-            <p>
-                <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
-                Votre demande a bien été prise en compte.
-            </p>
-            <p>
-                <a href="{{ path('accueil') }}">Déposer une nouvelle annonce</a> .
-            </p>
+        <div id="form_location">
+            {% include 'enseigne/eligibilite.html.twig' %}
         </div>
-    </div>
-</main>
+
 {% endblock %}
 
 {% block javascript %}
@@ -50,207 +43,34 @@
             return true;
         }
     }
-    var form = document.getElementById("test").innerHTML;
-</script>
-<script>
-    $(document).ready(function() {
-        var form = $("#form-enseigne");
-        step(form)
-        attachDatepicker($( "#datepicker" ))
-        $('body').on('change', 'input[name=choix]', function() {
-            
-            /*form.validate({
-                errorPlacement: function errorPlacement(error, element) { element.before(error); },
-            });*/
-            if($("[name='choix']:checked").val() == "internet"){
-                var url = "{{ path('internet') }}";
-                $.ajax({
-                    type: 'get',
-                    url: url,
+
+    function loadForm(){
+        if($("#form-eligibilite").valid()){
+            var donnees = $('#form-eligibilite').serialize()
+            $.post('/demande-remboursement/', donnees, function(data,status){
+            });
+            var url = "{{ path('formulaire') }}";
+            $.ajax({
+                type: 'get',
+                url: url,
                     success: function (data) {
-                        $('#test').html(data);
-                        var form = $("#form-enseigne");
-                        //step(form)
-                        attachDatepicker($( "#datepicker" ))                  
-                    }
-                });
-            }
-            if($("[name='choix']:checked").val() == "magasin"){
-                var url = "{{ path('mag') }}";
-                
-                $.ajax({
-                    type: 'get',
-                    url: url,
-                    success: function (data) {
-                        $('#test').html(data);
-                        var form = $("#form-enseigne");
-                        //step(form)
-                        attachDatepicker($( "#datepicker" ))
-                    }
-                });
-            }               
-        });
-       
-        var form = $("#form-enseigne");    
-        form.validate({
-            errorPlacement: function errorPlacement(error, element) { element.before(error); },
-        });
-
-        function step(form){
-            form.children("div").steps({
-                headerTag: "h3",
-                bodyTag: "section",
-                transitionEffect: "slideLeft",
-                onStepChanging: function (event, currentIndex, newIndex)
-                {
-                if(currentIndex > newIndex){
-                    //form.valid()
-                    return true;
-                    
-                }
-                else{
-                    if(currentIndex == 1){
-                        if($('[name=choix]:checked').length != 1)
-                            return false; 
-                        return form.valid();
-                    }
-                    
-                    if(currentIndex == 2){
-                        
-                        if($('[name=connect]:checked').length != 1 && {{app.user|json_encode|raw}} == null)
-                            return false;
-
-                        if($("[name='connect']:checked").val() == "membre"){
-
-                            $.ajax({
-                                type: 'post',
-                                url: '/connexion3',
-                                data: { "_username": $('#email').val() },
-                                datatype: "json",
-                                success: function (data){
-                                    $('#nom').val(data.nom);
-                                    $('#prenom').val(data.prenom);
-                                    $('#num').val(data.numeroTelephone);
-                                    $('#demandes_client_adresse_nom_rue').val(data.adresse.nomRue);
-                                    $('#demandes_client_adresse_ville').val(data.adresse.ville);
-                                    $('#cp_perso').val(data.adresse.codePostal);
-                                }
-                            });
-                            
-                        }
-
-                        if($("[name='connect']:checked").val() == "pmembre"){
-                            if(form.valid()){
-                                $.ajax({
-                                    type: 'post',
-                                    url: "{{ path('birth') }}",
-                                    async: false,
-                                    success: function (data, status){
-                                        if (document.getElementById("birth") == undefined)
-                                            $('.nom').after(data); 
-                                    }
-                                })
-                            }
-                        }
-                    }
-                    if(currentIndex == 3){
-                        if(form.valid()){
-                            var url = "{{ path('facture') }}";
-                            var donnees = form.serialize();
-                            array_cat = ['Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
-                                'Santé et beauté', 'Auto et moto', 'Sports et mode'];
-                            $('#recap_ens').val($('#select_enseigne').val());
-                            $('#recap_cat').val(array_cat[$('#cat_produit').val()]);
-                            $('#recap_prix').val($('#form_prix').val());
-                            if($("[name='choix']:checked").val() == "magasin"){
-                                $('#recap_marque').val($('#mar').val());
-                                $('#recap_ref').val($('#ref').val());
-
-                            }
-                            if($("[name='choix']:checked").val() == "internet"){
-                                $('#recap_url').val($('#url').val());
-                            }
-                            $.post(url, donnees, function(data,status){                         
-                            });
-                        }
-                        return form.valid();
-                    }
-                    form.validate().settings.ignore = ":disabled,:hidden";
-                    return form.valid();
-                }
-
-                },
-                onStepChanged: function (event, currentIndex, priorIndex)
-                {   
-                    //passe directement à l'étape 4 si l'utilisateur est connecté
-                    if (currentIndex === 2 &&  priorIndex == 1 && $("[name='connect']:checked").val() != "pmembre" && 
-                        ({{app.user|json_encode|raw}} != null) || $('#steps-uid-0-t-4').parent().attr('aria-disabled') == false )
-                    {
-                        form.children("div").steps("next");
-                    }
-
-                    if (currentIndex === 2 &&  priorIndex == 3 && $("[name='connect']:checked").val() == "membre")
-                    {
-                        form.children("div").steps("previous");
-                    }
-                },
-                onFinishing: function (event, currentIndex)
-                {            
-                    form.validate().settings.ignore = ":disabled";
-                    return form.valid();
-                },
-                onFinished: function (event, currentIndex)
-                {   
-                    $.ajax({
-                        type: 'post',
-                        url: '/inscription3',
-                        data: { "_username": $('#email').val(), "_password": $('#password1').val() }
-                    });
-
-                    var url = "/demande-remboursement/";
-                    var form2 = document.getElementById("form-enseigne");
-                    var donnees = new FormData(form2)             
-
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        data: donnees,
-                        processData: false,  // indique à jQuery de ne pas traiter les données
-                        contentType: false ,  // indique à jQuery de ne pas configurer le contentType
-                    //$.post(url, donnees, function(data,status){
-                        /*success:function(data){
-                            form.preventDefault(); 
-                        } */            
-                    });
-                    $( "#dialog-message" ).dialog({
-                        closeOnEscape: false,
-                        open: function(event, ui) {
-                            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                        },
-                        modal: true, draggable: false,
-                        buttons: {
-                            Ok: function() {
-                                if({{app.user|json_encode|raw}} == null){
-                                    $.ajax({
-                                        url: '/connexion4',
-                                        type: "POST",
-                                        data: { "_username": $('#email').val() },
-                                        //processData: false,  // indique à jQuery de ne pas traiter les données
-                                        //contentType: false ,  // indique à jQuery de ne pas configurer le contentType           
-                                    });
-                                }
-                                document.location.href="{{ path('profil') }}";
-                            }
-                        }
-                    });             
+                        $('#form_location').html(data);           
                 }
             });
         }
-        
-    });
+            
+
+    }
+    //var form = document.getElementById("test").innerHTML;
+</script>
+<script>
+    $(document).ready(function() {
+        var recap;
+        attachDatepicker($( "#datepicker" ))
+
         function attachDatepicker(val){    
                 val.datepicker({ 
-                            minDate: -30, maxDate: 0, 
+                        minDate: -30, maxDate: 0, 
                             altField: "#datepicker",
                             closeText: 'Fermer',
                             prevText: 'Précédent',
@@ -265,14 +85,10 @@
                             dateFormat: 'dd-mm-yy' 
             }); 
         }
+    });
 </script>
 
 
-<script>
-  $( function() {
-    $( document ).tooltip();
-  });
-</script>
 <script>
         var changeM = function() {
             if($("[name='connect']:checked").val() == "membre"){
@@ -299,27 +115,32 @@
         }
         $('body').on('change', 'input[name=connect]', changeM);
         </script>
-
-        <script>            
-            var form = $("#form-enseigne");    
-            form.validate({
+        <script>
+            $("#form-eligibilite").validate({
                 rules: {
-                    "demandes[categorieProduit]":{
+                    "eligibilite[categorie]":{
                         "required": true,
                         "categorie": true,
                     },
-                    "demandes[enseigne]":{
+                    "eligibilite[enseigne]":{
                         "required": true,
                     },
-                    "demandes[dateAchat]":{
+                    "eligibilite[date_achat]":{
                         "required": true,
                     },
-                    "demandes[prixAchat]":{
+                    "eligibilite[prix]":{
                         "required": true,
                         "number": true,
                         "min": 20,
                         "regex_prix": /^[0-9]+(\.[0-9]{1,2})?$/
-                    },
+                    }
+                },
+            })
+        </script>
+        <script>            
+            var form = $("#form-enseigne");    
+            form.validate({
+                rules: {
                     "demandes[urlProduit]":{
                         "required": true,
                         "url": true,
@@ -372,7 +193,14 @@
                         "required": true,
                         "regex_tel": /^[1-9][0-9]{8}$/
                     },
+                    "demandes[client][adresse][nomRue]":{
+                        "required": true,
+                    },
+                    "demandes[client][adresse][ville]":{
+                        "required": true,
+                    },
                     "demandes[client][adresse][code_postal]":{
+                        "required": true,
                         "minlength": 5,
                         "maxlength": 5,
                     }

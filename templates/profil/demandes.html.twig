@@ -1,20 +1,12 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Espace client{% endblock %}
-
-{% block main %}
-<main>
-    <div class="container">
-        <h1>Bienvenue dans votre espace client {{ user.nom }}</h1>
         <div>
-        {% include 'profil/index.html.twig' %}
             <div class="recap">
-                <table class="table" border="1">
+                <table id="tab" class="table" border="1">
                     <thead>
-                        <tr>
-                            <th>Vos demandes</th>
+                        <tr>                           
                             <th>Numéro de dossier</th>
+                            <th>Date</th>
                             <th>Statut</th>
+                            <th>Remboursement</th>
                         </tr>
                     </thead>
                     <tbody id="mes-demandes">
@@ -25,12 +17,10 @@
             </div>
             <div class="boxed"><a href="{{ path('enseigne') }}">Déposer une nouvelle demande de remboursement</a></div>
         </div>
-    </div>
-</main>
-{% endblock %}
-{% block javascript %}
-<script>
-    $(document).ready(function() {
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
         var table = document.getElementById("mes-demandes");
         var all_demandes = function (){
 
@@ -43,17 +33,23 @@
                     $.each(data, function(i, demande){
                             var tr = document.createElement('TR');
                             var td1 = document.createElement('TD');
-                            const date = new Date(demande.dateAchat.timestamp*1000)
-                            td1.innerHTML = "Date demande: "  + date.toLocaleDateString();
-                            td1.innerHTML += "<br>Produit: " + demande.marqueProduit + " " + demande.referenceProduit;
-                            td1.innerHTML += "<br> <a href='" + demande.facture + "' target='blank'>Voir facture</a>"
                             var td2 = document.createElement('TD');
-                            td2.innerHTML = demande.numeroDossier
                             var td3 = document.createElement('TD');
-                            td3.innerHTML = demande.statut          
+                            var td4 = document.createElement('TD');
+                            var remboursement = " - ";
+                            if(demande.statut ==  "Remboursé"){
+                                remboursement = demande.montantRemboursement + "€"
+                            }
+                            td1.innerHTML = demande.numeroDossier
+                            const date = new Date(demande.dateAchat.timestamp*1000)
+                            td2.innerHTML =date.toLocaleDateString();                        
+                            td3.innerHTML = demande.statut
+                            td3.innerHTML += "<br> <a href='" + demande.facture + "' target='blank'>Voir facture</a>"
+                            td4.innerHTML = remboursement    
                             tr.appendChild(td1);
                             tr.appendChild(td2);
                             tr.appendChild(td3);
+                            tr.appendChild(td4);
                             table.appendChild(tr)                    
                     });
                     test(nb, '#tab')               
@@ -68,7 +64,7 @@
             document.getElementById('nav').innerHTML = "";
             nav = "#nav"
 
-            var rowsShown = 10;
+            var rowsShown = 6;
             var rowsTotal = nb;
             var numPages = rowsTotal/rowsShown;
             for(i = 0;i < numPages;i++) {
@@ -95,4 +91,3 @@
         window.onload = all_demandes()
     });
 </script>
-{% endblock %}

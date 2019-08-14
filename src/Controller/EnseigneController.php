@@ -18,13 +18,14 @@ use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormTypeInterface;
 
 use App\Security\FormLoginAuthenticator;
-use App\Form\AdresseType;
+use App\Form\EligibiliteType;
 use App\Form\DemandesMagasinType;
 use App\Form\DemandesInternetType;
 use App\Form\InscriptionType;
 
 use App\Repository\CientsRepository;
 
+use App\Entity\EligibiliteTest;
 use App\Entity\Adresses;
 use App\Entity\Clients;
 use App\Entity\Enseignes;
@@ -53,7 +54,10 @@ class EnseigneController extends AbstractController
 
          
         $user = $this->getUser();
-        
+
+        $test = new EligibiliteTest();
+        $formE= $this->createForm(EligibiliteType::class, $test);
+
         $demande = new Demandes();
         $demande->setClient($user);
 
@@ -66,29 +70,42 @@ class EnseigneController extends AbstractController
          ]);
         
         if ($request->isMethod('POST')){
-            $form = $request->request->get('demandes');
-            $form['dateAchat'] = (\DateTime::createFromFormat('d-m-Y',$form['dateAchat']));
+            if($request->request->has('demandes')){
+                $form = $request->request->get('demandes');
+                //$form['dateAchat'] = (\DateTime::createFromFormat('d-m-Y',$form['dateAchat']));
 
-            if ($user == null){
-                $repo = $em->getRepository(Clients::class);
-                $user = $repo->findOneBy(['email' => $form['client']['email']]);
-                $user->bis_construct($form['client']);
-                $em->flush();
-            }
+                if ($user == null){
+                    $repo = $em->getRepository(Clients::class);
+                    $user = $repo->findOneBy(['email' => $form['client']['email']]);
+                    $user->bis_construct($form['client']);
+                    $em->flush();
+                }
 
-            if($request->request->get('choix') == "internet"){
-                       
-                $formInternet->submit($form);
-                $this->handle_form($em, $user, $demande, $formInternet, $request, $mailer, $guardHandler,  $authenticator, 
-                     $passwordEncoder);
+                if($request->request->get('choix') == "internet"){
+                        
+                    $formInternet->submit($form);
+                    $this->handle_form($em, $user, $demande, $formInternet, $request, $mailer, $guardHandler,  $authenticator, 
+                        $passwordEncoder);
+                }
+                else{
+                    $formMagasin->submit($form);
+                    $this->handle_form($em, $user, $demande, $formInternet, $request, $mailer, $guardHandler,  $authenticator, 
+                    $passwordEncoder);
+                }
+                //$form->submit($request->request->get($form->getName()));
             }
-            else{
-                $formMagasin->submit($form);
-                $this->handle_form($em, $user, $demande, $formInternet, $request, $mailer, $guardHandler,  $authenticator, 
-                 $passwordEncoder);
-            }
-            //$form->submit($request->request->get($form->getName()));
+            if($request->request->has('eligibilite')){
+                $post1 = $request->request->get('eligibilite');
+                $session->set('enseigne', $post1['enseigne']);
+                $session->set('date_achat', $post1['date_achat']);
+                $array_cat = array('Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
+                'Santé et beauté', 'Auto et moto', 'Sports et mode');
+                //var_dump($array_cat[$session->get('categorie')]);
+                $session->set('categorie', $array_cat[$post1['categorie']]);
+                $session->set('prix', $post1['prix']);
+                $session->set('path', $post1['_token']);
 
+            }
         }
         
         
@@ -96,11 +113,36 @@ class EnseigneController extends AbstractController
         //$this->handle_form($user, $demande, $formMagasin, $request, $mailer);
         
         return $this->render('enseigne/index.html.twig', [
-            'form1' => $formMagasin->CreateView(), 
+            'form' => $formE->CreateView(), 
             'user' => $user,
         ]);
     }
+
     
+    /**
+     * @Route("/formulaire", name="formulaire")
+     */
+    public function form(Request $request, RouterInterface $router){
+        //if($request->isXmlHttpRequest()){
+            $user = $this->getUser();
+            $demande = new Demandes();
+            $demande->setClient($user);
+            $formMagasin = $this->createForm(DemandesMagasinType::class, $demande,[
+                'validation_groups' => array('User', 'inscription'),
+            ]);
+            $formMagasin->handleRequest($request);
+
+            return $this->render('enseigne/formulaire.html.twig', [
+                'form1' => $formMagasin->CreateView(), 
+                'user' => $user]);
+        //}
+        /*else{
+            $url = $router->generate('accueil');
+
+            return new RedirectResponse($url);
+        }*/
+    }
+
     /**
      * @Route("/magasin", name="mag")
      */
@@ -229,8 +271,15 @@ class EnseigneController extends AbstractController
                 }
                 $demande->setPieceJointe($newFilename);
             }
-            $path = "/factures/" . $session->get('_csrf/demandes') . ".pdf";
+
+            $dateAchat = \DateTime::createFromFormat('d-m-Y', $session->get('date_achat'));
+            $path = "/factures/" . $session->get('path') . ".pdf";
+
+            $demande->setPrixAchat($session->get('prix'));
+            $demande->setCategorieProduit($session->get('categorie'));
+            $demande->setEnseigne($session->get('enseigne'));            
             $demande->setFacture($path);
+            $demande->setDateAchat($dateAchat);
             
             $repo = $em->getRepository(Clients::class);
             //$user = $repo->findOneBy(['email' => $post['client']['email']]);

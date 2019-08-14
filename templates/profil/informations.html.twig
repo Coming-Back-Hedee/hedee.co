@@ -1,30 +1,18 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello ProfilController!{% endblock %}
-{% block stylesheets %}
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' 
-    integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>	
-{% endblock %}
-
-{% block main %}
-    <main>
-        <div class="container">
-            {% include 'profil/index.html.twig' %}
             <div>
                 <table class="table" border="1">
-                    <tbody id="mes-demandes">
+                    <tbody id="mes-infos">
                         <tr>
                             <td>Nom</td>
                             <td>{{ user.prenom ~ " " ~ user.nom }}</td>
                             <td>
-                                <span class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
+                                <a href="#" class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</a>
                                 <div id="modif_p_id" class="modif">
                                     {{ form_start(form) }}
                                         {{ form_label(form.prenom) }}
                                         {{ form_widget(form.prenom) }} <br>
                                         {{ form_label(form.nom) }}
                                         {{ form_widget(form.nom) }} <br>
-                                        <button type="submit">Changer</button> 
+                                        <button type="submit" onclick="event.preventDefault(); modify()">Changer</button> 
                                         <button class="cancel">Annuler</button>
                                     {{ form_end(form, {'render_rest': false} ) }}
                                 </div>
@@ -38,32 +26,37 @@
                         </tr>
                         <tr>
                             <td>Date de naissance</td>
-                            <td>{{ user.dateNaissance }}</td>
+                            <td>{{ user.dateNaissance|date('d/m/Y') }}</td>
                             <td>
-                                <span class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
+                                <a href="#" class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</a>
                                 <div id="modif_birth" class="modif">
                                     {{ form_start(form) }}
                                         {{ form_label(form.dateNaissance) }}
                                         {{ form_widget(form.dateNaissance.day) }} 
                                         {{ form_widget(form.dateNaissance.month) }}
                                         {{ form_widget(form.dateNaissance.year) }}<br>
-                                        <button type="submit">Changer</button> 
-                                        <button>Annuler</button>
+                                        <button type="submit" onclick="return modify()">Changer</button> 
+                                        <button class="cancel">Annuler</button>
                                     {{ form_end(form, {'render_rest': false} ) }}
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>Numéro de téléphone </td>
-                            <td>{{ user.numeroTelephone }}</td>
+                            <td>+33{{ user.numeroTelephone }}</td>
                             <td>
-                                <span class="modif_link"><i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
+                                <a href="#" class="modif_link"><i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</a>
                                 <div id="modif_p_tel" class="modif">
                                     {{ form_start(form) }}
                                         {{ form_label(form.numeroTelephone) }}
-                                        {{ form_widget(form.numeroTelephone) }} <br>
-                                        <button type="submit">Changer</button> 
-                                        <button>Annuler</button>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">+33</span>
+                                            </div>
+                                            {{ form_widget(form.numeroTelephone) }}
+                                        </div>
+                                        <button type="submit" onclick=" modify(); return false;">Changer</button> 
+                                        <button class="cancel">Annuler</button>
                                     {{ form_end(form, {'render_rest': false} ) }}
                                 </div>
                             </td>
@@ -72,43 +65,77 @@
                             <td>Adresse</td>
                             <td>{{ user.adresse.nomRue }} <br> {{ user.adresse.ville }} <br> {{ user.adresse.codePostal }}</td>
                             <td>
-                                <span class="modif_link"><i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</span>
+                                <a href="#" class="modif_link"><i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</a>
+                                <div id="modif_p_adresse" class="modif">
+                                    {{ form_start(form) }}
+                                        {{ form_label(form.adresse.nomRue) }}   
+                                        {{ form_widget(form.adresse.nomRue) }} <br>
+                                        {{ form_label(form.adresse.ville) }}   
+                                        {{ form_widget(form.adresse.ville) }} <br>
+                                        {{ form_label(form.adresse.codePostal) }} 
+                                        {{ form_widget(form.adresse.codePostal) }} <br>
+                                        <button type="submit">Changer</button> 
+                                        <button class="cancel">Annuler</button>
+                                    {{ form_end(form, {'render_rest': false} ) }}
+                                </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Compte complet</td>
-                            <td>{{ (user.isActive) ? 'Oui' : 'Non' }}</td>
-                            <td>{% if user.isActive %} Mandat signé {% else %} <a href="#">Autoriser le mandat sépa</a> {% endif %}</td>
-                        </tr>
-
                     </tbody>
                 </table>
             </div>
-        </div>
-    </main>
-{% endblock %}
-{% block javascript %}
-    <script>
-        var annulations = document.getElementsByClassName('cancel');
-        Array.from(annulations).forEach(function(annulation){
-            annulation.addEventListener('click', function(){
-                //$('#info_client').preventDefault()               
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function() {
+            var annulations = document.getElementsByClassName('cancel');
+            Array.from(annulations).forEach(function(annulation){
+                annulation.addEventListener('click', function(e){
+                    e.preventDefault()
+                    annulation.parentNode.parentNode.style.display = "none"
+                    annulation.parentNode.parentNode.parentNode.firstElementChild.style.display = "block"
+                })
             })
+    
+            var icons = document.getElementById('mes-infos')
+            Array.from(icons.children).forEach(function(icon){
+                if(icon.lastElementChild.firstElementChild!= null){
+                    icon.addEventListener('mouseover', function(){
+                        icon.lastElementChild.firstElementChild.firstElementChild.style.display = "block"
+                    })
+                    icon.addEventListener('mouseout', function(){
+                        icon.lastElementChild.firstElementChild.firstElementChild.style.display = "none";
+                    })
+                    icon.lastElementChild.firstElementChild.addEventListener('click', function(){
+                        this.style.display = "none";
+                        icon.lastElementChild.lastElementChild.style.display = "block";
+                    })
+                }
+            })
+                function modify(){
+                    alert()
+                    var url = "{{ path('info_client') }}"
+                    var donnees = form.serialize();
+                    
+                    $.ajax({
+                        type: 'post',
+                        url: url,
+                        data: donnees, 
+                        success: function (data, status){
+                            
+                            }
+                    })
+                    window.history.back();
+                    return false
+                }
+
+            /*var submit = ($( "[name=info_client]" ))
+            Array.from(submit).forEach(function(button){
+                button.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    window.history.forward(-1);        
+                    //location.reload();
+
+                })
+
+            })*/
         })
-    </script>
-    <script>
-        var icons = document.getElementsByClassName('modif_link')
-        Array.from(icons).forEach(function(icon){
-            icon.addEventListener('mouseover', function(){
-                icon.firstElementChild.style.display = "inline-block"
-            })
-            icon.addEventListener('mouseout', function(){
-                icon.firstElementChild.style.display = "none";
-            })
-            icon.addEventListener('click', function(){
-                this.style.display = "none";
-                icon.nextElementSibling.style.display = "block";
-            })
-        })
-    </script>
-{% endblock %}
+        </script>

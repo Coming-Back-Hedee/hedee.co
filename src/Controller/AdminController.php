@@ -63,6 +63,7 @@ class AdminController extends AbstractController
 
 
             if ($form2->isSubmitted() && $form2->isValid()) {
+                $montant = $post->get('cloture')['montantCloture'];
                 if(array_key_exists('clotureNR', $post->get('cloture'))){
                     $statut = 'Non remboursé';
                     $mail_objet = "Alerte de non remboursement";
@@ -77,15 +78,19 @@ class AdminController extends AbstractController
                     $statut = 'Remboursé';
                     $mail_objet = "Alerte de remboursement";
                     $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => 'Remboursé']);
-                    $this->forward('App\Controller\PdfController::details_footer', [
+                    /*$this->forward('App\Controller\PdfController::details_footer', [
                         'pdf'  => $pdf,
                         'alerte' => $alerte->getDossier()->getLastAlerte(), 
                         'session' => $request->getSession(),
-                        ]);
+                        ]);*/
                     $dossier->setStatut('Remboursé');
+                    $dossier->setMontantRemboursement($montant);
                     $em->flush();
-                    $bodyMail = $mailer->createBodyMail('admin/mail_remboursement.html.twig', ['dossier' => $dossier]);
+                    $bodyMail = $mailer->createBodyMail('admin/mail_remboursement.html.twig', [
+                        'dossier' => $dossier, 
+                        ]);
                 }
+
             }
             
             if ($form1->isSubmitted() && $form1->isValid()) {
