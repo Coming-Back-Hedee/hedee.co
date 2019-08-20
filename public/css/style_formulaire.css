@@ -1,0 +1,397 @@
+﻿:root {
+    --orange_perso: #ff3c00;
+    --bleu_perso: #2800dc; 
+}
+
+
+/** RESET CSS **/
+html, body, div, main  {
+    margin:0;
+    padding:0;
+}
+
+body {
+    font-family: 'Georgia', sans-serif;
+    color: var(--bleu_perso);
+    width: 100%;
+    min-height:960px;
+}
+
+.bloc_header {
+    background-image: url("../img/parcours_remboursement/Composant\ 1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center ;
+    height: 199px;
+    width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.form_elig {
+    background-color: white;
+}
+
+.les_infos {
+    background-color: white;
+    color: var(--bleu_perso);
+    margin-top: 5%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 5%;
+
+}
+
+.bloc_footer {
+    background-image: url("../img/parcours_remboursement/Composant\ 2.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center ;
+    height: 250px;
+    width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+input, select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    /*background-color: #CED8F6;*/
+    color: var(--bleu_perso);
+}
+
+
+.input-group-append button{
+    background-color: #CED8F6;
+    border: 1px solid #ccc;
+}
+
+#soumettre {
+    background-color:var(--orange_perso);
+    color: white; 
+    box-sizing: border-box;
+    padding: 0.7em 1em;   
+    text-align: center;
+    font-size: 80%;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+ul[role=menu]{
+    margin: auto;
+    margin-right: 25%;
+    margin-left: 25%;
+}
+
+.affichage_msg{
+    margin: auto;
+    margin-right: 25%;
+    margin-left: 25%;
+}
+
+.demander {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;     
+}
+
+#form_demande{
+    min-height: 40%;
+}
+
+#connexion{
+    position: relative;
+    background-image: url("../img/parcours_remboursement/Groupe\ 394.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center ;
+    min-height: 444px;
+    max-width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+#inscription{
+    position: relative;
+    background-image: url("../img/parcours_remboursement/Groupe\ 399.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center ;
+    min-height: 444px;
+    max-width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.hedee_rc{
+    position: absolute;
+    right: 50px;
+    top: 25%;
+    max-width: 50%;
+}
+
+.hideC{
+    border-radius: 24px;
+    background-image: url("../img/parcours_remboursement/Groupe\ 229.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center ;
+    min-height: 40px;
+    min-width: 177px;
+    margin-top: 30%;
+    margin-left: 10%;
+}
+
+.hideI{
+    border-radius: 24px;
+    background-image: url("../img/parcours_remboursement/Groupe\ 228.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center ;
+    min-height: 40px;
+    min-width: 177px;
+    margin-top: 30%;
+    margin-left: 10%;
+}
+
+
+/* CSS SOUS MENU FORMULAIRE */
+.current-info.audible {
+    display:none
+}
+
+.steps ul li   {
+    display:inline;
+    list-style: none;
+    padding-left: 10px;
+}
+
+.steps ul li a {
+    text-decoration: none;
+}
+
+/*page informations de commande - votre achat*/
+.steps ul .first.current a {
+    background-color: var(--bleu_perso);
+    padding: 15px;
+    color: #fff;
+}
+
+.steps ul .disabled a, .steps ul .done a {
+    background-color: #fff;
+    padding: 15px;
+    color: black;
+    border: solid 1px #ccc;
+}
+
+.steps ul .disabled.last a {
+    background-color: #fff;
+    padding: 15px;
+    color: black;
+    border: solid 1px #ccc;
+}
+
+textarea{
+    height: 10%;
+    width: 100%;
+}
+
+#demandes_magasin_facture {
+    padding-bottom: 45px
+}
+
+.facture, .marque, .reference, .numero_commande, .commentaires, .url {
+    margin: 15px 40px 15px 40px;
+}
+
+.url {
+    margin: 50px 40px 15px 40px;
+}
+
+.code_postal {
+    padding-top: 40px
+}
+
+
+ .les_infos {
+    padding-top : 30px;
+    padding-bottom: 40px
+}
+
+.les_infos > section {
+    margin-left:40px
+}
+
+.les_infos h3 {
+    margin: 30px 40px 15px 40px;
+}
+
+.marque_2,.reference_2, .numero_commande_2, .commentaires_2, .prix_article_2 {
+    display:flex
+}
+
+.label_2 {
+    margin-right: 6px
+}
+
+.question_2 .btn  {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border:none;
+    font-family: 'Georgia', sans-serif; 
+}
+
+
+/* Title inutiles */
+.help-text {
+    display:none;
+}
+
+#steps-uid-0-h-0.title, #steps-uid-0-h-1.title, #steps-uid-0-h-2.title {
+    display:none
+}
+
+.actions{
+    margin-top: 10%;
+}
+
+.actions ul li {
+    display:inline;
+    list-style: none;
+    padding-left: 15px;
+}
+
+#menuprevious{
+    text-decoration: none;
+    background-color: #fff;
+    padding: 10px;
+    color: var(--orange_perso);
+    border-radius: 24px;
+    border-style: solid;
+    border-width: 0.03em;
+    border-color: var(--orange_perso);
+    width: 125px;
+}
+
+#menunext, #menufinish{
+    text-decoration: none;
+    background-color: var(--orange_perso);
+    padding: 10px;
+    color: #fff;
+    border-radius: 24px;
+    width: 125px;
+}
+
+/*page informations client - vos coordonnées*/
+.steps ul .first.done a {
+    background-color: #fff;
+    padding: 15px;
+    color: lightgrey;
+
+}
+
+.steps ul .current a {
+    background-color: var(--bleu_perso);
+    padding: 15px;
+    color: #fff;
+}
+
+.steps ul .last.done a {
+    background-color: #fff;
+    padding: 15px;
+    color: lightgrey;
+    border: solid 1px #ccc;
+}
+
+
+.info_client {
+    padding-top : 45px
+}
+
+/*Page Valider*/
+.steps ul .done a {
+    background-color: #fff;
+    padding: 15px;
+    color: lightgrey;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+}
+
+.steps ul .last.current a {
+    background-color: var(--bleu_perso);
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+}
+
+#facture_jpg {
+    padding : 45px 0 45px 40px;
+}
+
+
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .fa {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .fa  { left:  0px;}
+.right-addon .fa { right: 0px; display: inline-block; height: 100%; text-align: center;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+/*Formulaire : boutons bas de page
+.actions ul li a {}*/
+
+
+
+/**********PARTIE RESPONSIVE DESIGN***********/
+            /***POUR MOBILE***/
+@media screen and (max-width:767.98px){ 
+    .steps ul{
+        display:block;
+        width: 50%;
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center
+
+    }
+}
+
+
+            /***POUR TABLETTE***/
+@media (min-width: 768px) and (max-width:991.98px){ 
+    .steps ul{
+        display: block;
+        width: 50%;
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center
+    }
+}
+
+
+            /***POUR GD ECRAN***/
+@media screen and (min-width: 1025px){ } 
+

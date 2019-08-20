@@ -43,9 +43,9 @@ class ClientType extends AbstractType
 
         })
         
-        ->add('nom', TextType::class, ['label' => 'Nom'] )
-        ->add('prenom', TextType::class, ['label' => 'Prénom'])
-        ->add('numeroTelephone', TelType::class, ['label' => 'Numéro de téléphone'])
+        ->add('nom', TextType::class, ['label' => 'Votre nom'] )
+        ->add('prenom', TextType::class, ['label' => 'Votre prénom'])
+        ->add('numeroTelephone', TelType::class, ['label' => 'Votre numéro de téléphone'])
         //->add('codeParrainage', TextType::class, ['label' => 'Code Parrainage'])
         ->add('adresse', AdresseType::class)
             ;

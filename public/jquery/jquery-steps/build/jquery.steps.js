@@ -1055,24 +1055,24 @@ function renderPagination(wizard, options, state)
     if (options.enablePagination)
     {
         var pagination = "<{0} class=\"actions {1}\"><ul role=\"menu\" aria-label=\"{2}\">{3}</ul></{0}>",
-            buttonTemplate = "<li><a href=\"#{0}\" role=\"menuitem\">{1}</a></li>",
+            buttonTemplate = "<li><a href=\"#{0}\" id=\"{2}\" role=\"menuitem\">{1}</a></li>",
             buttons = "";
 
         if (!options.forceMoveForward)
         {
-            buttons += buttonTemplate.format("previous", options.labels.previous);
+            buttons += buttonTemplate.format("previous", options.labels.previous, "menuprevious");
         }
 
-        buttons += buttonTemplate.format("next", options.labels.next);
+        buttons += buttonTemplate.format("next", options.labels.next, "menunext");
 
         if (options.enableFinishButton)
         {
-            buttons += buttonTemplate.format("finish", options.labels.finish);
+            buttons += buttonTemplate.format("finish", options.labels.finish, "menufinish");
         }
 
         if (options.enableCancelButton)
         {
-            buttons += buttonTemplate.format("cancel", options.labels.cancel);
+            buttons += buttonTemplate.format("cancel", options.labels.cancel, "menucancel");
         }
 
         wizard.append(pagination.format(options.actionContainerTag, options.clearFixCssClass,
@@ -2007,7 +2007,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Finish"
          * @for defaults
          **/
-        finish: "Valider",
+        finish: "Je valide ma demande",
 
         /**
          * Label for the next button.

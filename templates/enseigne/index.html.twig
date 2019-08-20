@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheet %} 
-    <link rel="stylesheet" href="{{asset('style.css')}}">
+{% block stylesheets %} 
+    <link rel="stylesheet" href="{{asset('css/style_formulaire.css')}}">
 {% endblock %}
 
 {% block title %}{% endblock %}
 
-{% block stylesheets %}
-			<link rel="stylesheet" href="{{asset('style_formulaire.css')}}"> 
-{% endblock %}
-
 {% block main %}
-        <div id="form_location">
-            {% include 'enseigne/eligibilite.html.twig' %}
-        </div>
+    <div class="bloc_header">
+    </div>
+    <div id="form_location">
+        {% include 'enseigne/eligibilite.html.twig' %}
+    </div>
+    <div class="bloc_footer">
+    </div>
 
 {% endblock %}
 
@@ -137,90 +137,7 @@
                 },
             })
         </script>
-        <script>            
-            var form = $("#form-enseigne");    
-            form.validate({
-                rules: {
-                    "demandes[urlProduit]":{
-                        "required": true,
-                        "url": true,
-                    },
-                    "demandes[client][email]":{
-                        "required": true,
-                        "email": true,
-                        "remote": {
-                            param: {
-                                url: "/inscription2", 
-                                method: "POST",
-                                data: {
-                                    '_username' : function(){ return $('#email').val()}
-                                    },
-                                dataType: "json",
-                            },
-                            depends: function(element) {
-                                return $("#pmembre").is(":checked");
-                            }                             
-                        },
-                    },
-                    "demandes[client][plainPassword][first]":{
-                        "required": true,
-                        "remote": {
-                            param: {
-                                url: "/connexion2", 
-                                method: "POST",
-                                data: {                                
-                                    "_password": function(){ return $('#password1').val()},
-                                    "_username": function(){ return $('#email').val()},
-                                    }, 
-                                dataType: "json",
-                                async: false,
-                            },
-                            depends: function(element) {
-                                return $("#membre").is(":checked");
-                            }            
-                        },
-                    },
-                    "demandes[client][plainPassword][second]":{
-                        "required": true,
-                        "equalTo": {
-                            param :"#password1",
-                            depends: function(element) {
-                                return $("#pmembre").is(":checked");
-                            }
-                        }
-                    },
-                    "demandes[client][numeroTelephone]":{
-                        "required": true,
-                        "regex_tel": /^[1-9][0-9]{8}$/
-                    },
-                    "demandes[client][adresse][nomRue]":{
-                        "required": true,
-                    },
-                    "demandes[client][adresse][ville]":{
-                        "required": true,
-                    },
-                    "demandes[client][adresse][code_postal]":{
-                        "required": true,
-                        "minlength": 5,
-                        "maxlength": 5,
-                    }
-                },
-                messages: {
-                    "demandes[cgu]": {
-                        required: "Vous devez accepter les conditions pour poursuivre le demande",                   
-                    },
-                    "demandes[client][email]":{
-                        remote: jQuery.validator.format("{0} est déjà utilisée.")
-                    },
-                    "demandes[client][plainPassword][first]":{
-                        "remote" : "mauvaise combinaison adresse email et mot de passe"
-                    },
-                    "demandes[client][plainPassword][second]":{
-                        "equalTo": "Les mots de passes ne sont pas identiques."
-                    },                   
-                }
-            });
-        </script>
+       
 
         <script>
 

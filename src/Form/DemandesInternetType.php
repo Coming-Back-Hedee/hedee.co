@@ -26,8 +26,8 @@ class DemandesInternetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('urlProduit', UrlType::class, ['label' => 'URL du produit d\'achat'])
-            ->add('numeroCommande', TextType::class,   ['label' => 'Numéro de commande',
+            ->add('urlProduit', UrlType::class, ['label' => 'Renseignez l\'URL de la page du produit'])
+            ->add('numeroCommande', TextType::class,   ['label' => 'Indiquez le numéro de commande',
             'help' => 'Le numéro de commande se trouve sur votre facture',
             'required' => false
             ])

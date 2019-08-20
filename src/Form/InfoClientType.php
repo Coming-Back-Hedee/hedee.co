@@ -20,18 +20,15 @@ class InfoClientType extends AbstractType
     {
         $builder
             ->setAction('informations-generales')
-            ->add('prenom', TextType::class, ['label' => 'Prenom', 'required' => false])
-            ->add('nom', TextType::class, ['label' => 'Nom', 'required' => false])
-            ->add('numeroTelephone', TextType::class, ['label' => 'Numéro de téléphone', 'required' => false])
+            ->add('prenom', TextType::class, ['label' => 'Votre prénom', 'required' => false])
+            ->add('nom', TextType::class, ['label' => 'Votre nom', 'required' => false])
+            ->add('numeroTelephone', TextType::class, ['label' => 'Votre numéro de téléphone', 'required' => false])
             ->add('dateNaissance', DateType::class, [
-                'label' => 'Date de naissance',
+                'label' => 'Votre date de naissance',
                 'required' => false,
                 'years' => range(date('Y')-10, date('Y')-110)] )
-            ->add('adresse',AdresseType::class, ['label' => 'Adresse', 'required' => false])           
-            ->add('submit1', SubmitType::class, ['label' => 'Valider'])
-            ->add('submit2', SubmitType::class, ['label' => 'Valider'])
-            ->add('submit3', SubmitType::class, ['label' => 'Valider'])
-            ->add('submit4', SubmitType::class, ['label' => 'Valider'])
+            ->add('adresse',AdresseType::class, ['label' => 'Votre adresse', 'required' => false])           
+            ->add('submit', SubmitType::class, ['label' => 'Valider'])
             ;        
     }
  

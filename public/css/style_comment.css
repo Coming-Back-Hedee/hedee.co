@@ -3,8 +3,12 @@
     background-image: url("../img/parcours_decouverte/comment/Groupe\ 394.png");
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     height: 199px;
     width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 /* 1er BLOC - vérifier votre éligibilité*/
@@ -13,11 +17,15 @@
     background-image: url("../img/parcours_decouverte/comment/Groupe\ 118.png") ;
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 873px;
     max-width:100%;
     margin-top: 5%;
     margin-left: 22%;
     margin-right: 15%;
+    -webkit-background-size: 100%;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 
@@ -26,8 +34,12 @@
     background-image: url("../img/parcours_decouverte/comment/Groupe\ 139.png");
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 447px;
     max-width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 
@@ -37,7 +49,11 @@
     background-image: url("../img/parcours_decouverte/comment/Groupe\ 395.png") ;
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 1855px;
     width:100%;
     margin-top: 5%;
+    -webkit-background-size: 100%;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }

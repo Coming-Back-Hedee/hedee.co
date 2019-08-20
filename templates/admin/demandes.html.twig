@@ -1,0 +1,267 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+{% block stylesheets %}
+{% endblock %}
+{% block main %}
+
+    <div class="container">
+    <h1>Tableau de bord : demandes de remboursement</h1>
+        <div>
+            <div class="recap">
+            <button id="all" class="filtre active">Tous</button> 
+            <button id="ec" class="filtre">En cours</button> 
+            <button id="ap" class="filtre">Alerte prix</button> 
+            <button id="dr" class="filtre">Remboursé</button> 
+            <button id="dnr" class="filtre">Non remboursé</button> 
+            <button id="delete" style="display: none;" type="submit">
+                <span class='fas fa-trash-alt'></span>
+            </button>           
+                <table id="tab" class="table" border="1">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input id="all" name="all" type="checkbox" onClick="toggle(this.checked)">
+                            </th>                        
+                            <th>Récap</th>
+                            <th>Numéro de dossier</th>
+                            <th>Statut</th>
+                            <th>Dossier</th>
+                        </tr>
+                    </thead>
+                    <tbody id="demandes">
+
+                    </tbody>
+                </table>
+                <div id="nav"></div>
+            </div>
+        </div>
+    
+    </div>
+{% endblock %}
+{% block javascript %}
+<script>
+        function empty_section(tab){
+            if(tab.children.length > 0){
+                var i;
+                while(tab.firstChild){
+                tab.removeChild(tab.firstChild);
+                }
+            }
+        }
+
+        function toggle(source) {
+            checkboxes = document.getElementsByName('box');
+            change = source     
+            for(var i=0;i<checkboxes.length;i++){
+                //console.log(checkboxes[i].parentNode.parentNode);
+                if(checkboxes[i].parentNode.parentNode.style.display != "none")
+                    checkboxes[i].checked = change;
+            }
+            trashDisplay();   
+        }
+
+        function trashDisplay(){
+            var div = document.getElementById('delete');
+            checkboxes2 = document.getElementsByName('box');
+            //console.log(checkboxes2);
+            var count = false;
+            for(var i=0;i<checkboxes2.length;i++){
+                if(checkboxes2[i].checked == true)
+                count = true   
+            }
+            if(div.style.display == 'none')
+                div.style.display = ''
+            else{           
+                //console.log(count)
+                if(count == false){
+                div.style.display = 'none'
+                }      
+            }
+        }
+    $(document).ready(function() {
+        var table = document.getElementById("demandes");
+
+        var all_demandes = function (){
+
+            url = "{{ path('admin_all_demandes') }}";
+            $.ajax({
+                dataType: "json",
+                url: url,
+                success: function (data, status){
+                    var nb = data.length
+                    $.each(data, function(i, demande){
+                        fillTab(table, demande)
+                    });
+                    test(nb, '#tab')               
+                }
+            });
+        }
+
+        $('#ec').on('click', function(){
+            if (document.getElementById('ec').getAttribute('class').split(' ').length < 2){
+                document.getElementsByClassName('filtre active')[0].setAttribute('class', 'filtre')
+                document.getElementById('ec').setAttribute('class', 'filtre active')
+                empty_section(table)
+                url = "{{ path('admin_demandes_en_cours') }}";
+                $.ajax({
+                    dataType: "json",
+                    url: url,
+                    success: function (data, status){
+                        var nb = data.length
+                        $.each(data, function(i, demande){
+                            fillTab(table, demande)
+                        });
+                        test(nb, '#tab')               
+                    }
+                });
+            }
+        });       
+
+        $('#ap').on('click', function(){
+            if (document.getElementById('ap').getAttribute('class').split(' ').length < 2){
+                document.getElementsByClassName('filtre active')[0].setAttribute('class', 'filtre')
+                document.getElementById('ap').setAttribute('class', 'filtre active')
+                empty_section(table)
+                url = "{{ path('admin_demandes_alerte') }}";
+                $.ajax({
+                    dataType: "json",
+                    url: url,
+                    success: function (data, status){
+                        var nb = data.length
+                        $.each(data, function(i, demande){
+                            fillTab(table, demande)
+                        });
+                        test(nb, '#tab')              
+                    }
+                });
+            }
+        })
+
+        $('#dr').on('click', function(){
+            if (document.getElementById('dr').getAttribute('class').split(' ').length < 2){
+                document.getElementsByClassName('filtre active')[0].setAttribute('class', 'filtre')
+                document.getElementById('dr').setAttribute('class', 'filtre active')
+                empty_section(table)
+                url = "{{ path('admin_demandes_r') }}";
+                $.ajax({
+                    dataType: "json",
+                    url: url,
+                    success: function (data, status){
+                        var nb = data.length
+                        $.each(data, function(i, demande){
+                            fillTab(table, demande)
+                        });
+                        test(nb, '#tab')             
+                    }
+                });
+            }
+        })
+
+        $('#dnr').on('click', function(){
+            if (document.getElementById('dnr').getAttribute('class').split(' ').length < 2){
+                document.getElementsByClassName('filtre active')[0].setAttribute('class', 'filtre')
+                document.getElementById('dnr').setAttribute('class', 'filtre active')
+                empty_section(table)
+                url = "{{ path('admin_demandes_nr') }}";
+                $.ajax({
+                    dataType: "json",
+                    url: url,
+                    success: function (data, status){
+                        var nb = data.length
+                        $.each(data, function(i, demande){
+                            fillTab(table, demande)
+                        });
+                        test(nb, '#tab')               
+                    }
+                });
+            }
+        })
+
+        $('#all').on('click', function(){
+            console.log(document.getElementById('all').getAttribute('class').split(' ').length)
+            if (document.getElementById('all').getAttribute('class').split(' ').length < 2){
+                document.getElementsByClassName('filtre active')[0].setAttribute('class', 'filtre')
+                document.getElementById('all').setAttribute('class', 'filtre active')
+                empty_section(table)
+                url = "{{ path('admin_all_demandes') }}";
+                $.ajax({
+                    dataType: "json",
+                    url: url,
+                    success: function (data, status){
+                        var nb = data.length
+                        $.each(data, function(i, demande){
+                            fillTab(table, demande)
+                        }); 
+                        test(nb, '#tab')              
+                    }
+                });
+                
+            }
+        })
+
+        function fillTab(table, demande){
+            var test = "admin/dossier-" + demande.numeroDossier
+            var tr = document.createElement('TR');
+            var td1 = document.createElement('TD');
+            var td2 = document.createElement('TD');
+            var td3 = document.createElement('TD');
+            var td4 = document.createElement('TD');
+            var td0 = document.createElement('TD');
+            var checkbox = document.createElement('INPUT');
+            checkbox.setAttribute('type', 'checkbox')
+            checkbox.setAttribute('name', 'box')
+            checkbox.setAttribute('value', demande.id)
+            checkbox.setAttribute('onclick', 'trashDisplay()')
+            td0.appendChild(checkbox)
+            //const date = new Date(demande.dateAchat.timestamp*1000)           
+            td1.innerHTML = "<a href='" + demande.facture + "' target='_blank'>Facture</a>";        
+            td2.innerHTML = demande.numeroDossier          
+            td3.innerHTML = demande.statut
+            td4.innerHTML = "<a href='" + test + "'>Voir dossier</a>"  
+            tr.appendChild(td0);           
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            table.appendChild(tr)   
+        }
+
+        function test(nb, a){
+            var nav;
+            var select_all;
+            //$(a).after('<div id="nav"></div>');
+            document.getElementById('nav').innerHTML = "";
+            nav = "#nav"
+
+            var rowsShown = 10;
+            var rowsTotal = nb;
+            var numPages = rowsTotal/rowsShown;
+            for(i = 0;i < numPages;i++) {
+                var pageNum = i + 1;
+                $(nav).append('<a href="#" rel="'+i+'">'+pageNum+'</a> ');
+            }
+            $(a + ' tbody tr').hide();
+            $(a + ' tbody tr').slice(0, rowsShown).show();
+            $(nav + ' a:first').addClass('active');
+            $(nav + ' a').bind('click', function(){
+                /*if(select_all.checked == true){
+                select_all.checked = false
+                toggle(false)      
+                }*/
+                $(nav + ' a').removeClass('active');
+                $(this).addClass('active');
+                var currPage = $(this).attr('rel');
+                var startItem = currPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $(a + ' tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+                css('display','table-row').animate({opacity:1}, 300);
+            });          
+        }
+
+        window.onload = all_demandes()
+
+
+    });
+</script>
+{% endblock %}

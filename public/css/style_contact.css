@@ -3,8 +3,12 @@
     background-image: url("../img/parcours_decouverte/faq/Composant\ 3.png");
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     height: 199px;
     width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 /* 1er BLOC - vérifier votre éligibilité*/
@@ -24,8 +28,12 @@
     background-image: url("../img/parcours_decouverte/footer.png") ;
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 554px;
     max-width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 

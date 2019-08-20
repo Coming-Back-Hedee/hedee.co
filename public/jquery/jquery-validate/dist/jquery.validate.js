@@ -371,6 +371,8 @@ $.extend( $.validator, {
 		number: "Please enter a valid number.",
 		digits: "Please enter only digits.",
 		equalTo: "Please enter the same value again.",
+		regex_phone: "Le numéro n'est pas valide",
+
 		maxlength: $.validator.format( "Please enter no more than {0} characters." ),
 		minlength: $.validator.format( "Veuillez entrer au moins {0} caractères." ),
 		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
@@ -788,6 +790,8 @@ $.extend( $.validator, {
 			for ( method in rules ) {
 				rule = { method: method, parameters: rules[ method ] };
 				try {
+					console.log(rule)
+					console.log($.validator.methods[ method ])
 					result = $.validator.methods[ method ].call( this, val, element, rule.parameters );
 
 					// If a method indicates that the field is optional and therefore valid,
@@ -1546,6 +1550,15 @@ $.extend( $.validator, {
 			}
 			return value === target.val();
 		},
+
+		
+		regex_phone: function(value, element, regexp) {
+				if (regexp.constructor != RegExp)
+					regexp = new RegExp(regexp);
+				else if (regexp.global)
+					regexp.lastIndex = 0;
+				return this.optional(element) || /^[1-9][0-9]{8}$/.test( value );
+			},
 
 		// https://jqueryvalidation.org/remote-method/
 		remote: function( value, element, param, method ) {

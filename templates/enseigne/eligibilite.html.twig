@@ -1,5 +1,6 @@
+                <div class="container form_elig">
                     <div class="title_box">
-                        <h2>Vérifier votre éligibilité</h2>
+                        <h2>Hedee teste votre éligibilité</h2>
                     </div> <!-- fin class="title_box" -->
 
                     <!-- <form>-->
@@ -65,7 +66,7 @@
                             </div>
                         </div> <!-- fin class="prix_article_2" -->
                         {{form_widget(form.prix, {'attr': {'placeholder' : 'en euros',
-                        'onkeypress': "return verifierCaracteres(event);"}, 'id' : 'form_prix'}) }}
+                        'onkeypress': "return verifierCaracteres1(event);"}, 'id' : 'form_prix'}) }}
                         {{form_help(form.prix)}} 
                         <!-- <label for="prix">Prix de votre article :</label>
                         <input type="text" placeholder="en euros"> -->
@@ -85,9 +86,11 @@
                                     i
                                 </button>
                             </div>
-                        </div><!-- fin class="date_achat_2" -->
-                        {{form_widget(form.date_achat, {'attr' : { 'placeholder' : 'Sélectionner votre date d\'achat',
-                        'readonly': true}, 'id': 'datepicker'})}}
+                        </div><!-- fin class="date_achat_2" -->          
+                        {{form_widget(form.date_achat, {'attr' : { 'placeholder' : 'jj/mm/aaaa',
+                                'readonly': true}, 'id': 'datepicker'})}}
+
+                        
                         {{form_help(form.date_achat)}} 
                         <!-- <label for="date">Date d'achat :</label>
                         <input type="text" name="date" id="datepicker"> -->
@@ -98,7 +101,7 @@
                     <div class="affichage_msg">
                         <div class="demander">
                         {# {{form_widget(form.submit,  {'id': 'soumettre'})}} #}
-                         <input type="submit" value="Demander le remboursement" id="soumettre"> 
+                         <input type="submit" value="Hedee, rembourse-moi !" id="soumettre"> 
                          
                          {{form_row(form._token)}}
                         </div>
@@ -106,4 +109,5 @@
                 {{form_end(form)}}
                     
                     <!--</form> -->
+            </div>
                     

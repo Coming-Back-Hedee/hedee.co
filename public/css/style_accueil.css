@@ -4,8 +4,12 @@
     background-image: url("../img/parcours_decouverte/Groupe\ 268.png");
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 1200px;
     width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     /*display:flex;
     flex-wrap:wrap; */
 }
@@ -18,8 +22,12 @@
     background-image: url("../img/parcours_decouverte/Groupe\ 46.png");
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 750px;
     max-width: auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 
@@ -29,32 +37,48 @@
     background-image: url("../img/parcours_decouverte/Groupe\ 48.png") ;
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 1000px;
     max-width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 .bloc4 {
     background-image: url("../img/parcours_decouverte/Rectangle\ 32.png") ;
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 500px;
     max-width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 /* 5e BLOC - Qui sommes nous ? */
 .bloc5 {
     background-image: url("../img/parcours_decouverte/Groupe\ 58.png") ;
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 1098px;
     max-width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 .bloc6 {
     background-image: url("../img/parcours_decouverte/footer.png") ;
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 554px;
     max-width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 .footer{

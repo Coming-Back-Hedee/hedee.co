@@ -87,9 +87,9 @@ class EnseigneController extends AbstractController
                     $this->handle_form($em, $user, $demande, $formInternet, $request, $mailer, $guardHandler,  $authenticator, 
                         $passwordEncoder);
                 }
-                else{
+                if($request->request->get('choix') == "magasin"){
                     $formMagasin->submit($form);
-                    $this->handle_form($em, $user, $demande, $formInternet, $request, $mailer, $guardHandler,  $authenticator, 
+                    $this->handle_form($em, $user, $demande, $formMagasin, $request, $mailer, $guardHandler,  $authenticator, 
                     $passwordEncoder);
                 }
                 //$form->submit($request->request->get($form->getName()));
@@ -194,32 +194,32 @@ class EnseigneController extends AbstractController
      * @Route("/pmembre", name="pmembre")
      */
     public function formInscript(Request $request, RouterInterface $router){
-        if($request->isXmlHttpRequest()){
+        //if($request->isXmlHttpRequest()){
             $demande = new Demandes();
             $formInternet = $this->createForm(DemandesInternetType::class, $demande);
             return $this->render('enseigne/inscription.html.twig', ['form1' => $formInternet->CreateView()]);
-        }
-        else{
+        //}
+        /*else{
             $url = $router->generate('accueil');
 
             return new RedirectResponse($url);
-        }
+        }*/
     }
 
     /**
      * @Route("/membre", name="membre")
      */
     public function formIConnect(Request $request, RouterInterface $router){
-        if($request->isXmlHttpRequest()){
+        //if($request->isXmlHttpRequest()){
             $demande = new Demandes();
             $formInternet = $this->createForm(DemandesInternetType::class, $demande);
             return $this->render('enseigne/connexion.html.twig', ['form1' => $formInternet->CreateView()]);
-        }
+        /*}
         else{
             $url = $router->generate('accueil');
 
             return new RedirectResponse($url);
-        }      
+        }*/     
     }
 
     /**
@@ -244,7 +244,7 @@ class EnseigneController extends AbstractController
                         UserPasswordEncoderInterface $passwordEncoder){
         $session = $request->getSession();
         $clientFile = null;
-        if($session->get('choix') == 'magasin'){
+        if(($request->request->get('choix') == 'magasin')){
             $file = $request->files->get('demandes');
             $clientFile = $file['pieceJointe'];
         }

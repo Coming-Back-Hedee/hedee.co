@@ -1,28 +1,38 @@
-<div id="connexion">
-        <div class="email">
-                    {{ form_label(form1.client.email) }}
-                    <br>
-                    {{ form_errors(form1.client.email) }}
-                    {{ form_widget(form1.client.email, {'id': 'email'}) }} 
-        </div>
-                                                
-        <div class="pswd1">
-                    {{ form_label(form1.client.plainPassword.first) }}
-                    <br>
-                    {{ form_errors(form1.client.plainPassword.first) }}
-                    {{ form_widget(form1.client.plainPassword.first, {'id': 'password1'}) }} 
-        </div>
-        <div id="inscription" class="pswd2" style="display: none;">
-                    {{ form_label(form1.client.plainPassword.second) }}
-                    <br>
-                    {{ form_errors(form1.client.plainPassword.second) }}
-                    {{ form_widget(form1.client.plainPassword.second, {'id': 'password2'}) }} 
-        </div> 
+    <div id="connexion">
+        <div class="hedee_rc">
+            <div class="email">
+                        {{ form_label(form1.client.email) }}
+                        <br>
+                        {{ form_errors(form1.client.email) }}
+                        {{ form_widget(form1.client.email, {'id': 'email'}) }} 
+            </div>
+                                                    
+            <div class="pswd1">
+                        {{ form_label(form1.client.plainPassword.first) }}
+                        <br>
+                        {{ form_errors(form1.client.plainPassword.first) }}
+                        {{ form_widget(form1.client.plainPassword.first, {'id': 'password1'}) }} 
+            </div>
+            <div id="pswd2" class="pswd2" style="display: none;">
+                        {{ form_label(form1.client.plainPassword.second) }}
+                        <br>
+                        {{ form_errors(form1.client.plainPassword.second) }}
+                        {{ form_widget(form1.client.plainPassword.second, {'id': 'password2'}) }} 
+            </div>
 
-            
-        <a href="{{path('request_resetting')}}" target="blank">J'ai oublié mon mot de passe</a>
-        <input type="button" onclick="hideC();" value="Je ne possède pas de compte">
+                
+            <a href="{{path('request_resetting')}}" target="blank">J'ai oublié mon mot de passe</a>
+        </div>
+        <button class="hideC" type="button" onclick="hideC();">
+        </button>
     </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="{{asset('jquery/jquery-steps/build/jquery.steps.js')}}"></script>
+		<script src="{{asset('jquery/jquery-validate/dist/jquery.validate.js')}}"></script>
     {% block javascript %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>

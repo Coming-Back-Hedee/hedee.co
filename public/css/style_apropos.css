@@ -1,7 +1,7 @@
 ﻿
 .bloc_header {
     background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 363.png");
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     height: 41px;
     width:100%;
@@ -10,11 +10,14 @@
 /* 1er BLOC - vérifier votre éligibilité*/
 .bloc1 {
     background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 394.png");
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
-    min-height: 673px;
+    background-position: center ; 
+    min-height: 681px;
     width:100%;
-    margin-top: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     /*display:flex;
     flex-wrap:wrap; */
 }
@@ -25,10 +28,14 @@
 /* 2e BLOC - etapes pour demande de remboursement */
 .bloc2 {
     background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 358.png");
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
-    min-height: 670px;
+    background-position: center ; 
+    min-height: 681px;
     width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 
@@ -36,29 +43,38 @@
 /* 4e BLOC - Enseignes éligibles */
 .bloc3 {
     background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 360.png") ;
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
-    min-height: 670px;
+    background-position: center ; 
+    min-height: 681px;
     width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 .bloc4 {
     background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 359.png") ;
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
+    background-position: center ; 
     min-height: 1500px;
     width:100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 /* 5e BLOC - Qui sommes nous ? */
 .bloc5 {
     background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 364.png") ;
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
-    height: 70%;
-    margin-left: 25%;
-    margin-right: 25%;
-    min-height: 670px;
-    max-width: 100%;
+    background-position: center ; 
+    min-height: 681px;
+    width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 
 }
 
@@ -66,6 +82,10 @@
     background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 290.png");
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center ;
     min-height: 1494px;
     max-width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }

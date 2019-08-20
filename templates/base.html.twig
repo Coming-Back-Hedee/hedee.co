@@ -16,7 +16,8 @@
 		<link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.css')}}">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 				
 
@@ -121,17 +122,6 @@
 				//max: jQuery.validator.format("votre message  inférieur ou égal à {0}."),
 				min: jQuery.validator.format("Nous ne prenons en compte que les achats supérieurs ou égal à {0}.")
 			});
-			
-			$.validator.addMethod(
-				"regex_tel",
-				function(value, element, regexp) {
-					if (regexp.constructor != RegExp)
-						regexp = new RegExp(regexp);
-					else if (regexp.global)
-						regexp.lastIndex = 0;
-						return this.optional(element) || regexp.test(value);
-				},"Le numéro n'est pas valide"
-			);
 
 			$.validator.addMethod(
 				"regex_prix",

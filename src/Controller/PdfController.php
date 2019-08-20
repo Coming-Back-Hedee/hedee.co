@@ -33,6 +33,8 @@ class PdfController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Enseignes::class);
         $enseigne =  $repo->findOneBy(['nomEnseigne' => $nom_enseigne]);
         $nom = $enseigne->getNomEnseigne();
+        $dir = getcwd();
+        $bgImg = $dir . "\\img\\facture\\bg.png";
 
 
         //$pdf = new \FPDF();
@@ -51,7 +53,7 @@ class PdfController extends AbstractController
         $pdf->SetAutoPageBreak(FALSE);
 
         $pdf->AddPage();
-        //$pdf->Image('img/bg.jpg', 0, 0, $pdf->getPageWidth(), $pdf->getPageHeight());
+        $pdf->Image($bgImg, 0, 0, $pdf->getPageWidth(), $pdf->getPageHeight());
         $pdf->SetFont('dejavusans', '', 10);
       
         $this->entete_facture($enseigne, $pdf, $post, $session);      
@@ -67,13 +69,8 @@ class PdfController extends AbstractController
         }
         
         $this->rectangle_w_title($pdf, 135,150,40,30,'DF', 140, 155, "Prix payé");
-        /*$this->rectangle_w_title($pdf, 15,210,45,30,'DF', 17, 57, utf8_decode("Enseigne la moins chère") );
-        $this->rectangle_w_title($pdf, 82.5,210,45,30,'DF', 85, 111, "Date du constat" );
-        $this->rectangle_w_title($pdf, 150,210,45,30,'DF', 152, 181, utf8_decode("Prix le moins cher"));
-        $this->rectangle_w_title($pdf, 35,260,140,30,'DF', 40, 70, utf8_decode("Différence de prix"));*/
         $this->details_table(115, $pdf, $post, $session);
-        //$this->footer($pdf, "En cours de recherche...");
-        $dir = getcwd();
+       
         $path_pdf = $dir . "\\factures\\" . $session->get('path') . ".pdf";
         $test1 = $pdf->Output($path_pdf, 'F');
                 

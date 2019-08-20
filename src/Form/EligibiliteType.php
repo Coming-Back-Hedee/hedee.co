@@ -30,12 +30,12 @@ class EligibiliteType extends AbstractType
                 'Auto et moto' => 'auto_et_moto',
                 'Sports et mode' => 'sports_et_mode'
             ],
-            'label' => 'Catégorie du produit d\'achat'
+            'label' => 'Sélectionnez la catégorie du produit de votre produit'
             ])
 
-            ->add('enseigne', TextType::class, ['label' => 'Enseigne d\'achat'])
-            ->add('date_achat', TextType::class, ['label' => 'Date d\'achat'])       
-            ->add('prix', MoneyType::class, ['label' => 'Prix de l\'article', 'currency' => false])
+            ->add('enseigne', TextType::class, ['label' => 'Renseignez le nom de l\'enseigne'])
+            ->add('date_achat', TextType::class, ['label' => 'Sélectionnez la date d\'achat'])       
+            ->add('prix', MoneyType::class, ['label' => 'Inscrivez le montant de l\'achat en euros', 'currency' => false])
             //->add('submit', SubmitType::class, ['label' => 'Demander le remboursement'])     
         ;
     }

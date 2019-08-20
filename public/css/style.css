@@ -1,6 +1,6 @@
 ﻿:root {
-    --main-bg-color: coral;
-    --main-txt-color: blue; 
+    --orange_perso: #ff3c00;
+    --bleu_perso: #2800dc; 
 }
 
 
@@ -18,7 +18,7 @@ body {
 /* HEADER */
 header {
     flex-wrap:wrap;
-    min-height: 80px;
+    min-height: 89px;
 }
 
 .header1 {
@@ -196,11 +196,6 @@ main {
     box-shadow: 0 0 10px #555;  
 }
 
-.title_box h2 {
-    text-align:center;
-    margin-bottom: 35px
-}
-
 #paragraph_id1, #paragraph_id2, #paragraph_id3, #paragraph_id4 {
     width:80%;
     font-size: small;
@@ -211,7 +206,7 @@ main {
 	display: none;
 }
 
-.categorie, .choisir_enseigne, .date_achat, .prix_article, .mag_internet, .affichage_msg, .remise {
+.categorie, .choisir_enseigne, .date_achat, .prix_article, .mag_internet,.remise {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -255,25 +250,14 @@ main {
     resize: vertical;
 }
 
-.affichage_msg {
-    display:flex;
-    margin-left: auto;
-    margin-right: auto;
-    width:100%;
-}
 
-.affichage_msg .msg {
+.msg {
     width: 40%;
     margin-left: auto;
     margin-right: auto;
 }
 
-.affichage_msg .demander {
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;     
-}
+
 
 .msg {
     width: 40%;
@@ -282,17 +266,6 @@ main {
     text-align:center
 }
 
-#soumettre {
-    /* background-color: #00A5C8; */
-    width: 100%;
-    color: white; 
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 1s;
-    font-size: 18px
-}
 
 .title_avis_clients {
     text-align:center;

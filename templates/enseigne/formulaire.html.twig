@@ -3,11 +3,18 @@
             <div class="les_infos">
                 <h3 style="display: none;">Informations d'achat</h3>
                 <section>  
-                    <div id="mole" class="magasin_ou_internet"><label for="choix"> Avez-vous acheté en magasin ou en ligne ?</label>
-                        <input type="radio" name="choix" value="magasin" id="magasin"/> <label for="magasin">Magasin</label></input>
-                        <input type="radio" name="choix" value="internet" id="internet" /> <label for="internet">En ligne</label></input>
+                    <div class="title_box">
+                        <h2>Votre achat</h2>
+                    </div> <!-- fin class="title_box" -->
+                    <div id="mole" class="mole">Où avez-vous fait votre achat ? <br>
+                        <label for="magasin">Magasin</label>
+                        <input type="radio" name="choix" value="magasin" id="magasin"/>
+                        <label for="internet">En ligne</label>
+                        <input type="radio" name="choix" value="internet" id="internet"/>
                     </div>
-                    <div id="test"></div>            
+                    <div id="form_demande">
+                    
+                    </div>            
                                    
 
                     {#<div class="facture">
@@ -19,6 +26,9 @@
                 
                 <h3 style="display: none;">Identification</h3>
                 <section>
+                    <h2>Pas si vite !</h2>
+                    <p>Avant de passer à l'étape suivante, Hedee souhaite savoir <strong>si vous êtes nouveau dans l'aventure
+                    ou si vous avez déjà rejoint la communauté ! </strong></p>
                     {% if form1.client.email is defined %}
                         <div id="pre_auth" class="pre_auth" style="display: none;"><label for="connect"> Possédez vous un compte ?</label>
                             <input type="radio" name="connect" value="membre" id="membre" checked/> <label for="membre">Oui</label></input>
@@ -32,6 +42,10 @@
                 
                 <h3 style="display: none;">Coordonnées</h3>
                 <section>
+                <div class="title_box">
+                        <h2>Encore un petit effort...</h2>
+                        <p>Merci de confirmer vos coordonnées, ou modifiez-les si nécessaire !</p>
+                    </div> <!-- fin class="title_box" -->
                     <div id="info_client" class="info_client">
 
                         <div class="prenom">
@@ -92,10 +106,13 @@
 
                 <h3 style="display: none;">Validation</h3>
                 <section>
+                    <div class="title_box">
+                        <h2>Récapitulatif de votre demande</h2>
+                    </div> <!-- fin class="title_box" -->
                     <label for="recap_ens">Enseigne</label><input id="recap_ens" type="text" readonly><br>
-                    <label for="recap_cat">Catégorie</label><input id="recap_cat" type="text" readonly><br>
+                    <label for="recap_cat">Catégorie du produit</label><input id="recap_cat" type="text" readonly><br>
                     <div id="recap_produit"></div>
-                    <label for="recap_prix">Prix d'achat</label><input id="recap_prix" type="text" readonly><br>
+                    <label for="recap_prix">Montant de l'achat</label><input id="recap_prix" type="text" readonly><br>
                     {#<img id="facture_jpg" alt="Votre facture est en cours de chargement">#}
                     {{ form_row(form1.cgu) }} 
                     {{ form_row(form1._token) }}
@@ -112,35 +129,29 @@
                 <a href="{{ path('accueil') }}">Déposer une nouvelle annonce</a> .
             </p>
         </div>
-
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="{{asset('jquery/jquery-steps/build/jquery.steps.js')}}"></script>
-		<script src="{{asset('jquery/jquery-validate/dist/jquery.validate.js')}}"></script>
         <script>
         $(document).ready(function() {
         var recap;
         var dialog =  $( "#dialog-message" );
         var form = $("#form-enseigne");
+        
         step(form)
         $('body').on('change', 'input[name=choix]', function() {
             
             /*form.validate({
                 errorPlacement: function errorPlacement(error, element) { element.before(error); },
             });*/
+
             if($("[name='choix']:checked").val() == "internet"){
                 var url = "{{ path('internet') }}";
                 $.ajax({
                     type: 'get',
                     url: url,
                     success: function (data) {
-                        $('#test').html(data);
+                        $('#form_demande').html(data);
                         var form = $("#form-enseigne");
                         //step(form)
-                        recap = '<label for="recap_url">Url</label><input id="recap_url" type="text" readonly><br>'   
+                        recap = '<label for="recap_url">Url de la page du produit</label><input id="recap_url" type="text" readonly><br>'   
                         $('#recap_produit').html(recap);             
                     }
                 });
@@ -152,7 +163,7 @@
                     type: 'get',
                     url: url,
                     success: function (data) {
-                        $('#test').html(data);
+                        $('#form_demande').html(data);
                         var form = $("#form-enseigne");
                         //step(form)
                         recap = '<label for="recap_marque">Marque</label><input id="recap_marque" type="text" readonly><br>'
@@ -163,7 +174,87 @@
                 });
             }               
         });
-        var form = $("#form-enseigne");    
+            form.validate({
+                rules: {
+                    "demandes[urlProduit]":{
+                        "required": true,
+                        "url": true,
+                    },
+                    "demandes[client][email]":{
+                        "required": false,
+                        "email": true,
+                        "remote": {
+                            param: {
+                                url: "/inscription2", 
+                                method: "POST",
+                                data: {
+                                    '_username' : function(){ return $('#email').val()}
+                                    },
+                                dataType: "json",
+                            },
+                            depends: function(element) {
+                                return $("#pmembre").is(":checked");
+                            }                             
+                        },
+                    },
+                    "demandes[client][plainPassword][first]":{
+                        "required": true,
+                        "remote": {
+                            param: {
+                                url: "/connexion2", 
+                                method: "POST",
+                                data: {                                
+                                    "_password": function(){ return $('#password1').val()},
+                                    "_username": function(){ return $('#email').val()},
+                                    }, 
+                                dataType: "json",
+                                async: false,
+                            },
+                            depends: function(element) {
+                                return $("#membre").is(":checked");
+                            }            
+                        },
+                    },
+                    "demandes[client][plainPassword][second]":{
+                        "required": true,
+                        "equalTo": {
+                            param :"#password1",
+                            depends: function(element) {
+                                return $("#pmembre").is(":checked");
+                            }
+                        }
+                    },
+                    "demandes[client][numeroTelephone]":{
+                        "required": true,
+                        "regex_phone": true,
+                    },
+                    "demandes[client][adresse][nomRue]":{
+                        "required": true,
+                    },
+                    "demandes[client][adresse][ville]":{
+                        "required": true,
+                    },
+                    "demandes[client][adresse][code_postal]":{
+                        "required": true,
+                        "minlength": 5,
+                        "maxlength": 5,
+                    }
+                },
+                messages: {
+                    "demandes[cgu]": {
+                        required: "Vous devez accepter les conditions pour poursuivre le demande",                   
+                    },
+                    "demandes[client][email]":{
+                        remote: jQuery.validator.format("{0} est déjà utilisée.")
+                    },
+                    "demandes[client][plainPassword][first]":{
+                        "remote" : "mauvaise combinaison adresse email et mot de passe"
+                    },
+                    "demandes[client][plainPassword][second]":{
+                        "equalTo": "Les mots de passes ne sont pas identiques."
+                    },                   
+                }
+            });
         form.validate({
             errorPlacement: function errorPlacement(error, element) { element.before(error); },
         });
@@ -190,25 +281,6 @@
                         
                         if($('[name=connect]:checked').length != 1 && {{app.user|json_encode|raw}} == null)
                             return false;
-
-                        if($("[name='connect']:checked").val() == "membre"){
-
-                            $.ajax({
-                                type: 'post',
-                                url: '/connexion3',
-                                data: { "_username": $('#email').val() },
-                                datatype: "json",
-                                success: function (data){
-                                    $('#nom').val(data.nom);
-                                    $('#prenom').val(data.prenom);
-                                    $('#num').val(data.numeroTelephone);
-                                    $('#demandes_client_adresse_nomRue').val(data.adresse.nomRue);
-                                    $('#demandes_client_adresse_ville').val(data.adresse.ville);
-                                    $('#cp_perso').val(data.adresse.codePostal);
-                                }
-                            });
-                            
-                        }
 
                         if($("[name='connect']:checked").val() == "pmembre"){
                             if(form.valid()){
@@ -263,6 +335,27 @@
                     if (currentIndex === 1 &&  priorIndex == 2 && $("[name='connect']:checked").val() != "pmembre")
                     {
                         form.children("div").steps("previous");
+                    }
+
+                    if (currentIndex == 2){
+                        if($("[name='connect']:checked").val() == "membre"){
+
+                            $.ajax({
+                                type: 'post',
+                                url: '/connexion3',
+                                data: { "_username": $('#email').val() },
+                                datatype: "json",
+                                success: function (data){
+                                    $('#nom').val(data.nom);
+                                    $('#prenom').val(data.prenom);
+                                    $('#num').val(data.numeroTelephone);
+                                    $('#demandes_client_adresse_nomRue').val(data.adresse.nomRue);
+                                    $('#demandes_client_adresse_ville').val(data.adresse.ville);
+                                    $('#cp_perso').val(data.adresse.codePostal);
+                                }
+                            });
+                            
+                        }
                     }
                 },
                 onFinishing: function (event, currentIndex)

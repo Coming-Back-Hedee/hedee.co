@@ -31,18 +31,18 @@ class DemandesMagasinType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ville', TextType::class, ['label' => 'Ville du magasin d\'achat'])
-            ->add('marqueProduit', TextType::class, ['label' => 'Marque du produit'])
-            ->add('referenceProduit', TextType::class, ['label' => 'Référence du produit'])
-            ->add('numeroCommande', TextType::class,   ['label' => 'Numéro de commande',
+            ->add('ville', TextType::class, ['label' => 'Indiquez la ville du magasin'])
+            ->add('marqueProduit', TextType::class, ['label' => 'Quelle est la marque de votre produit'])
+            ->add('referenceProduit', TextType::class, ['label' => 'Quelle est la référence de votre produit'])
+            ->add('numeroCommande', TextType::class,   ['label' => 'Indiquez le numéro de commande',
             'help' => 'Le numéro de commande se trouve sur votre facture',
             'required' => false
             ])
-            ->add('commentaires', TextareaType::class,   ['label' => 'Commentaires',
+            ->add('commentaires', TextareaType::class,   ['label' => 'Vos commentaires',
             'help' => 'Vous pouvez renseigner ici toutes informations complémentaires',
             'required' => false
             ])
-            ->add('pieceJointe', FileType::class,   ['label' => 'Votre facture', 'mapped' => false, 'required' => false])
+            ->add('pieceJointe', FileType::class,   ['label' => 'Merci de joindre la facture de votre achat', 'mapped' => false, 'required' => false])
             ->add('client', ClientType::class,   ['label' => 'Informations client'])
             ->add('cgu', CheckboxType::class,   ['label' => 'Conditions générales d\'utilisation'])
             

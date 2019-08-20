@@ -1,25 +1,27 @@
-<div id="connexion">
-        <div class="email">
-                    {{ form_label(form1.client.email) }}
-                    <br>
-                    {{ form_errors(form1.client.email) }}
-                    {{ form_widget(form1.client.email, {'id': 'email'}) }} 
+    <div id="inscription">
+        <div class="hedee_rc">
+            <div class="email">
+                        {{ form_label(form1.client.email) }}
+                        <br>
+                        {{ form_errors(form1.client.email) }}
+                        {{ form_widget(form1.client.email, {'id': 'email'}) }} 
+            </div>
+                                                    
+            <div class="pswd1">
+                        {{ form_label(form1.client.plainPassword.first) }}
+                        <br>
+                        {{ form_errors(form1.client.plainPassword.first) }}
+                        {{ form_widget(form1.client.plainPassword.first, {'id': 'password1'}) }} 
+            </div>
+            <div id="pswd2" class="pswd2">
+                        {{ form_label(form1.client.plainPassword.second) }}
+                        <br>
+                        {{ form_errors(form1.client.plainPassword.second) }}
+                        {{ form_widget(form1.client.plainPassword.second, {'id': 'password2'}) }} 
+            </div>      
         </div>
-                                                
-        <div class="pswd1">
-                    {{ form_label(form1.client.plainPassword.first) }}
-                    <br>
-                    {{ form_errors(form1.client.plainPassword.first) }}
-                    {{ form_widget(form1.client.plainPassword.first, {'id': 'password1'}) }} 
-        </div>
-        <div id="inscription" class="pswd2">
-                    {{ form_label(form1.client.plainPassword.second) }}
-                    <br>
-                    {{ form_errors(form1.client.plainPassword.second) }}
-                    {{ form_widget(form1.client.plainPassword.second, {'id': 'password2'}) }} 
-        </div>      
-            
-        <input type="button" onclick="hideI();" value="Je possède déjà un compte">
+        <button class="hideI" type="button" onclick="hideI();">
+        </button>
     </div>
 
     <script>       
