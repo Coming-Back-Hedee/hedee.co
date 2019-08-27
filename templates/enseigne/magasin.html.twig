@@ -1,7 +1,7 @@
 
                     <div class="code_postal">
                         {{ form_label(form1.ville) }}
-                        <br>
+                        
                         {{ form_errors(form1.ville) }}
                         {{ form_widget(form1.ville, {'attr' : {'placeholder' : 'Ex: Paris'}, 'id': 'cp'}) }}
                         {{ form_help(form1.ville) }}
@@ -9,7 +9,7 @@
 
                     <div class="marque">
                         {{ form_label(form1.marqueProduit) }}
-                        <br>
+                        
                         {{ form_errors(form1.marqueProduit) }}
                         {{ form_widget(form1.marqueProduit, {'attr': {'placeholder' : 'Ex: Sony, Apple, Asus'}, 'id': 'mar'}) }}
                         {{ form_help(form1.marqueProduit) }}
@@ -70,7 +70,7 @@
 
                     <div class="facture">
                         {{ form_label(form1.pieceJointe ) }}
-                        <br>
+                        
                         {{ form_widget(form1.pieceJointe, {'attr': {'id': 'pj'}} ) }}
                     </div>
 

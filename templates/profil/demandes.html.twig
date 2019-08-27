@@ -1,13 +1,21 @@
-        <div>
-            <div class="recap">
-                <table id="tab" class="table" border="1">
-                    <thead>
-                        <tr>                           
-                            <th>Numéro de dossier</th>
-                            <th>Date</th>
-                            <th>Statut</th>
-                            <th>Remboursement</th>
-                        </tr>
+            <div>
+                <div class="filters">
+                    <form>
+                        Trier par :
+                        <select name="nom" size="1">
+                            <option>Date croissante
+                            <option selected>Date décroissante
+                        </select>
+                    </form>
+                </div>
+                <table id="tab" class="table1" border="1">
+                    <thead id="entete-tableau">
+                        <tr>
+								<td>MES DEMANDES</td>
+								<td>STATUS</td>
+								<td>MONTANT</td>
+								<td>DETAILS</td>
+							</tr>
                     </thead>
                     <tbody id="mes-demandes">
 
@@ -15,16 +23,21 @@
                 </table>
                 <div id="nav"></div>
             </div>
-            <div class="boxed"><a href="{{ path('enseigne') }}">Déposer une nouvelle demande de remboursement</a></div>
-        </div>
         
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('select').on('change', function() {
+                all_demandes(this.value)
+            });
         var table = document.getElementById("mes-demandes");
-        var all_demandes = function (){
 
-            url = "{{ path('client_demandes') }}";
+        var all_demandes = function (ordre){
+            empty_section(table)
+            if(ordre == "Date décroissante")
+                url = "{{ path('client_demandes') }}";
+            else if (ordre == "Date croissante")
+                url = "{{ path('client_demandes_reverse') }}";
             $.ajax({
                 dataType: "json",
                 url: url,
@@ -37,15 +50,25 @@
                             var td3 = document.createElement('TD');
                             var td4 = document.createElement('TD');
                             var remboursement = " - ";
+                            var produit = "Achat sur internet";
                             if(demande.statut ==  "Remboursé"){
                                 remboursement = demande.montantRemboursement + "€"
                             }
-                            td1.innerHTML = demande.numeroDossier
+                            if(demande.referenceProduit !=  null){
+                                produit = demande.referenceProduit
+                            }
                             const date = new Date(demande.dateAchat.timestamp*1000)
-                            td2.innerHTML =date.toLocaleDateString();                        
-                            td3.innerHTML = demande.statut
-                            td3.innerHTML += "<br> <a href='" + demande.facture + "' target='blank'>Voir facture</a>"
-                            td4.innerHTML = remboursement    
+                            td1.innerHTML = produit 
+                            var span1 = document.createElement('SPAN');
+                            var button = document.createElement('BUTTON');
+                            span1.innerHTML = "<br>Dossier n°" + demande.numeroDossier + "<br>" + date.toLocaleDateString()
+                            span1.setAttribute('class', 'normal_font')
+                            td1.append(span1)                        
+                            td2.innerHTML = demande.statut                     
+                            td3.innerHTML = remboursement 
+                            button.innerHTML = "<a href='" + demande.facture + "' target='blank'>VOIR</a>" 
+                            button.setAttribute('class', 'rounded_btn')
+                            td4.append(button)   
                             tr.appendChild(td1);
                             tr.appendChild(td2);
                             tr.appendChild(td3);
@@ -56,7 +79,15 @@
                 }
             });
         }
-
+        
+        function empty_section(tab){
+            if(tab.children.length > 0){
+                var i;
+                while(tab.firstChild){
+                tab.removeChild(tab.firstChild);
+                }
+            }
+        }
         function test(nb, a){
             var nav;
             var select_all;
@@ -88,6 +119,6 @@
                 css('display','table-row').animate({opacity:1}, 300);
             });          
         }
-        window.onload = all_demandes()
+        window.onload = all_demandes("Date décroissante")
     });
 </script>

@@ -1,25 +1,86 @@
-﻿
+﻿:root {
+    --orange_perso: #ff3c00;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
+}
+
+.exemple-wrapper{
+    font-family: "WorkSans";
+}
+
+.bloc_header_pre {
+    background-image: url("../img/parcours_decouverte/contact/Rectangle\ 51.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width:100%;
+}
+
 .bloc_header {
-    background-image: url("../img/parcours_decouverte/faq/Composant\ 3.png");
+    background-image: url("../img/parcours_decouverte/contact/Rectangle\ 25.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center ;
-    height: 199px;
     width:100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
 }
 
+.bloc_header_pre{
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--bleu_perso);
+}
+
+.bloc_header_pre > div {
+    color: var(--bleu_perso);
+    font-weight: bold;
+    font-family: "WorkSans";
+}
+
+.bloc_header_pre > div a:link, .bloc_header > div a:visited{
+    color: var(--bleu_perso);  
+}
+
+.header_title {
+    text-align: center;
+    color: var(--bleu_perso);
+    font-weight: bold;
+    font-family: "WorkSans";
+}
 /* 1er BLOC - vérifier votre éligibilité*/
 
 .bloc1 {
     background-color: white;
+    color: var(--bleu_perso);
     min-height: 590px;
     max-width:100%;
     margin-top: 5%;
     margin-left: 22%;
     margin-right: 15%;
+}
+
+label {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: block;
+    
+}
+
+input, select{
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    /*background-color: #CED8F6;*/
+    color: var(--bleu_perso);
+}
+
+textarea{
+    width: 100%;
+    min-height: 220px;
 }
 
 

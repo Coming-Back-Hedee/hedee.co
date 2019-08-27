@@ -1,5 +1,5 @@
             <div>
-                <table class="table" border="1">
+                {#<table class="table" border="1">
                     <tbody id="mes-infos">
                         <tr>
                             <td>Nom</td>
@@ -80,11 +80,56 @@
                                 </div>
                             </td>
                         </tr>
+                        
                     </tbody>
-                </table>
+                </table>#}
+                {{ form_start(form) }}
+                    {{ form_label(form.prenom) }}
+                    {{ form_widget(form.prenom) }}
+                    {{ form_label(form.nom) }}
+                    {{ form_widget(form.nom) }}
+                    {{ form_label(form.dateNaissance) }}
+                        <div class="row">
+                            <div class="col"> 
+                                {{ form_widget(form.dateNaissance.day) }} 
+                            </div>
+
+                            <div class="col">
+                                {{ form_widget(form.dateNaissance.month) }}
+                            </div>
+
+                            <div class="col">
+                                {{ form_widget(form.dateNaissance.year) }}
+                            </div>
+                        </div>
+                    <label for="mail">Adresse email</label>
+                    <input id="mail" type="text" value="{{app.user.email}}" readonly>
+                    {{ form_label(form.numeroTelephone) }}
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">+33</span>
+                        </div>
+                        {{ form_widget(form.numeroTelephone) }}
+                    </div>
+                    {{ form_label(form.adresse.nomRue) }}   
+                    {{ form_widget(form.adresse.nomRue) }} <br>
+                    {{ form_label(form.adresse.ville) }}   <br>
+                    {{ form_widget(form.adresse.ville) }} <br>
+                    {{ form_label(form.adresse.codePostal) }} 
+                    {{ form_widget(form.adresse.codePostal) }} 
+                
+                
+                <p>Choisir une image de profil</p><div id="my-icon-select"></div>
+        
+                <input type="text" id="selected-text" name="selected-text" style="width:65px; display: none">
+                {{ form_end(form, {'render_rest': false} ) }}
+                
             </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ 
+        {#<script>
         $(document).ready(function() {
             var annulations = document.getElementsByClassName('cancel');
             Array.from(annulations).forEach(function(annulation){
@@ -138,4 +183,4 @@
 
             })*/
         })
-        </script>
+        </script>#}

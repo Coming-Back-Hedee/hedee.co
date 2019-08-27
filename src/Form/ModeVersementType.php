@@ -20,9 +20,9 @@ class ModeVersementType extends AbstractType
             ->add('swiftBic', TextType::class, ['label' => 'Code Swift/Bic'])
             ->add('iban', TextType::class, ['label' => 'IBAN'])
             ->add('cancel', ButtonType::class, [
-                'attr' => ['class' => 'cancel'],
+                'attr' => ['class' => 'cancel whiteo_button'],
                 'label' => 'Annuler']) 
-            ->add('submit', SubmitType::class, ['label' => 'Je valide' ]) 
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'orange_button'], 'label' => 'Je valide' ]) 
         ;
     }
 

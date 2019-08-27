@@ -1,6 +1,6 @@
                 <div class="container form_elig">
                     <div class="title_box">
-                        <h2>Hedee teste votre éligibilité</h2>
+                        <h2>Hedee teste votre éligibilité </h2>
                     </div> <!-- fin class="title_box" -->
 
                     <!-- <form>-->
@@ -98,13 +98,11 @@
                     <div id="paragraph_id3">Champs requis</div>
                     
                         
-                    <div class="affichage_msg">
-                        <div class="demander">
+                    <div class="demander">
                         {# {{form_widget(form.submit,  {'id': 'soumettre'})}} #}
-                         <input type="submit" value="Hedee, rembourse-moi !" id="soumettre"> 
+                        <button id="soumettre">Hedee, rembourse-moi !</button>
                          
                          {{form_row(form._token)}}
-                        </div>
                     </div><!-- fin class="affichage_msg" -->
                 {{form_end(form)}}
                     

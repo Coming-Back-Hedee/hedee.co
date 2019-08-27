@@ -123,7 +123,7 @@ class EnseigneController extends AbstractController
      * @Route("/formulaire", name="formulaire")
      */
     public function form(Request $request, RouterInterface $router){
-        //if($request->isXmlHttpRequest()){
+        if($request->isXmlHttpRequest()){
             $user = $this->getUser();
             $demande = new Demandes();
             $demande->setClient($user);
@@ -135,12 +135,12 @@ class EnseigneController extends AbstractController
             return $this->render('enseigne/formulaire.html.twig', [
                 'form1' => $formMagasin->CreateView(), 
                 'user' => $user]);
-        //}
-        /*else{
+        }
+        else{
             $url = $router->generate('accueil');
 
             return new RedirectResponse($url);
-        }*/
+        }
     }
 
     /**
@@ -207,19 +207,33 @@ class EnseigneController extends AbstractController
     }
 
     /**
-     * @Route("/membre", name="membre")
+     * @Route("/felicitations", name="felicitation")
      */
-    public function formIConnect(Request $request, RouterInterface $router){
-        //if($request->isXmlHttpRequest()){
-            $demande = new Demandes();
-            $formInternet = $this->createForm(DemandesInternetType::class, $demande);
-            return $this->render('enseigne/connexion.html.twig', ['form1' => $formInternet->CreateView()]);
-        /*}
+    public function endForm(Request $request, RouterInterface $router){
+        if($request->isXmlHttpRequest()){
+            return $this->render('enseigne/felicitation.html.twig');
+        }
         else{
             $url = $router->generate('accueil');
 
             return new RedirectResponse($url);
-        }*/     
+        }
+    }
+
+    /**
+     * @Route("/membre", name="membre")
+     */
+    public function formIConnect(Request $request, RouterInterface $router){
+        if($request->isXmlHttpRequest()){
+            $demande = new Demandes();
+            $formInternet = $this->createForm(DemandesInternetType::class, $demande);
+            return $this->render('enseigne/connexion.html.twig', ['form1' => $formInternet->CreateView()]);
+        }
+        else{
+            $url = $router->generate('accueil');
+
+            return new RedirectResponse($url);
+        }     
     }
 
     /**
@@ -280,6 +294,7 @@ class EnseigneController extends AbstractController
             $demande->setEnseigne($session->get('enseigne'));            
             $demande->setFacture($path);
             $demande->setDateAchat($dateAchat);
+            $user->setPhoto("/img/emoji/=D.png");
             
             $repo = $em->getRepository(Clients::class);
             //$user = $repo->findOneBy(['email' => $post['client']['email']]);
@@ -292,7 +307,7 @@ class EnseigneController extends AbstractController
             $em->flush();
 
             
-            $bodyMail = $mailer->createBodyMail('enseigne/mail2.html.twig', [ 'user' => $user,
+            $bodyMail = $mailer->createBodyMail('enseigne/mail2.html', [ 'user' => $user,
                 'demande' => $demande
             ]);
             $mailer->sendMessage('from@email.com', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail);

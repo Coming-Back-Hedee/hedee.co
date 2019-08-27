@@ -11,9 +11,36 @@
 
 <div class="example-wrapper">
 
-        <div class="bloc_header"></div>
+        <div class="bloc_header_pre">
+            <div class="accueil_pourquoi"><a href="{{path('accueil')}}">Accueil</a> > Contactez hedee</div>
+        </div>
+
+        <div class="bloc_header">
+            <h1 class="header_title">Contactez hedee</h1>
+        </div>
         
         <div class="bloc1">
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <label for="prenom">Votre nom</label>
+                            <input type="text" name="nom" id="nom">
+                        </div>
+                        <div class="col">
+                            <label for="nom">Votre prénom</label>
+                            <input type="text" name="prenom" id="prenom">
+                        </div>
+                    </div>
+                
+                    <label for="mail">Votre adresse mail</label>
+                    <input type="text" name="mail" id="mail" {% if app.user != null %} value="{{ app.user.email }}" {% endif %}>
+                    <label for="message">Votre message</label>
+                    <textarea type="text" name="prenom" id="message"></textarea>
+
+                    <button type="submit">Je contacte hedee</button>
+                </div>
+            </form>
 
         </div> <!-- fin class="bloc1" -->
 

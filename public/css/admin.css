@@ -1,4 +1,8 @@
-
+:root {
+    --orange_perso: #ff3c00;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
+}
 
 div#colonne1 {
 	float: left;

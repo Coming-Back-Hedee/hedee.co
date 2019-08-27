@@ -1,10 +1,25 @@
-﻿
+﻿:root {
+    --orange_perso: #ff3c00;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
+}
+
+.exemple-wrapper{
+    font-family: "WorkSans";
+}
+
+.bloc_header_pre {
+    background-image: url("../img/parcours_decouverte/pourquoi/Rectangle\ 25.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width:100%;
+}
+
 .bloc_header {
-    background-image: url("../img/parcours_decouverte/faq/Composant\ 2.png");
+    background-image: url("../img/parcours_decouverte/faq/Rectangle\ 25.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center ;
-    height: 199px;
     width:100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -22,6 +37,37 @@
     margin-right: 15%;
 }
 
+.questions > div{
+    margin: 5%;
+}
+
+.question{
+    width: 100%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--bleu-pale);
+    padding: 3%;
+    text-align: left;
+    left: 5%;
+    color: var(--bleu_perso);
+    font-size: 24px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+}
+
+.question > span{
+    float: right;
+    right: 5%;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.bloc_header_pre > div a:link, .bloc_header_pre > div a:visited{
+    color: var(--orange_perso);  
+}
 
 /* 2e BLOC - etapes pour demande de remboursement */
 .bloc2 {

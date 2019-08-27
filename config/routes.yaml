@@ -34,4 +34,10 @@ contact:
     path: /contact
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
     defaults:
-      template: 'utile/contact.html.twig' 
+      template: 'utile/contact.html.twig'
+
+felicitation:
+    path: /test
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+      template: 'test.html.twig'

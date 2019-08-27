@@ -1,22 +1,30 @@
-        {% form_theme form1 'bootstrap_4_layout.html.twig' %}
+
         {{form_start(form1, {'attr': {'id': 'form-enseigne'} }) }}
             <div class="les_infos">
-                <h3 style="display: none;">Informations d'achat</h3>
+                <h3 style="display: none;">Achat</h3>
                 <section>  
-                    <div class="title_box">
-                        <h2>Votre achat</h2>
+                    <div class="title_box container">
+                        <h2>Hedee a besoin d'en savoir plus sur votre achat</h2>
                     </div> <!-- fin class="title_box" -->
-                    <div id="mole" class="mole">Où avez-vous fait votre achat ? <br>
-                        <label for="magasin">Magasin</label>
-                        <input type="radio" name="choix" value="magasin" id="magasin"/>
-                        <label for="internet">En ligne</label>
-                        <input type="radio" name="choix" value="internet" id="internet"/>
+                    <div id="mole" class="mole container">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                               <p> Où avez-vous fait votre achat ? </p>
+                            </div>
+                            <div class="col">                               
+                                <input type="radio" name="choix" value="magasin" id="magasin"/>
+                                <label for="magasin">Magasin</label>
+                            </div>
+                            <div class="col">                               
+                                <input type="radio" name="choix" value="internet" id="internet"/>
+                                <label for="internet">En ligne</label>
+                            </div>
+                        </div>
                     </div>
                     <div id="form_demande">
                     
                     </div>            
                                    
-
                     {#<div class="facture">
                         {{ form_label(form1.pieceJointe ) }}
                         <br>
@@ -46,25 +54,28 @@
                         <h2>Encore un petit effort...</h2>
                         <p>Merci de confirmer vos coordonnées, ou modifiez-les si nécessaire !</p>
                     </div> <!-- fin class="title_box" -->
-                    <div id="info_client" class="info_client">
+                    <div id="info_client container" class="info_client">
 
-                        <div class="prenom">
-                            {{ form_label(form1.client.prenom) }}
-                            <br>
-                            {{ form_errors(form1.client.prenom) }}
-                            {{ form_widget(form1.client.prenom, {'id': 'prenom'}) }}
-                        </div>  
-
-                        <div class="nom">
-                        {{ form_label(form1.client.nom) }}
-                        <br>
-                        {{ form_errors(form1.client.nom) }}
-                        {{ form_widget(form1.client.nom, {'id': 'nom'}) }} 
+                        <div class"identite">
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_label(form1.client.prenom) }}
+                                    
+                                    {{ form_errors(form1.client.prenom) }}
+                                    {{ form_widget(form1.client.prenom, {'id': 'prenom'}) }}
+                                </div>
+                                <div class="col">
+                                    {{ form_label(form1.client.nom) }}
+                                    
+                                    {{ form_errors(form1.client.nom) }}
+                                    {{ form_widget(form1.client.nom, {'id': 'nom'}) }}
+                                </div>
+                            </div>
                         </div>
 
                         <div class="telephone">
                             {{ form_label(form1.client.numeroTelephone) }}
-                            <br>
+                            
                             {{ form_errors(form1.client.numeroTelephone) }}
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -76,7 +87,7 @@
 
                         <div class="nom_rue">
                         {{ form_label(form1.client.adresse.nomRue) }}
-                        <br>
+           
                         {{ form_widget(form1.client.adresse.nomRue) }}
                         {{ form_errors(form1.client.adresse.nomRue) }}
                         </div>
@@ -89,18 +100,22 @@
                         </div>#}
 
                         <div class="ville">
-                        {{ form_label(form1.client.adresse.ville) }}
-                        <br>
-                        {{ form_widget(form1.client.adresse.ville) }} 
-                        {{ form_errors(form1.client.adresse.ville) }}
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_label(form1.client.adresse.ville) }}
+                                    {{ form_widget(form1.client.adresse.ville) }} 
+                                    {{ form_errors(form1.client.adresse.ville) }}
+                        
+                                </div>
+                                <div class="col">
+                                    {{ form_label(form1.client.adresse.codePostal) }}
+                                
+                                    {{ form_widget(form1.client.adresse.codePostal, { attr: 
+                                    { 'onkeypress': "return verifierCaracteres(event);"}, 'id': 'cp_perso'}) }}
+                                    {{ form_errors(form1.client.adresse.codePostal) }}
+                                </div>
+                            </div>  
                         </div>
-
-                        <div class="code_postal_2">
-                        {{ form_label(form1.client.adresse.codePostal) }}
-                        <br>
-                        {{ form_widget(form1.client.adresse.codePostal, { attr: 
-                        { 'onkeypress': "return verifierCaracteres(event);"}, 'id': 'cp_perso'}) }}
-                        {{ form_errors(form1.client.adresse.codePostal) }}
                     </div> <!-- fin class="info_client" -->            
                 </section>
 
@@ -129,6 +144,7 @@
                 <a href="{{ path('accueil') }}">Déposer une nouvelle annonce</a> .
             </p>
         </div>
+ 
         <script>
         $(document).ready(function() {
         var recap;
@@ -244,15 +260,9 @@
                     "demandes[cgu]": {
                         required: "Vous devez accepter les conditions pour poursuivre le demande",                   
                     },
-                    "demandes[client][email]":{
-                        remote: jQuery.validator.format("{0} est déjà utilisée.")
-                    },
                     "demandes[client][plainPassword][first]":{
                         "remote" : "mauvaise combinaison adresse email et mot de passe"
-                    },
-                    "demandes[client][plainPassword][second]":{
-                        "equalTo": "Les mots de passes ne sont pas identiques."
-                    },                   
+                    },               
                 }
             });
         form.validate({
@@ -326,20 +336,25 @@
                 onStepChanged: function (event, currentIndex, priorIndex)
                 {   
                     //passe directement à l'étape 4 si l'utilisateur est connecté
-                    if (currentIndex === 1 &&  priorIndex == 0 && $("[name='connect']:checked").val() != "pmembre" && 
-                        ({{app.user|json_encode|raw}} != null) || $('#steps-uid-0-t-4').parent().attr('aria-disabled') == false )
-                    {
-                        form.children("div").steps("next");
-                    }
+                    if (currentIndex === 1){
+                        if (priorIndex == 0 && $("[name='connect']:checked").val() != "pmembre" && 
+                            ({{app.user|json_encode|raw}} != null) || $('#steps-uid-0-t-4').parent().attr('aria-disabled') == false )
+                        {
+                            form.children("div").steps("next");
+                            document.getElementById("steps-uid-0-t-1").lastElementChild.style.display = 'inline';
+                        }
 
-                    if (currentIndex === 1 &&  priorIndex == 2 && $("[name='connect']:checked").val() != "pmembre")
-                    {
-                        form.children("div").steps("previous");
+                        if (priorIndex == 2 && $("[name='connect']:checked").val() != "pmembre")
+                        {
+                            form.children("div").steps("previous");
+                        }
+                        document.getElementById("steps-uid-0-t-0").lastElementChild.style.display = 'inline';
                     }
 
                     if (currentIndex == 2){
+                        document.getElementById("steps-uid-0-t-1").lastElementChild.style.display = 'inline';
                         if($("[name='connect']:checked").val() == "membre"){
-
+                            
                             $.ajax({
                                 type: 'post',
                                 url: '/connexion3',
@@ -352,10 +367,17 @@
                                     $('#demandes_client_adresse_nomRue').val(data.adresse.nomRue);
                                     $('#demandes_client_adresse_ville').val(data.adresse.ville);
                                     $('#cp_perso').val(data.adresse.codePostal);
+                                    
                                 }
                             });
                             
                         }
+                        if($('#cp_perso').val().length == 4)
+                            $('#cp_perso').val("0".concat($('#cp_perso').val()))
+                    }
+                    if (currentIndex == 3){
+                        
+                        document.getElementById("steps-uid-0-t-2").lastElementChild.style.display = 'inline';
                     }
                 },
                 onFinishing: function (event, currentIndex)
@@ -384,12 +406,29 @@
                         data: donnees,
                         processData: false,  // indique à jQuery de ne pas traiter les données
                         contentType: false ,  // indique à jQuery de ne pas configurer le contentType
-                    //$.post(url, donnees, function(data,status){
                         /*success:function(data){
                             form.preventDefault(); 
                         } */            
                     });
-                   dialog.dialog({
+
+                    if({{app.user|json_encode|raw}} == null){
+                        $.ajax({
+                            url: '/connexion4',
+                            type: "POST",
+                            data: { "_username": $('#email').val() },
+                                        //processData: false,  // indique à jQuery de ne pas traiter les données
+                                        //contentType: false ,  // indique à jQuery de ne pas configurer le contentType           
+                        });
+                    }
+                    $.ajax({
+                        type: 'get',
+                        url: "{{path('felicitation')}}",
+                        success: function (data) {
+                            $('#form_location').html(data);         
+                        }
+                    });
+                    //window.location = "{{ path('felicitation')}}"
+                    /*dialog.dialog({
                         closeOnEscape: false,
                         open: function(event, ui) {
                             $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
@@ -409,7 +448,7 @@
                                 document.location.href="{{ path('profil') }}";
                             }
                         }
-                    });
+                    });*/
                 }
             });
         }

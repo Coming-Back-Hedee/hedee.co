@@ -1,55 +1,47 @@
+    {% if user.modeVersement is null %} 
+        <div class="empty_mv">
+            <h2>Vous n'avez pas encore de moyen de versement</h2>
+            <p>Ajoutez-en un pour vous faire rembourser ! </p>
 
-        <h1>Mon porte-monnaie</h1>
+            <a id="add_mv" href="#" onClick="add(event, this)">
+                <button class="btn add_first">Ajouter un nouveau mode de versement</button>
+                <button class="btn add_second"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
+            </a>
+            <div id="mv_location">
+            </div>
+        </div>
+    {% else %} 
 		<div class="jumbotron">
             <p>Hedee vous a fait gagner </p> 
             <p>{{ controller_name }}€</p> 
-            <p>Depuis votre inscription</p>            
+            <p>Depuis votre inscription</p>                       
         </div>
-
-        <div class="card">
-            <div class="card-header">MON MODE DE VERSEMENT</div>
-            {% if user.modeVersement is null %}   
-                <div class="card-body"><a href="#" onClick="add(event, this)">Ajouter</a></div>  
-            {% else %}
-                <div class="card-body">
-                    <p> Compte Bancaire</p>
-                    <p> 
-                        {{ user.modeVersement.proprietaire ~ " ,IBAN *******"
+        <div id="mv_location">
+            Mon mode de versement
+            <div class="media border p-3">
+                <img src="{{user.photo}}" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                <div class="media-body">
+                    <small>Compte bancaire</small>
+                    <p>{{ user.modeVersement.proprietaire ~ ", IBAN *******"
                          ~  user.modeVersement.iban|slice(user.modeVersement.iban|length-3, user.modeVersement.iban|length) }}
-                        <br>
-                        <a href="#" onClick="add(event, this)">Modifier</a>
                     </p>
-                </div> 
-            {% endif %}
-                          
-
-            <div  id="form_versement" style="display: none;">
-            <h1>Merci de renseigner vos coordonnées bancaires</h1>
-                {{ form_start(form) }}
-                    {{ form_label(form.proprietaire) }}
-                    {{ form_widget(form.proprietaire) }} <br>
-                    {{ form_label(form.swiftBic) }}
-                    {{ form_widget(form.swiftBic) }} <br>
-                    {{ form_label(form.iban) }}
-                    {{ form_widget(form.iban) }} <br>
-                    {{ form_end(form) }}
+                    <span><a href="#" onClick="add(event, this)">Modifier</a></span>     
+                </div>
             </div>
         </div>
+    {% endif %}
+                        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>
-            $('#mode_versement_proprietaire').val("{{ app.user.prenom ~ " " ~ app.user.nom }}")
-            var annulations = document.getElementsByClassName('cancel');
-            console.log(annulations)
-                Array.from(annulations).forEach(function(annulation){
-                    annulation.addEventListener('click', function(e){
-                        e.preventDefault()
-                        annulation.parentNode.parentNode.parentNode.style.display = "none"
-                        annulation.parentNode.parentNode.parentNode.previousElementSibling.style.display = "block"
-                    })
-                })
             function add(e, link){
                 e.preventDefault()
-                document.getElementById('form_versement').style.display = "block"
-                link.parentNode.style.display = "none"
+                $('#add_mv').hide()
+                $.ajax({
+                    type: 'get',
+                    url: "{{path('mode_versement')}}",
+                    success: function (data) {
+                        $('#mv_location').html(data);         
+                    }
+                });                
             }
         </script>      

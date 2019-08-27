@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %} 
+    <link rel="stylesheet" href="{{asset('css/style_popup.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
+    <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
+        
+    <script type="text/javascript" src="{{asset('js/iscroll.js')}}"></script>
+{% endblock %}
+
+{% block title %}Demande de remboursement{% endblock %}
+
+{% block main %}
+<div class="container">
+	<div class="bloc1 row">
+		<div class="block_left1 col-xs-12 col-sm-12">
+			<div class="switch">			
+					<button class="btn switch_first">Je rejoins hedee</button>
+					<button class="btn switch_second1"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
+				
+			</div>
+		</div>
+		<div class="block_right col-xs-12 col-sm-12">
+			<button class="close"><i class="fa fa-close" style="font-size:24px"></i></button>
+			<form id="connexion">
+				<h3> J'ai déjà un compte </h3> 
+				
+				<input type="text" name="nom" id="nom" placeholder="Votre adresse mail">
+
+				<input type="text" name="prenom" id="prenom" placeholder="Votre mot de passe">
+						
+				<a href="{{path('request_resetting')}}" target="blank">Mot de passe oublié</a>
+				<br>
+				<button class="blue_button">Je me connecte</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

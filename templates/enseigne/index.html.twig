@@ -2,12 +2,17 @@
 
 {% block stylesheets %} 
     <link rel="stylesheet" href="{{asset('css/style_formulaire.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
+    <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
+        
+    <script type="text/javascript" src="{{asset('js/iscroll.js')}}"></script>
 {% endblock %}
 
-{% block title %}{% endblock %}
+{% block title %}Demande de remboursement{% endblock %}
 
 {% block main %}
     <div class="bloc_header">
+        <h1 class="header_title">Je récupère mon argent</h1>
     </div>
     <div id="form_location">
         {% include 'enseigne/eligibilite.html.twig' %}

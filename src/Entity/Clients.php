@@ -124,6 +124,11 @@ class Clients implements UserInterface, \Serializable
      */
     private $modeVersement;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photo;
+
 
     public function __construct()
     {
@@ -432,6 +437,18 @@ class Clients implements UserInterface, \Serializable
     public function setModeVersement(?ModeVersement $modeVersement): self
     {
         $this->modeVersement = $modeVersement;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

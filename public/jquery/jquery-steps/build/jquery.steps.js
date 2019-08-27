@@ -1710,7 +1710,7 @@ var defaults = $.fn.steps.defaults = {
      * @default "<span class=\"number\">#index#.</span> #title#"
      * @for defaults
      **/
-    titleTemplate: "<span class=\"number\">#index#.</span> #title#",
+    titleTemplate: "<span class=\"number\">#index# /4</span> #title# <i class='fa fa-check'></i>",
 
     /**
      * The loading template which will be used to create the loading animation.
@@ -1720,7 +1720,7 @@ var defaults = $.fn.steps.defaults = {
      * @default "<span class=\"spinner\"></span> #text#"
      * @for defaults
      **/
-    loadingTemplate: "<span class=\"spinner\"></span> #text#",
+    loadingTemplate: "<span class=\"number\">#index# /4</span> <span class=\"spinner\"></span> #text#",
 
     /*
      * Behaviour

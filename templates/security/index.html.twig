@@ -28,11 +28,7 @@
         
         #}
 
-        {% if app.session.count > 5 %}
-            <input type="hidden" name="_target_path" value="/demande-remboursement" />
-        {% else %}
-            <input type="hidden" name="_target_path" value="/profil" />
-        {% endif %}
+        <input type="hidden" name="_target_path" value="/profil" />
         <button type="submit" >Se connecter</button>
     </form>
     <button onclick="hideAndDisplayI();" >Créer un compte</button>

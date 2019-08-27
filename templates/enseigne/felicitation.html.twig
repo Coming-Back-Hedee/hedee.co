@@ -1,0 +1,32 @@
+
+    <link rel="stylesheet" href="{{asset('css/style_felicitation.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
+    <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
+        
+    <script type="text/javascript" src="{{asset('js/iscroll.js')}}"></script>
+
+    <div class="fel-wrapper">
+        <div class="bloc1">
+            <div>
+                <h1>Félicitations !</h1>
+                <h3>Hedee part à la chasse aux pris bas !</h3>
+                <p>Nous vous remercions pour votre demande. <br>
+                Vous recevrez une alerte par mail dès qu'hedee aura trouvé votre produit au prix le plus bas.</p>
+                <div class="button_group">
+                    <a href="{{ path('enseigne') }}">
+                        <button class="demande_button">Faire une autre demande</button>
+                    </a>
+                    <a href="{{ path('profil') }}">
+                        <button class="compte_button">J'accède à mon compte</button>
+                    </a>
+                </div>
+            </div>
+        </div> <!-- fin class="bloc1" -->
+
+       <div class="bloc_footer"> <!-- footer -->
+
+            <div class="footer">
+                {% include 'footer.html.twig' %}
+            </div>
+        </div> <!-- fin class="bloc6 alias footer" -->
+    </div>  <!-- fin class="exemple-wrapper" -->

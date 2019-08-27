@@ -66,7 +66,7 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
       
-        $url = $this->router->generate('accueil');
+        $url = $this->router->generate('profil');
 
         return new RedirectResponse($url);
     }
@@ -75,14 +75,14 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     {
        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
 
-       $url = $this->router->generate('connexion');
+       $url = $this->router->generate('accueil');
 
        return new RedirectResponse($url);
     }
 
     protected function getLoginUrl()
     {
-        return $this->router->generate('connexion');
+        return $this->router->generate('accueil');
     }
 
     protected function getDefaultSuccessRedirectUrl()

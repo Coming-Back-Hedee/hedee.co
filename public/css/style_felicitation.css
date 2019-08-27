@@ -1,0 +1,85 @@
+:root {
+    --orange_perso: #ff3c00;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
+}
+
+.fel-wrapper{
+    font-family: "WorkSans";
+    background-image: url("../img/parcours_remboursement/Tracé\ 329.png");
+    background-size: contain;
+    background-repeat: repeat-x;
+    background-position: center ;
+    height: 658.9px;
+    max-height: 658.9px;
+    width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.bloc1{
+    position: relative;
+}
+
+.bloc1 > div {
+    padding-top: 3.5%;
+    padding-bottom: 12.5%;
+    color: var(--bleu_perso);
+    text-align: center;
+}
+
+.bloc1 div > h1{
+    font-size: 60px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: -1.5px;
+}
+
+.bloc1 div > h3{
+    font-size: 42px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: -0.63px;
+}
+
+.bloc1 div > p{
+    font-size: 24px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+}
+
+.footer {
+    background-image: url("../img/parcours_decouverte/footer.png") ;
+    background-position: center ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 0;
+    min-height: 554px;
+    max-width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+
+.compte_button, .demande_button{
+    margin-top: 2%;
+    width: 20%;
+    max-width: 400px;
+    max-height: 80px;
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 1.8px;
+}

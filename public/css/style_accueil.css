@@ -88,16 +88,22 @@
 }
 
 .reseaux_sociaux {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: center;
+}
+
+.tout_hedee {
+    grid-column: 1;
+    grid-row: 3 / 5;
+}
+
+.hedee_vous {
     grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    grid-row: 3 / 5;
 }
 
-.infos_hedee {
+.contact_hedee {
     grid-column-start: 3;
-    grid-column-end: 4;
-    grid-row-start: 3;
-    grid-row-end: 5;
+    grid-row: 3 / 5;
 }
-

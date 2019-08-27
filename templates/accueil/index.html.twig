@@ -7,9 +7,13 @@
 {% block stylesheets %} 
     {{ parent() }}
     <link rel="stylesheet" href="{{asset('css/style_accueil.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
+    <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
+        
+    <script type="text/javascript" src="{{asset('js/iscroll.js')}}"></script>
 {% endblock %}
 
-{% block title %}Rembourseo{% endblock %}
+{% block title %}Hedee{% endblock %}
 
 {% block main %}
         <div class="bloc1">
@@ -22,6 +26,10 @@
                     </div>
                 </a>
             </div><!-- fin class="la_presentation" -->
+
+            <div id="my-icon-select"></div>
+        
+            <input type="text" id="selected-text" name="selected-text" style="width:65px;">
         </div> <!-- fin class="bloc1" -->
 
         <div class="bloc2">
@@ -55,8 +63,29 @@
 
 
 {% block javascript %} 
+<script>
+        var iconSelect;
+       var selectedText;
 
+        window.onload = function(){
+            
+            selectedText = document.getElementById('selected-text');
+            
+            document.getElementById('my-icon-select').addEventListener('changed', function(e){
+               selectedText.value = iconSelect.getSelectedValue();
+            });
+            
+            iconSelect = new IconSelect("my-icon-select");
 
+            var icons = [];
+            icons.push({'iconFilePath':'{{asset("img/emoji/;).png")}}', 'iconValue':'1'});
+            icons.push({'iconFilePath':'{{asset("img/emoji/=D.png")}}', 'iconValue':'2'});
+            icons.push({'iconFilePath':'{{asset("img/emoji/=o.png")}}', 'iconValue':'3'});
+            
+            iconSelect.refresh(icons);
+
+        };
+</script>       
 {% endblock %} {#fin block javascript#}
 
 

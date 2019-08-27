@@ -1,6 +1,8 @@
 ﻿:root {
     --orange_perso: #ff3c00;
-    --bleu_perso: #2800dc; 
+    --orange-pale: #ffd5d2;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
 }
 
 
@@ -11,6 +13,7 @@ html, body, div, header, main, .row, .container-fluid  {
 
 body {
     font-family: 'Georgia', sans-serif;
+    font-size: 14px;
     width: 100%;
     min-height:960px;
 }
@@ -154,13 +157,116 @@ header {
 }
 
 
+.bloc_header {
+    height: 198px;
+}
+.bloc_header_pre{
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--orange-pale);
+    height: 51px;
+}
+
+.bloc_header, .bloc_header_pre{
+    text-align: center;
+    display: table;
+}
+
+.bloc_header > h1, .bloc_header_pre > div{
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: -1.5px;
+}
+
+.bloc_header_pre > div {
+    color: var(--orange_perso);
+    font-weight: bold;
+    font-family: "WorkSans";
+    line-height: 1.71;
+    letter-spacing: 0.35px;
+}
+
+.bloc_header_pre > div a:link, .bloc_header > div a:visited{
+    color: var(--orange_perso);  
+}
+
+.header_title {
+    text-align: center;
+    color: var(--orange_perso);
+    font-weight: 600;
+    font-family: "WorkSans";
+    font-size: 60px;
+}
+
+.compte_button, .demande_button{
+    border-style: none;
+    border-radius: 40px;
+    margin: auto;
+    margin-bottom: 5%;
+    vertical-align: middle;
+    /* centrage horizontal */
+    
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: 1.4px;
+    text-align: center;
+    width: 85%;
+    height: 80px;
+}
+
+.demande_button{
+    background-color: var(--orange_perso);
+    color: #fff;
+    
+}
+
+.compte_button{
+    background-color:#fff;
+    color: var(--bleu_perso);
+}
+
+.orange_button{
+    display: block;
+    text-align: center;
+    padding: 12.5px;
+    background-color: var(--orange_perso);
+    color: #fff;
+    border-style: none;
+    border-radius: 40px;
+}
+
+.blue_button{
+    display: block;
+    text-align: center;
+    padding: 12.5px;
+    background-color: var(--bleu_perso);
+    color: #fff;
+    border-style: none;
+    border-radius: 40px;
+}
+
+.whiteo_button{
+    display: block;
+    text-align: center;
+    padding: 12.5px;
+    color: var(--orange_perso);
+    background-color: #fff;
+    border: solid 1px var(--orange-pale);
+    border-radius: 40px;
+}
 
 
 /* MAIN */
 main {
     min-height: 960px;
 }
-
 
 .title_qui {
     text-align:center;
@@ -207,7 +313,6 @@ main {
 }
 
 .categorie, .choisir_enseigne, .date_achat, .prix_article, .mag_internet,.remise {
-    width: 80%;
     margin-left: auto;
     margin-right: auto;
 } 
@@ -280,7 +385,6 @@ main {
     margin-left: auto;
     margin-right:auto;
     display:flex;
-    width:10%;
 }
 
 .reseaux_sociaux > div {
@@ -397,20 +501,7 @@ main {
     color: blue;
   }
 
-.recap{
-    margin: 5%;
-    width: 70%;
-    margin-top: 20px;
-}
 
-.boxed{
-    margin: 5%;
-    padding: 15px;
-    text-align: center;
-    border-style: solid;
-    border-width: 3px;
-    border-color: black;    
-}
 
 .share > div {
     margin: auto;
@@ -453,3 +544,23 @@ input.error{
     margin: auto;
     max-width: 1200px;
 }
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){
+
+}
+
+/* **************  POUR TABLETTES  ********************* */
+@media (min-width: 768px) and (max-width:991.98px){
+
+    .compte_button, .demande_button{
+        height: 50px;
+        font-size: 10px;
+    }
+}
+
+/* **************  POUR GRANDS ECRANS  ********************* */
+@media screen and (min-width: 1025px){
+
+}
+

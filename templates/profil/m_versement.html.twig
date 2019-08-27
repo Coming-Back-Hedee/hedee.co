@@ -1,0 +1,28 @@
+        <div  id="form_versement">
+                {{ form_start(form) }}
+                    {{ form_label(form.proprietaire) }}
+                    {{ form_widget(form.proprietaire) }} 
+                    {{ form_label(form.swiftBic) }}
+                    {{ form_widget(form.swiftBic) }} 
+                    {{ form_label(form.iban) }}
+                    {{ form_widget(form.iban) }}
+                    <div class="vanish">
+                        {{ form_widget(form.cancel) }} 
+                        {{ form_widget(form.submit) }} 
+                    </div>
+                {{ form_end(form) }}
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>       
+            $('#mode_versement_proprietaire').val("{{ app.user.prenom ~ " " ~ app.user.nom }}");
+            var annulations = document.getElementsByClassName('cancel');
+            Array.from(annulations).forEach(function(annulation){
+                    annulation.addEventListener('click', function(e){
+                        e.preventDefault()
+                        $('#add_mv').show()
+                        $('#mv_location').html(""); 
+                        //annulation.parentNode.parentNode.parentNode.style.display = "none"
+                        //document.getElementById().style.display = "block"
+                    })
+                })
+        </script>

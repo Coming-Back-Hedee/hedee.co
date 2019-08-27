@@ -155,4 +155,20 @@ class ProfilController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/mode_versement", name="mode_versement")
+     */
+    public function mode_versement(Request $request, RouterInterface $router )
+    {
+        //if($request->isXmlHttpRequest()){
+            $form = $this->createForm(ModeVersementType::class);
+            return $this->render('profil/m_versement.html.twig', ['form' => $form->CreateView()]);
+        /*}
+        else{
+            $url = $router->generate('accueil');
+
+            return new RedirectResponse($url);
+        }*/
+    }
+
 }

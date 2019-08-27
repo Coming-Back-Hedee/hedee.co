@@ -9,8 +9,6 @@ use App\Entity\AlertePrix;
 use App\Form\ClotureType;
 use App\Form\AlerteType;
 
-use App\Repository\DemandesRepository;
-
 use App\Services\Mailer;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -147,8 +145,7 @@ class AdminController extends AbstractController
                 if(array_key_exists('clotureNR', $post->get('cloture'))){
                     $statut = 'Non remboursé';
                     $mail_objet = "Alerte de non remboursement";
-                    $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => 'Non remboursé']);
-                    
+                                        
                     $dossier->setStatut('Non remboursé');
                     $em->flush();
                     $bodyMail = $mailer->createBodyMail('admin/mail_nremboursement.html.twig', ['dossier' => $dossier]);
@@ -157,12 +154,7 @@ class AdminController extends AbstractController
                 if(array_key_exists('clotureR', $post->get('cloture'))){
                     $statut = 'Remboursé';
                     $mail_objet = "Alerte de remboursement";
-                    $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => 'Remboursé']);
-                    /*$this->forward('App\Controller\PdfController::details_footer', [
-                        'pdf'  => $pdf,
-                        'alerte' => $alerte->getDossier()->getLastAlerte(), 
-                        'session' => $request->getSession(),
-                        ]);*/
+
                     $dossier->setStatut('Remboursé');
                     $dossier->setMontantRemboursement($montant);
                     $em->flush();
@@ -178,7 +170,7 @@ class AdminController extends AbstractController
                 $mail_objet = "Alerte baisse de prix";             
 
                 //On modifie le récapitulatif
-                $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf, 'texte' => $statut]);
+                $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf]);
                 $this->forward('App\Controller\PdfController::details_footer', [
                     'pdf'  => $pdf,
                     'alerte' => $alerte, 
@@ -200,149 +192,5 @@ class AdminController extends AbstractController
             'form' => $form1->CreateView(),
             'formC' => $form2->CreateView(),
         ]);
-    }
-
-    /**
-     * @Route("/admin/all_demandes", methods="GET", name="admin_all_demandes")
-     */
-    public function getAllDemandes(Request $request, DemandesRepository $demandesRepository){
-        
-        $demandes = $demandesRepository->findAllReverse();
-        $encoders = [new JsonEncoder()]; // If no need for XmlEncoder
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonObject = $serializer->serialize($demandes, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-         return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
-    }
-
-    /**
-     * @Route("/admin/all_demandes_reverse", methods="GET", name="admin_all_demandes_reverse")
-     */
-    public function getAllDemandesRe(Request $request, DemandesRepository $demandesRepository){
-        
-        $demandes = $demandesRepository->findAllReverse();
-        $encoders = [new JsonEncoder()]; // If no need for XmlEncoder
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonObject = $serializer->serialize($demandes, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-         return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
-    }
-
-    /**
-     * @Route("/admin/demandes_en_cours", methods="GET", name="admin_demandes_en_cours")
-     */
-    public function getDemandesEnCours(Request $request, DemandesRepository $demandesRepository){
-        
-        $demandes = $demandesRepository->findByReverse('En cours');
-        $encoders = [new JsonEncoder()]; 
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonObject = $serializer->serialize($demandes, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
-    }
-
-    /**
-     * @Route("/admin/demandes_remboursees", methods="GET", name="admin_demandes_r")
-     */
-    public function getDemandesRemboursees(Request $request, DemandesRepository $demandesRepository){
-        
-        $demandes = $demandesRepository->findByReverse('Remboursé');
-        $encoders = [new JsonEncoder()]; 
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonObject = $serializer->serialize($demandes, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
-    }
-
-    /**
-     * @Route("/admin/demandes_non_remboursees", methods="GET", name="admin_demandes_nr")
-     */
-    public function getDemandesNonRemboursees(Request $request, DemandesRepository $demandesRepository){
-        
-        $demandes = $demandesRepository->findByReverse('Non remboursé');
-        $encoders = [new JsonEncoder()]; 
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonObject = $serializer->serialize($demandes, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
-    }
-
-    /**
-     * @Route("/admin/demandes_alerte", methods="GET", name="admin_demandes_alerte")
-     */
-    public function getDemandesAlerte(Request $request, DemandesRepository $demandesRepository){
-        
-        $demandes = $demandesRepository->findByReverse('Alerte prix');
-        $encoders = [new JsonEncoder()]; 
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonObject = $serializer->serialize($demandes, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
-    }
-
-    /**
-     * @Route("/admin/client_demandes", methods="GET", name="client_demandes")
-     */
-    public function getClientDemandes(Request $request, DemandesRepository $demandesRepository){
-        $client = $this->getUser();
-        $demandes = $demandesRepository->findClientReverse($client->getId());
-        $encoders = [new JsonEncoder()]; // If no need for XmlEncoder
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonObject = $serializer->serialize($demandes, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
-    }
-
-    /**
-     * @Route("/admin/client_demandes_reverse", methods="GET", name="client_demandes_reverse")
-     */
-    public function getClientDemandesReverse(Request $request, DemandesRepository $demandesRepository){
-        $client = $this->getUser();
-        $demandes = $demandesRepository->findBy(["client" => $client]);
-        $encoders = [new JsonEncoder()]; // If no need for XmlEncoder
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonObject = $serializer->serialize($demandes, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
     }
 }

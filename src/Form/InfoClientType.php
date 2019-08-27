@@ -25,6 +25,9 @@ class InfoClientType extends AbstractType
             ->add('numeroTelephone', TextType::class, ['label' => 'Votre numéro de téléphone', 'required' => false])
             ->add('dateNaissance', DateType::class, [
                 'label' => 'Votre date de naissance',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ],
                 'required' => false,
                 'years' => range(date('Y')-10, date('Y')-110)] )
             ->add('adresse',AdresseType::class, ['label' => 'Votre adresse', 'required' => false])           

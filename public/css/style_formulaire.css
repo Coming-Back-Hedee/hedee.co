@@ -18,29 +18,22 @@ body {
 }
 
 .bloc_header {
-    background-image: url("../img/parcours_remboursement/Composant\ 1.png");
+    background-image: url("../img/parcours_remboursement/Rectangle\ 25.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center ;
-    height: 199px;
     width:100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
 }
 
-.form_elig {
-    background-color: white;
+.header_title {
+    color: var(--bleu_perso);
 }
 
-.les_infos {
+.form_elig {
     background-color: white;
-    color: var(--bleu_perso);
-    margin-top: 5%;
-    margin-left: 25%;
-    margin-right: 25%;
-    margin-bottom: 5%;
-
 }
 
 .bloc_footer {
@@ -55,10 +48,25 @@ body {
     -o-background-size: cover;
 }
 
+label {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: block;
+    
+}
+
+.input-group{
+    flex-wrap: nowrap;
+}
+
+input#num{
+    width: auto;
+}
+
 input, select{
+    display: block;
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -66,17 +74,22 @@ input, select{
     color: var(--bleu_perso);
 }
 
+input[type=file]{
+    border: none;
+}
 
-.input-group-append button{
+.input-group-prepend button{
     background-color: #CED8F6;
     border: 1px solid #ccc;
 }
 
 #soumettre {
+    margin: 0 auto;
     background-color:var(--orange_perso);
     color: white; 
     box-sizing: border-box;
-    padding: 0.7em 1em;   
+    margin-top: 5%;  
+    padding: 12px 20px;
     text-align: center;
     font-size: 80%;
     border: none;
@@ -86,10 +99,30 @@ input, select{
 }
 
 ul[role=menu]{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
     margin: auto;
-    margin-right: 25%;
-    margin-left: 25%;
+    width: 70%;
+    padding-inline-start: 0;
 }
+
+.mole  .row{
+    text-align: center;
+}
+
+.mole label{
+    display: initial;
+}
+
+.mole input{
+    display: initial;
+    width: initial;
+    padding: 12px 20px;
+    display: initial;
+
+}
+
 
 .affichage_msg{
     margin: auto;
@@ -98,7 +131,10 @@ ul[role=menu]{
 }
 
 .demander {
-    width: 60%;
+    display: flex;
+    flex-wrap: wrap; /*Optionner - permet aux éléments de passer à la ligne en cas de besoin*/
+    justify-content: center; /*Permet de centrer dans l'axe principal*/
+    width:50%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;     
@@ -165,10 +201,13 @@ ul[role=menu]{
     margin-left: 10%;
 }
 
-
 /* CSS SOUS MENU FORMULAIRE */
 .current-info.audible {
     display:none
+}
+    
+a > .fa{
+    display: none;
 }
 
 .steps ul li   {
@@ -211,7 +250,7 @@ textarea{
     padding-bottom: 45px
 }
 
-.facture, .marque, .reference, .numero_commande, .commentaires, .url {
+.facture, .marque, .reference, .numero_commande, .commentaires, .url, .code_postal {
     margin: 15px 40px 15px 40px;
 }
 
@@ -225,6 +264,7 @@ textarea{
 
 
  .les_infos {
+    position: relative;
     padding-top : 30px;
     padding-bottom: 40px
 }
@@ -267,31 +307,47 @@ textarea{
     margin-top: 10%;
 }
 
-.actions ul li {
-    display:inline;
-    list-style: none;
-    padding-left: 15px;
+.actions ul{
+    position: relative;
+    
 }
 
-#menuprevious{
+.actions ul li {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    display:inline;
+    list-style: none;
+    text-align: center;
+
+}
+
+#menuprevious{   
     text-decoration: none;
     background-color: #fff;
-    padding: 10px;
+    padding: 12px 20px;
     color: var(--orange_perso);
     border-radius: 24px;
     border-style: solid;
     border-width: 0.03em;
     border-color: var(--orange_perso);
     width: 125px;
+    display: table-cell;
+    overflow: hidden;
+    margin-right: 8px;
 }
 
 #menunext, #menufinish{
     text-decoration: none;
     background-color: var(--orange_perso);
-    padding: 10px;
+    padding: 12px 20px;
     color: #fff;
     border-radius: 24px;
     width: 125px;
+    display: table-cell;
+    vertical-align: middle; 
+    overflow: hidden;
+    margin-left: 8px;
 }
 
 /*page informations client - vos coordonnées*/
@@ -325,7 +381,6 @@ textarea{
     background-color: #fff;
     padding: 15px;
     color: lightgrey;
-    border-radius: 5px;
     border: solid 1px #ccc;
 }
 
@@ -333,7 +388,6 @@ textarea{
     background-color: var(--bleu_perso);
     padding: 15px;
     color: #fff;
-    border-radius: 5px;
     border: solid 1px #ccc;
 }
 
@@ -369,29 +423,102 @@ textarea{
 /**********PARTIE RESPONSIVE DESIGN***********/
             /***POUR MOBILE***/
 @media screen and (max-width:767.98px){ 
+
+    .les_infos {
+        display: table;
+        color: var(--bleu_perso);
+        margin: 0 auto;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        position: relative;
+        top: -60px;
+    }
+
     .steps ul{
         display:block;
         width: 50%;
         margin-left:auto;
         margin-right:auto;
-        text-align:center
+        text-align:center;
+        box-sizing: content-box !important;
 
+    }
+
+    .steps ul li{
+        display: none;
+        width: fit-content;
+    }
+
+    .steps ul li.current  {
+        display: block
+    }
+
+    .number{
+        font-size: 11px;
+    }
+
+    #soumettre {
+        width: 100%;
+        padding: 12px 16px;
     }
 }
 
 
             /***POUR TABLETTE***/
 @media (min-width: 768px) and (max-width:991.98px){ 
+
+    .les_infos {
+        display: table;
+        color: var(--bleu_perso);
+        margin: 0 auto;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        position: relative;
+        top: -80px;
+    }
+
     .steps ul{
         display: block;
         width: 50%;
         margin-left:auto;
         margin-right:auto;
-        text-align:center
+        text-align:center;
+        box-sizing: initial !important;
+    }
+
+    .steps ul li{
+        display: none;
+    }
+
+    .steps ul li.current  {
+        display: block
+    }
+
+    #soumettre {
+        width: 60%;
     }
 }
 
 
             /***POUR GD ECRAN***/
-@media screen and (min-width: 1025px){ } 
+@media screen and (min-width: 1025px){
+
+    .les_infos {
+        display: table;
+        color: var(--bleu_perso);
+        margin: 0 auto;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        position: relative;
+        top: -120px;
+    }
+
+    .number{
+        display: none;
+    }
+
+    #soumettre {
+        width: 40%;
+    }
+ } 
 

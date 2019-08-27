@@ -1,0 +1,668 @@
+:root {
+    --orange_perso: #ff3c00;
+    --orange-pale: #ffd5d2;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
+}
+
+/** RESET CSS **/
+html, body, div, main  {
+    margin:0;
+    padding:0;
+}
+
+body {
+    font-family: "WorkSans";
+    font-size: 14px;
+    width: 100%;
+    min-height:960px;
+    color: var(--bleu_perso);
+}
+
+.container{
+    min-height: 300px;
+    max-height: 800px;
+}
+
+.normal_font{
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: 1.2px;
+}
+
+.bloc_header {
+    background-image: url("../img/parcours_client/Rectangle\ 166.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center ;
+    height: 199px;
+    width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    margin-bottom: 5%;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.bloc_header > h1, .bloc_header > h3, .bloc_header_pre > div{
+    margin: auto;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: -1.5px;
+}
+
+.bloc_footer {
+    background-image: url("../img/parcours_decouverte/footer.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center ;
+    height: 700px;
+    width:100%;
+    margin-top: 5%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+#mes-demandes{
+    font-size: 20px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+}
+
+.filters{
+    float: right;
+    font-size: 16px;
+}
+
+.hello_profil{
+    float: right;
+    margin-top: 15%;
+    margin-right: 15%;
+}
+
+.profil-name{
+    font-size: 26px;
+    text-decoration: bold;
+}
+
+.content-header {
+    height: 65px;
+    line-height: 65px;
+  }
+  
+.content-header h1 {
+    margin: 0;
+    margin-left: 20px;
+    line-height: 65px;
+    display: inline-block;
+}
+
+#sidebar-wrapper {
+    
+    /*background: var(--bleu-pale);*/
+    background-image: url("../img/parcours_client/Composant.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 1000;
+    transition: all 0.4s ease 0s;
+  }
+  
+  #wrapper.active #sidebar-wrapper {
+    left: 0;
+  }
+  
+  #page-content-wrapper {
+    width: 100%;
+  }
+  
+  .sidebar-nav {
+    position: absolute;
+    top: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }      
+  
+  .sidebar-nav li {
+    width: 100%;
+    padding: 5%;
+    font-family: "WorkSans";
+    font-size: 16px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+  }
+  
+  .sidebar-nav li a {
+    color: var(--bleu_perso);
+    display: block;
+    text-decoration: none;
+  }
+  .sidebar-nav li a span{
+     width: 80%;
+  }
+
+  .profile > img{
+    max-width: 40%;
+    height: auto;
+  }
+
+  .sidebar-nav li a span:before {
+    position: absolute;
+    right: 10%;
+
+    color: #41484c;
+    text-align: center;
+    width: 20px;
+    line-height: 18px;
+  }
+  
+  .sidebar-nav li.active {
+    
+    background: #fff;
+    text-decoration: none;
+  }
+  
+  .sidebar-nav li a:active,
+  .sidebar-nav li a:focus {
+    text-decoration: none;
+  }
+  
+  .sidebar-nav > .sidebar-brand {
+    height: 65px;
+    line-height: 60px;
+    font-size: 18px;
+  }
+  
+  .sidebar-nav > .sidebar-brand a {
+    color: #999999;
+  } 
+
+  .table1  {
+    width: 100%;
+    color: var(--bleu_perso);
+    border: solid 1px var(--very-light-purple);    
+}
+
+.rounded_btn{
+    margin: auto;
+    width: 90%;
+}
+
+.demande_button{
+    color: initial;
+}
+
+#mes-demandes tr td:nth-child(1n){
+    text-align: center;
+}
+
+#mes-demandes tr td:first-child{
+    text-align: initial;
+}
+
+#coming_back{
+    background-color: var(--orange_perso);
+    color: #fff;
+    border-style: none;
+    border-radius: 40px;
+    padding: 4px 20px;
+    margin-bottom: 15px;
+    width: 78.1125px;
+    height: 28.8px;
+    text-align: center;
+    font-size: 14px;
+    font-family: "WorkSans";
+}
+
+.empty_mv{
+    text-align: center;
+}
+
+.empty_mv form{
+    text-align: initial;
+}
+
+.add_first{
+    padding: 12.5px;
+    padding-right: 25px;
+    position: relative;
+    background-color: #fff;
+    color: var(--bleu_perso);
+    border-radius: 80px;
+    border: solid 1px var(--bleu-pale);
+
+}
+
+.add_second{
+    padding: 12.5px;
+    position: relative;
+    left: -28px;
+    background-color: var(--orange_perso);
+    border-radius: 80px;
+    color: #fff;
+    
+}
+
+input{
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    /*background-color: #CED8F6;*/
+    color: var(--bleu_perso);
+    margin-bottom: 10px;
+}
+
+label {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: block;   
+}
+
+.vanish{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin: auto;
+    width: 70%;
+    padding-inline-start: 0;
+}
+
+.vanish button{
+    display: table-cell;
+    margin: auto;
+}
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){
+    .menu_profil nav li  {
+        width :100%;
+        min-height:20px;
+        display:block;
+     }
+
+    #page-content-wrapper{
+        display: none
+    }
+
+    #sidebar-wrapper {
+    
+        /*background: var(--bleu-pale);*/
+        background-image: url("../img/parcours_client/Composant_m.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        z-index: 1000;
+        transition: all 0.4s ease 0s;
+        height: 576px;
+        width: 90%
+      }
+
+      .sidebar-nav li {
+        width: 97.2%;
+        font-size: 12px;
+        height: fit-content;
+      }
+
+    
+
+    .bloc_footer {
+        margin-top: 150px;
+    }
+
+    form[name=info_client]  label{
+        color: var(--bleu_perso);
+        font-size: 12px;
+    }
+    
+    form[name=info_client] input, form[name=info_client] select{
+        display: block;
+        width: 100%;
+        padding: 8px 14px;
+        font-size: 12px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        background-color: #CED8F6;
+        color: var(--bleu_perso);
+        margin-bottom: 2.5%;
+    }
+
+    #entete-tableau{
+        background-color: var(--bleu-pale);
+        font-size: 12px;
+        font-weight: 600;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.33;
+        letter-spacing: 1.2px;
+        text-align: left;
+    }
+
+    #mes-demandes{
+        font-size: 16px;
+    }
+
+    .rounded_btn{
+        border-radius: 20px;
+        border: solid 1px var(--bleu-pale);
+        background-color: var(--white);  
+    }
+    
+    .rounded_btn > a, .rounded_btn > a:visited{
+        color: var(--bleu_perso);
+        margin: auto;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.2;
+        letter-spacing: normal;
+    }
+
+    .add_first{
+        font-size: 12px;
+    }
+
+    .add_second{
+        font-size: 12px;
+    }
+
+    form p{
+        font-size: 12px;
+        color: var(--bleu_perso);
+    }
+}
+
+
+/* **************  POUR TABLETTE  ********************* */
+@media (min-width: 768px) and (max-width:991.98px){
+
+    .profile{
+        height: 100px;
+    }
+
+    .middle{
+        padding: 0;
+    }
+
+    #page-content-wrapper{
+        display: none
+    }
+
+    .profil-label, .profil-name{
+        font-size: 12px;
+    }
+
+    #sidebar-wrapper {
+        width: 98%;
+        height: 700px;
+    }
+
+    .sidebar-nav{
+        height: 450px;
+    }
+    
+    .sidebar-nav li {
+        width: 97%;
+        font-size: 12px;
+        height: fit-content;
+      }
+      
+      .sidebar-nav li a {
+        color: var(--bleu_perso);
+        display: block;
+        text-decoration: none;
+      }
+      
+      .sidebar-nav li a span {
+        right: 10%;
+        
+        line-height: 18px;
+      }
+                    
+    
+    .btn-menu {
+        color: #000;
+    } 
+      
+    .inset {
+        padding: 20px;
+    }
+    
+    /************ MES DEMANDES **************/
+    .boxed{
+        margin: 5%;
+        padding: 15px;
+        text-align: center;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+        font-size: 16px;    
+    }
+    
+    .rounded_btn{
+        border-radius: 20px;
+        border: solid 1px var(--bleu-pale);
+        background-color: var(--white);  
+    }
+    
+    .rounded_btn > a, .rounded_btn > a:visited{
+        color: var(--bleu_perso);
+        margin: auto;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 600;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.2;
+        letter-spacing: normal;
+    }
+    
+    /*********** MES INFORMATONS ***********/
+    .table1  {
+        width: 100%;
+        color: var(--bleu_perso);
+        border: solid 1px var(--very-light-purple);
+    }
+    
+    .table1  tr > td{
+        padding: 4%;
+    }
+    
+    #tab tr td:nth-child(1n) { width:25%;}
+    
+  
+    
+    #entete-tableau{
+        background-color: var(--bleu-pale);
+        font-size: 12px;
+        font-weight: 600;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.33;
+        letter-spacing: 1.2px;
+        text-align: left;
+    }
+    
+    form[name=info_client]  label{
+        color: var(--bleu_perso);
+    }
+    
+    form[name=info_client] input, form[name=info_client] select{
+        display: block;
+        width: 100%;
+        padding: 8px 14px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        background-color: #CED8F6;
+        color: var(--bleu_perso);
+        margin-bottom: 2.5%;
+    }
+    
+    .input-group{
+        flex-wrap: nowrap;
+    }
+    
+    #tab{
+        font-size: 16px;
+    }
+}
+
+
+/* **************  POUR GRAND ECRAN  ********************* */
+@media screen and (min-width: 1025px){
+
+    #coming_back{
+        display: none;
+    }
+
+    .profile{
+        height: 120px;
+    }
+
+    #sidebar-wrapper {
+        width: 98%;
+        height: 800px;
+    }
+
+    .sidebar-nav{
+        height: 700px;
+    }
+    
+    .sidebar-nav li {
+        line-height: 40px;
+        width: 97%;
+        
+      }
+      
+      .sidebar-nav li a {
+        color: var(--bleu_perso);
+        display: block;
+        text-decoration: none;
+      }
+      
+      .sidebar-nav li a span:before {
+        right: 10%;
+        width: 20px;
+        line-height: 18px;
+      }
+       
+      .sidebar-nav > .sidebar-brand {
+        height: 65px;
+        line-height: 60px;
+        font-size: 18px;
+      }
+
+          
+    #menu-toggle {
+          text-decoration: none;
+    }
+      
+    
+    .btn-menu {
+        color: #000;
+    } 
+      
+    .inset {
+        padding: 20px;
+    }
+    
+    /************ MES DEMANDES **************/
+    .boxed{
+        margin: 5%;
+        padding: 15px;
+        text-align: center;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+        font-size: 16px;    
+    }
+    
+    .rounded_btn{
+        border-radius: 20px;
+        border: solid 1px var(--bleu-pale);
+        background-color: var(--white);
+        
+    }
+    
+    .rounded_btn > a, .rounded_btn > a:visited{
+        color: var(--bleu_perso);
+        margin: auto;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 600;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.2;
+        letter-spacing: normal;
+    
+    }
+    
+    /*********** MES INFORMATONS ***********/
+    
+    .table1  tr > td{
+        padding: 4%;
+    }
+    
+    #tab tr td:nth-child(1n) { width:22%;}
+    
+    #tab tr td:first-child { width: 34%;}
+    
+    #entete-tableau{
+        background-color: var(--bleu-pale);
+        font-size: 12px;
+        font-weight: 600;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.33;
+        letter-spacing: 1.2px;
+        text-align: left;
+    }
+    
+    form[name=info_client]  label{
+        color: var(--bleu_perso);
+    }
+    
+    form[name=info_client] input, form[name=info_client] select{
+        display: block;
+        width: 100%;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        background-color: #CED8F6;
+        color: var(--bleu_perso);
+        margin-bottom: 5%;
+    }
+    
+    .input-group{
+        flex-wrap: nowrap;
+    }
+    
+    #tab{
+        font-size: 16px;
+    }
+}
