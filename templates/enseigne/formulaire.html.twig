@@ -56,26 +56,21 @@
                     </div> <!-- fin class="title_box" -->
                     <div id="info_client container" class="info_client">
 
-                        <div class"identite">
-                            <div class="row">
-                                <div class="col">
-                                    {{ form_label(form1.client.prenom) }}
-                                    
-                                    {{ form_errors(form1.client.prenom) }}
-                                    {{ form_widget(form1.client.prenom, {'id': 'prenom'}) }}
-                                </div>
-                                <div class="col">
-                                    {{ form_label(form1.client.nom) }}
-                                    
-                                    {{ form_errors(form1.client.nom) }}
-                                    {{ form_widget(form1.client.nom, {'id': 'nom'}) }}
+                        <div class"prenom">
+                            {{ form_label(form1.client.prenom) }}                                  
+                            {{ form_errors(form1.client.prenom) }}
+                            {{ form_widget(form1.client.prenom, {'id': 'prenom'}) }}
+                        </div>
+                        <div class="nom">
+                            {{ form_label(form1.client.nom) }}                                   
+                            {{ form_errors(form1.client.nom) }}
+                            {{ form_widget(form1.client.nom, {'id': 'nom'}) }}
                                 </div>
                             </div>
                         </div>
 
                         <div class="telephone">
-                            {{ form_label(form1.client.numeroTelephone) }}
-                            
+                            {{ form_label(form1.client.numeroTelephone) }}                           
                             {{ form_errors(form1.client.numeroTelephone) }}
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">

@@ -62,7 +62,7 @@ label {
 }
 
 input#num{
-    width: auto;
+    width: 100%;
 }
 
 input, select{
