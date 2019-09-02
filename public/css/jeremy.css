@@ -102,3 +102,56 @@
     border: solid 1px var(--orange-pale);
     border-radius: 40px;
 }
+
+.title_box{
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* style_formulaire */
+
+#form_location{
+    position: relative;
+}
+
+.big_emoji{
+    position: absolute;
+    bottom: -350px;
+    right: 0;
+}
+
+#form_location .big_emoji > img{
+    height: 520px;
+}
+
+
+@media screen and (max-width:767.98px){
+    .title_box > h2{
+        font-size: 28px;
+    }
+
+    .header_title{
+        font-size: 44px;
+    }
+
+    .big_emoji{
+        bottom: -300px;
+        right: 0;
+    }
+    
+    #form_location .big_emoji > img{
+        width: 200px;
+        height: 340px;
+    }
+}
+
+@media (min-width: 768px) and (max-width:1024.98px){
+    .header_title{
+        font-size: 56px;
+    }
+
+    #form_location .big_emoji > img{     
+        width: 300px;
+        height: 400px;
+    }
+}

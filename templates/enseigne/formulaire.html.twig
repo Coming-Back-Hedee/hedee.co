@@ -1,10 +1,10 @@
-
+    <div class="container les_infos">
         {{form_start(form1, {'attr': {'id': 'form-enseigne'} }) }}
-            <div class="les_infos">
+            <div>
                 <h3 style="display: none;">Achat</h3>
                 <section>  
                     <div class="title_box container">
-                        <h2>Hedee a besoin d'en savoir plus sur votre achat</h2>
+                        {#<h2>Hedee a besoin d'en savoir plus sur votre achat</h2>#}
                     </div> <!-- fin class="title_box" -->
                     <div id="mole" class="mole container">
                         <div class="row">
@@ -134,6 +134,7 @@
                 </section>
             </div>
         {{ form_end(form1, {'render_rest': false}) }}
+        </div>
 
         <div id="dialog-message" title="Formulaire complet" style="display: none;">
             <p>

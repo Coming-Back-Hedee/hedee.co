@@ -30,7 +30,7 @@ class EligibiliteType extends AbstractType
                 'Auto et moto' => 'auto_et_moto',
                 'Sports et mode' => 'sports_et_mode'
             ],
-            'label' => 'Sélectionnez la catégorie du produit de votre produit'
+            'label' => 'Sélectionnez la catégorie de votre produit'
             ])
 
             ->add('enseigne', TextType::class, ['label' => 'Renseignez le nom de l\'enseigne'])

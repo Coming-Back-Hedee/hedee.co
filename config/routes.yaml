@@ -36,7 +36,7 @@ contact:
     defaults:
       template: 'utile/contact.html.twig'
 
-felicitation:
+test:
     path: /test
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
     defaults:

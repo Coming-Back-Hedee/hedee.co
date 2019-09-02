@@ -183,21 +183,23 @@ form button{
 
 /* **************  POUR TABLETTES  ********************* */
 @media (min-width: 768px) and (max-width:991.98px){
-    
-    .bloc1{
-        margin-top: 10%;
-    }
 
     .block_left1{
         height: 300px;
         width: 300px;
         background-image: url("../img/popup/Groupe\ 194.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
     }
     
     .block_left2{
         background-image: url("../img/popup/Groupe\ 194b.png");
         height: 300px;
         width: 300px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
     }
 
     .block_right{
@@ -217,18 +219,21 @@ form button{
 
 /* **************  POUR GRANDS ECRANS  ********************* */
 @media screen and (min-width: 1025px){
-    .bloc1{
-        margin-top: 2.5%;
-    }
     
     .block_left1{
         height: 480px;
         width: 480px;
         background-image: url("../img/popup/Groupe\ 193.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
     }
     
     .block_left2{
         background-image: url("../img/popup/Groupe\ 193b.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
         height: 480px;
         width: 480px;
     }

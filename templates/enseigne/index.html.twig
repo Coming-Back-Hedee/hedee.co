@@ -16,6 +16,9 @@
     </div>
     <div id="form_location">
         {% include 'enseigne/eligibilite.html.twig' %}
+        <div class="big_emoji">
+            <img src="{{asset('img/parcours_remboursement/emoj_elig.png')}}" alt="" > 
+        </div>
     </div>
 
 {% endblock %}
@@ -52,14 +55,15 @@
             var donnees = $('#form-eligibilite').serialize()
             $.post('/demande-remboursement/', donnees, function(data,status){
             });
-            var url = "{{ path('formulaire') }}";
-            $.ajax({
+            //var url = "{{ path('formulaire') }}";
+            /*$.ajax({
                 type: 'get',
                 url: url,
                     success: function (data) {
                         $('#form_location').html(data);           
                 }
-            });
+            });*/
+            $('#form_location').load("{{ path('formulaire') }}")
         }
             
 

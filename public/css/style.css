@@ -490,17 +490,6 @@ main {
     margin: 25px auto;
 }
 
-.box {
-    width: 40%;
-    background-color: #fff;
-    border: 1px solid #fff;
-    min-height: 470px;
-    border-radius : 2%;
-    margin: 25px auto;
-	-moz-box-shadow: 0 0 10px #555;  
-	-webkit-box-shadow: 0 0 10px #555;  
-    box-shadow: 0 0 10px #555;  
-}
 
 #paragraph_id1, #paragraph_id2, #paragraph_id3, #paragraph_id4 {
     width:80%;
@@ -512,28 +501,11 @@ main {
 	display: none;
 }
 
-.categorie, .choisir_enseigne, .date_achat, .prix_article, .mag_internet,.remise {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-} 
-
-.box #form_prix, .box #datepicker, .box #select_enseigne, .box #cat_produit, .box #remise {
-    width: 100%; 
-    padding: 12px;   
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    box-sizing: border-box;
-    margin-top: 6px; 
-    margin-bottom: 10px; 
-    resize: vertical;
-}
-
 .categorie_2, .choisir_enseigne_2, .date_achat_2, .prix_article_2 {
     display:flex
 }
 
-.label_2 {
+/*.label_2 {
     margin-right: 6px
 }
 
@@ -543,19 +515,7 @@ main {
     border-radius: 10px;
     border:none;
     font-family: 'Georgia', sans-serif; 
-}
-
-.box #mag_internet {
-    width: 20%; 
-    padding: 12px;   
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    box-sizing: border-box;
-    margin-top: 6px; 
-    margin-bottom: 16px; 
-    resize: vertical;
-}
-
+}*/
 
 .msg {
     width: 40%;
@@ -774,9 +734,15 @@ label.error{
     font-size: small;
     color:red;
     margin-bottom: 20px;
+    margin-top: 5px;
 }
 
-input.error{
+label{
+    margin-top: 20px;
+}
+
+    
+input.error, select.error{
     border-color:red;
     border-width: 2px;
     border-radius: 2px;

@@ -32,8 +32,10 @@ body {
     color: var(--bleu_perso);
 }
 
-.form_elig {
+.form_elig, .les_infos{
     background-color: white;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bloc_footer {
@@ -49,8 +51,8 @@ body {
 }
 
 label {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-top: 20px;
     display: block;
     
 }
@@ -89,11 +91,12 @@ input[type=file]{
     color: white; 
     box-sizing: border-box;
     margin-top: 5%;  
-    padding: 12px 20px;
+    width: 100%;
+    padding: 12px 16px;
     text-align: center;
     font-size: 80%;
     border: none;
-    border-radius: 24px;
+    border-radius: 48px;
     cursor: pointer;
     transition: 1s;
 }
@@ -103,7 +106,6 @@ ul[role=menu]{
     flex-wrap: nowrap;
     justify-content: center;
     margin: auto;
-    width: 70%;
     padding-inline-start: 0;
 }
 
@@ -250,13 +252,6 @@ textarea{
     padding-bottom: 45px
 }
 
-.facture, .marque, .reference, .numero_commande, .commentaires, .url, .code_postal {
-    margin: 15px 40px 15px 40px;
-}
-
-.url {
-    margin: 50px 40px 15px 40px;
-}
 
 .code_postal {
     padding-top: 40px
@@ -266,7 +261,8 @@ textarea{
  .les_infos {
     position: relative;
     padding-top : 30px;
-    padding-bottom: 40px
+    padding-bottom: 40px;
+    background-color: transparent;
 }
 
 .les_infos > section {
@@ -334,7 +330,6 @@ textarea{
     width: 125px;
     display: table-cell;
     overflow: hidden;
-    margin-right: 8px;
 }
 
 #menunext, #menufinish{
@@ -347,7 +342,6 @@ textarea{
     display: table-cell;
     vertical-align: middle; 
     overflow: hidden;
-    margin-left: 8px;
 }
 
 /*page informations client - vos coordonnées*/
@@ -424,6 +418,13 @@ textarea{
             /***POUR MOBILE***/
 @media screen and (max-width:767.98px){ 
 
+    .form_elig, .les_infos{
+
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .les_infos {
         display: table;
         color: var(--bleu_perso);
@@ -431,7 +432,7 @@ textarea{
         margin-top: 5%;
         margin-bottom: 5%;
         position: relative;
-        top: -60px;
+        top: -65px;
     }
 
     .steps ul{
@@ -457,15 +458,15 @@ textarea{
         font-size: 11px;
     }
 
-    #soumettre {
-        width: 100%;
-        padding: 12px 16px;
-    }
 }
 
 
             /***POUR TABLETTE***/
-@media (min-width: 768px) and (max-width:991.98px){ 
+@media (min-width: 768px) and (max-width:1024.98px){ 
+    
+    .form_elig, .les_infos{
+        width: 610px
+    }
 
     .les_infos {
         display: table;
@@ -494,14 +495,15 @@ textarea{
         display: block
     }
 
-    #soumettre {
-        width: 60%;
-    }
 }
 
 
             /***POUR GD ECRAN***/
 @media screen and (min-width: 1025px){
+
+    .form_elig, .les_infos{
+        width: 720px
+    }
 
     .les_infos {
         display: table;
@@ -517,8 +519,5 @@ textarea{
         display: none;
     }
 
-    #soumettre {
-        width: 40%;
-    }
  } 
 

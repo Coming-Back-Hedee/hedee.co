@@ -226,19 +226,19 @@
 							
 							<div class="row justify-content-center mb-5 logos_reseau">
 								<div class="col-4-md-4 mr-3 facebook">
-									<a href="#">  <img width="50" height="50" class="img-fluid" src="../img/footer/fb_bleu.png" alt="" > </a>
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="{{asset('img/footer/fb_bleu.png')}}" alt="" > </a>
 								</div>
 
 								<div class="col-4-md-4 mr-3 twitter">
-									<a href="#">  <img width="50" height="50" class="img-fluid" src="../img/footer/twitter_bleu.png" alt="" > </a>
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="{{asset('img/footer/twitter_bleu.png')}}" alt="" > </a>
 								</div>
 
 								<div class="col-4-md-4 mr-3 instagram">
-									<a href="#">  <img width="50" height="50" class="img-fluid" src="../img/footer/insta_bleu.png" alt="" > </a>
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="{{asset('img/footer/insta_bleu.png')}}" alt="" > </a>
 								</div>
 
 								<div class="col-4-md-4 mr-3 linkedin">
-									<a href="#">  <img width="50" height="50" class="img-fluid" src="../img/footer/linkedin_bleu.png" alt="" > </a>
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="{{asset('img/footer/linkedin_bleu.png')}}" alt="" > </a>
 								</div>
 							</div>
 						</div> <!--fin class="reseau_sociaux"-->
@@ -253,9 +253,9 @@
 
 								<div class="list_footer">
 									<ul>
-										<li><a href="#">Pourquoi hedee ?</a></li>
-										<li><a href="#">Comment fonctionne hedee ?</a></li>
-										<li><a href="#">Vos questions</a></li>
+										<li><a href="{{ path('a_propos') }}">Pourquoi hedee ?</a></li>
+										<li><a href="{{ path('comment_ca_marche') }}">Comment fonctionne hedee ?</a></li>
+										<li><a href="{{ path('foire_aux_questions') }}">Vos questions</a></li>
 									</ul>
 								</div>
 
@@ -268,9 +268,9 @@
 
 								<div class="list_footer">
 									<ul>
-										<li><a href="#">Les mentions légales</a></li>
-										<li><a href="#">Les CGU</a></li>
-										<li><a href="#">La gestion de vos cookies et de vos données personnelles</a></li>
+										<li><a href="#">Mentions légales</a></li>
+										<li><a href="#">CGU</a></li>
+										<li><a href="#">Données personnelles</a></li>
 									</ul>
 								</div>
 
@@ -278,7 +278,9 @@
 
 							<div class="col-md-4">
 								<div class="bouton_footer">
-									<a href="#">  <img width="200" height="30" class="img-fluid mt-4" src="../img/footer/bouton_footer.png" alt="" > </a>
+									<a href="{{ path('contact') }}"><center>  
+										<img width="200" height="30" class="img-fluid mt-4" src="{{asset('img/footer/bouton_footer.png')}}" alt="" > 
+									</center></a>
 								</div>
 							</div>
 							
