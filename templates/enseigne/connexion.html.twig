@@ -1,32 +1,36 @@
-    <div id="connexion">
-        <div class="hedee_rc">
-            <div class="email">
-                        {{ form_label(form1.client.email) }}
-                        <br>
-                        {{ form_errors(form1.client.email) }}
-                        {{ form_widget(form1.client.email, {'id': 'email'}) }} 
-            </div>
-                                                    
-            <div class="pswd1">
-                        {{ form_label(form1.client.plainPassword.first) }}
-                        <br>
-                        {{ form_errors(form1.client.plainPassword.first) }}
-                        {{ form_widget(form1.client.plainPassword.first, {'id': 'password1'}) }} 
-            </div>
-            <div id="pswd2" class="pswd2" style="display: none;">
-                        {{ form_label(form1.client.plainPassword.second) }}
-                        <br>
-                        {{ form_errors(form1.client.plainPassword.second) }}
-                        {{ form_widget(form1.client.plainPassword.second, {'id': 'password2'}) }} 
-            </div>
 
-                
-            <a href="{{path('request_resetting')}}" target="blank">J'ai oublié mon mot de passe</a>
-        </div>
-        <button class="hideC" type="button" onclick="hideC();">
-        </button>
-    </div>
+<div id="content" class="container">
+	<div class="bloc_popup row">
+		<div class="block_left1 col-xs-12 col-sm-12 col-md-6 clo-lg-6">
+			<div class="switch">			
+					<button class="btn switch_first" onclick="hideC();">Je rejoins hedee</button>
+					<button class="btn switch_second1" onclick="hideC();">
+                        <i class="fa fa-arrow-right" style="font-size:24px"></i>
+                    </button>
+				
+			</div>
+		</div>
+        <div class="block_right col-xs-12 col-sm-12 col-md-6 clo-lg-6">
+			<button class="close"><i class="fa fa-close" style="font-size:24px"></i></button>
+			<div id="connexion">
+				<h3> J'ai déjà un compte </h3> 
+				
+				{{ form_widget(form1.client.email, {'attr' : {'placeholder' : 'Votre adresse mail'}, 'id': 'email'}) }}
 
+				{{ form_widget(form1.client.plainPassword.first, {'attr' : {'placeholder' : 'Votre mot de passe'}, 'id': 'password1'}) }}
+				<div id="pswd2" class="pswd2" style="display: none;">
+                    {{ form_label(form1.client.plainPassword.second) }}
+                    {{ form_errors(form1.client.plainPassword.second) }}
+                    {{ form_widget(form1.client.plainPassword.second, {'id': 'password2'}) }} 
+                </div>
+
+				<a href="{{path('request_resetting')}}" target="blank">Mot de passe oublié</a>
+				<br>
+				<button class="blue_button">Je me connecte</button>
+			</div>
+		</div>
+	</div>
+</div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>

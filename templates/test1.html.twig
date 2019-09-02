@@ -11,28 +11,28 @@
 {% block title %}Demande de remboursement{% endblock %}
 
 {% block main %}
-<div class="container">
-<div class="bloc1 row">
-	<div class="block_left2 col-xs-12 col-sm-12  col-md-6 clo-lg-6">
-		<div class="switch">	
-			<button class="btn switch_first2">Je me connecte</button>
-			<button class="btn switch_second2"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>	
+<div id="content" class="container">
+	<div class="bloc_popup row">
+		<div class="block_left2 col-xs-12 col-sm-12  col-md-6 clo-lg-6">
+			<div class="switch">	
+				<button class="btn switch_first2">Je me connecte</button>
+				<button class="btn switch_second2"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>	
+			</div>
+		</div>
+		<div class="block_right col-xs-12 col-sm-12  col-md-6 clo-lg-6">
+			<button class="close"><i class="fa fa-close" style="font-size:24px"></i></button>
+			<form id="inscription">
+				<h3> Rejoindre hedee </h3>
+				<input type="text" name="nom" id="nom"  placeholder="Votre adresse mail">
+
+				<input type="text" name="prenom" id="prenom"  placeholder="Votre mot de passe">
+						
+				<input type="text" name="mail" id="mail"  placeholder="Confirmez votre mot de passe">
+
+				<button class="orange_button">Je crée mon compte</button>
+			</form>
 		</div>
 	</div>
-	<div class="block_right col-xs-12 col-sm-12  col-md-6 clo-lg-6">
-		<button class="close"><i class="fa fa-close" style="font-size:24px"></i></button>
-		<form id="inscripiton">
-			<h3> Rejoindre hedee </h3>
-			<input type="text" name="nom" id="nom"  placeholder="Votre adresse mail">
-
-			<input type="text" name="prenom" id="prenom"  placeholder="Votre mot de passe">
-					
-			<input type="text" name="mail" id="mail"  placeholder="Confirmez votre mot de passe">
-
-			<button class="orange_button">Je crée mon compte</button>
-		</form>
-	</div>
-</div>
 </div>
 
 {% endblock %}

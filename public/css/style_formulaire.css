@@ -52,7 +52,7 @@ body {
 
 label {
     margin-bottom: 5px;
-    margin-top: 20px;
+    margin-top: 2step0px;
     display: block;
     
 }
@@ -146,62 +146,6 @@ ul[role=menu]{
     min-height: 40%;
 }
 
-#connexion{
-    position: relative;
-    background-image: url("../img/parcours_remboursement/Groupe\ 394.png") ;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;
-    min-height: 444px;
-    max-width: 100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-}
-
-#inscription{
-    position: relative;
-    background-image: url("../img/parcours_remboursement/Groupe\ 399.png") ;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;
-    min-height: 444px;
-    max-width: 100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-}
-
-.hedee_rc{
-    position: absolute;
-    right: 50px;
-    top: 25%;
-    max-width: 50%;
-}
-
-.hideC{
-    border-radius: 24px;
-    background-image: url("../img/parcours_remboursement/Groupe\ 229.png") ;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;
-    min-height: 40px;
-    min-width: 177px;
-    margin-top: 30%;
-    margin-left: 10%;
-}
-
-.hideI{
-    border-radius: 24px;
-    background-image: url("../img/parcours_remboursement/Groupe\ 228.png") ;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;
-    min-height: 40px;
-    min-width: 177px;
-    margin-top: 30%;
-    margin-left: 10%;
-}
 
 /* CSS SOUS MENU FORMULAIRE */
 .current-info.audible {
@@ -216,6 +160,7 @@ a > .fa{
     display:inline;
     list-style: none;
     padding-left: 10px;
+    margin: 20px;
 }
 
 .steps ul li a {
@@ -412,6 +357,152 @@ textarea{
 /*Formulaire : boutons bas de page
 .actions ul li a {}*/
 
+/*************************** POPUP ***************************/
+.bloc_popup{
+    display: flex;
+    margin: auto;
+    
+}
+
+.block_left1{
+    margin-right: 0;
+    margin-left: auto;
+    position: relative;
+    display: flex;
+    color: var(--bleu_perso);
+}
+
+.block_left2{
+    margin-right: 0;
+    margin-left: auto;
+    position: relative;
+    display: flex;
+    color: var(--orange_perso);
+}
+
+.switch{
+    margin: auto;
+}
+
+.switch_first{
+    padding: 12.5px;
+    padding-right: 25px;
+    position: relative;
+    background-color: #fff;
+    color: var(--bleu_perso);
+    border-radius: 80px;
+}
+
+.switch_first2{
+    padding: 12.5px;
+    padding-right: 25px;
+    position: relative;
+    background-color: #fff;
+    color: var(--orange_perso);
+    border-radius: 80px;
+}
+
+.switch_second1{
+    padding: 12.5px;
+    position: relative;
+    left: -28px;
+    background-color: var(--orange_perso);
+    border-radius: 80px;
+    color: #fff;
+}
+
+.switch_second2{
+    padding: 12.5px;
+    position: relative;
+    left: -20px;
+    background-color: var(--bleu_perso);
+    border-radius: 60px;
+    color: #fff;
+}
+
+a:visited, a{
+    color: var(--bleu_perso);
+}
+
+
+.block_right{
+    display: flex;
+    position: relative;
+    background-color: #fff;
+    margin-right: auto;
+    margin-left: 0;
+    min-height: 300px;
+}
+
+.block_left1 + .block_right{
+    color: var(--bleu_perso);
+}
+
+.block_left2 + .block_right{
+    color: var(--orange_perso);
+}
+
+.close{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    border-radius: 48px;
+    background-color: #fff;
+    color: var(--bleu_perso);
+    padding: 25px;
+}
+
+#connexion, #inscription{
+    position: relative;
+    margin: auto;
+}
+
+#connexion label, #inscription label{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: block;
+    
+}
+
+#connexion input, #inscription input{
+    border: solid 2px;
+    border-color: var(--bleu-pale); 
+    margin: 5.5% auto;
+    display: block;
+    width: 100%;
+} 
+
+#connexion input{
+    border-color: var(--bleu-pale);
+}
+
+#inscription input{
+    border-color: var(--orange-pale);
+}
+
+
+#connexion ::placeholder, #inscription ::placeholder{
+    text-align: center;
+}
+
+#inscription ::placeholder{
+    color: var(--orange-pale);
+}
+
+#connexion a, #inscription a{
+    float: right;
+}
+
+#connexion button, #inscription button{
+    margin: auto;
+    margin-top: 4.5%;
+}
+
+#connexion h3, #inscription h3{
+    margin: initial;
+    font-size: 18px
+}
+
 
 
 /**********PARTIE RESPONSIVE DESIGN***********/
@@ -458,6 +549,32 @@ textarea{
         font-size: 11px;
     }
 
+    /************** POPUP *****************/
+    
+    .block_right{
+        order: -1;
+    }
+
+    .block_left1{
+        height: 350px;
+        background-image: url("../img/popup/Groupe\ 194.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+    
+    .block_left2{
+        background-image: url("../img/popup/Groupe\ 194b.png");
+        height: 350px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+
+    #connexion input, #inscription input{
+        height: 30px;  
+    }
+
 }
 
 
@@ -495,6 +612,38 @@ textarea{
         display: block
     }
 
+    /****************** POPUP ******************/
+    .block_left1{
+        height: 300px;
+        width: 300px;
+        background-image: url("../img/popup/Groupe\ 194.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+    
+    .block_left2{
+        background-image: url("../img/popup/Groupe\ 194b.png");
+        height: 300px;
+        width: 300px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+
+    .block_right{
+        height: 300px;
+        width: 300px;
+    }
+
+    #connexion input, #inscription input{
+        height: 40px;  
+    }
+
+    #connexion ::placeholder, #inscription ::placeholder{
+        font-size: 12px;
+    }
+
 }
 
 
@@ -518,6 +667,34 @@ textarea{
     .number{
         display: none;
     }
+
+    /**************** POPUP ********************/
+    .block_left1{
+        height: 300px;
+        width: 300px;
+        background-image: url("../img/popup/Groupe\ 194.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+    
+    .block_left2{
+        background-image: url("../img/popup/Groupe\ 194b.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+        height: 300px;
+        width: 300px;
+    }
+
+    .block_right{
+        height: 300px;
+        width: 300px;
+    }
+
+    #connexion input, #inscription input{
+        height: 40px;  
+    }    
 
  } 
 
