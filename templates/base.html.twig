@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="{{asset('css/style.css')}}">
 		<link rel="stylesheet" href="{{asset('css/grillade-flex.css')}}">
 		
-    	<link rel="stylesheet" href="{{asset('style_responsive.css')}}">
+    	<link rel="stylesheet" href="{{asset('css/jeremy.css')}}">
 		<link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.css')}}">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -26,24 +26,33 @@
     </head>
 
 
-    <body>
+<body>
 		<div id="modal" class="popup" style="display: none;"></div>
+		
 		<header>
-			<div class="navbar fixed-top">
+			<!-- *******MENU DESKTOP ET TABLETTE****** -->
+			<div class="navbar fixed-top" id="desktop">
+
                 <nav class="nav navbar-nav navbar-right">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="nav-item">
-                                    <button type="button" data-toggle="collapse" data-target="#collapse_menu" class="hamburger">&#9776;
-                                    </button>
-                                    <ul id="collapse_menu" class="collapse">
-                                        <li><a href="{{ path('a_propos') }}">Pourquoi Hedee ?</a></li>
-                                        <li><a href="{{ path('comment_ca_marche') }}">Comment fonctionne Hedee ?</a></li>
-                                        <li><a href="{{ path('foire_aux_questions') }}">Vos questions</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+										<aside class="card__image-container">
+
+											<a class="menu-button js-menu-button">
+												<div class="menu-icon">
+													<span></span>
+													<span></span>
+													<span></span>
+												</div>
+											</a>
+
+										</aside>
+                                    
+                                </div> <!-- fin class="nav-item"-->
+                            </div><!-- fin class="col-md-6"-->
+
                             <div class="col-md-6">
                                 <div class="nav-item">
                                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}						
@@ -52,40 +61,153 @@
                                         </button>
                                     {% else %}
                                         <!-- <li> <button id="myBtn"><a href="{{ path('connexion') }}">Se connecter</a></button> </li> -->
-                                        <button id="show">
-                                            <a href="#"><i class="fa fa-user-circle-o" style="font-size:24px"></i></a>
+                                        <button id="show" class="compte_client">
+                                            <a href="#"> <img src="../img/header/compte_client.png" width="30" height="30" class="img-fluid" alt="connexion compte client" title="connexion"> </a>
                                         </button> 
                                     {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
+                                </div> <!-- fin class="nav-item"-->
+                            </div> <!-- fin class="col-md-6"-->
+                        </div> <!-- fin class="row"-->
+                    </div> <!-- fin class="container-fluid"-->
+                </nav> <!-- fin class="nav navbar-nav navbar-right"-->
+
                 <nav class="navbar navbar-expand-sm justify-content-center">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="nav-item">
                                 <a class="navbar-brand" href="{{ path('accueil') }}">
-                                    <img src="{{asset('img/logo.png')}}" class="img-responsive" alt="hedee.co">
+                                    <img src="{{asset('img/logo.png')}}" width="160" height="40" class="img-fluid" alt="hedee.co">
                                 </a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
+                            </div> <!-- fin class="col-md-12"-->
+                        </div> <!-- fin class="row"-->
+                    </div> <!-- fin class="container-fluid"-->
+                </nav> <!-- fin class="navbar navbar-expand-sm justify-content-center"-->
                 
                 <nav class"nav navbar-nav navbar-right" style="float: right;">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <div><a href="{{ path('enseigne') }}">
-                                    <button type="button" class="btn btn-outline-info">Je récupère mon argent</button>
-                                </a></div>
-                            </div>
-                        </div>
+                                <div>
+									<a href="{{ path('enseigne') }}"> <img src="../img/header/recup_argent.png" width="230" height="50" class="img-fluid" alt="connexion compte client" title="connexion"> </a>
+                                </div>
+                            </div> <!-- fin class="col-md-12"-->
+                        </div> <!-- fin class="row"-->
+					</div> <!-- fin class="container-fluid"-->
+                </nav> <!-- fin class="nav navbar-nav navbar-right"-->
+
+            </div> <!-- fin class="navbar fixed-top"-->
+			<!-- *******FIN MENU DESKTOP ET TABLETTE****** -->
+
+
+
+			<!-- *******MENU MOBILE****** -->
+			<div class="navbar fixed-top" id="mobile">
+
+                <nav class="nav navbar-nav navbar-right burger_et_logo">
+                                <div class="nav-item second_menu">
+									<div class="col-md-3 burger1">
+										<aside class="card__image-container">
+											<a class="menu-button js-menu-button">
+												<div class="menu-icon" class="img-fluid">
+													<span></span>
+													<span></span>
+													<span></span>
+												</div>
+											</a>
+										</aside>
+									</div> <!-- fin class="burger1"-->
+
+									<div class="col-md-9 logo">
+										<div class="first">
+											<a class="navbar-brand" href="{{ path('accueil') }}">
+												<img src="{{asset('img/logo.png')}}" width="160" height="40" class="img-fluid" alt="hedee.co">
+											</a>
+										</div>
+                            		</div> <!-- fin class="col-md-6 logo"-->
+
+                                </div> <!-- fin class="nav-item second"-->   
+                </nav> <!-- fin class="nav navbar-nav navbar-right"-->
+                
+                
+                            
+                
+
+            </div> <!-- fin class="navbar fixed-top"-->
+
+			<!-- *******FIN MENU MOBILE****** -->
+
+			<div class="fullscreen-menu-container js-menu-container">
+
+				<a class="menu-button js-menu-close">
+					<div class="menu-icon is-active">
+						<span></span>
+						<span></span>
+						<span></span>
 					</div>
-                </nav>
-            </div>
+				</a>
+
+				<div class="fullscreen-menu">
+
+					<div class="entete_menu_open">
+							<div class="logo_h_entete">
+								<a href="#"> <img src="../img/header/logo_hedee.png" width="150" height="130" class="img-fluid" alt=""> </a>
+							</div>
+					</div>
+				
+
+					<nav class="fullscreen-menu__nav">
+						<ul>
+
+							<li>
+								<a href="{{ path('a_propos') }}">Pourquoi hedee ?</a>
+							</li>
+								<hr class="trait_menu1">
+							<li>
+								<a href="{{ path('comment_ca_marche') }}">Comment fonctionne hedee ?</a>
+							</li>
+								<hr class="trait_menu2">
+							<li>
+								<a href="{{ path('foire_aux_questions') }}">Vos questions</a>
+							</li>
+							
+						</ul>
+					</nav>
+
+					<div class="bas">
+						<div class="compte_h_entete">
+							<a href="#"> <img src="../img/header/mon_compte.png" width="200" height="130" class="img-fluid" alt=""> </a>	
+						</div>
+					
+						<div class="recup_argent_h_entete">
+							<a href="#"> <img src="../img/header/recup_argent.png" width="250" height="100" class="img-fluid" alt=""> </a>
+						</div>
+					</div>
+
+					{#<div class="container-fluid">
+					<div class="reseau_menu">
+						<div class="title_reseau">
+							<p>Retrouvez hedee sur les réseaux sociaux !</p>
+						</div> <!--fin class="title_reseau"-->
+						<div class="justify-content-center logo_reseau_menu">
+							<div class="fb_orange">
+								<a href="#"> <img src="../img/header/fb_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+							</div>
+							<div class="twitter_orange">
+								<a href="#"> <img src="../img/header/twitter_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+							</div>
+							<div class="insta_orange">
+								<a href="#"> <img src="../img/header/insta_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+							</div>
+							<div class="linkedin_orange">
+								<a href="#"> <img src="../img/header/linkedin_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+							</div>
+						</div> <!--fin class="logo_reseau_menu"-->
+					</div> <!--fin class="reseau_menu"-->
+					</div>#}
+
+			</div> <!--fin class="fullscreen-menu-container js-menu-container"-->
+
 		</header>
 	
 		{#MAIN#}
@@ -94,8 +216,84 @@
 		{% endblock %}
         </main>
 
-	
-	</body>
+		<footer>
+			<div class="container-fluid footer_bleu">
+					<div class="row">
+						<div class="col-md-12  reseau_sociaux">
+							<div class="text-center mt-5 mb-3 title_reseau">
+								<h5>Retrouvez hedee sur les réseaux sociaux !</h5>
+							</div>
+							
+							<div class="row justify-content-center mb-5 logos_reseau">
+								<div class="col-4-md-4 mr-3 facebook">
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="../img/footer/fb_bleu.png" alt="" > </a>
+								</div>
+
+								<div class="col-4-md-4 mr-3 twitter">
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="../img/footer/twitter_bleu.png" alt="" > </a>
+								</div>
+
+								<div class="col-4-md-4 mr-3 instagram">
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="../img/footer/insta_bleu.png" alt="" > </a>
+								</div>
+
+								<div class="col-4-md-4 mr-3 linkedin">
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="../img/footer/linkedin_bleu.png" alt="" > </a>
+								</div>
+							</div>
+						</div> <!--fin class="reseau_sociaux"-->
+						
+						<div class="container">
+						<div class="row justify-content-center hedee_footer">
+							
+							<div class="col-md-4 okk">
+								<div class="sous_title_reseau">
+									<h4>Tout sur hedee</h4>
+								</div>
+
+								<div class="list_footer">
+									<ul>
+										<li><a href="#">Pourquoi hedee ?</a></li>
+										<li><a href="#">Comment fonctionne hedee ?</a></li>
+										<li><a href="#">Vos questions</a></li>
+									</ul>
+								</div>
+
+							</div>
+
+							<div class="col-md-4">
+								<div class="sous_title_reseau">
+									<h4>Hedee et vous</h4>
+								</div>
+
+								<div class="list_footer">
+									<ul>
+										<li><a href="#">Les mentions légales</a></li>
+										<li><a href="#">Les CGU</a></li>
+										<li><a href="#">La gestion de vos cookies et de vos données personnelles</a></li>
+									</ul>
+								</div>
+
+							</div>
+
+							<div class="col-md-4">
+								<div class="bouton_footer">
+									<a href="#">  <img width="200" height="30" class="img-fluid mt-4" src="../img/footer/bouton_footer.png" alt="" > </a>
+								</div>
+							</div>
+							
+						</div></div> <!--fin class="row justify-content-center hedee_footer"-->
+
+						
+							<div class="col-md-12 mt-5 text-center copyright">
+								<hr class="mb-3 trait_footer">
+								<p>&#169;2019 hedee.co tous droits réservés.</p>
+							</div>
+						
+
+					</div><!--fin class="row footer_bleu"-->
+			</div><!--fin class="container-fluid"-->
+		</footer>
 
 		<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>

@@ -13,21 +13,8 @@
                                         'action': '/demande-remboursement/'}) 
                     }}                   
                     <div class="categorie">
-                        {{form_errors(form.categorie)}}
-                        
-                            <div class="categorie_2">
-                                <div class="label_2">
-                                {{form_label(form.categorie)}}
-                                </div>
-
-                                <div class="question_2">
-                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
-                                    i
-                                    </button>
-                                </div>
-                            </div> <!-- fin class="categorie_2" -->
-                        
-                        
+                        {{form_errors(form.categorie)}}                       
+                        {{form_label(form.categorie)}}                        
                         {{form_widget(form.categorie, {'attr': {'placeholder' : 'Sélectionner votre catégorie'}, 'id' : 'cat_produit'}) }}
                         {{form_help(form.categorie)}}                     
                     </div> <!-- fin class="categorie" -->
@@ -35,18 +22,7 @@
 
                     <div class="choisir_enseigne">
                             {{form_errors(form.enseigne)}}
-                            <div class="choisir_enseigne_2">
-                            <div class="label_2">
-                                {{form_label(form.enseigne)}}
-                            </div>
-
-                            <div class="question_2">
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="si votre enseigne n'y figure pas, vous n'êtes pas éligible">
-                                i
-                                </button>
-                            </div>
-                        </div> <!-- fin class="choisi_enseigne_2" -->
-                        
+                            {{form_label(form.enseigne)}}
                             {{form_widget(form.enseigne, {'attr':{'placeholder' : 'Ex: Darty'}, 'id': 'select_enseigne' }) }}
                             {{form_help(form.enseigne)}}
                     </div> <!-- fin class="choisir_enseigne" -->
@@ -54,43 +30,19 @@
 
                     <div class="prix_article">
                         {{form_errors(form.prix)}}
-                        <div class="prix_article_2">
-                            <div class="label_2">
-                                {{form_label(form.prix)}}
-                            </div>
-
-                            <div class="question_2">
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Indiquer le prix sans les options">
-                                    i
-                                </button>
-                            </div>
-                        </div> <!-- fin class="prix_article_2" -->
+                        {{form_label(form.prix)}}
                         {{form_widget(form.prix, {'attr': {'placeholder' : 'en euros',
                         'onkeypress': "return verifierCaracteres1(event);"}, 'id' : 'form_prix'}) }}
                         {{form_help(form.prix)}} 
-                        <!-- <label for="prix">Prix de votre article :</label>
-                        <input type="text" placeholder="en euros"> -->
                     </div> <!-- fin class="prix_article" -->
                     <div id="paragraph_id4">Champs requis</div>
                     
                     <div class="date_achat">
                         {{form_errors(form.date_achat)}}
-                        <div class="date_achat_2">
-                            <div class="label_2">
-                                {{form_label(form.date_achat)}}
-                            </div>
-
-                            <div class="question_2">
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" 
-                                title="le délai est de 30 jours à partir de la date d'achat">
-                                    i
-                                </button>
-                            </div>
-                        </div><!-- fin class="date_achat_2" -->          
+                        {{form_label(form.date_achat)}}        
                         {{form_widget(form.date_achat, {'attr' : { 'placeholder' : 'jj/mm/aaaa',
                                 'readonly': true}, 'id': 'datepicker'})}}
 
-                        
                         {{form_help(form.date_achat)}} 
                         <!-- <label for="date">Date d'achat :</label>
                         <input type="text" name="date" id="datepicker"> -->

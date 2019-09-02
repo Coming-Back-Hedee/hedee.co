@@ -16,54 +16,20 @@
                     </div> <!-- fin class="marque" -->
 
                     <div class="reference">
-                            <div class="reference_2">
-                                <div class="label_2">
-                                    {{ form_label(form1.referenceProduit) }}
-                                </div>
-
-                                <div class="question_2">
-                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Modèle, coloris">
-                                    i
-                                    </button>
-                                </div>
-                            </div>
-                        
+                        {{ form_label(form1.referenceProduit) }}
                         {{ form_errors(form1.referenceProduit) }}
                         {{ form_widget(form1.referenceProduit, {'attr': {'placeholder' : 'Ex: Iphone 6S Or 64Go'}, 'id': 'ref'}) }}
                         {{ form_help(form1.referenceProduit) }}
                     </div> <!-- fin class="reference" -->
 
                     <div class="numero_commande">
-                            <div class="numero_commande_2">
-                                <div class="label_2">
-                                    {{ form_label(form1.numeroCommande) }}
-                                </div>
-
-                                <div class="question_2">
-                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Le numéro de commande se trouve sur votre facture">
-                                    i
-                                    </button>
-                                </div>
-                            </div>
-                        
-                        {{ form_widget(form1.numeroCommande, {'attr': {'id': 'num_com'}} ) }}
-                       
+                        {{ form_label(form1.numeroCommande) }}                       
+                        {{ form_widget(form1.numeroCommande, {'attr': {'id': 'num_com'}} ) }}                       
                         {{ form_help(form1.numeroCommande) }}
                     </div> <!-- fin class="numero_commande" -->
 
                     <div class="commentaires">
-                            <div class="commentaires_2">
-                                <div class="label_2">
-                                    {{ form_label(form1.commentaires) }}
-                                </div>
-
-                                <div class="question_2">
-                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Vous pouvez renseigner ici toutes informations complémentaires">
-                                    i
-                                    </button>
-                                </div>
-                            </div>
-     
+                        {{ form_label(form1.commentaires) }}
                         {{ form_widget(form1.commentaires, {'attr': {'id': 'com'}} ) }}
                         {{ form_help(form1.commentaires) }}
                     </div> <!-- fin class="commentaires" -->

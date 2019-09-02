@@ -6,14 +6,13 @@
 }
 
 
-html, body, div, header, main, .row, .container-fluid  {
+html, body, div, header, main, .row, .container-fluid, footer  {
     margin:0;
     padding:0;
 }
 
 body {
-    font-family: 'Georgia', sans-serif;
-    font-size: 14px;
+    font-family: 'Work sans', sans-serif;
     width: 100%;
     min-height:960px;
 }
@@ -21,13 +20,23 @@ body {
 /* HEADER */
 header {
     flex-wrap:wrap;
-    min-height: 89px;
+    min-height: 128px;
 }
 
 .header1 {
     display:flex;
     width: 100%;
 }
+
+#mobile {
+    visibility: hidden;
+}
+
+#desktop {
+    visibility: visible;
+}
+
+
 
 .toggle {
     width: 20%;
@@ -42,19 +51,10 @@ header {
     margin-right:auto;
 }
 
-.hamburger{
-    background:none;
-    position: relative;
-    top: 20px;
-    right:0;
-    line-height:15px;
-    padding:5px 15px 0px 0px;
-    color:#eb7150;
-    border:0;
-    font-size:2.8em;
-    cursor:pointer;
-    outline:none;
-    z-index:10000000000000;
+
+
+.compte_client {
+    margin-top: 30px
 }
 
 .logo {
@@ -157,116 +157,316 @@ header {
 }
 
 
-.bloc_header {
-    height: 198px;
-}
-.bloc_header_pre{
-    border-bottom: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--orange-pale);
-    height: 51px;
+
+/**************RAJOUT CSS A RANGER**************/
+/* Import Sanatize to reset browser defaults - Short URL(http://srt.lt/Q6P0nY) */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/sanitize.css/2.0.0/sanitize.min.css');
+
+/* Import Roboto and Roboto-slab from Google Fonts - Short URL (http://srt.lt/b4tY7) */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:700|Roboto:300');
+
+/* Import Font Awesome - Short URL (http://srt.lt/p2b4) */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box; /* Put padding on the inside of elements */
 }
 
-.bloc_header, .bloc_header_pre{
-    text-align: center;
-    display: table;
+body {
+	font-family: 'Work sans', sans-serif;
+	font-size: 16px; /* Our base font-size */
+	line-height: 1.75; /* Line height assumes an almost rem value but is dynamic to the font-size */
+	font-weight: 600; /* Use the included weight */
+	color: #332F21; /* Don't use black it's too harsh */
+	
 }
 
-.bloc_header > h1, .bloc_header_pre > div{
-    display: table-cell;
-    vertical-align: middle;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1;
-    letter-spacing: -1.5px;
+@supports(background-blend-mode: multiply) { /* Use a blend mode on the background in browser that support it */
+
+	/* The flex properties of the card header, footer and body allows the footer to always be at the bottom of the container */
+
+	.card__title {
+		margin-top: 0; /* Remove margin as there are no elements above it */
+	}
+
+@media only screen and (min-width: 53rem) { /* 848px Base-spacing-unit * 30 */
+
+	.card {
+		flex-direction: row; /* Align items along the horizontal axis */
+		min-height: 60vh;
+	}
+
+		.card__image-container {
+			flex: 0 1 45%; /* Don't grow, do shrink, 45% width (basis) */
+			max-height: inherit; /* Reset the max-height set for mobile */
+		}
+
+		.card__contents {
+			flex: 1 1 55%; /* Grow, Shrink, 55% width */
+			padding: 3rem; /* Increase padding now we have more space to play with*/ 
+        } 
 }
 
-.bloc_header_pre > div {
-    color: var(--orange_perso);
-    font-weight: bold;
-    font-family: "WorkSans";
-    line-height: 1.71;
-    letter-spacing: 0.35px;
-}
-
-.bloc_header_pre > div a:link, .bloc_header > div a:visited{
-    color: var(--orange_perso);  
-}
-
-.header_title {
-    text-align: center;
-    color: var(--orange_perso);
-    font-weight: 600;
-    font-family: "WorkSans";
-    font-size: 60px;
-}
-
-.compte_button, .demande_button{
-    border-style: none;
-    border-radius: 40px;
-    margin: auto;
-    margin-bottom: 5%;
-    vertical-align: middle;
-    /* centrage horizontal */
-    
-    font-size: 14px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.29;
-    letter-spacing: 1.4px;
-    text-align: center;
-    width: 85%;
-    height: 80px;
-}
-
-.demande_button{
-    background-color: var(--orange_perso);
-    color: #fff;
+.entete_menu_open {
+    width:100%;
+    display:block;
     
 }
 
-.compte_button{
-    background-color:#fff;
-    color: var(--bleu_perso);
+.logo_h_entete {
+    width: 100%;
+    margin-top: 20px
 }
 
-.orange_button{
-    display: block;
-    text-align: center;
-    padding: 12.5px;
-    background-color: var(--orange_perso);
-    color: #fff;
-    border-style: none;
-    border-radius: 40px;
+
+
+.bas {
+    display:block;
+    width:100%
 }
 
-.blue_button{
-    display: block;
-    text-align: center;
-    padding: 12.5px;
-    background-color: var(--bleu_perso);
-    color: #fff;
-    border-style: none;
-    border-radius: 40px;
+.compte_h_entete {
+    width: 100%;
+    margin-top: -25px;
 }
 
-.whiteo_button{
-    display: block;
-    text-align: center;
-    padding: 12.5px;
-    color: var(--orange_perso);
-    background-color: #fff;
-    border: solid 1px var(--orange-pale);
-    border-radius: 40px;
+.recup_argent_h_entete {
+    width: 100%;
 }
+
+.trait_menu1, .trait_menu2 {
+    background-color: #2800dc;
+    height:1.5px;
+    width: 3%;
+    border:none
+}
+
+.title_reseau {
+    margin-top: 20px;
+}
+
+.title_reseau > p {
+    color:#ff3c00
+}
+
+.logo_reseau_menu {
+    width:100%;
+    display:flex;
+}
+
+.fb_orange, .twitter_orange, .insta_orange, .linkedin_orange {
+    width: 25%
+}
+
+/*
+	Start New Code For Menu
+*/
+
+/* Menu Button */
+
+.menu-button {
+	display: flex; /* Display flex to center the menu icon in the button */
+	justify-content: center; /* Align horizontally */
+	align-items: center; /* Align vertically */
+
+	width: 4rem; /* Button width */
+	height: 4rem; /* Button height */
+	border-radius: 50%; /* Make the button a circle */
+	background-color: rgba(255,255,255,0.4); /* Make the background white and semi-transparent */
+	cursor: pointer;
+
+	transition: background-color 500ms ease-in-out; /* Add transition for the background-color */
+}
+
+.card__image-container .menu-button {
+	margin: 1.5rem;
+}
+
+.menu-button:hover,
+.menu-button:focus,
+.menu-button:active {
+    background-color: #2800dc; /* On hover, transition the background-color and transparency */
+}
+
+.menu-icon {
+	position: relative; /* Give the menu-icon position relative so we can absolutely position children */
+    width: 2rem; /* Icon width */
+	height: 1.5rem; /* Icon height */
+}
+
+.menu-icon span {
+    position: absolute; /* Absolutely position all children of the menu-icon */
+    height: 0.125rem; /* Height of each line in our menu button */
+    width: 100%; /* With of each line */
+    background-color: #2800dc; /* Background colour of each line */
+    transition: background-color 500ms ease-in-out; /* Transition added for the background colour */
+}
+
+.menu-icon span:nth-child(1) {
+    top: 0.0625rem; /* Position the first line roughly 1px from the top */
+}
+
+.menu-icon span:nth-child(2) {
+    top: 0.625rem; /* Position the second line roughly 10px from the top, one on top of the other */
+}
+
+.menu-icon span:nth-child(3) {
+    top: 1.25rem; /* Position the fourth line roughly 20px from the top */
+}
+
+.menu-button:hover span,
+.menu-button:focus span,
+.menu-button:active span {
+    background: white; /* On hover, make the background-color of the menu icon white */
+}
+
+/* Turn the Menu icon into a close icon  */
+
+.menu-icon.is-active span:nth-child(1) {
+    opacity: 0; /* Hide the first line */
+}
+
+.menu-icon.is-active span:nth-child(2) {
+    transform: rotate(45deg); /* Rotate the second line 45 degrees */
+}
+
+.menu-icon.is-active span:nth-child(3) {
+	top: 0.625rem; /* Position the third line over the second line */
+    transform: rotate(-45deg); /* Rotate the third line -45 degrees */
+}
+
+/* Fullscreen Menu */
+
+.fullscreen-menu-container {
+	position: fixed; /* Fix the menu to the viewport */
+	top: 12.5rem; /* Add the top value to allow the element to animate up over */
+	left: 0; /* Position to the left of the viewport */
+	z-index: 5; /* Add z-index to make sure the element is always above everything else */
+	width: 100vw; /* Cover the whole width of the viewport */
+	height: 105vh; /* Cover the whole height of the viewport */
+	overflow: scroll; /* Allow scrolling when the content is larger than the viewport */
+
+	background-color: rgb(255, 255, 255); /* Semi-transparent white background for the menu-overlay */
+
+	opacity: 0; /* Apply 0 transparency to hide the overlay on load */
+	pointer-events: none; /* Stop the elements in the menu-container from being clicked */
+
+	transition: top 500ms ease-in, opacity 300ms ease-in; /* Transition the top and opacity */
+}
+
+.fullscreen-menu-container.is-open {
+	opacity: 1; /* Transition opacity from 0 to 1 */
+	top: 0; /* Transition to the top of the viewport */
+	pointer-events: auto; /* Re-add pointer events to elements can be clicked again */
+}
+
+.fullscreen-menu-container .menu-button {
+	position: absolute; /* Position the button absolutely to the image-cotainer */
+	top: 1.5rem; /* Position button from the top */
+	right: 1.5rem; /* Position button from the left */
+}
+
+.fullscreen-menu {
+	text-align: center; /* Apply text-align center to all children */
+	max-width: 62rem; /* Maximum width of the content */
+	padding: 6rem 2rem 4rem; /* Add padding to the content, large at the top to allow for the close button */
+	width: 100%; /* Where it can, stretch to the max-width otherwise, the full viewport */
+}
+
+
+	.fullscreen-menu__nav {
+		margin: 3rem 0; /* Apply top and bottom margin of the navigation */
+	}
+
+	.fullscreen-menu__nav ul {
+		list-style: none; /* Remove the dots from list items */
+		margin: 0; /* Remove defualt margin */
+		padding: 0; /* Remove default padding */
+	}
+
+	.fullscreen-menu__nav ul li a {
+		display: block; /* Span the whole width */
+		font-size: 1.8rem; /* Increase the default font size */
+		color: #2800dc; /* Apply light grey colour */
+		text-decoration: none; /* Remove default underline */
+        transition: color 300ms ease-in; /* Add transition for the colour on hover */
+        font-weight: bold;
+	}
+
+	.fullscreen-menu__nav a:hover,
+	.fullscreen-menu__nav a:focus,
+	.fullscreen-menu__nav a:active {
+		color: #2800dc; /* Darken the text colour on hover */
+	}
+
+	
+    
+@media only screen and (min-width: 46rem) { /* 736px When the viewport is large enough */
+
+	.fullscreen-menu-container {
+		display: flex; /* Add display flex to the container */
+		justify-content: center; /* Align menu contents to the center horizontally */
+		align-items: center; /* Align menu contents to the center vertically */
+	}
+
+	.fullscreen-menu {
+		padding: 0;
+	}
+
+	.fullscreen-menu__nav {
+		margin: 4rem 0; /* Increase the margin between the navigation and other elements in the menu */
+	}
+
+		.fullscreen-menu__nav ul {
+			justify-content: space-between; /* Share the available space between the list items */
+        }
+
+        .entete_menu_open {
+            width:100%;
+        }
+    
+        .logo_h_entete {
+            width: 100%;
+            padding-top: 50px;
+                  
+        }
+
+        .bas {
+            display:flex;
+            width:100%
+        }
+        
+        .compte_h_entete {
+            width: 50%;
+            text-align:right
+        }
+        
+        .recup_argent_h_entete {
+            width: 50%;
+            text-align:left
+        }
+
+        .logo_reseau_menu {
+            width: 40%;
+            justify-content: space-between;
+            margin-left:auto;
+            margin-right:auto;
+            
+        }
+}
+
+/**************FIN RAJOUT CSS A RANGER**************/
+
+
 
 
 /* MAIN */
 main {
     min-height: 960px;
 }
+
 
 .title_qui {
     text-align:center;
@@ -313,6 +513,7 @@ main {
 }
 
 .categorie, .choisir_enseigne, .date_achat, .prix_article, .mag_internet,.remise {
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
 } 
@@ -379,57 +580,105 @@ main {
 
 /* FOOTER - reseaux sociaux + infos site*/
 
+footer {
+    margin-bottom: 0 !important
+}
+
+.footer_bleu {
+    margin-bottom: 0 !important
+}
+
+.footer_bleu {
+    background-image: url("../img/footer/footer.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center ;
+    min-height: 450px;
+    max-width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.title_reseau, .sous_title_reseau, .list_footer ul li a, .copyright p {
+    color:#e1def9
+}
+
+.list_footer ul li a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none
+}
+
+.list_footer ul li::before {
+    content: "•"; 
+    color: #ff3c00;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -2.25em
+}
+
+.trait_footer {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin:0;
+    padding:0;
+}
+
+.copyright p {
+    font-size: 14px;
+    font-style:normal;
+    font-weight:300;
+    height:35px;
+}
 
 
-.reseaux_sociaux {
+/*.reseaux_sociaux {
     margin-left: auto;
     margin-right:auto;
     display:flex;
+    width:10%;
 }
-
 .reseaux_sociaux > div {
     margin: auto;
     color : #fff
 }
-
 .reseaux_sociaux .fb :hover {
     transition: 1s;
     fill: #0000CD;
     opacity: 1;
 }
-
 .reseaux_sociaux .insta :hover {
     transition: 1s;
     fill: #DC143C;
     opacity: 1;
 }
-
 .reseaux_sociaux .twitter :hover {
     transition: 1s;
     fill: #14addc;
     opacity: 1;
 }
-
 .infos_site {
     width: 100%;
 }
-
 .infos_site > p  {
     margin-top: 20px;
     font-size : 14px;
     color: #fff;
 }
-
 .infos_site > p > a {
     color : #fff;
     text-decoration: none;
     padding-right: 15px;
     padding-left: 15px;
 }
-
 .infos_site > p :hover {
     text-decoration: underline;
-}
+}*/
 
 /* The Modal (background) */
 .modal {
@@ -501,7 +750,20 @@ main {
     color: blue;
   }
 
+.recap{
+    margin: 5%;
+    width: 70%;
+    margin-top: 20px;
+}
 
+.boxed{
+    margin: 5%;
+    padding: 15px;
+    text-align: center;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;    
+}
 
 .share > div {
     margin: auto;
@@ -545,22 +807,96 @@ input.error{
     max-width: 1200px;
 }
 
+.title_reseau > h5 {
+    font-size: 22px;
+    font-style:normal;
+    font-weight:300;
+    height:28px;
+}
+
+.sous_title_reseau > h4 {
+    font-size: 22px;
+    font-style:normal;
+    font-weight:500;
+    height:35px;
+}
+
+.list_footer ul li a {
+    font-size: 12px;
+    font-style:normal;
+    font-weight:normal;
+    height:17px;
+}
+
+
+
+
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
-
-}
-
-/* **************  POUR TABLETTES  ********************* */
-@media (min-width: 768px) and (max-width:991.98px){
-
-    .compte_button, .demande_button{
-        height: 50px;
-        font-size: 10px;
+    #desktop {
+        visibility: hidden
     }
+
+    #mobile {
+        visibility: visible
+    }
+
+    .second_menu {
+        width:100%;
+        display:flex;
+    }
+
+    .navbar-brand > img {
+        position: relative; /* Give the menu-icon position relative so we can absolutely position children */
+    width: 7.8rem; /* Icon width */
+    height: 1.8rem; /* Icon height */
+    margin-top: 30px
+    }
+
+    .fullscreen-menu__nav ul li a {
+        font-size: 20px
+    }
+
+    .title_reseau {
+        display:none;
+    }
+
+    .fullscreen-menu-container {
+        min-height: 75vh; /* Cover the whole height of the viewport */
+    }
+
+    .logos_reseau {
+        margin-top: 50px
+    }
+
+    
+
+ }
+
+
+
+/* **************  POUR TABLETTE  ********************* */
+@media (min-width: 768px) and (max-width:1024.98px){ 
+
+
+    #desktop {
+        visibility: visible
+    }
+
+    #mobile {
+        visibility: hidden
+    }
+
+    .logo_h_entete {
+        width: 100%;
+    }
+
+    .fullscreen-menu-container .js-menu-container .is-open {
+        min-height: 300px
+    }
+
+    .fullscreen-menu-container {
+        height: 55vh;
+    }
+    
 }
-
-/* **************  POUR GRANDS ECRANS  ********************* */
-@media screen and (min-width: 1025px){
-
-}
-
