@@ -1,6 +1,8 @@
 ﻿:root {
     --orange_perso: #ff3c00;
-    --bleu_perso: #2800dc; 
+    --orange-pale: #ffd5d2;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
 }
 
 
@@ -52,7 +54,7 @@ body {
 
 label {
     margin-bottom: 5px;
-    margin-top: 2step0px;
+    margin-top: 20px;
     display: block;
     
 }
@@ -370,6 +372,7 @@ textarea{
     position: relative;
     display: flex;
     color: var(--bleu_perso);
+    box-shadow: 8px 8px 0px var(--bleu-pale);
 }
 
 .block_left2{
@@ -378,6 +381,7 @@ textarea{
     position: relative;
     display: flex;
     color: var(--orange_perso);
+    box-shadow: 8px 8px 0px var(--orange-pale);
 }
 
 .switch{
@@ -432,24 +436,23 @@ a:visited, a{
     margin-right: auto;
     margin-left: 0;
     min-height: 300px;
+   
 }
 
 .block_left1 + .block_right{
     color: var(--bleu_perso);
+    box-shadow: 8px 8px 0px var(--bleu-pale);
+    border: solid 2px var(--bleu-pale);
+    border-left: none;
+    border-bottom: none;
 }
 
 .block_left2 + .block_right{
     color: var(--orange_perso);
-}
-
-.close{
-    position: absolute;
-    right: -10px;
-    top: -10px;
-    border-radius: 48px;
-    background-color: #fff;
-    color: var(--bleu_perso);
-    padding: 25px;
+    box-shadow: 8px 8px 0px var(--orange-pale);
+    border: solid 2px var(--orange-pale);
+    border-left: none;
+    border-bottom: none;
 }
 
 #connexion, #inscription{
@@ -458,8 +461,8 @@ a:visited, a{
 }
 
 #connexion label, #inscription label{
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-top: 2px;
     display: block;
     
 }
@@ -468,6 +471,7 @@ a:visited, a{
     border: solid 2px;
     border-color: var(--bleu-pale); 
     margin: 5.5% auto;
+    margin-bottom: 0px;
     display: block;
     width: 100%;
 } 
@@ -670,26 +674,26 @@ a:visited, a{
 
     /**************** POPUP ********************/
     .block_left1{
-        height: 300px;
-        width: 300px;
-        background-image: url("../img/popup/Groupe\ 194.png");
+        height: 330.60px;
+        width: 330.6px;
+        background-image: url("../img/popup/Groupe\ 193.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe\ 194b.png");
+        background-image: url("../img/popup/Groupe\ 193b.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
-        height: 300px;
-        width: 300px;
+        height: 330.60px;
+        width: 330.6px;
     }
 
     .block_right{
-        height: 300px;
-        width: 300px;
+        height: 330.60px;
+        width: 330.6px;
     }
 
     #connexion input, #inscription input{

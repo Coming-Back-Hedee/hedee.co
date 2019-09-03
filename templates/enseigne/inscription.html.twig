@@ -8,7 +8,6 @@
 			</div>
 		</div>
 		<div class="block_right col-xs-12 col-sm-12  col-md-6 clo-lg-6">
-			<button class="close"><i class="fa fa-close" style="font-size:24px"></i></button>
 			<div id="inscription">
 				<h3> Rejoindre hedee </h3>
 				{{ form_widget(form1.client.email, {'attr' : {'placeholder' : 'Votre adresse mail'}, 'id': 'email'}) }}
@@ -18,7 +17,7 @@
                     {{ form_widget(form1.client.plainPassword.second, {'attr' : {'placeholder' : 'Confirmez votre mot de passe'},'id': 'password2'}) }} 
                 </div>
 
-				<button class="orange_button">Je crée mon compte</button>
+				<button class="orange_button replace_btn">Je crée mon compte</button>
 			</div>
 		</div>
 	</div>
@@ -28,5 +27,6 @@
                 radiobtn = document.getElementById("membre");
                 radiobtn.checked = true;
                 changeM();
+				redirect()
             }    
         </script>

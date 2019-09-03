@@ -97,6 +97,15 @@
 
 
 <script>
+        var redirect = function(){
+            Array.from(document.getElementsByClassName("replace_btn")).forEach(function(btn){
+                console.log(document.getElementsByClassName("replace_btn"))
+                btn.addEventListener('click', function(e){
+                e.preventDefault()
+                document.getElementById("menunext").click()
+                })
+            })
+        }
         var changeM = function() {
             if($("[name='connect']:checked").val() == "membre"){
                 var url = "{{ path('membre') }}";

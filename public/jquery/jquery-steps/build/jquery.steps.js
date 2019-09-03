@@ -2007,7 +2007,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Finish"
          * @for defaults
          **/
-        finish: "Je valide ma demande",
+        finish: "Je valide",
 
         /**
          * Label for the next button.
