@@ -29,12 +29,15 @@
 
 .grand_title {
     width:70%;
-    margin-top: 7%;
+    margin-top: 12%;
 }
 
 .grand_title > h1 {
     color:#2800dc;
-    font-size: 35px
+    font-size: 35px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
 }
 
 .piece_or_mobile {
@@ -62,6 +65,10 @@
 
 .texte_plus_avoir h2, .texte_plus_avoir p {
     color:#2800dc;
+}
+
+.plus_avoir {
+    font-weight: 600;
 }
 
 .texte_plus_avoir h2 {
@@ -110,6 +117,11 @@
     font-size : 30px
 }
 
+.sous_title_rbst {
+    font-weight: 600;
+}
+
+
 .petit_title h3 {
     font-size : 23px;
     font-stretch: normal;
@@ -132,6 +144,10 @@
     /*-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;*/
+}
+
+.sous_title_utiliser {
+    font-weight: 600;
 }
 
 .version_mobile {
@@ -290,8 +306,8 @@
 
     .assis_mobile {
         display:block;
-        width: 270px;
-        height:270px;
+        width: 230px;
+        height:230px;
         margin-top: 35px;
         margin-bottom: 35px
     }
@@ -335,7 +351,7 @@
 
     .version_mobile {
         display:block;
-        width: 100%
+        width: 100%;
     }
 
     .version_mobile p {
