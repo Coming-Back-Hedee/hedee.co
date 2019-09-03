@@ -11,6 +11,11 @@ html, body, div, header, main, .row, .container-fluid, footer  {
     padding:0;
 }
 
+
+main{
+    position: relative;
+}
+
 body {
     font-family: 'Work sans';
     width: 100%;
@@ -354,6 +359,18 @@ body {
 	pointer-events: none; /* Stop the elements in the menu-container from being clicked */
 
 	transition: top 500ms ease-in, opacity 300ms ease-in; /* Transition the top and opacity */
+}
+
+.screen-connect{
+    display: none;
+}
+
+.screen-connect.is-open {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: block;
 }
 
 .fullscreen-menu-container.is-open {

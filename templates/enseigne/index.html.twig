@@ -101,9 +101,11 @@
             });
         }               
     } /***** fin fonction changeM *****/ 
+    attachDatepicker()
 
-    function attachDatepicker(val){    
-        val.datepicker({ 
+    function attachDatepicker(){   
+        console.log($("#datepicker" )) 
+        $("#datepicker" ).datepicker({ 
             minDate: -30, maxDate: 0, 
             altField: "#datepicker",
             closeText: 'Fermer',
@@ -125,33 +127,31 @@
 <script>
     $(document).ready(function() {
         var recap;
-        attachDatepicker($( "#datepicker" ))
+        //attachDatepicker($( "#datepicker" ))
         $('body').on('change', 'input[name=connect]', changeM);
         
-    });
-</script>
 
-<script>
-    $("#form-eligibilite").validate({
-        rules: {
-            "eligibilite[categorie]":{
-                "required": true,
-                "categorie": true,
+        $("#form-eligibilite").validate({
+            rules: {
+                "eligibilite[categorie]":{
+                    "required": true,
+                    "categorie": true,
+                },
+                "eligibilite[enseigne]":{
+                    "required": true,
+                },
+                "eligibilite[date_achat]":{
+                    "required": true,
+                },
+                "eligibilite[prix]":{
+                    "required": true,
+                    "number": true,
+                    "min": 20,
+                    "regex_prix": /^[0-9]+(\.[0-9]{1,2})?$/
+                }
             },
-            "eligibilite[enseigne]":{
-                "required": true,
-            },
-            "eligibilite[date_achat]":{
-                "required": true,
-            },
-            "eligibilite[prix]":{
-                "required": true,
-                "number": true,
-                "min": 20,
-                "regex_prix": /^[0-9]+(\.[0-9]{1,2})?$/
-            }
-        },
-    })
+        })
+    });
 </script>
        
 <script>

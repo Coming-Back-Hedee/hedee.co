@@ -39,11 +39,11 @@ class ProfilController extends AbstractController
         $session->clear();       
         
         $repo = $this->getDoctrine()->getRepository(Demandes::class);
-        $demandes = $repo->findBy(['client' => $user]);
+        //$demandes = $repo->findBy(['client' => $user]);
 
         return $this->render('profil/index.html.twig', [
             'user' => $user,
-            'demandes' => $demandes,
+            //'demandes' => $demandes,
         ]);
     }
 
