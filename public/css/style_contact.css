@@ -1,29 +1,22 @@
 ﻿:root {
     --orange_perso: #ff3c00;
+    --orange-pale: #ffd5d2;
     --bleu_perso: #2800dc;
     --bleu-pale: #e1def9;
 }
 
 .exemple-wrapper{
-    font-family: "WorkSans";
+    font-family: "Work Sans";
 }
 
 .bloc_header_pre {
-    background-image: url("../img/parcours_decouverte/contact/Rectangle\ 51.png");
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: linear-gradient(0.25turn, #fff, var(--bleu-pale));
     width:100%;
 }
 
 .bloc_header {
-    background-image: url("../img/parcours_decouverte/contact/Rectangle\ 25.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;
+    background: linear-gradient(0.25turn, #fff, var(--bleu-pale));
     width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
 }
 
 .bloc_header_pre{
@@ -35,10 +28,10 @@
 .bloc_header_pre > div {
     color: var(--bleu_perso);
     font-weight: bold;
-    font-family: "WorkSans";
+    font-family: "Work Sans";
 }
 
-.bloc_header_pre > div a:link, .bloc_header > div a:visited{
+.bloc_header_pre > div a:link, .bloc_header_pre > div a:visited{
     color: var(--bleu_perso);  
 }
 
@@ -46,7 +39,7 @@
     text-align: center;
     color: var(--bleu_perso);
     font-weight: bold;
-    font-family: "WorkSans";
+    font-family: "Work Sans";
 }
 /* 1er BLOC - vérifier votre éligibilité*/
 

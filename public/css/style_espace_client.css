@@ -12,7 +12,7 @@ html, body, div, main  {
 }
 
 body {
-    font-family: "WorkSans";
+    font-family: "Work Sans";
     font-size: 14px;
     width: 100%;
     min-height:960px;
@@ -140,7 +140,7 @@ body {
   .sidebar-nav li {
     width: 100%;
     padding: 5%;
-    font-family: "WorkSans";
+    font-family: "Work Sans";
     font-size: 16px;
     font-weight: 600;
     font-style: normal;
@@ -229,7 +229,7 @@ body {
     height: 28.8px;
     text-align: center;
     font-size: 14px;
-    font-family: "WorkSans";
+    font-family: "Work Sans";
 }
 
 .empty_mv{

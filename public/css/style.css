@@ -12,7 +12,7 @@ html, body, div, header, main, .row, .container-fluid, footer  {
 }
 
 body {
-    font-family: 'Work sans', sans-serif;
+    font-family: 'Work sans';
     width: 100%;
     min-height:960px;
 }
@@ -65,7 +65,7 @@ header {
 
 .logo a {
     text-decoration: none;
-    font-family: sans-serif;
+    font-family: "Work Sans";
     color: #EB5B34;
 }
 
@@ -107,7 +107,7 @@ header {
     font-size: 1em;
     border: none;
     cursor: pointer;
-    font-family: 'Georgia', sans-serif;
+    font-family: "Work Sans";
 }
 
 #myBtn a {
@@ -175,7 +175,7 @@ header {
 }
 
 body {
-	font-family: 'Work sans', sans-serif;
+	font-family: 'Work sans';
 	font-size: 16px; /* Our base font-size */
 	line-height: 1.75; /* Line height assumes an almost rem value but is dynamic to the font-size */
 	font-weight: 600; /* Use the included weight */

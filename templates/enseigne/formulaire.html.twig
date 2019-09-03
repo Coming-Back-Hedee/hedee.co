@@ -23,20 +23,18 @@
                     </div>
                     <div id="form_demande">
                     
-                    </div>            
-                                   
-                    {#<div class="facture">
-                        {{ form_label(form1.pieceJointe ) }}
-                        <br>
-                        {{ form_widget(form1.pieceJointe, {'attr': {'id': 'num_com'}} ) }}
-                    </div>#}
-                </section>
+                    </div>           
+                </section> <!-- fin étape 1 formulaire -->
                 
                 <h3 style="display: none;">Identification</h3>
                 <section>
-                    <h2>Pas si vite !</h2>
-                    <p>Avant de passer à l'étape suivante, Hedee souhaite savoir <strong>si vous êtes nouveau dans l'aventure
-                    ou si vous avez déjà rejoint la communauté ! </strong></p>
+                    <div class="title_box container">
+                        <h2>Pas si vite !</h2>
+                        <p>Avant de passer à l'étape suivante, Hedee souhaite savoir <strong>
+                            si vous êtes nouveau dans l'aventure
+                            ou si vous avez déjà rejoint la communauté ! </strong>
+                        </p>
+                    </div> <!-- fin class="title_box" -->
                     {% if form1.client.email is defined %}
                         <div id="pre_auth" class="pre_auth" style="display: none;"><label for="connect"> Possédez vous un compte ?</label>
                             <input type="radio" name="connect" value="membre" id="membre" checked/> <label for="membre">Oui</label></input>
@@ -46,7 +44,7 @@
                             {% include 'enseigne/connexion.html.twig' %}
                         </div>
                     {% endif %}
-                </section>
+                </section> <!-- fin étape 2 formulaire -->                
                 
                 <h3 style="display: none;">Coordonnées</h3>
                 <section>
@@ -85,13 +83,6 @@
                         {{ form_errors(form1.client.adresse.nomRue) }}
                         </div>
 
-                        {#<div class="complements">
-                        {{ form_label(form1.client.adresse.complements) }}
-                        <br>
-                        {{ form_widget(form1.client.adresse.complements) }}
-                        {{ form_errors(form1.client.adresse.complements) }}
-                        </div>#}
-
                         <div class="ville">
                             <div class="row">
                                 <div class="col">
@@ -101,8 +92,7 @@
                         
                                 </div>
                                 <div class="col">
-                                    {{ form_label(form1.client.adresse.codePostal) }}
-                                
+                                    {{ form_label(form1.client.adresse.codePostal) }}                                
                                     {{ form_widget(form1.client.adresse.codePostal, { attr: 
                                     { 'onkeypress': "return verifierCaracteres(event);"}, 'id': 'cp_perso'}) }}
                                     {{ form_errors(form1.client.adresse.codePostal) }}
@@ -110,7 +100,7 @@
                             </div>  
                         </div>
                     </div> <!-- fin class="info_client" -->            
-                </section>
+                </section> <!-- fin étape 3 formulaire -->                
 
                 <h3 style="display: none;">Validation</h3>
                 <section>
@@ -124,20 +114,11 @@
                     {#<img id="facture_jpg" alt="Votre facture est en cours de chargement">#}
                     {{ form_row(form1.cgu) }} 
                     {{ form_row(form1._token) }}
-                </section>
+                </section> <!-- fin étape 4 formulaire -->
+                
             </div>
         {{ form_end(form1, {'render_rest': false}) }}
-        </div>
-
-        <div id="dialog-message" title="Formulaire complet" style="display: none;">
-            <p>
-                <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
-                Votre demande a bien été prise en compte.
-            </p>
-            <p>
-                <a href="{{ path('accueil') }}">Déposer une nouvelle annonce</a> .
-            </p>
-        </div>
+        </div> <!-- fin class="container les_infos" -->
  
         <script>
         $(document).ready(function() {
@@ -186,81 +167,83 @@
                 });
             }               
         });
-            form.validate({
-                rules: {
-                    "demandes[urlProduit]":{
-                        "required": true,
-                        "url": true,
-                    },
-                    "demandes[client][email]":{
-                        "required": true,
-                        "email": true,
-                        "remote": {
-                            param: {
-                                url: "/inscription2", 
-                                method: "POST",
-                                data: {
-                                    '_username' : function(){ return $('#email').val()}
-                                    },
-                                dataType: "json",
-                            },
-                            depends: function(element) {
-                                return $("#pmembre").is(":checked");
-                            }                             
+            
+        form.validate({
+            rules: {
+                "demandes[urlProduit]":{
+                    "required": true,
+                    "url": true,
+                },
+                "demandes[client][email]":{
+                    "required": true,
+                    "email": true,
+                    "remote": {
+                        param: {
+                            url: "/inscription2", 
+                            method: "POST",
+                            data: {
+                                '_username' : function(){ return $('#email').val()}
+                                },
+                            dataType: "json",
                         },
+                        depends: function(element) {
+                            return $("#pmembre").is(":checked");
+                        }                             
                     },
-                    "demandes[client][plainPassword][first]":{
-                        "required": true,
-                        "remote": {
-                            param: {
-                                url: "/connexion2", 
-                                method: "POST",
-                                data: {                                
-                                    "_password": function(){ return $('#password1').val()},
-                                    "_username": function(){ return $('#email').val()},
-                                    }, 
-                                dataType: "json",
-                                async: false,
-                            },
-                            depends: function(element) {
-                                return $("#membre").is(":checked");
-                            }            
+                },
+                "demandes[client][plainPassword][first]":{
+                    "required": true,
+                    "remote": {
+                        param: {
+                            url: "/connexion2", 
+                            method: "POST",
+                            data: {                                
+                                "_password": function(){ return $('#password1').val()},
+                                "_username": function(){ return $('#email').val()},
+                                }, 
+                            dataType: "json",
+                            async: false,
                         },
+                        depends: function(element) {
+                            return $("#membre").is(":checked");
+                        }            
                     },
-                    "demandes[client][plainPassword][second]":{
-                        "required": true,
-                        "equalTo": {
-                            param :"#password1",
-                            depends: function(element) {
-                                return $("#pmembre").is(":checked");
-                            }
+                },
+                "demandes[client][plainPassword][second]":{
+                    "required": true,
+                    "equalTo": {
+                        param :"#password1",
+                        depends: function(element) {
+                            return $("#pmembre").is(":checked");
                         }
-                    },
-                    "demandes[client][numeroTelephone]":{
-                        "required": true,
-                        "regex_phone": true,
-                    },
-                    "demandes[client][adresse][nomRue]":{
-                        "required": true,
-                    },
-                    "demandes[client][adresse][ville]":{
-                        "required": true,
-                    },
-                    "demandes[client][adresse][code_postal]":{
-                        "required": true,
-                        "minlength": 5,
-                        "maxlength": 5,
                     }
                 },
-                messages: {
-                    "demandes[cgu]": {
-                        required: "Vous devez accepter les conditions pour poursuivre le demande",                   
-                    },
-                    "demandes[client][plainPassword][first]":{
-                        "remote" : "mauvaise combinaison adresse email et mot de passe"
-                    },               
+                "demandes[client][numeroTelephone]":{
+                    "required": true,
+                    "regex_phone": true,
+                },
+                "demandes[client][adresse][nomRue]":{
+                    "required": true,
+                },
+                "demandes[client][adresse][ville]":{
+                    "required": true,
+                },
+                "demandes[client][adresse][code_postal]":{
+                    "required": true,
+                    "minlength": 5,
+                    "maxlength": 5,
                 }
-            });
+            },
+            messages: {
+                "demandes[cgu]": {
+                    required: "Vous devez accepter les conditions pour poursuivre le demande",                   
+                },
+                "demandes[client][plainPassword][first]":{
+                    "remote" : "mauvaise combinaison adresse email et mot de passe"
+                },               
+            }
+        });
+
         form.validate({
             errorPlacement: function errorPlacement(error, element) { element.before(error); },
         });
@@ -425,7 +408,9 @@
                         type: 'get',
                         url: "{{path('felicitation')}}",
                         success: function (data) {
-                            $('#form_location').html(data);         
+                            $('#header_title').html(data); 
+                            $('#form_location').html(""); 
+
                         }
                     });
                     //window.location = "{{ path('felicitation')}}"
@@ -452,7 +437,7 @@
                     });*/
                 }
             });
-        }
+        }  /***** fin function step *****/
     });        
     </script>
         

@@ -40,4 +40,4 @@ test:
     path: /test
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
     defaults:
-      template: 'test1.html.twig'
+      template: 'enseigne/felicitation.html.twig'

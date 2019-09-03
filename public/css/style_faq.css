@@ -5,25 +5,17 @@
 }
 
 .exemple-wrapper{
-    font-family: "WorkSans";
+    font-family: "Work Sans";
 }
 
 .bloc_header_pre {
-    background-image: url("../img/parcours_decouverte/pourquoi/Rectangle\ 25.png");
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: linear-gradient(0.25turn, #fff, var(--orange-pale));
     width:100%;
 }
 
 .bloc_header {
-    background-image: url("../img/parcours_decouverte/faq/Rectangle\ 25.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;
+    background: linear-gradient(0.25turn, #fff, var(--orange-pale));
     width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
 }
 
 /* 1er BLOC - vérifier votre éligibilité*/

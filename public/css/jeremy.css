@@ -26,20 +26,16 @@
 .bloc_header_pre > div {
     color: var(--orange_perso);
     font-weight: bold;
-    font-family: "WorkSans";
+    font-family: "Work Sans";
     line-height: 1.71;
     letter-spacing: 0.35px;
-}
-
-.bloc_header_pre > div a:link, .bloc_header > div a:visited{
-    color: var(--orange_perso);  
 }
 
 .header_title {
     text-align: center;
     color: var(--orange_perso);
     font-weight: 600;
-    font-family: "WorkSans";
+    font-family: "Work Sans";
     font-size: 60px;
 }
 
@@ -130,8 +126,12 @@
         font-size: 28px;
     }
 
+    .bloc_header_pre > div {
+        font-size: 12px;
+    }
+
     .header_title{
-        font-size: 44px;
+        font-size: 30px;
     }
 
     .big_emoji{
@@ -146,8 +146,9 @@
 }
 
 @media (min-width: 768px) and (max-width:1024.98px){
+
     .header_title{
-        font-size: 56px;
+        font-size: 48px;
     }
 
     #form_location .big_emoji > img{     
