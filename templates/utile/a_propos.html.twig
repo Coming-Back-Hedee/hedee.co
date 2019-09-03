@@ -9,26 +9,49 @@
 
 {% block main %}
 
-<div class="example-wrapper">
-        <div class="bloc_header_pre">
-            <div class="accueil_pourquoi"><a href="{{path('accueil')}}">Accueil</a> > Pourquoi hedee ?</div>
-        </div>
+
 
         <div class="bloc1">
-
+            <p> <a href="#">Accueil</a> > <a href="#">Pourquoi hedee ?</a> </p>
         </div> <!-- fin class="bloc1" -->
 
-        <div class="bloc2">
+        <div class="bloc1bis">
+            <div class="title1">
+                <h2>Pourquoi hedee ?</h2>
+                <p>le consommateur au coeur de notre mission</p>
+            </div>
 
+            <div class="title2">
+                <h1 class="garantie_prix_bas">Connaissez vous la garantie "prix le plus bas" ?</h1>
+            </div>
+
+        </div> <!-- fin class="bloc1bis" -->
+
+        <div class="bloc2">
+            <div class="title3">
+                <h1 class="">Comme la plupart des personnes, vous ne la connaissez certainement pas, ou bien vous ne vous y êtes pas intéressé !</h1>
+               
+            </div>
         </div> <!-- fin class="bloc2" -->
 
         <div class="bloc3">
-
+            <div class="title3">
+                <h1>Et pourtant, cela vous permettrait de faire tant d'économie...</h1>
+            </div>
         </div> <!-- fin class="bloc3" -->
 
         <div class="bloc4">
-
+            <div class="title3">
+                <h1>Ce n'est pas de votre faute, puisque cette information ne vous est pas communiqué !</h1>
+            </div>
         </div> <!-- fin class="bloc4" -->
+
+        <div class="bloc4bis">
+            <div class="title4">
+                <h1>Si vous trouvez le produit que vous avez acheté moins cher ailleurs, 
+vous avez le droit de vous faire rembourser la différence ! </h1>
+            </div>
+        </div> <!-- fin class="bloc4bis" -->
 
         <div class="bloc5">
             <div class="bloc5bis">
@@ -36,5 +59,9 @@
             </div>
         </div> <!-- fin class="bloc5" -->
 
-</div>
+        <div class="bloc6">
+            {# {% include 'footer.html.twig' %} #}
+        </div> <!-- fin class="bloc6" -->
+
+
 {% endblock %}

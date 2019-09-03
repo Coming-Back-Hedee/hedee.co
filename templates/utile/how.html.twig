@@ -9,41 +9,126 @@
 
 {% block main %}
 
-<div class="example-wrapper">
+<div class="container-fluid">
+    <div class="row comment_marche">
+        <div class="col-md-12 bloc0 text-center">
+            <p> <a href="#">Accueil</a> > <a href="#">Comment fonctionne hedee ?</a> </p>
+        </div> <!-- fin class="bloc0" -->
+       
 
-        <div class="bloc_header_pre">
-            <div class="accueil_pourquoi"><a href="{{path('accueil')}}">Accueil</a> > Comment fonctionne hedee ?</div>
-        </div> <!-- fin class="bloc_header" -->
-
-        <div class="bloc_header">
-            <h1 class="header_title">Comment fonctionne hedee ? </h1>
-        </div> <!-- fin class="bloc_header_bis" -->
-
-        <div class="bloc1">
-
+        <hr>
+        <div class="col-md-12 bloc1 text-center">
+            <h1>Comment fonctionne hedee ?</h1>
         </div> <!-- fin class="bloc1" -->
+    </div> <!-- fin class="row comment_marche"-->
+    
 
-        
+        <div class="col-md-12 bloc1bis justify-content-center">
+            
+            <div class="text-center title_occupe">
+                <h2>Hedee s'occupe de tout,</h2>
+                <h2><span class="title_occupe2">Vous ne vous occupez de rien !</span></h2>
+            </div>
+    
+            <div class="row partie1">       
+                <div class="col-md-4 text-center">
+                    <img width="120" height="120" class="img-fluid" src="../img/parcours_decouverte/comment/chasse-aux-prix.png" alt="" >
+                    <h4>La chasse au prix le plus bas</h4>
+                    <p>Hedee cherche votre produit au prix le plus bas et vous alerte dès qu’il a trouvé moins cher ailleurs.</p>
+                </div>
 
-        <div class="bloc2">
+                <div class="col-md-4 text-center"> 
+                    <img width="120" height="120" class="img-fluid" src="../img/parcours_decouverte/comment/demande-remboursement.png" alt="" >
+                    <h4>La demande de remboursement</h4>
+                    <p>Hedee se charge de faire les démarches administratives auprès de l’enseigne où vous avez effectué votre achat.</p>
+                </div>
+            
 
-        </div> <!-- fin class="bloc2" -->
+                <div class="col-md-4 text-center"> 
+                    <img width="120" height="120" class="img-fluid" src="../img/parcours_decouverte/comment/le-suivi.png" alt="" >
+                    <h4>Le suivi</h4>
+                    <p>Hedee s’assure du bon déroulement de votre demande de remboursement.</p>
+                </div>
+            </div>
 
-        <div class="bloc3">
+            <div class="row partie2">
+                <div class="col-md-6 text-center"> 
+                    <img width="120" height="120" class="img-fluid" src="../img/parcours_decouverte/comment/juste-prix.png" alt="" >
+                    <h4>Le remboursement au juste prix</h4>
+                    <p>Pendant votre période d’éligibilité, hedee compare les prix en continu. S’il trouve à nouveau moins cher ailleurs, il vous remboursera la différence sur le prix le plus bas.</p>
+                </div>
+
+                <div class="col-md-6 text-center"> 
+                    <img width="120" height="120" class="img-fluid" src="../img/parcours_decouverte/comment/accompagnement.png" alt="" >
+                    <h4>Vous accompagne tout au long de votre demande</h4>
+                    <p>Hedee vous propose un service personnalisé, disponible 24h24, sur le chat ou bien par message.</p>
+                </div>
+            </div>
+        </div> <!-- fin class="bloc1bis" -->
+
+        <div class="row bloc2">
+            <div class="col-md-12 bloc2_left"></div> 
+
+            <div class="col-md-12 bloc2_right">
+                <h4>Vous venez d’effectuer un achat ? </h4>
+                <br class="une_marge">
+                <p>Que ce soit chez Darty, Boulanger, Decathlon, Leroy Merlin, Conforama, Les Galeries Lafayettes et bien d’autres, hedee s’assure que vous avez payé votre produit au prix le plus bas.</p>
+                <p>Hedee, c’est votre assistant personnel qui vous assure un remboursement au juste prix. </p>
+            </div>
+        </div><!-- fin class="bloc2" -->
+
+        <div class="row bloc3 text-center">
+                <div class="col-md-12 text-center title_quels_achats">
+                    <h4><span class="quels_achats">Quels achats</span> hedee peut-il vous rembourser ?</h4>
+                </div>
+
+             <div class="row lignes">
+                <div class="col-md-6 text-center electronique ">
+                    <p class="elec">Produits électronique et électroménagers</p>
+                </div>
+               
+                <div class="col-md-6 text-center sante_beaute">
+                     <p class="sante">Santé et beauté</p>
+                </div>
+            </div>
+            
+            <div class="row lignes">
+                <div class="col-md-6 text-center maison_jardin">
+                   <p class="maison">Maison et jardin</p>
+                </div>
+
+                <div class="col-md-6 text-center mode_sport">
+                    <p class="mode">Mode et sport</p>
+                </div>
+            </div>
 
         </div> <!-- fin class="bloc3" -->
 
-        <div class="bloc4">
-
-        </div> <!-- fin class="bloc4" -->
-
-        <div class="bloc5">
+        <div class="row encart_cta">    
+            <div class="col-md-12 bloc4">
             
-        </div> <!-- fin class="bloc5" -->
+                <div class="encart_title text-center mt-4 mb-5">
+                    <h3><strong>Vous en avez assez de payer</strong></h3>
+                    <h3><strong>trop cher ?</strong></h3>
+                </div>
+                
+                <div class="encart_1 text-center mb-5">
+                    <p><strong>Payez votre produit au prix juste.</strong></p>
+                    <p>Hedee trouve pour vous le prix juste et vous rembourse automatiquement</p>
+                    <p>la différence.</p>
+                </div>
 
-        <div class="bloc6">
-            {# {% include 'footer.html.twig' %} #}
-        </div> <!-- fin class="bloc6" -->
+                <div class="encart_2 text-center mb-4">
+                    <p>Ce serait dommage de vous en priver...</p>
+                </div>
 
-</div>
+                <div class="encart_bouton text-center">
+                    <a href="#">  <img width="300" height="30" class="img-fluid" src="../img/accueil/bouton_cta.png" alt="" > </a>
+                </div>
+
+            </div> <!-- fin class="col-md-12 bloc4" -->
+        </div> <!-- fin class="row encart_cta" -->
+
+    
+</div> <!-- fin class="container-fluid" -->
 {% endblock %}

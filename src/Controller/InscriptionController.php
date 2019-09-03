@@ -60,7 +60,7 @@ class InscriptionController extends AbstractController
             $user->setPassword($password);
             //$user->setCodeParrainage();
             
-            if($request->request->get('inscription')['codeParrainage'] != ""){ 
+            /*if($request->request->get('inscription')['codeParrainage'] != ""){ 
                 $codeP = $request->request->get('inscription')['codeParrainage'];
                           
                 $parrain = $repo->findOneBy(['codeParrainage' => $codeP]);
@@ -73,7 +73,7 @@ class InscriptionController extends AbstractController
                     $session->getFlashBag()->add('success', "Le code parrainage est $idParrain.");
                     $user->setIdParrain($idParrain);
                 }
-            }
+            }*/
             
             // Enregistre le membre en base
             $em = $this->getDoctrine()->getManager();
@@ -82,7 +82,7 @@ class InscriptionController extends AbstractController
             $user2 = $repo->findOneBy(['email' => $user->getEmail()]);
             
 
-            $user2->setCodeParrainage();                
+            //$user2->setCodeParrainage();                
             $em->persist($user);
             $em->flush();
             

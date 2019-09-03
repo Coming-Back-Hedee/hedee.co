@@ -1,68 +1,344 @@
-﻿:root {
-    --orange_perso: #ff3c00;
-    --orange-pale: #ffd5d2;
-    --bleu_perso: #2800dc;
-    --bleu-pale: #e1def9;
+﻿/* BLOC 0*/
+.bloc0 {
+    background-image: url("../img/parcours_decouverte/comment/rectangle25.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center ; 
+    height: 45px;
+    max-width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    margin-top: 45px
+    /*display:flex;
+    flex-wrap:wrap; */
+} 
+
+.bloc0 > p {
+    text-align:center;
+    color:#ff3c00;
+    padding-top:6px;
+    margin:0 auto;
 }
 
-.bloc_header_pre {
-    background: linear-gradient(0.25turn, #fff, var(--orange-pale));
-    width:100%;
+.bloc0 > p > a {
+    color:#ff3c00;
+    text-decoration: none;
+    margin:0 auto;
 }
 
-.bloc_header_pre > div a:link, .bloc_header_pre > div a:visited{
-    color: var(--orange_perso);  
-}
 
-.bloc_header {
-    display: table;
-    background: linear-gradient(0.25turn, #fff, var(--orange-pale));
-    width:100%;
-}
-
-/* 1er BLOC - vérifier votre éligibilité*/
-
+/* BLOC 1*/
 .bloc1 {
-    background-image: url("../img/parcours_decouverte/comment/Groupe\ 118.png") ;
+    background-image: url("../img/parcours_decouverte/comment/rectangle25.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center ;
-    min-height: 873px;
-    max-width:100%;
-    margin-top: 5%;
-    margin-left: 22%;
-    margin-right: 15%;
-    -webkit-background-size: 100%;
+    height: 150px;
+    width:100%;
+    -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
 }
 
+.bloc1 h1 {
+    color: #ff3c00;
+    margin-top: 30px
+}
 
-/* 2e BLOC - etapes pour demande de remboursement */
-.bloc2 {
-    background-image: url("../img/parcours_decouverte/comment/Groupe\ 139.png");
+/* BLOC 1BIS*/
+.bloc1bis {
+    height: 773px;
+    max-width:100%;
+}
+
+.bloc1bis h2 {
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: -0.63px;
+    text-align: center;
+    color:#2800dc;
+}
+
+.title_occupe {
+    margin-top: 30px
+}
+
+.title_occupe2 {
+    font-weight: bold
+}
+
+.partie1 {
+    width: 70%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.partie1 h4, .partie2 h4 {
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    color:#2800dc
+}
+
+.partie1 p, .partie2 p {
+    color:#2800dc  
+}
+
+.partie2 {
+    width: 50%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+/* BLOC 2 */
+.bloc2_left {
+    background-image: url("../img/parcours_decouverte/comment/masque17.png");
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center ;
-    min-height: 447px;
+    background-position: left ;
+    height: 447px;
+    max-width:50%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.bloc2_right {
+    background-image: url("../img/parcours_decouverte/comment/rectangle57bis.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right ;
+    height: 447px;
+    max-width:50%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.bloc2_right h4 {
+    margin-top: 90px;
+    margin-left: 40px;
+    width: 70%; 
+    color:#2800dc 
+}
+
+.bloc2_right p {
+    color:#2800dc;
+    margin-left: 40px;
+    width: 70%;
+}
+
+
+
+/* BLOC 3 */
+.bloc3 {
+    height: 550px;
+    width:60%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.bloc3 h4 {
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+}
+
+.title_quels_achats {
+    margin-top : 40px;
+    color:#ff3c00;
+}
+
+.quels_achats {
+    font-weight: bold;
+}
+
+.lignes {
+    width: 100%
+}
+
+.electronique {
+    background-image: url("../img/parcours_decouverte/comment/electronique.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-width:100%;
+    height: 200px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.sante_beaute {
+    background-image: url("../img/parcours_decouverte/comment/beaute.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
     max-width:100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
 }
 
-
-
-/* 4e BLOC - Enseignes éligibles */
-.bloc3 {
-    background-image: url("../img/parcours_decouverte/comment/Groupe\ 395.png") ;
+.maison_jardin {
+    background-image: url("../img/parcours_decouverte/comment/maison.png");
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center ;
-    min-height: 1855px;
-    width:100%;
-    margin-top: 5%;
-    -webkit-background-size: 100%;
+    background-position: center;
+    height: 200px;
+    max-width:100%;
+    -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
 }
+
+.mode_sport {
+    background-image: url("../img/parcours_decouverte/comment/mode.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+    max-width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.elec, .sante, .maison, .mode {
+    position:relative;
+    color:#fff;
+    z-index:5;
+    font-weight: 500;
+    font-size : 25px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.2;
+    margin-top: 75px
+}
+
+
+
+/* BLOC 4 */
+.bloc4 {
+    background-size: contain;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background:url("../img/accueil/encart_cta.png") no-repeat top center;
+    position:relative;
+    max-width:100%;
+    height:500px;
+    z-index:1;
+    margin-top: 80px
+}
+
+.encart_title, .encart_1, .encart_2  {
+    position:relative;
+    color:white;
+    z-index:10;
+}
+
+.encart_title {
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+.encart_1, .encart_2 {
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 0.5;
+}
+
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){
+    .bloc1 h1 {
+        font-size: 35px
+    }
+    
+    .bloc1bis {
+        height: 1650px;
+    }
+
+    .title_occupe h2 {
+        font-size: 28px
+    }
+
+    .partie1 {
+        width: 100%;
+    }
+    
+    .partie2 {
+        width: 100%;
+    }
+
+    .bloc2_left {
+        /*display:none;*/
+        max-width:100%;
+        height: 247px;
+    }
+
+    .bloc2_right {
+    background-position: center ;
+    height: 280px;
+    max-width:100%;
+    }
+
+    .bloc2_right h4, .bloc2_right p {
+        margin-top: 20px;
+        margin-left: 0px;
+        width: 100%
+    }
+
+    .bloc2_right h4 {
+        font-size: 21px
+    }
+
+    .une_marge {
+        display:none
+    }
+
+    .bloc3 {
+        height: 850px;
+        width:100%;
+    }
+
+    .title_quels_achats {
+        margin-top : 10px;
+        margin-bottom: 20px
+    }
+
+    .bloc4 {
+
+    }
+
+    .encart_title h3 {
+        font-size: 23px
+    }
+    
+    .encart_1, .encart_2 {
+        
+        line-height: 1;
+    }
+
+    .encart_bouton {
+        width: 250px;
+        height: 30px;
+        
+    }
+
+
+ }
+
+
+
+/* **************  POUR TABLETTE  ********************* */
+@media (min-width: 768px) and (max-width:991.98px){ }

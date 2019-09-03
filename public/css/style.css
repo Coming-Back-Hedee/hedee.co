@@ -1,8 +1,6 @@
 ﻿:root {
     --orange_perso: #ff3c00;
-    --orange-pale: #ffd5d2;
-    --bleu_perso: #2800dc;
-    --bleu-pale: #e1def9;
+    --bleu_perso: #2800dc; 
 }
 
 
@@ -12,7 +10,7 @@ html, body, div, header, main, .row, .container-fluid, footer  {
 }
 
 body {
-    font-family: 'Work sans';
+    font-family: 'Work sans', sans-serif;
     width: 100%;
     min-height:960px;
 }
@@ -20,7 +18,7 @@ body {
 /* HEADER */
 header {
     flex-wrap:wrap;
-    min-height: 128px;
+    min-height: 89px;
 }
 
 .header1 {
@@ -65,7 +63,7 @@ header {
 
 .logo a {
     text-decoration: none;
-    font-family: "Work Sans";
+    font-family: sans-serif;
     color: #EB5B34;
 }
 
@@ -107,7 +105,7 @@ header {
     font-size: 1em;
     border: none;
     cursor: pointer;
-    font-family: "Work Sans";
+    font-family: 'Georgia', sans-serif;
 }
 
 #myBtn a {
@@ -175,7 +173,7 @@ header {
 }
 
 body {
-	font-family: 'Work sans';
+	font-family: 'Work sans', sans-serif;
 	font-size: 16px; /* Our base font-size */
 	line-height: 1.75; /* Line height assumes an almost rem value but is dynamic to the font-size */
 	font-weight: 600; /* Use the included weight */
@@ -261,7 +259,9 @@ body {
 }
 
 /*
+
 	Start New Code For Menu
+
 */
 
 /* Menu Button */
@@ -490,6 +490,17 @@ main {
     margin: 25px auto;
 }
 
+.box {
+    width: 40%;
+    background-color: #fff;
+    border: 1px solid #fff;
+    min-height: 470px;
+    border-radius : 2%;
+    margin: 25px auto;
+	-moz-box-shadow: 0 0 10px #555;  
+	-webkit-box-shadow: 0 0 10px #555;  
+    box-shadow: 0 0 10px #555;  
+}
 
 #paragraph_id1, #paragraph_id2, #paragraph_id3, #paragraph_id4 {
     width:80%;
@@ -501,11 +512,28 @@ main {
 	display: none;
 }
 
+.categorie, .choisir_enseigne, .date_achat, .prix_article, .mag_internet,.remise {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+} 
+
+.box #form_prix, .box #datepicker, .box #select_enseigne, .box #cat_produit, .box #remise {
+    width: 100%; 
+    padding: 12px;   
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box;
+    margin-top: 6px; 
+    margin-bottom: 10px; 
+    resize: vertical;
+}
+
 .categorie_2, .choisir_enseigne_2, .date_achat_2, .prix_article_2 {
     display:flex
 }
 
-/*.label_2 {
+.label_2 {
     margin-right: 6px
 }
 
@@ -515,7 +543,19 @@ main {
     border-radius: 10px;
     border:none;
     font-family: 'Georgia', sans-serif; 
-}*/
+}
+
+.box #mag_internet {
+    width: 20%; 
+    padding: 12px;   
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box;
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    resize: vertical;
+}
+
 
 .msg {
     width: 40%;
@@ -603,39 +643,47 @@ ul {
     display:flex;
     width:10%;
 }
+
 .reseaux_sociaux > div {
     margin: auto;
     color : #fff
 }
+
 .reseaux_sociaux .fb :hover {
     transition: 1s;
     fill: #0000CD;
     opacity: 1;
 }
+
 .reseaux_sociaux .insta :hover {
     transition: 1s;
     fill: #DC143C;
     opacity: 1;
 }
+
 .reseaux_sociaux .twitter :hover {
     transition: 1s;
     fill: #14addc;
     opacity: 1;
 }
+
 .infos_site {
     width: 100%;
 }
+
 .infos_site > p  {
     margin-top: 20px;
     font-size : 14px;
     color: #fff;
 }
+
 .infos_site > p > a {
     color : #fff;
     text-decoration: none;
     padding-right: 15px;
     padding-left: 15px;
 }
+
 .infos_site > p :hover {
     text-decoration: underline;
 }*/
@@ -734,15 +782,9 @@ label.error{
     font-size: small;
     color:red;
     margin-bottom: 20px;
-    margin-top: 5px;
 }
 
-label{
-    margin-top: 20px;
-}
-
-    
-input.error, select.error{
+input.error{
     border-color:red;
     border-width: 2px;
     border-radius: 2px;
@@ -799,6 +841,7 @@ input.error, select.error{
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+
     #desktop {
         visibility: hidden
     }
@@ -842,8 +885,7 @@ input.error, select.error{
 
 
 /* **************  POUR TABLETTE  ********************* */
-@media (min-width: 768px) and (max-width:1024.98px){ 
-
+@media (min-width: 768px) and (max-width:991.98px){ 
 
     #desktop {
         visibility: visible
@@ -862,7 +904,8 @@ input.error, select.error{
     }
 
     .fullscreen-menu-container {
-        height: 55vh;
+        height: 55vh; /* Cover t
     }
     
+
 }
