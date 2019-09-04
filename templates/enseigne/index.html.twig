@@ -37,7 +37,6 @@
             return true;
         }	
     } /***** fin fonction verifierCaracteres *****/ 
-
     function verifierCaracteres1(event) {
         //console.log(event.keyCode);
         var caracteres = [44, 46, 48, 49, 50, 51, 52 ,53, 54, 55, 56, 57]
@@ -49,7 +48,6 @@
             return true;
         }
     } /***** fin fonction verifierCaracteres1 *****/ 
-
     function loadForm(){
         if($("#form-eligibilite").valid()){
             var donnees = $('#form-eligibilite').serialize()
@@ -66,7 +64,6 @@
             $('#form_location').load("{{ path('formulaire') }}")
         }
     } /***** fin fonction loadForm *****/ 
-
     var redirect = function(){
             Array.from(document.getElementsByClassName("replace_btn")).forEach(function(btn){
                 console.log(document.getElementsByClassName("replace_btn"))
@@ -77,7 +74,6 @@
             })
         }
          /***** fin fonction redirect *****/ 
-
     var changeM = function() {
         if($("[name='connect']:checked").val() == "membre"){
             var url = "{{ path('membre') }}";
@@ -101,9 +97,10 @@
             });
         }               
     } /***** fin fonction changeM *****/ 
-
-    function attachDatepicker(val){    
-        val.datepicker({ 
+    attachDatepicker()
+    function attachDatepicker(){   
+        console.log($("#datepicker" )) 
+        $("#datepicker" ).datepicker({ 
             minDate: -30, maxDate: 0, 
             altField: "#datepicker",
             closeText: 'Fermer',
@@ -119,39 +116,35 @@
             dateFormat: 'dd-mm-yy' 
         }); 
     } /***** fin fonction attachDatepicker *****/
-
 </script>
 
 <script>
     $(document).ready(function() {
         var recap;
-        attachDatepicker($( "#datepicker" ))
+        //attachDatepicker($( "#datepicker" ))
         $('body').on('change', 'input[name=connect]', changeM);
         
+        $("#form-eligibilite").validate({
+            rules: {
+                "eligibilite[categorie]":{
+                    "required": true,
+                    "categorie": true,
+                },
+                "eligibilite[enseigne]":{
+                    "required": true,
+                },
+                "eligibilite[date_achat]":{
+                    "required": true,
+                },
+                "eligibilite[prix]":{
+                    "required": true,
+                    "number": true,
+                    "min": 20,
+                    "regex_prix": /^[0-9]+(\.[0-9]{1,2})?$/
+                }
+            },
+        })
     });
-</script>
-
-<script>
-    $("#form-eligibilite").validate({
-        rules: {
-            "eligibilite[categorie]":{
-                "required": true,
-                "categorie": true,
-            },
-            "eligibilite[enseigne]":{
-                "required": true,
-            },
-            "eligibilite[date_achat]":{
-                "required": true,
-            },
-            "eligibilite[prix]":{
-                "required": true,
-                "number": true,
-                "min": 20,
-                "regex_prix": /^[0-9]+(\.[0-9]{1,2})?$/
-            }
-        },
-    })
 </script>
        
 <script>
@@ -174,7 +167,6 @@
                 minLength: 1,
                 delay: 100,
             })
-
             $('#select_enseigne').on('change', function(){               
                 this.value = $.ucfirst(this.value)
                 $.validator.addMethod(
@@ -196,4 +188,3 @@
 </script>
    
 {% endblock %} {# fin javascript #}
-

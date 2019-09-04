@@ -7,15 +7,17 @@
         <title>{% block title %}Rembourseo{% endblock %}</title>
 		<script src="{{asset('js/modal.js')}}" type="text/javascript"></script>
 
-		<link rel="icon" href="{{asset('img/euro_orange.ico')}}">
+		<link rel="icon" href="{{asset('img/favicon.jpg')}}">
 		<link rel="stylesheet" href="{{asset('css/modal.css')}}">
 		<link rel="stylesheet" href="{{asset('css/style.css')}}">
 		<link rel="stylesheet" href="{{asset('css/grillade-flex.css')}}">
 		
     	<link rel="stylesheet" href="{{asset('css/jeremy.css')}}">
 		<link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.css')}}">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,7 +28,7 @@
     </head>
 
 
-<body>
+	<body>
 		<div id="modal" class="popup" style="display: none;"></div>
 		
 		<header>
@@ -56,14 +58,16 @@
                             <div class="col-md-6">
                                 <div class="nav-item">
                                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}						
-                                        <button id="myBtn" class="dropbtn" href="#">
+                                        <button id="myBtn" class="compte_client ">
                                             <i class="fa fa-user-circle-o" style="font-size:24px"></i>
                                         </button>
                                     {% else %}
                                         <!-- <li> <button id="myBtn"><a href="{{ path('connexion') }}">Se connecter</a></button> </li> -->
-                                        <button id="show" class="compte_client">
-                                            <a href="#"> <img src="../img/header/compte_client.png" width="30" height="30" class="img-fluid" alt="connexion compte client" title="connexion"> </a>
-                                        </button> 
+                                        <a class="js-menu-client-button">
+											<button id="show" class="compte_client ">
+                                        		<img src="../img/header/compte_client.png" width="30" height="30" class="img-fluid" alt="connexion compte client" title="connexion"> </a>
+											</button> 
+										</a>
                                     {% endif %}
                                 </div> <!-- fin class="nav-item"-->
                             </div> <!-- fin class="col-md-6"-->
@@ -212,8 +216,11 @@
 	
 		{#MAIN#}
 		<main>
-		{% block main %}
-		{% endblock %}
+			<div class="screen-connect js-menu-inscription">
+					
+			</div>
+			{% block main %}
+			{% endblock %}
         </main>
 
 		<footer>
@@ -296,10 +303,10 @@
 					</div><!--fin class="row footer_bleu"-->
 			</div><!--fin class="container-fluid"-->
 		</footer>
+	
 
 		<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		
 		
 		<script src="{{asset('jquery/jquery-steps/build/jquery.steps.js')}}"></script>
 		<script src="{{asset('jquery/jquery-validate/dist/jquery.validate.js')}}"></script>
@@ -322,7 +329,6 @@
 				//max: jQuery.validator.format("votre message  inférieur ou égal à {0}."),
 				min: jQuery.validator.format("Nous ne prenons en compte que les achats supérieurs ou égal à {0}.")
 			});
-
 			$.validator.addMethod(
 				"regex_prix",
 				function(value, element, regexp) {
@@ -333,7 +339,6 @@
 						return this.optional(element) || regexp.test(value);
 				},"Le prix n'est pas valide"
 			);
-
 			$.validator.addMethod(
 				"categorie",
 				function(value, element) {
@@ -345,8 +350,8 @@
 			);			
 		</script>
 
-			<script>
-				$.ucfirst = function(str) {
+		<script>
+			$.ucfirst = function(str) {
 					var word = ""
 					var text = str;
 					if (text != ""){
@@ -357,10 +362,10 @@
 					
 					return word;
 				};
-			</script>
-			<script type="text/javascript">
+		</script>
+		<script type="text/javascript">
 			var user = "{{app.user|json_encode|raw}}"
-			if(user == "null"){ modalConnect(null);}
+			//if(user == "null"){ modalConnect(null);}
 			var url = "{{ path('connexion') }}";
 				$(document).ready(function() {
 					$( ".burger" ).hide();
@@ -371,7 +376,6 @@
 								$( ".burger" ).show();
 							});
 						});
-
 					$( ".burger" ).click(function() {
 						$( ".menu2" ).slideToggle( "slow", function() {
 							$( ".burger" ).hide();
@@ -379,13 +383,40 @@
 					});
 				});
 			});
-			</script>
-			<!--RAJOUT SCRIPT-->
+		</script>
 
-			<!-- Include jQuery and main.js - Short URL http://srt.lt/Ro3W2 -->
-			<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-			
-			<script>
+		<script>
+				// Functions
+			function openClientMenu() {
+				//console.log("tkt")
+				$('.js-menu-inscription').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+				//$('.navbar.fixed-top').fadeToggle('1200');
+			}
+			function closeClientMenu() {
+				$('.js-menu-inscription').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+				//$('.navbar.fixed-top').fadeToggle('1200');
+			}
+		// Document Ready
+			jQuery(document).ready(function($){ // When everything has finished loading
+				$('.js-menu-client-button').click(function(){ // When the element with the class 'js-menu-button' is clicked
+					openClientMenu(); // Run the openMenu function
+				});
+				$('.js-menu-client-close').click(function(){ // When the element with the class 'js-menu-close' is clicked
+					closeClientMenu(); // Run the closeMenu function
+				});
+			});
+		// Keyboard Accessibility
+			jQuery(document).keyup(function(e) { // Listen for keyboard presses
+				if (e.keyCode === 27) { // 'Esc' key
+					if ($('.js-menu-container').hasClass('is-open')) { // If the menu is open close it
+						closeMenu(); // Run the closeMenu function
+					}
+				}
+			});
+		</script>
+
+			<!--RAJOUT SCRIPT-->			
+		<script>
 				// Functions
 			function openMenu() {
 				$('.js-menu-container').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
@@ -411,10 +442,11 @@
 						closeMenu(); // Run the closeMenu function
 					}
 				}
-	});
-    
-    </script> <!--FIN RAJOUT SCRIPT-->
+			});
 			
-			{% block javascript %}
-			{% endblock %}
+		</script> <!--FIN RAJOUT SCRIPT-->
+					
+		{% block javascript %}
+		{% endblock %}
+	</body>
 </html>
