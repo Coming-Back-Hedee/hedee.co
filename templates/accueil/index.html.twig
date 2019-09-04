@@ -19,17 +19,11 @@
         <div class="bloc1">
             <div class="la_presentation">
             
-                <a href="{{ path('enseigne') }}">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary">Je récupère mon argent</button>
-                        <button type="button" class="btn"><span class="glyphicon glyphicon-play"></span></button>
-                    </div>
-                </a>
             </div><!-- fin class="la_presentation" -->
 
-            <div id="my-icon-select"></div>
+            {#<div id="my-icon-select"></div>
         
-            <input type="text" id="selected-text" name="selected-text" style="width:65px;">
+            <input type="text" id="selected-text" name="selected-text" style="width:65px;">#}
         </div> <!-- fin class="bloc1" -->
 
         <div class="bloc2">
@@ -57,9 +51,10 @@
 
 
 {% block javascript %} 
-<script>
-        var iconSelect;
-       var selectedText;
+ {# <script>
+   
+    var iconSelect;
+    var selectedText;
 
         window.onload = function(){
             
@@ -79,7 +74,8 @@
             iconSelect.refresh(icons);
 
         };
-</script>       
+</script>
+#}       
 {% endblock %} {#fin block javascript#}
 
 

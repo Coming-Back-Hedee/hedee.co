@@ -29,8 +29,6 @@
 
 
 	<body>
-		<div id="modal" class="popup" style="display: none;"></div>
-		
 		<header>
 			<!-- *******MENU DESKTOP ET TABLETTE****** -->
 			<div class="navbar fixed-top" id="desktop">
@@ -57,15 +55,18 @@
 
                             <div class="col-md-6">
                                 <div class="nav-item">
-                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}						
-                                        <button id="myBtn" class="compte_client ">
-                                            <i class="fa fa-user-circle-o" style="font-size:24px"></i>
-                                        </button>
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+										<a href="{{ path('profil') }}">				
+											<button  class="compte_client ">
+												<img src="{{ app.user.photo }}" width="30" height="30" 
+													 class="img-fluid" alt="connexion compte client" title="connexion"> 
+											</button>
+										</a>
                                     {% else %}
-                                        <!-- <li> <button id="myBtn"><a href="{{ path('connexion') }}">Se connecter</a></button> </li> -->
-                                        <a class="js-menu-client-button">
-											<button id="show" class="compte_client ">
-                                        		<img src="../img/header/compte_client.png" width="30" height="30" class="img-fluid" alt="connexion compte client" title="connexion"> </a>
+                                        <a href="{{ path('connexion') }}" class="js-menu-client-button">
+											<button class="compte_client ">
+                                        		<img src="../img/header/compte_client.png" width="30" height="30" 
+													 class="img-fluid" alt="connexion compte client" title="connexion"> 
 											</button> 
 										</a>
                                     {% endif %}
@@ -130,7 +131,8 @@
 										</div>
                             		</div> <!-- fin class="col-md-6 logo"-->
 
-                                </div> <!-- fin class="nav-item second"-->   
+                                </div> <!-- fin class="nav-item second"--> 
+								  
                 </nav> <!-- fin class="nav navbar-nav navbar-right"-->
                 
                 
@@ -180,11 +182,15 @@
 
 					<div class="bas">
 						<div class="compte_h_entete">
-							<a href="#"> <img src="../img/header/mon_compte.png" width="200" height="130" class="img-fluid" alt=""> </a>	
+							<a href="{{ path('connexion') }}" class="js-menu-client-button"> 
+								<img src="../img/header/mon_compte.png" width="200" height="130" class="img-fluid" alt=""> 
+							</a>	
 						</div>
 					
 						<div class="recup_argent_h_entete">
-							<a href="#"> <img src="../img/header/recup_argent.png" width="250" height="100" class="img-fluid" alt=""> </a>
+							<a href="{{ path('enseigne') }}"> 
+								<img src="../img/header/recup_argent.png" width="250" height="100" class="img-fluid" alt=""> 
+							</a>
 						</div>
 					</div>
 
@@ -211,18 +217,80 @@
 					</div>#}
 
 			</div> <!--fin class="fullscreen-menu-container js-menu-container"-->
-
+		
 		</header>
 	
 		{#MAIN#}
 		<main>
-			<div class="screen-connect js-menu-inscription">
-					
-			</div>
+			{#<div class="screen-connection js-menu-connection">
+				<div class="bloc_popup">
+					<div class="block_left1 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<div id="switch_inscription" class="switch">			
+								<button class="btn switch_first">Je rejoins hedee</button>
+								<button class="btn switch_second1"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
+							
+						</div>
+					</div>
+					<div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<button class="close js-menu-client-close"><i class="fa fa-close" style="font-size:24px"></i></button>
+						<form action="{{ path('connexion') }}" method="post" id="connexion">
+							<h3> J'ai déjà un compte </h3> 
+							
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							<input type="text" id="username" name="_username" placeholder="Votre adresse mail"/>
+
+							<input type="password" id="password" name="_password" placeholder="Votre mot de passe"/>
+							
+							<input type="hidden" name="_target_path" value="/profil" />
+							<a href="{{path('request_resetting')}}" target="blank">Mot de passe oublié</a>
+							<br>
+							<button class="blue_button">Je me connecte</button>
+						</form>
+					</div>
+				</div>
+			</div> <!--fin class="screen-connection js-menu-connection"-->
+
+
+			<div class="screen-inscription js-menu-inscription">
+				<div class="bloc_popup">
+					<div class="block_left1 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<div id="switch_connection" class="switch">			
+								<button class="btn switch_first">Je rejoins hedee</button>
+								<button class="btn switch_second1"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
+							
+						</div>
+					</div>
+					<div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<button class="close js-menu-client-close"><i class="fa fa-close" style="font-size:24px"></i></button>
+						<form action="{{ path('inscription') }}" method="post" id="inscription">
+							<h3> Rejoindre hedee </h3> 
+							
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							<input type="text" name="_username" placeholder="Votre adresse mail"/>
+
+							<input type="password"  name="_password" placeholder="Votre mot de passe"/>
+
+							<input type="password"  name="_password2" placeholder="Confirmer le mot de passe"/>
+
+							<br>
+							<button class="orange_button">Je crée mon compte</button>
+						</form>
+					</div>
+				</div>
+			</div> <!--fin class="screen-inscription js-menu-inscrption"--> #}
+
+
+			
 			{% block main %}
 			{% endblock %}
         </main>
-
+		<div class="js-menu-cookie">
+			Ce site Internet utilise des cookies. 
+			Vous pouvez les désactiver dans les paramètres de votre navigateur. 
+			Vous trouverez davantage d’informations concernant notre politique 
+			en matière de cookies dans notre Politique de confidentialité.
+			<button class="close js-menu-cookie-close"><i class="fa fa-close" style="font-size:24px"></i></button>
+		</div>
 		<footer>
 			<div class="container-fluid footer_bleu">
 					<div class="row">
@@ -388,26 +456,51 @@
 			});
 		</script>
 
-		<script>
+		{#<script>
 				// Functions
-			function openClientMenu() {
-				//console.log("tkt")
+			function openInscriptionMenu() {
 				$('.js-menu-inscription').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
-				//$('.navbar.fixed-top').fadeToggle('1200');
+				$('footer').fadeToggle('1200');
+
 			}
-			function closeClientMenu() {
+			function closeInscriptionMenu() {
 				$('.js-menu-inscription').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
-				//$('.navbar.fixed-top').fadeToggle('1200');
+				//$('.footer').fadeToggle('1200');
 			}
+
+			function openConnectionMenu() {
+				$('.js-menu-connection').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+				$('footer').fadeToggle('1200');
+
+			}
+			function closeConnectionMenu() {
+				$('.js-menu-connection').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+				//$('.footer').fadeToggle('1200');
+			}
+
 		// Document Ready
-			jQuery(document).ready(function($){ // When everything has finished loading
-				$('.js-menu-client-button').click(function(){ // When the element with the class 'js-menu-button' is clicked
-					openClientMenu(); // Run the openMenu function
+			jQuery(document).ready(function($){
+				 // When everything has finished loading
+				$('.js-menu-client-button').click(function(){
+					openConnectionMenu(); // Run the openMenu function
 				});
-				$('.js-menu-client-close').click(function(){ // When the element with the class 'js-menu-close' is clicked
-					closeClientMenu(); // Run the closeMenu function
+				$('.js-menu-client-close').click(function(){
+					 // When the element with the class 'js-menu-close' is clicked
+					closeInscriptionMenu(); // Run the closeMenu function
+					closeConnectionMenu()
+				});
+				$('#switch_inscription').click(function(){
+					$('.js-menu-inscription').addClass('is-open');
+					$('.js-menu-connection').removeClass('is-open');
+					openInscriptionMenu();
+				});
+				$('#switch_connection').click(function(){
+					$('.js-menu-connection').addClass('is-open');
+					$('.js-menu-inscription').removeClass('is-open');
+					openConnectionMenu();
 				});
 			});
+			window.onclick = function(event){console.log(event.target)}
 		// Keyboard Accessibility
 			jQuery(document).keyup(function(e) { // Listen for keyboard presses
 				if (e.keyCode === 27) { // 'Esc' key
@@ -416,10 +509,14 @@
 					}
 				}
 			});
-		</script>
+		</script>#}
 
 			<!--RAJOUT SCRIPT-->			
 		<script>
+			$('.js-menu-cookie-close').click(function(){ // When the element with the class 'js-menu-close' is clicked
+					$('.js-menu-cookie').removeClass('is-open');
+				});
+
 				// Functions
 			function openMenu() {
 				$('.js-menu-container').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
@@ -431,6 +528,7 @@
 			}
 		// Document Ready
 			jQuery(document).ready(function($){ // When everything has finished loading
+				$('.js-menu-cookie').addClass('is-open');
 				$('.js-menu-button').click(function(){ // When the element with the class 'js-menu-button' is clicked
 					openMenu(); // Run the openMenu function
 				});

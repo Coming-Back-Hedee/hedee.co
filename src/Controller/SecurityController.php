@@ -53,7 +53,7 @@ class SecurityController extends AbstractController
            'validation_groups' => array('User', 'inscription'),
         ]);        
             
-        return $this->render('security/modal.html.twig', array(
+        return $this->render('test.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
             'form'          => $form->createView(),

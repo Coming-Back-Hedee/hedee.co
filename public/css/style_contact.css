@@ -22,7 +22,7 @@
 .bloc_header_pre{
     border-bottom: 1px;
     border-bottom-style: solid;
-    border-bottom-color: var(--bleu_perso);
+    border-bottom-color: var(--bleu-pale);
 }
 
 .bloc_header_pre > div {

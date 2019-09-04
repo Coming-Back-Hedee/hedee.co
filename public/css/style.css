@@ -59,7 +59,12 @@ header {
 
 
 .compte_client {
-    margin-top: 30px
+    margin-top: 30px;
+    background-color: white;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
 }
 
 .logo {
@@ -359,18 +364,6 @@ body {
 	pointer-events: none; /* Stop the elements in the menu-container from being clicked */
 
 	transition: top 500ms ease-in, opacity 300ms ease-in; /* Transition the top and opacity */
-}
-
-.screen-connect{
-    display: none;
-}
-
-.screen-connect.is-open {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    display: block;
 }
 
 .fullscreen-menu-container.is-open {

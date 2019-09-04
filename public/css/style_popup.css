@@ -7,19 +7,32 @@
 
 main{
     font-family: "Work Sans";
-    /*background-color: var(--bleu-pale);*/
+    min-height: initial;
+    background-color: var(--bleu-pale);
     display: flex;
-    min-height: 500px;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    top: 0
+}
+
+
+body{
+    min-height: initial;
+    height: fit-content;
+}
+
+footer{
+    display: none;
 }
 
 .bloc_popup{
     display: flex;
-    margin: auto;
-    
+    margin: auto;    
 }
 
 .block_left1{
-    margin-right: 0;
+    margin-right: auto;
     margin-left: auto;
     position: relative;
     display: flex;
@@ -27,7 +40,7 @@ main{
 }
 
 .block_left2{
-    margin-right: 0;
+    margin-right: auto;
     margin-left: auto;
     position: relative;
     display: flex;
@@ -45,6 +58,14 @@ main{
     background-color: #fff;
     color: var(--bleu_perso);
     border-radius: 80px;
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 1.8px;
+    text-align: center;
+    height: 54.2px;
 }
 
 .switch_first2{
@@ -54,24 +75,39 @@ main{
     background-color: #fff;
     color: var(--orange_perso);
     border-radius: 80px;
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 1.8px;
+    text-align: center;
+    height: 54.2px;
+}
+
+.switch_first2 > p{
+    margin:auto;
 }
 
 .switch_second1{
     padding: 12.5px;
     position: relative;
-    left: -28px;
+    left: -25px;
     background-color: var(--orange_perso);
-    border-radius: 80px;
+    border-radius: 60px;
+    width: 55px;
     color: #fff;
 }
 
 .switch_second2{
     padding: 12.5px;
     position: relative;
-    left: -20px;
+    left: -25px;
     background-color: var(--bleu_perso);
     border-radius: 60px;
+    width: 55px;
     color: #fff;
+    
 }
 
 a:visited, a{
@@ -84,7 +120,7 @@ a:visited, a{
     position: relative;
     background-color: #fff;
     margin-right: auto;
-    margin-left: 0;
+    margin-left: auto;
     min-height: 300px;
 }
 
@@ -159,15 +195,18 @@ input{
 @media screen and (max-width:767.98px){
 
     main{
-        height: 700px;
+        height: 648px;
     }
 
     .block_right{
         order: -1;
+        height: 300px;
+        width: 300px;
     }
 
     .block_left1{
-        height: 350px;
+        height: 300px;
+        width: 300px;
         background-image: url("../img/popup/Groupe\ 194.png");
         background-size: cover;
         background-repeat: no-repeat;
@@ -176,7 +215,8 @@ input{
     
     .block_left2{
         background-image: url("../img/popup/Groupe\ 194b.png");
-        height: 350px;
+        height: 300px;
+        width: 300px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
@@ -186,37 +226,45 @@ input{
         height: 30px;  
     }
     
+    .switch_first, .switch_first2{
+        padding: 16.5px;
+        padding-right: 20px;
+    }
 
+    .switch_first > p, .switch_first2 > p{
+        font-size: 14px;
+    }
 }
 
 /* **************  POUR TABLETTES  ********************* */
-@media (min-width: 768px) and (max-width:991.98px){
+@media (min-width: 768px) and (max-width:1024.98px) and (min-height: 720px){
 
     main{
-        height: 500px;
+        height: 1198px;
     }
 
     .block_left1{
-        height: 300px;
-        width: 300px;
-        background-image: url("../img/popup/Groupe\ 194.png");
+        height: 580px;
+        width: 580px;
+        background-image: url("../img/popup/Groupe\ 194bt.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe\ 194b.png");
-        height: 300px;
-        width: 300px;
+        background-image: url("../img/popup/Groupe\ 194t.png");
+        height: 580px;
+        width: 580px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
 
     .block_right{
-        height: 300px;
-        width: 300px;
+        height: 580px;
+        width: 580px;
+        order: -1;
     }
 
     input{
@@ -226,25 +274,30 @@ input{
     ::placeholder{
         font-size: 12px;
     }
+
+    #connexion, #inscription{
+        width: 60%;
+    }
 }
 
 /* **************  POUR GRANDS ECRANS  ********************* */
-@media screen and (min-width: 992px){
+@media screen and (min-width: 992px) and (max-height: 1080px){
     main{
-        height: 600px;
+        height: 558px;
+       
     }
 
     .block_left1{
         height: 480px;
         width: 480px;
-        background-image: url("../img/popup/Groupe\ 193.png");
+        background-image: url("../img/popup/Groupe192b.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe\ 193b.png");
+        background-image: url("../img/popup/Groupe192.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
