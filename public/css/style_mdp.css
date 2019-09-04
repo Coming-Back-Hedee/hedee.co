@@ -1,0 +1,40 @@
+﻿:root {
+    --orange_perso: #ff3c00;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
+}
+
+main{
+    background-color: var(--bleu-pale);
+    color: var(--bleu_perso);
+    position: relative;
+    bottom: -50px;
+    z-index: -1;
+    margin: auto;
+}
+
+.bloc1{
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 300px;
+    position: relative;
+    width: 50%;
+    background-color: #fff;
+    border: solid 1p var(--bleu_perso);
+    box-shadow: 8px 8px 0px var(--bleu_perso);
+}
+
+input{
+    border: solid 2px;
+    border-color: var(--bleu-pale); 
+    margin: auto;
+    display: block;
+    width: 80%;
+} 
+
+form button{
+    margin: auto;
+    margin-top: 7.5%;
+    width: 100px;
+}
+

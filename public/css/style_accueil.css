@@ -1,11 +1,13 @@
-﻿
-/* 1er BLOC - vérifier votre éligibilité*/
+﻿body {
+    font-family: 'Work Sans', sans-serif;
+}
+
 .bloc1 {
     background-image: url("../img/parcours_decouverte/Groupe\ 268.png");
-    background-size: contain;
+    background-size: auto;
     background-repeat: no-repeat;
     background-position: center ;
-    min-height: 1200px;
+    height: 475px;
     width:100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -14,35 +16,146 @@
     flex-wrap:wrap; */
 }
 
+.entete {
+    margin-left: auto;
+    margin-right: auto;
+}
 
+.piece_or > img {
+    margin-top: 3%;
+    margin-left: 45%
+}
 
+.grand_title {
+    width:70%;
+    margin-top: 12%;
+}
 
-/* 2e BLOC - etapes pour demande de remboursement */
+.grand_title > h1 {
+    color:#2800dc;
+    font-size: 35px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+.piece_or_mobile {
+    display:none;
+}
+
+.recup_mon_argent {
+    width: 100%;
+    min-height: 300px;
+}
+
+.recup_mon_argent_button {
+    margin-top: 2%;
+    text-align:left
+}
+
+.bloc1bis {
+    height: 450px;
+    width:100%;
+}
+
+.texte_plus_avoir {
+    width: 40%;
+}
+
+.texte_plus_avoir h2, .texte_plus_avoir p {
+    color:#2800dc;
+}
+
+.plus_avoir {
+    font-weight: 600;
+}
+
+.texte_plus_avoir h2 {
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+.texte_plus_avoir p {
+    font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+.comment_ca_marche .row {
+    margin-top: 50px;
+    width: 100%;
+    min-height: 300px;
+}
+
+.assis_mobile {
+    display:none;
+}
+
 .bloc2 {
-    background-image: url("../img/parcours_decouverte/Groupe\ 46.png");
+    background-image: url("../img/parcours_decouverte/rectangle25.png") ;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center ;
-    min-height: 750px;
-    max-width: auto;
+    height: 550px;
+    max-width: 100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
 }
 
+.mission_hedee_button a img {
+    margin-right: 15px
+}
+
+.sous_title h2, .petit_title h3, .petit_title_1 h3, .petit_title p  {
+    color:#2800dc;
+}
+
+.sous_title > h2 {
+    font-size : 30px
+}
+
+.sous_title_rbst {
+    font-weight: 600;
+}
 
 
-/* 4e BLOC - Enseignes éligibles */
+.petit_title h3 {
+    font-size : 23px;
+    font-stretch: normal;
+}
+
+.petit_title p {
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+   
+}
+
 .bloc3 {
-    background-image: url("../img/parcours_decouverte/Groupe\ 48.png") ;
+   /* background-image: url("../img/parcours_decouverte/Groupe\ 48.png") ;
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center ;
-    min-height: 1000px;
+    background-position: center ;*/
+    height: 880px;
     max-width: 100%;
-    -webkit-background-size: cover;
+    /*-webkit-background-size: cover;
     -moz-background-size: cover;
-    -o-background-size: cover;
+    -o-background-size: cover;*/
+}
+
+.sous_title_utiliser {
+    font-weight: 600;
+}
+
+.version_mobile {
+    display:none
+}
+
+.petit_title {
+    margin-right : 35px;
+    
 }
 
 .bloc4 {
@@ -56,54 +169,316 @@
     -moz-background-size: cover;
     -o-background-size: cover;
 }
-/* 5e BLOC - Qui sommes nous ? */
+
+.age {
+    color:#ff3c00
+}
+
 .bloc5 {
-    background-image: url("../img/parcours_decouverte/Groupe\ 58.png") ;
+    background-image: url("../img/parcours_decouverte/Rectangle\ 32.png") ;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center ;
-    min-height: 1098px;
+    height: 300px;
     max-width: 100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+}
+
+.partenaires > div {
+    margin-right: 50px
+}
+
+.bpi_mobile {
+    display:none;
 }
 
 .bloc6 {
-    background-image: url("../img/parcours_decouverte/footer.png") ;
+    /*background-image: url("../img/accueil/encart_cta.png") ;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center ;
-    min-height: 554px;
-    max-width: 100%;
+    min-height: 500px;
+    max-width: 100%;*/
+    background-size: contain;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+    background:url("../img/accueil/encart_cta.png") no-repeat top center;
+    position:relative;
+    max-width:100%;
+    height:500px;
+    z-index:1;
+    margin-top: 80px
 }
 
-.footer{
+.encart_title, .encart_1, .encart_2  {
+    position:relative;
+    color:white;
+    z-index:10;
+}
+
+.encart_title {
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+.encart_1, .encart_2 {
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 0.5;
+}
+
+/*.footer{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 93px);
 }
-
 .reseaux_sociaux {
-    grid-column: 2;
-    grid-row: 2;
-    text-align: center;
-}
-
-.tout_hedee {
-    grid-column: 1;
-    grid-row: 3 / 5;
-}
-
-.hedee_vous {
     grid-column-start: 2;
-    grid-row: 3 / 5;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
-
-.contact_hedee {
+.infos_hedee {
     grid-column-start: 3;
-    grid-row: 3 / 5;
-}
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 5;
+} */
+
+
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){
+    .bloc1 {
+        height: 550px;
+    }
+
+    .grand_title {
+        width: 100%
+    }
+    .grand_title > h1 {
+        font-size: 30px;
+        text-align:center
+    } 
+    
+    .piece_or {
+        display:none;
+    }
+
+    .piece_or_mobile {
+        display:block
+    }
+
+    .recup_mon_argent {
+        min-height: 50px;
+    }
+
+    .bloc1bis {
+        height: 800px;
+        width:100%;
+    }
+
+    .comment_ca_marche .row {
+        margin-top: 5px;
+        width: 100%;
+        min-height: 300px;
+    }
+    
+    .texte_plus_avoir {
+        width: 80%;
+    }
+
+    .texte_plus_avoir h2 {
+        font-size: 27px
+    }
+
+    .assis {
+        display:none
+    }
+
+    .assis_mobile {
+        display:block;
+        width: 230px;
+        height:230px;
+        margin-top: 35px;
+        margin-bottom: 35px
+    }
+
+    .comment_ca_marche_button {
+        margin-bottom : 10px
+    } 
+      
+    .bloc2 {
+        height: 920px;
+    }
+
+    .sous_title > h2 {
+        font-size: 27px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+    }
+
+    .img_carre {
+        width:210px;
+        height:210px
+    }
+
+    .img_carre_bouton {
+        margin-left: 5px
+    }
+
+    .mission_hedee_button {
+        width: 230px
+    }
+
+
+    .bloc3 {
+        height: 1430px
+    }
+
+    .version_pc {
+        display:none
+    }
+
+    .version_mobile {
+        display:block;
+        width: 100%;
+    }
+
+    .version_mobile p {
+        margin-left:3px;
+        margin-right:3px
+
+    }
+
+    .image1_tester, .image3_recuperer {
+        margin-left:40px;
+    }
+
+    .version_mobile, .version_mobile_2  {
+        margin-left: auto;
+        margin-right:auto;
+        text-align: center
+    }
+
+    .bloc5 {
+        height: 550px
+    }
+
+    .partenaires > div {
+        margin-right: 0;
+        margin-bottom: 0
+    }
+    
+    .bpi {
+        display: none;
+    }
+    .bpi_mobile {
+        display:block
+    }
+
+    .bloc6 {
+        height: 430px;
+        margin-top: 0
+    }
+
+    .encart_title h3 {
+        font-size: 23px
+    }
+    
+    .encart_1, .encart_2 {
+        
+        line-height: 1;
+    }
+
+    .encart_bouton {
+        width: 250px;
+        height: 30px;
+        
+    }
+ }
+
+
+
+/* **************  POUR TABLETTE  ********************* */
+@media (min-width: 768px) and (max-width:991.98px){
+    .bloc1 {
+        height: 450px;
+    }
+
+    .piece_or > img {
+        margin-top: 3%;
+        margin-left: 15%
+    }
+
+    .grand_title {
+        width:100%;
+        margin-top: 25%;
+    }
+
+    .grand_title > h1 {
+        color:#2800dc;
+        font-size: 35px
+    }
+
+    .piece_or_mobile {
+        display:none;
+    }
+
+    .recup_mon_argent {
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .recup_mon_argent_button {
+        margin-top: 2%;
+        text-align:left
+    }
+
+    .bloc1bis {
+        height: 450px;
+        width:100%;
+    }
+
+    .comment_ca_marche .row {
+        margin-top: 5px;
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .texte_plus_avoir h2 {
+        font-size: 27px
+    }
+
+    .bloc2 {
+        height: 470px;
+    }
+
+    .sous_title > h2 {
+        font-size: 27px
+    }
+
+    .img_carre {
+        width:210px;
+        height:210px
+    }
+
+    .img_carre_bouton {
+        margin-left: 5px
+    }
+
+    .mission_hedee_button {
+        width: 230px
+    }
+
+    .bpi {
+        margin-left: 18px
+    }
+
+ }

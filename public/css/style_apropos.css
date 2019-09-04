@@ -1,50 +1,74 @@
-﻿:root {
-    --orange_perso: #ff3c00;
-    --orange-pale: #ffd5d2;
-    --bleu_perso: #2800dc;
-    --bleu-pale: #e1def9;
-}
-
-.bloc_header_pre {
+﻿/* 1er BLOC - vérifier votre éligibilité*/
+.bloc1 {
     background: linear-gradient(0.25turn, #fff, var(--orange-pale));
     width:100%;
-}
-
-.bloc_header_pre > div {
-    color: var(--orange_perso);
-    font-weight: bold;
-    font-family: "Work Sans";
-}
-
-.bloc_header_pre > div a:link, .bloc_header_pre > div a:visited{
-    color: var(--orange_perso);  
-}
-
-
-/* 1er BLOC - vérifier votre éligibilité*/
-.bloc1 {
-    background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 394.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center ; 
-    min-height: 681px;
-    width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    height: 45px;
     /*display:flex;
     flex-wrap:wrap; */
 }
 
+.bloc1 > p {
+    text-align:center;
+    color:#ff3c00;
+    padding-top:6px;
+    margin:0 auto;
+}
 
-/* 2e BLOC - etapes pour demande de remboursement */
-.bloc2 {
-    background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 358.png");
+.bloc1 > p > a {
+    color:#ff3c00;
+    text-decoration: none;
+    margin:0 auto;
+}
+
+/* 1 bis BLOC - etapes pour demande de remboursement */
+.bloc1bis {
+    background-image: url("../img/parcours_decouverte/pourquoi/bloc1bis_3.png");
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center ; 
-    min-height: 681px;
-    width:100%;
+    height: 490px;
+    max-width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.title1 > h2 {
+    padding-top : 70px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    color:white;
+    text-align: center
+}
+
+.garantie_prix_bas {
+    padding-top : 70px;
+}
+
+.title3  {
+    padding-top : 130px;
+}
+
+.title3 > h1, .title2 > h1, .title1 > p {
+    color: var(--white);
+    text-align:center;
+    margin: auto; 
+    width: 70%
+} 
+
+
+
+
+
+/* 2e BLOC - etapes pour demande de remboursement */
+.bloc2 {
+    background-image: url("../img/parcours_decouverte/pourquoi/bloc2.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center ; 
+    height: 490px;
+    max-width:100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -54,50 +78,263 @@
 
 /* 4e BLOC - Enseignes éligibles */
 .bloc3 {
-    background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 360.png") ;
+    background-image: url("../img/parcours_decouverte/pourquoi/bloc3.png") ;
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center ; 
-    min-height: 681px;
-    width:100%;
+    height: 490px;
+    max-width:100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
 }
 
 .bloc4 {
-    background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 359.png") ;
+    background-image: url("../img/parcours_decouverte/pourquoi/bloc4.png") ;
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center ; 
-    min-height: 1500px;
-    width:100%;
-    -webkit-background-size: 100%;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-}
-/* 5e BLOC - Qui sommes nous ? */
-.bloc5 {
-    background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 364.png") ;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center ; 
-    min-height: 681px;
-    width:100%;
+    height: 490px;
+    max-width:100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+}
+
+.bloc4bis {
+    background-image: url("../img/parcours_decouverte/pourquoi/bloc4bis.png") ;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center ; 
+    height: 650px;
+    max-width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.title4 {
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    padding-top : 50px;
+    text-align:center;
+}
+
+.title4 > h1 {
+    color: var(--white);
+    margin: auto; 
+    width: 70%;
+    padding-top : 80px;
+}
+
+.title4 > h2 {
+    color: #ff7B22;
+    margin: auto;
+    padding-top : 60px;
+    width: 70%;
+}
+
+.title4, .title3, .title2 > h1, {
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+
+
+
+/* 5e BLOC - Qui sommes nous ? */
+.bloc5 {
+    background-size: contain;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background:url("../img/parcours_decouverte/pourquoi/groupe364.png") no-repeat top center;
+    position:relative;
+    max-width:100%;
+    height:500px;
+    z-index:1;
+    margin-bottom: 50px
+}
+
+
+.encart_title_pourquoi, .encart_1_pourquoi, .encart_2_pourquoi, .encart_3_pourquoi  {
+    position:relative;
+    color:#ff3c00;;
+    z-index:10;
+}
+
+.encart_title_pourquoi {
+    padding-top: 200px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: -0.63px;
+    width: 70%;
+    margin: auto auto 40px auto;
+}
+
+.encart_1_pourquoi, .encart_2_pourquoi, .encart_3_pourquoi {
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    width: 90%;
+    margin:auto
 
 }
 
 .bloc6 {
-    background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 290.png");
-    background-size: contain;
+    background-image: url("../img/parcours_decouverte/pourquoi/groupe290.png");
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: center ;
-    min-height: 1494px;
+    height: 400px;
     max-width: 100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+}
+
+
+.encart_title_acteur, .encart_1_acteur, .encart_2_acteur, .encart_3_acteur  {
+    position:relative;
+    color:#2800dc;
+    z-index:10;
+}
+
+.encart_title_acteur {
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: -0.63px;
+}
+
+.encart_1_acteur, .encart_2_acteur, .encart_3_acteur {
+    padding-top: 40px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    margin-bottom: 40px
+}
+
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){
+
+    .bloc1bis {
+        height: 390px;
+    }
+
+    .garantie_prix_bas {
+        font-size : 32px
+    }
+
+    .bloc2 {
+        height: 390px;
+    }
+
+    .bloc3 {
+        height: 390px;
+    }
+
+    .bloc4 {
+        height: 390px;
+    }
+
+    .bloc4bis {
+        height: 390px;
+    }
+
+    .title3  {
+        padding-top : 70px;
+    }
+
+    .title3 > h1{
+        font-size : 27px;
+        margin: auto; 
+        width: 90%;
+    }
+
+    .title4 > h2 {
+        font-size : 22px;
+        padding-top : 10px;
+        margin: auto; 
+        width: 90%;
+    }
+
+    .title4 > h1 {
+        font-size : 25px;
+        padding-top : 50px;
+        margin: auto; 
+        width: 90%;
+    }
+
+   .encart_title_pourquoi > h3 {
+    font-size : 21px
+   }
+
+   .encart_title_pourquoi {
+       margin-bottom: 20px
+   }
+
+ }
+
+
+/* **************  POUR TABLETTE  ********************* */
+@media (min-width: 768px) and (max-width:991.98px){ 
+    .bloc1bis {
+        height: 390px;
+    }
+    .garantie_prix_bas {
+        font-size : 37px
+    }
+
+    .bloc2 {
+        height: 390px;
+    }
+
+    .bloc3 {
+        height: 390px;
+    }
+
+    .bloc4 {
+        height: 390px;
+    }
+    .title3 > h1{
+        font-size : 31px
+    }
+
+    .bloc4bis {
+        height: 400px;
+    }
+
+    .title4 > h2 {
+        font-size : 23px;
+        padding-top : 30px;
+    }
+
+    .title4 > h1 {
+        font-size : 26px;
+        padding-top : 50px;
+    }
+
+   .encart_title_pourquoi > h3 {
+    font-size : 23px
+   }
+
+   .encart_title_pourquoi {
+       margin-bottom: 22px
+   }
+
+
+
+
+
 }

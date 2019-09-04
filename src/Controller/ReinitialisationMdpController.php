@@ -97,7 +97,7 @@ class ReinitialisationMdpController extends AbstractController
         // le token associé au membre est null
         // le token enregistré en base et le token présent dans l'url ne sont pas égaux
         // le token date de plus de 10 minutes
-        if ($user->getToken() === null || $token !== $user->getToken() || !$this->isRequestInTime($user->getPasswordRequestedAt()))
+       if ($user->getToken() === null || $token !== $user->getToken() || !$this->isRequestInTime($user->getPasswordRequestedAt()))
         {
             throw new AccessDeniedHttpException();
         }

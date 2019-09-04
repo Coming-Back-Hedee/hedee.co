@@ -255,6 +255,14 @@
                 bodyTag: "section",
                 contentMode: "async",
                 transitionEffect: "slideLeft",
+                onInit: function (event, currentIndex){
+                    if(currentIndex === 0){
+                        document.getElementById("menuprevious").parentElement.style.display = "none";
+                    }
+                    else{
+                        document.getElementById("menuprevious").parentElement.style.display = "table-cell";
+                    }
+                },
                 onStepChanging: function (event, currentIndex, newIndex)
                 {
                 if(currentIndex > newIndex){
@@ -315,8 +323,10 @@
                 },
                 onStepChanged: function (event, currentIndex, priorIndex)
                 {   
+                    
                     //passe directement à l'étape 4 si l'utilisateur est connecté
                     if (currentIndex === 1){
+                        document.getElementById("menuprevious").parentElement.style.display = "table-cell";
                         document.getElementById("menunext").parentElement.style.display = "none";
                         if (priorIndex == 0 && $("[name='connect']:checked").val() != "pmembre" && 
                             ({{app.user|json_encode|raw}} != null) || $('#steps-uid-0-t-4').parent().attr('aria-disabled') == false )

@@ -1,17 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ReinitialisationMdpController!{% endblock %}
+{% block title %}Renouvellement de mot de passe{% endblock %}
+
+{% block stylesheets %} 
+    {{ parent() }}
+    <link rel="stylesheet" href="{{asset('css/style_mdp.css')}}">
+{% endblock %}
 
 {% block main %}
-{% for message in app.flashes('warning') %}
-    <div class="flash-notice">
-        {{ message }}
+    <div class="bloc1 container">
+        {% for message in app.flashes('warning') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <h1>Renouvellement du mot de passe</h1>
+        {{form_start(form)}}
+            {{form_widget(form.plainPassword.first,  {'attr':{'placeholder': 'Nouveau mot de passe'}})}}
+            {{form_widget(form.plainPassword.second,  {'attr':{'placeholder': 'Confirmez le mot de passe'}})}}
+            <button class="blue_button"  type="submit">Envoyer</button>
+        {{form_end(form)}}
     </div>
-{% endfor %}
-<h1>Renouvellement du mot de passe</h1>
-{{form_start(form)}}
-	{{form_row(form.plainPassword.first)}}
-	{{form_row(form.plainPassword.second)}}
-	<button class=""  type="submit">Envoyer</button>
-{{form_end(form)}}
 {% endblock %}

@@ -65,7 +65,7 @@
                                     {% else %}
                                         <a href="{{ path('connexion') }}" class="js-menu-client-button">
 											<button class="compte_client ">
-                                        		<img src="../img/header/compte_client.png" width="30" height="30" 
+                                        		<img src="{{asset('img/header/compte_client.png')}}" width="30" height="30" 
 													 class="img-fluid" alt="connexion compte client" title="connexion"> 
 											</button> 
 										</a>
@@ -94,7 +94,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div>
-									<a href="{{ path('enseigne') }}"> <img src="../img/header/recup_argent.png" width="230" height="50" class="img-fluid" alt="connexion compte client" title="connexion"> </a>
+									<a href="{{ path('enseigne') }}"> <img src="{{asset('img/header/recup_argent.png')}}" width="230" height="50" class="img-fluid" alt="connexion compte client" title="connexion"> </a>
                                 </div>
                             </div> <!-- fin class="col-md-12"-->
                         </div> <!-- fin class="row"-->
@@ -157,7 +157,7 @@
 
 					<div class="entete_menu_open">
 							<div class="logo_h_entete">
-								<a href="#"> <img src="../img/header/logo_hedee.png" width="150" height="130" class="img-fluid" alt=""> </a>
+								<a href="#"> <img src="{{asset('img/header/logo_hedee.png')}}" width="150" height="130" class="img-fluid" alt=""> </a>
 							</div>
 					</div>
 				
@@ -183,13 +183,13 @@
 					<div class="bas">
 						<div class="compte_h_entete">
 							<a href="{{ path('connexion') }}" class="js-menu-client-button"> 
-								<img src="../img/header/mon_compte.png" width="200" height="130" class="img-fluid" alt=""> 
+								<img src="{{asset('img/header/mon_compte.png')}}" width="200" height="130" class="img-fluid" alt=""> 
 							</a>	
 						</div>
 					
 						<div class="recup_argent_h_entete">
 							<a href="{{ path('enseigne') }}"> 
-								<img src="../img/header/recup_argent.png" width="250" height="100" class="img-fluid" alt=""> 
+								<img src="{{asset('img/header/recup_argent.png')}}" width="250" height="100" class="img-fluid" alt=""> 
 							</a>
 						</div>
 					</div>
@@ -201,16 +201,16 @@
 						</div> <!--fin class="title_reseau"-->
 						<div class="justify-content-center logo_reseau_menu">
 							<div class="fb_orange">
-								<a href="#"> <img src="../img/header/fb_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+								<a href="#"> <img src="img/header/fb_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
 							</div>
 							<div class="twitter_orange">
-								<a href="#"> <img src="../img/header/twitter_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+								<a href="#"> <img src="img/header/twitter_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
 							</div>
 							<div class="insta_orange">
-								<a href="#"> <img src="../img/header/insta_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+								<a href="#"> <img src="img/header/insta_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
 							</div>
 							<div class="linkedin_orange">
-								<a href="#"> <img src="../img/header/linkedin_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+								<a href="#"> <img src="img/header/linkedin_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
 							</div>
 						</div> <!--fin class="logo_reseau_menu"-->
 					</div> <!--fin class="reseau_menu"-->
@@ -289,7 +289,7 @@
 			Vous pouvez les désactiver dans les paramètres de votre navigateur. 
 			Vous trouverez davantage d’informations concernant notre politique 
 			en matière de cookies dans notre Politique de confidentialité.
-			<button class="close js-menu-cookie-close"><i class="fa fa-close" style="font-size:24px"></i></button>
+			<button class="close js-menu-cookie-close">OK</button>
 		</div>
 		<footer>
 			<div class="container-fluid footer_bleu">

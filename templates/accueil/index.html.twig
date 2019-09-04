@@ -16,35 +16,238 @@
 {% block title %}Hedee{% endblock %}
 
 {% block main %}
-        <div class="bloc1">
-            <div class="la_presentation">
-            
-            </div><!-- fin class="la_presentation" -->
+    <div class="container-fluid">
+        <div class="row eligibilite">
 
-            {#<div id="my-icon-select"></div>
+            <div class="col-md-12 bloc1">
+
+                <div class="entete row ">
+                    <div class="col-md-6 piece_or">
+                        <img src="{{asset('img/accueil/piece_or.png')}}" alt="" width="350" height="30" class="img-fluid" >
+                    </div>
+
+                    <div class="col-md-6 gt ">
+                        <div class="grand_title">
+                            <h1>Gagnez de l'argent dès que le prix de votre achat baisse !</h1>
+                        </div>
+
+                        <div class="col-md-6 piece_or_mobile text-center">
+                            <img src="{{asset('img/accueil/piece_or_mobile.png')}}" alt="" width="150" height="20" class="img-fluid" >
+                        </div>
+
+                        <div class="recup_mon_argent">
+                            <div class="recup_mon_argent_button">
+                                <a href="{{ path('enseigne') }}">  <img width="400" height="30" class="img-fluid" src="{{asset('img/accueil/bouton_accueil1.png')}}" alt="" > </a>
+                            </div>
+                        </div>
+                    </div><!-- fin class="col-md-6 gt" -->
+                </div> <!-- fin class="entete row" -->
+
+            </div> <!-- fin class="col-md-12 bloc1" -->
+        </div> <!-- fin class="row eligibilite" -->
+
+        <div class="row  comment_ca_marche  ">
+            <div class="col-md-12 bloc1bis ">
+                        <div class="row justify-content-center">
+                            <div class="col-6-md-6 texte_plus_avoir ">
+                                <h2><span class="plus_avoir">Ne vous faites plus avoir</span> sur le prix de votre achat!</h2>
+                                <br>
+                                <p>Lorsque vous faites un achat, vous n'avez aucune garantie de l'acheter au prix le plus bas...</p>
+                                <p>Hedee identifie pour vous le produit au meilleur prix, et vous rembourse automatiquement la différence!</p>
+
+                                <div class="assis_mobile ">
+                                    <img width="280" height="280" class="img-fluid" src="{{asset('img/accueil/assis.png')}}" alt="" >
+                                </div>
+
+                                <div class="comment_ca_marche_button ">
+                                    <a href="{{ path('comment_ca_marche') }}">  <img width="300" height="30" class="img-fluid" src="{{('img/accueil/bouton_accueil2.png')}}" alt="" > </a>
+                                </div>
+                            </div>
+                    
+                            <div class="col-6-md-6 assis ">
+                                <img width="300" height="300" class="img-fluid" src="{{asset('img/accueil/assis.png')}}" alt="" >
+                            </div>
+                        </div>
+
+                    
+            </div>  <!-- fin class="col-md-12 bloc1bis" -->
+        </div> <!-- fin class="comment_ca_marche row" -->
         
-            <input type="text" id="selected-text" name="selected-text" style="width:65px;">#}
-        </div> <!-- fin class="bloc1" -->
+    
 
-        <div class="bloc2">
+    <div class="row mission_hedee">
+        <div class="col-md-12 bloc2">
+            <div class="text-center mt-5 sous_title">
+                <h2><span class="sous_title_rbst">Hedee,</span> c'est le remboursement :</h2>
+            </div>
 
+            <div class="row justify-content-center mt-5 img_carre_bouton">
+                <div class="col-4-md-4 mr-4 img_carre">
+                    <img src="{{asset('img/accueil/gagnant.png')}}" alt="" width="250" height="250" class="img-fluid">
+                </div>
+
+                <div class="col-4-md-4 mr-4 img_carre">
+                    <img src="{{asset('img/accueil/automatique.png')}}" alt="" width="250" height="250" class="img-fluid">
+                </div>
+
+                <div class="col-4-md-4 mr-4 img_carre">
+                    <img src="{{asset('img/accueil/gratuit.png')}}" alt="" width="250" height="250" class="img-fluid">
+                </div>
+            </div>
+            
+            <div class="row justify-content-center mt-5 mb-5">
+                <div class="col-4-md-4 mission_hedee_button  ">
+                    <a href="{{ path('a_propos') }}">  <img width="250" height="30" class="img-fluid" src="{{asset('img/accueil/bouton_accueil3.png')}}" alt="" > </a>
+                </div>
+            </div>
+                    
         </div> <!-- fin class="bloc2" -->
+    </div> <!-- fin class="row mission_hedee" -->
+
+        
+    <div class="row utiliser_hedee">    
+        <div class="col-md-12 bloc3">
+            <div class="text-center sous_title mt-5 mb-5">
+                <h2>Comment <span class="sous_title_utiliser">utiliser hedee ?<span></h2>
+            </div>
+
+            <div class="row tester justify-content-center  mt-5 mb-5">
+                <!--version mobile-->
+                <div class="col-4-md-6 petit_title version_mobile">
+                    <img src="{{asset('img/accueil/tester.png')}}" alt="" width="100" height="100" class="img-fluid">
+                    <h3>Tester votre éligibilité</h3>
+                    <p>en moins d'une minute en remplissant le formulaire</p>
+                </div>
+                <!--fin version mobile-->
+
+                <div class="col-4-md-6 mr-5 image1_tester">
+                    <img src="{{asset('img/accueil/image1.png')}}" alt="" width="230" height="190" class="img-fluid">
+                </div> 
+
+                <div class="col-4-md-6 petit_title version_pc">
+                    <img src="{{asset('img/accueil/tester.png')}}" alt="" width="100" height="100" class="img-fluid">
+                    <h3>Tester votre éligibilité</h3>
+                    <p>en moins d'une minute en remplissant le formulaire</p>
+                </div>
+            </div> <!-- fin class="row tester" -->
+
+            <div class="row chercher justify-content-center  mt-5 mb-5">
+                
+                <div class="col-4-md-6 petit_title version_mobile_2">
+                    <img src="{{asset('img/accueil/chercher.png')}}" alt="" width="100" height="100" class="img-fluid">
+                    <h3>Hedee cherche le meilleur prix</h3>
+                    <p>et vous alerte dès qu'il a trouvé</p>
+                </div>
+
+                <div class="col-4-md-6 image2_chercher">
+                    <img src="{{asset('img/accueil/image2.png')}}" alt="" width="230" height="190" class="img-fluid">
+                </div>
+            </div> <!-- fin class="row chercher" -->
 
 
-        <div class="bloc3">
-            {#<div class="titre_pourquoi">
+            <div class="row recuperer justify-content-center ">
+                <!--version mobile-->
+                <div class="col-4-md-6 petit_title version_mobile">
+                    <img src="{{asset('img/accueil/recuperer.png')}}" alt="" width="100" height="100" class="img-fluid">
+                    <h3>Récupérer votre argent</h3>
+                    <p>directement sur votre compte</p>
+                </div>
+                <!--fin version mobile-->
 
-            </div> <!-- fin class="nous_vous" -->#}
+                <div class="col-4-md-6 mr-5 image3_recuperer">
+                    <img src="{{asset('img/accueil/image3.png')}}" alt="" width="230" height="190" class="img-fluid">
+                </div>
+
+                <div class="col-4-md-6 petit_title version_pc">
+                    <img src="{{asset('img/accueil/recuperer.png')}}" alt="" width="100" height="100" class="img-fluid">
+                    <h3>Récupérer votre argent</h3>
+                    <p>directement sur votre compte</p>
+                </div>
+            </div> <!-- fin class="row recuperer" -->
 
         </div> <!-- fin class="bloc3" -->
+    </div> <!-- fin class="row utiliser_hedee" -->
 
-        <div class="bloc4"> 
 
-        </div> <!-- fin class="bloc4" -->
+<!--AVIS CLIENT A INTEGRER SI VRAIS AVIS DEPOSES-->
+    <!--<div class="row avis_hedee">  
+        <div class="col-md-12 bloc4">
+            <div class="row justify-content-center avis">
+                <div class="col-4-md-6 petit_title">
+                    <img src="img/accueil/emoji2.png" alt="" width="100" height="100" class="img-fluid">
+                        <p>Marie</p>
+                        <p><span class="age">27 ANS</span></p>
+                    <img src="img/accueil/groupe92.png" alt="" width="250" height="210" class="img-fluid">
+                </div>
+                <div class="col-4-md-6 petit_title">
+                    <img src="img/accueil/emoji3.png" alt="" width="100" height="100" class="img-fluid">
+                        <p>Oumou</p>
+                        <p><span class="age">56 ANS</span></p>     
+                    <img src="img/accueil/groupe94.png" alt="" width="250" height="210" class="img-fluid">
+                </div>
+            </div>  fin class="row avis" -->
 
-        <div class="bloc5">
+       <!-- </div>  fin class="col-md-12 bloc4" -->
+    <!--</div>  fin class="row avis_hedee" -->
 
-        </div> <!-- fin class="bloc5" -->
+        
+        
+    <div class="row confiance_hedee">    
+        <div class="col-md-12 bloc5">
+            <div class="text-center sous_title mt-5 mb-5">
+                <h2>Les <strong>partenaires de confiance<strong></h2>
+            </div>
+
+            <div class="row justify-content-center partenaires mb-5">
+
+                <div class="col-4-md-4 bpi">
+                    <img src="{{asset('img/accueil/bpi.png')}}" alt="" width="200" height="200" class="img-fluid">
+                </div>
+
+                <div class="col-4-md-4 bpi_mobile">
+                    <img src="{{asset('img/accueil/bpi_mobile.png')}}" alt="" width="200" height="200" class="img-fluid">
+                </div>
+
+                <div class="col-4-md-4">
+                    <img src="{{asset('img/accueil/french-tech.png')}}" alt="" width="200" height="200" class="img-fluid">
+                </div>
+
+                <div class="col-4-md-4">
+                    <img src="{{asset('img/accueil/pepiniere1.png')}}" alt="" width="220" height="200" class="img-fluid">
+                </div>
+            
+            </div> <!-- fin class="row partenaires" -->
+        </div> <!-- fin class="col-md-12 bloc5" -->
+    </div> <!-- fin class="row confiance_hedee" -->
+
+
+    <div class="row encart_cta">    
+            <div class="col-md-12 bloc6">
+            
+                <div class="encart_title text-center mt-4 mb-5">
+                    <h3><strong>Vous en avez assez de payer</strong></h3>
+                    <h3><strong>trop cher ?</strong></h3>
+                </div>
+                
+                <div class="encart_1 text-center mb-5">
+                    <p><strong>Payez votre produit au prix juste.</strong></p>
+                    <p>Hedee trouve pour vous le prix juste et vous rembourse automatiquement</p>
+                    <p>la différence.</p>
+                </div>
+
+                <div class="encart_2 text-center mb-4">
+                    <p>Ce serait dommage de vous en priver...</p>
+                </div>
+
+                <div class="encart_bouton text-center">
+                    <a href="{{ path('enseigne') }}">  <img width="300" height="30" class="img-fluid" src="{{asset('img/accueil/bouton_cta.png')}}" alt="" > </a>
+                </div>
+
+            </div> <!-- fin class="col-md-12 bloc6" -->
+        </div> <!-- fin class="row encart_cta" -->
+
+
+    </div> <!-- fin class="container-fluid" -->
 
 
 {% endblock %} {#fin block main#}
