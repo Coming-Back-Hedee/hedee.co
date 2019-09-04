@@ -341,4 +341,30 @@
 
 
 /* **************  POUR TABLETTE  ********************* */
-@media (min-width: 768px) and (max-width:991.98px){ }
+@media (min-width: 768px) and (max-width:991.98px){ 
+    .bloc1bis {
+        height: 800px;
+        max-width:100%;
+    }
+    .partie1 {
+        width: 90%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    
+    .partie2 {
+        width: 70%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .bloc2_left {
+        height: 247px;
+        max-width:50%;
+    }
+
+    .bloc2_right {
+        height: 247px;
+    }
+
+}

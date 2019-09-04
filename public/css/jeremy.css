@@ -120,6 +120,260 @@
     height: 520px;
 }
 
+.js-menu-cookie{
+    position: fixed;
+    display: none;
+    opacity: 0;
+}
+ 
+.js-menu-cookie.is-open {
+    display: flex;
+    bottom: 36px;
+    width: 100%;
+    opacity: 1;
+    background-color: var(--bleu-pale);
+}
+
+/* style popup 
+.screen-connection{
+    position: fixed;
+    display: none;
+    opacity: 0;
+    width: 100vw; /
+	height: 105vh; 
+}
+ 
+.screen-connection.is-open {
+    display: flex;
+    top: 128px;
+    width: 100%;
+    opacity: 1;
+    background-color: var(--bleu-pale);
+}
+.screen-inscription{
+    position: fixed;
+    display: none;
+    opacity: 0;
+    width: 100vw;
+	height: 105vh; 
+}
+ 
+.screen-inscription.is-open {
+    display: flex;
+    top: 128px;
+    width: 100%;
+    opacity: 1;
+    background-color: var(--bleu-pale);
+}
+.bloc_popup{
+    display: flex;
+    margin: auto !important;
+    
+}
+.block_left1{
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    display: flex;
+    color: var(--bleu_perso);
+}
+.block_left2{
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    display: flex;
+    color: var(--orange_perso);
+}
+.switch{
+    margin: auto;
+}
+.switch_first{
+    padding: 12.5px;
+    padding-right: 25px;
+    position: relative;
+    background-color: #fff;
+    color: var(--bleu_perso);
+    border-radius: 80px;
+}
+.switch_first2{
+    padding: 12.5px;
+    padding-right: 25px;
+    position: relative;
+    background-color: #fff;
+    color: var(--orange_perso);
+    border-radius: 80px;
+}
+.switch_second1{
+    padding: 12.5px;
+    position: relative;
+    left: -28px;
+    background-color: var(--orange_perso);
+    border-radius: 80px;
+    color: #fff;
+}
+.switch_second2{
+    padding: 12.5px;
+    position: relative;
+    left: -20px;
+    background-color: var(--bleu_perso);
+    border-radius: 60px;
+    color: #fff;
+}
+a:visited, a{
+    color: var(--bleu_perso);
+}
+.block_right{
+    display: flex;
+    position: relative;
+    background-color: #fff;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 300px;
+}
+.block_left1 + .block_right{
+    color: var(--bleu_perso);
+}
+.block_left2 + .block_right{
+    color: var(--orange_perso);
+}
+.close{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    border-radius: 48px;
+    background-color: #fff;
+    color: var(--bleu_perso);
+    padding: 25px;
+}
+#connexion, #inscription{
+    position: relative;
+    margin: auto;
+}
+label {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: block;
+    
+}
+input{
+    border: solid 2px;
+    border-color: var(--bleu-pale); 
+    margin: 7.5% auto;
+    display: block;
+} 
+#connexion input{
+    border-color: var(--bleu-pale);
+}
+#inscription input{
+    border-color: var(--orange-pale);
+}
+::placeholder{
+    text-align: center;
+}
+#inscription ::placeholder{
+    color: var(--orange-pale);
+}
+#connexion a, #inscription a{
+    float: right;
+}
+#connexion button, #inscription button{
+    margin: auto;
+    margin-top: 7.5%;
+}
+/* **************  POUR MOBILE  ********************* 
+@media screen and (max-width:767.98px){
+    .bloc_popup .col-xs-12, .bloc_popup .col-sm-12{
+        width: 300px;
+    }
+    .block_right{
+        order: -1;
+    }
+    .block_left1{
+        height: 300px;
+        background-image: url("../img/popup/Groupe\ 194.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+    
+    .block_left2{
+        background-image: url("../img/popup/Groupe\ 194b.png");
+        height: 350px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+    input{
+        height: 30px;  
+    }
+    
+}
+/* **************  POUR TABLETTES  ********************* 
+@media (min-width: 768px) and (max-width:991.98px){
+    .bloc_popup .col-md-6{
+        width: 300px;
+    }
+    .block_left1{
+        height: 300px;
+        width: 300px;
+        background-image: url("../img/popup/Groupe\ 194.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+    
+    .block_left2{
+        background-image: url("../img/popup/Groupe\ 194b.png");
+        height: 300px;
+        width: 300px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+    .block_right{
+        height: 300px;
+        width: 300px;
+    }
+    input{
+        height: 40px;  
+    }
+    ::placeholder{
+        font-size: 12px;
+    }
+}
+/* **************  POUR GRANDS ECRANS  ********************* 
+@media screen and (min-width: 992px){
+    .bloc_popup .col-lg-6{
+        width: 480px;
+    }
+    .block_left1{
+        height: 480px;
+        width: 480px;
+        background-image: url("../img/popup/Groupe\ 193.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+    
+    .block_left2{
+        background-image: url("../img/popup/Groupe\ 193b.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center ;
+        height: 480px;
+        width: 480px;
+    }
+    .block_right{
+        height: 480px;
+        width: 480px;
+    }
+    input{
+        height: 60px;  
+    }    
+    #connexion, #inscription{
+        width: 350px;
+    }
+}*/
 
 @media screen and (max-width:767.98px){
     .title_box > h2{
