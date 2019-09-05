@@ -124,6 +124,8 @@
     position: fixed;
     display: none;
     opacity: 0;
+    
+    
 }
  
 .js-menu-cookie.is-open {
@@ -131,7 +133,9 @@
     bottom: 36px;
     width: 100%;
     opacity: 1;
-    background-color: var(--bleu-pale);
+    background-color: var(--orange_perso);
+    color: #fff;
+    z-index: 5;
 }
 
 /* style popup 

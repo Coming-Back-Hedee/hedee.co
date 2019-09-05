@@ -7,9 +7,13 @@
 {% block stylesheets %} 
     {{ parent() }}
     <link rel="stylesheet" href="{{asset('css/style_accueil.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
+    <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
+        
+    <script type="text/javascript" src="{{asset('js/iscroll.js')}}"></script>
 {% endblock %}
 
-{% block title %}Rembourseo{% endblock %}
+{% block title %}Hedee{% endblock %}
 
 {% block main %}
     <div class="container-fluid">
@@ -19,7 +23,7 @@
 
                 <div class="entete row ">
                     <div class="col-md-6 piece_or">
-                        <img src="../img/accueil/piece_or.png" alt="" width="350" height="30" class="img-fluid" >
+                        <img src="{{asset('img/accueil/piece_or.png')}}" alt="" width="350" height="30" class="img-fluid" >
                     </div>
 
                     <div class="col-md-6 gt ">
@@ -28,12 +32,12 @@
                         </div>
 
                         <div class="col-md-6 piece_or_mobile text-center">
-                            <img src="../img/accueil/piece_or_mobile.png" alt="" width="150" height="20" class="img-fluid" >
+                            <img src="{{asset('img/accueil/piece_or_mobile.png')}}" alt="" width="150" height="20" class="img-fluid" >
                         </div>
 
                         <div class="recup_mon_argent">
                             <div class="recup_mon_argent_button">
-                                <a href="{{ path('enseigne') }}">  <img width="400" height="30" class="img-fluid" src="../img/accueil/bouton_accueil1.png" alt="" > </a>
+                                <a href="{{ path('enseigne') }}">  <img width="400" height="30" class="img-fluid" src="{{asset('img/accueil/bouton_accueil1.png')}}" alt="" > </a>
                             </div>
                         </div>
                     </div><!-- fin class="col-md-6 gt" -->
@@ -52,16 +56,16 @@
                                 <p>Hedee identifie pour vous le produit au meilleur prix, et vous rembourse automatiquement la différence!</p>
 
                                 <div class="assis_mobile ">
-                                    <img width="280" height="280" class="img-fluid" src="../img/accueil/assis.png" alt="" >
+                                    <img width="280" height="280" class="img-fluid" src="{{asset('img/accueil/assis.png')}}" alt="" >
                                 </div>
 
                                 <div class="comment_ca_marche_button ">
-                                    <a href="#">  <img width="300" height="30" class="img-fluid" src="../img/accueil/bouton_accueil2.png" alt="" > </a>
+                                    <a href="{{ path('comment_ca_marche') }}">  <img width="300" height="30" class="img-fluid" src="{{('img/accueil/bouton_accueil2.png')}}" alt="" > </a>
                                 </div>
                             </div>
                     
                             <div class="col-6-md-6 assis ">
-                                <img width="300" height="300" class="img-fluid" src="../img/accueil/assis.png" alt="" >
+                                <img width="300" height="300" class="img-fluid" src="{{asset('img/accueil/assis.png')}}" alt="" >
                             </div>
                         </div>
 
@@ -79,21 +83,21 @@
 
             <div class="row justify-content-center mt-5 img_carre_bouton">
                 <div class="col-4-md-4 mr-4 img_carre">
-                    <img src="../img/accueil/gagnant.png" alt="" width="250" height="250" class="img-fluid">
+                    <img src="{{asset('img/accueil/gagnant.png')}}" alt="" width="250" height="250" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-4 mr-4 img_carre">
-                    <img src="../img/accueil/automatique.png" alt="" width="250" height="250" class="img-fluid">
+                    <img src="{{asset('img/accueil/automatique.png')}}" alt="" width="250" height="250" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-4 mr-4 img_carre">
-                    <img src="../img/accueil/gratuit.png" alt="" width="250" height="250" class="img-fluid">
+                    <img src="{{asset('img/accueil/gratuit.png')}}" alt="" width="250" height="250" class="img-fluid">
                 </div>
             </div>
             
             <div class="row justify-content-center mt-5 mb-5">
                 <div class="col-4-md-4 mission_hedee_button  ">
-                    <a href="#">  <img width="250" height="30" class="img-fluid" src="../img/accueil/bouton_accueil3.png" alt="" > </a>
+                    <a href="{{ path('a_propos') }}">  <img width="250" height="30" class="img-fluid" src="{{asset('img/accueil/bouton_accueil3.png')}}" alt="" > </a>
                 </div>
             </div>
                     
@@ -110,18 +114,18 @@
             <div class="row tester justify-content-center  mt-5 mb-5">
                 <!--version mobile-->
                 <div class="col-4-md-6 petit_title version_mobile">
-                    <img src="../img/accueil/tester.png" alt="" width="100" height="100" class="img-fluid">
+                    <img src="{{asset('img/accueil/tester.png')}}" alt="" width="100" height="100" class="img-fluid">
                     <h3>Tester votre éligibilité</h3>
                     <p>en moins d'une minute en remplissant le formulaire</p>
                 </div>
                 <!--fin version mobile-->
 
                 <div class="col-4-md-6 mr-5 image1_tester">
-                    <img src="../img/accueil/image1.png" alt="" width="230" height="190" class="img-fluid">
+                    <img src="{{asset('img/accueil/image1.png')}}" alt="" width="230" height="190" class="img-fluid">
                 </div> 
 
                 <div class="col-4-md-6 petit_title version_pc">
-                    <img src="../img/accueil/tester.png" alt="" width="100" height="100" class="img-fluid">
+                    <img src="{{asset('img/accueil/tester.png')}}" alt="" width="100" height="100" class="img-fluid">
                     <h3>Tester votre éligibilité</h3>
                     <p>en moins d'une minute en remplissant le formulaire</p>
                 </div>
@@ -130,13 +134,13 @@
             <div class="row chercher justify-content-center  mt-5 mb-5">
                 
                 <div class="col-4-md-6 petit_title version_mobile_2">
-                    <img src="../img/accueil/chercher.png" alt="" width="100" height="100" class="img-fluid">
+                    <img src="{{asset('img/accueil/chercher.png')}}" alt="" width="100" height="100" class="img-fluid">
                     <h3>Hedee cherche le meilleur prix</h3>
                     <p>et vous alerte dès qu'il a trouvé</p>
                 </div>
 
                 <div class="col-4-md-6 image2_chercher">
-                    <img src="../img/accueil/image2.png" alt="" width="230" height="190" class="img-fluid">
+                    <img src="{{asset('img/accueil/image2.png')}}" alt="" width="230" height="190" class="img-fluid">
                 </div>
             </div> <!-- fin class="row chercher" -->
 
@@ -144,18 +148,18 @@
             <div class="row recuperer justify-content-center ">
                 <!--version mobile-->
                 <div class="col-4-md-6 petit_title version_mobile">
-                    <img src="../img/accueil/recuperer.png" alt="" width="100" height="100" class="img-fluid">
+                    <img src="{{asset('img/accueil/recuperer.png')}}" alt="" width="100" height="100" class="img-fluid">
                     <h3>Récupérer votre argent</h3>
                     <p>directement sur votre compte</p>
                 </div>
                 <!--fin version mobile-->
 
                 <div class="col-4-md-6 mr-5 image3_recuperer">
-                    <img src="../img/accueil/image3.png" alt="" width="230" height="190" class="img-fluid">
+                    <img src="{{asset('img/accueil/image3.png')}}" alt="" width="230" height="190" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-6 petit_title version_pc">
-                    <img src="../img/accueil/recuperer.png" alt="" width="100" height="100" class="img-fluid">
+                    <img src="{{asset('img/accueil/recuperer.png')}}" alt="" width="100" height="100" class="img-fluid">
                     <h3>Récupérer votre argent</h3>
                     <p>directement sur votre compte</p>
                 </div>
@@ -168,20 +172,18 @@
 <!--AVIS CLIENT A INTEGRER SI VRAIS AVIS DEPOSES-->
     <!--<div class="row avis_hedee">  
         <div class="col-md-12 bloc4">
-
             <div class="row justify-content-center avis">
                 <div class="col-4-md-6 petit_title">
-                    <img src="../img/accueil/emoji2.png" alt="" width="100" height="100" class="img-fluid">
+                    <img src="img/accueil/emoji2.png" alt="" width="100" height="100" class="img-fluid">
                         <p>Marie</p>
                         <p><span class="age">27 ANS</span></p>
-                    <img src="../img/accueil/groupe92.png" alt="" width="250" height="210" class="img-fluid">
+                    <img src="img/accueil/groupe92.png" alt="" width="250" height="210" class="img-fluid">
                 </div>
-
                 <div class="col-4-md-6 petit_title">
-                    <img src="../img/accueil/emoji3.png" alt="" width="100" height="100" class="img-fluid">
+                    <img src="img/accueil/emoji3.png" alt="" width="100" height="100" class="img-fluid">
                         <p>Oumou</p>
                         <p><span class="age">56 ANS</span></p>     
-                    <img src="../img/accueil/groupe94.png" alt="" width="250" height="210" class="img-fluid">
+                    <img src="img/accueil/groupe94.png" alt="" width="250" height="210" class="img-fluid">
                 </div>
             </div>  fin class="row avis" -->
 
@@ -199,19 +201,19 @@
             <div class="row justify-content-center partenaires mb-5">
 
                 <div class="col-4-md-4 bpi">
-                    <img src="../img/accueil/bpi.png" alt="" width="200" height="200" class="img-fluid">
+                    <img src="{{asset('img/accueil/bpi.png')}}" alt="" width="200" height="200" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-4 bpi_mobile">
-                    <img src="../img/accueil/bpi_mobile.png" alt="" width="200" height="200" class="img-fluid">
+                    <img src="{{asset('img/accueil/bpi_mobile.png')}}" alt="" width="200" height="200" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-4">
-                    <img src="../img/accueil/french-tech.png" alt="" width="200" height="200" class="img-fluid">
+                    <img src="{{asset('img/accueil/french-tech.png')}}" alt="" width="200" height="200" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-4">
-                    <img src="../img/accueil/pepiniere1.png" alt="" width="220" height="200" class="img-fluid">
+                    <img src="{{asset('img/accueil/pepiniere1.png')}}" alt="" width="220" height="200" class="img-fluid">
                 </div>
             
             </div> <!-- fin class="row partenaires" -->
@@ -238,7 +240,7 @@
                 </div>
 
                 <div class="encart_bouton text-center">
-                    <a href="#">  <img width="300" height="30" class="img-fluid" src="../img/accueil/bouton_cta.png" alt="" > </a>
+                    <a href="{{ path('enseigne') }}">  <img width="300" height="30" class="img-fluid" src="{{asset('img/accueil/bouton_cta.png')}}" alt="" > </a>
                 </div>
 
             </div> <!-- fin class="col-md-12 bloc6" -->
@@ -247,21 +249,31 @@
 
     </div> <!-- fin class="container-fluid" -->
 
-        {#<div class="bloc6"> <!-- footer -->
-
-            <div class="footer">
-                {% include 'footer.html.twig' %}
-            </div>
-        </div> <!-- fin class="bloc6 alias footer" --> #}
 
 {% endblock %} {#fin block main#}
 
 
 {% block javascript %} 
-
-
+ {# <script>
+   
+    var iconSelect;
+    var selectedText;
+        window.onload = function(){
+            
+            selectedText = document.getElementById('selected-text');
+            
+            document.getElementById('my-icon-select').addEventListener('changed', function(e){
+               selectedText.value = iconSelect.getSelectedValue();
+            });
+            
+            iconSelect = new IconSelect("my-icon-select");
+            var icons = [];
+            icons.push({'iconFilePath':'{{asset("img/emoji/;).png")}}', 'iconValue':'1'});
+            icons.push({'iconFilePath':'{{asset("img/emoji/=D.png")}}', 'iconValue':'2'});
+            icons.push({'iconFilePath':'{{asset("img/emoji/=o.png")}}', 'iconValue':'3'});
+            
+            iconSelect.refresh(icons);
+        };
+</script>
+#}       
 {% endblock %} {#fin block javascript#}
-
-
-
-
