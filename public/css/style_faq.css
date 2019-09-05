@@ -13,9 +13,20 @@
     width:100%;
 }
 
+.accueil_pourquoi > p {
+    padding-top: 2px;
+    margin: 0 auto;
+    font-weight: normal
+}
+
 .bloc_header {
     background: linear-gradient(0.25turn, #fff, var(--orange-pale));
     width:100%;
+    height: 150px;
+}
+
+.header_title {
+    font-size: 2.5rem;
 }
 
 /* 1er BLOC - vérifier votre éligibilité*/
@@ -25,12 +36,36 @@
     min-height: 590px;
     max-width:100%;
     margin-top: 5%;
-    margin-left: 22%;
+    margin-left: 15%;
     margin-right: 15%;
 }
 
+.questions {
+width: 100%
+}
 .questions > div{
     margin: 5%;
+}
+
+.card {
+    min-height:5vh
+}
+
+.card-body {
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--bleu-pale);
+    border-top:none;
+    border-top-left-radius: none;
+    border-top-right-radius: none;
+}
+
+.card-body p {
+    color: var(--bleu_perso);
+}
+
+.btn:hover {
+    color: var(--bleu_perso);
 }
 
 .question{
@@ -38,11 +73,11 @@
     border-style: solid;
     border-width: 2px;
     border-color: var(--bleu-pale);
-    padding: 3%;
+    padding: 2.5%;
     text-align: left;
     left: 5%;
     color: var(--bleu_perso);
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     font-style: normal;
     font-stretch: normal;
@@ -53,26 +88,50 @@
 .question > span{
     float: right;
     right: 5%;
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 26px;
+    font-weight: 700;
 }
 
 .bloc_header_pre > div a:link, .bloc_header_pre > div a:visited{
     color: var(--orange_perso);  
 }
 
-/* 2e BLOC - etapes pour demande de remboursement */
-.bloc2 {
-    background-image: url("../img/parcours_decouverte/footer.png") ;
-    background-position: center ;
-    background-size: contain;
-    background-repeat: no-repeat;
-    min-height: 554px;
-    max-width: 100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){
+
+    .header_title {
+        font-size: 1.75rem;
+    }
+
+    .bloc1 {
+        margin-left: 0.5%;
+        margin-right: 0.5%;
+    }
+
+    .question{
+        font-size: 15px;
+    }
+
+
 }
 
 
 
+
+
+
+/* **************  POUR TABLETTE  ********************* */
+@media (min-width: 768px) and (max-width:991.98px){ 
+
+    .header_title {
+        font-size: 2.25rem;
+    }
+
+    .bloc1 {
+        margin-left: 0.5%;
+        margin-right: 0.5%;
+    }
+
+}

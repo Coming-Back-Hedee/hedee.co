@@ -1,17 +1,17 @@
-﻿/* BLOC 0*/
+﻿:root {
+    --orange_perso: #ff3c00;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
+}
+
+/* BLOC 0*/
 .bloc0 {
-    background-image: url("../img/parcours_decouverte/comment/rectangle25.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center ; 
+    background: linear-gradient(0.25turn, #fff, var(--orange-pale));
+    width:100%;
     height: 45px;
-    max-width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    margin-top: 45px
-    /*display:flex;
-    flex-wrap:wrap; */
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--orange-pale);
 } 
 
 .bloc0 > p {
@@ -19,6 +19,7 @@
     color:#ff3c00;
     padding-top:6px;
     margin:0 auto;
+    
 }
 
 .bloc0 > p > a {
@@ -27,23 +28,16 @@
     margin:0 auto;
 }
 
-
 /* BLOC 1*/
 .bloc1 {
-    background-image: url("../img/parcours_decouverte/comment/rectangle25.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;
-    height: 150px;
+    background: linear-gradient(0.25turn, #fff, var(--orange-pale));
     width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    height: 150px;
 }
 
 .bloc1 h1 {
     color: #ff3c00;
-    margin-top: 30px
+    margin-top: 30px;
 }
 
 /* BLOC 1BIS*/

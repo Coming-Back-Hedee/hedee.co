@@ -1,17 +1,9 @@
 ﻿/* 1er BLOC - vérifier votre éligibilité*/
 .bloc1 {
-    background-image: url("../img/parcours_decouverte/pourquoi/Groupe\ 363.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center ; 
+    background: linear-gradient(0.25turn, #fff, var(--orange-pale));
+    width:100%;
     height: 45px;
-    max-width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     margin-top: 40px
-    /*display:flex;
-    flex-wrap:wrap; */
 }
 
 .bloc1 > p {
