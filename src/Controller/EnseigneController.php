@@ -210,14 +210,14 @@ class EnseigneController extends AbstractController
      * @Route("/felicitations", name="felicitation")
      */
     public function endForm(Request $request, RouterInterface $router){
-        if($request->isXmlHttpRequest()){
+        //if($request->isXmlHttpRequest()){
             return $this->render('enseigne/felicitation.html.twig');
-        }
+        /*}
         else{
             $url = $router->generate('accueil');
 
             return new RedirectResponse($url);
-        }
+        }*/
     }
 
     /**

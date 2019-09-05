@@ -23,12 +23,10 @@ class EligibiliteType extends AbstractType
         $builder
             ->add('categorie', ChoiceType::class, [ 'choices' => [
                 "Selectionnez votre categorie" => null,
-                'Produits électroniques' => 'produits_electroniques',
+                'High-tech et électroménagers' => 'produits_electroniques',
                 'Maisons et jardins' => 'maisons_et_jardins',
-                'Jeux vidéos et jouets' => 'jvideos_et_jouets',
                 'Santé et beauté' => 'sante_et_beaute',              
-                'Auto et moto' => 'auto_et_moto',
-                'Sports et mode' => 'sports_et_mode'
+                'Mode et sport' => 'sports_et_mode'
             ],
             'label' => 'Sélectionnez la catégorie de votre produit'
             ])

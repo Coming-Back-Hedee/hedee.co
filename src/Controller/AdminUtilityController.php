@@ -65,18 +65,18 @@ class AdminUtilityController extends AbstractController
     public function getEnseignesApi(Request $request, EnseignesRepository $enseignesRepository){
 
         //$enseignesRepository = $this->getDoctrine()->getRepository(Enseignes::class);
-        if($request->isXmlHttpRequest()){
+        //if($request->isXmlHttpRequest()){
             $enseignes = $enseignesRepository->findAllMatching();
 
             return $this->json([
                 'enseignes' => $enseignes
             ], 200, [], []);
-        }
+        /*}
         else{
             $url = $router->generate('accueil');
 
             return new RedirectResponse($url);
-        }
+        }*/
     }
     
     /**
