@@ -5,7 +5,6 @@
     --bleu-pale: #e1def9;
 }
 
-
 /** RESET CSS **/
 html, body, div, main  {
     margin:0;
@@ -16,7 +15,7 @@ body {
     font-family: "Work Sans";
     color: var(--bleu_perso);
     width: 100%;
-    min-height:960px;
+    
 }
 
 .bloc_header {
@@ -86,16 +85,20 @@ input[type=file]{
     background-color:var(--orange_perso);
     color: white; 
     box-sizing: border-box;
-    margin-top: 5%;  
-    width: 100%;
-    padding: 12px 16px;
+    margin-top: 13%;  
+    padding: 16px 16px;
     text-align: center;
-    font-size: 80%;
     border: none;
     border-radius: 48px;
     cursor: pointer;
     transition: 1s;
+    font-size: 14px;
+    font-weight: 450;
+    font-style: normal;
+    font-stretch: normal;
+  
 }
+
 
 ul[role=menu]{
     display: flex;
@@ -120,7 +123,6 @@ ul[role=menu]{
     display: initial;
 
 }
-
 
 .affichage_msg{
     margin: auto;
@@ -173,15 +175,21 @@ a > .fa{
 .steps ul .disabled a, .steps ul .done a {
     background-color: #fff;
     padding: 15px;
-    color: black;
-    border: solid 1px #ccc;
+    color: var(--bleu_perso);
+	-moz-box-shadow: 0 0 20px #e1def9;  
+	-webkit-box-shadow: 0 0 20px #e1def9;  
+    box-shadow: 0 0 20px #e1def9;  
 }
 
 .steps ul .disabled.last a {
     background-color: #fff;
     padding: 15px;
-    color: black;
-    border: solid 1px #ccc;
+    color: var(--bleu_perso);;
+    
+}
+
+#steps-uid-0-t-0, #steps-uid-0-t-1, #steps-uid-0-t-2, #steps-uid-0-t-3 {
+    border:none
 }
 
 textarea{
@@ -228,6 +236,10 @@ textarea{
     border-radius: 10px;
     border:none;
     font-family: "Work Sans"; 
+}
+
+.etoile {
+    color: #ff3c00 ;
 }
 
 
@@ -306,9 +318,21 @@ textarea{
     border: solid 1px #ccc;
 }
 
-
 .info_client {
     padding-top : 45px
+}
+
+#prenom, #nom, #num, #demandes_client_adresse_nomRue, 
+#demandes_client_adresse_ville, #cp_perso,
+#recap_ens, #recap_cat, #recap_url, #recap_prix {
+    background-color: #eeecfa;
+    border:none
+}
+
+.input-group-text {
+    color: #2800dc; 
+    background-color: #E1DEF9;
+    border: none
 }
 
 /*Page Valider*/
