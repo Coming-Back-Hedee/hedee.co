@@ -5,7 +5,6 @@
 	<link rel="stylesheet" href="{{asset('css/admin.css')}}"> 
 {% endblock %}
 {% block main %}
-<main>
     <div class="container">
             <a href="{{ path('admin') }}"><button>Retour</button></a>
             <h1>Dossier numéro {{alerte.dossier.numeroDossier}}</h1>
@@ -88,7 +87,6 @@
 
         </div>
     </div>
-</main>
 {% endblock %}
 {% block javascript %}
 <script>

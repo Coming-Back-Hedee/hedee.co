@@ -1,4 +1,10 @@
+{% extends 'base.html.twig' %}
 
+{% block title %}Hello AdminController!{% endblock %}
+ {% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/admin.css')}}"> 
+{% endblock %}
+{% block main %}
 <div id="connexion">
     <form action="{{ path('admin_connect') }}" method="post">
         {% for message in app.flashes('warning') %}
@@ -26,10 +32,19 @@
         is redirected to on success (more details below)
         
         #}
-        <input type="hidden" name="_target_path" value="{{path('admin')}}" />
+        {#{% if app.flashes('success_hedee')|length == 0 %}
+            <input type="hidden" name="_target_path" value="{{path('admin')}}" />
+        {% else %}
+            <input type="hidden" name="_target_path" value="{{path('confirm')}}" />
+        {% endif %}#}
+
 
         <button type="submit" >Se connecter</button>
     </form>
 </div>
+
+{% endblock %}
+{% block javascript %}
+{% endblock %}
 
 

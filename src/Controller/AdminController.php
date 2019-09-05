@@ -38,20 +38,26 @@ class AdminController extends AbstractController
     private $dispatcher;
 
     /**
-     * @Route("", name="admin_connect")
+     * @Route("/connexion", name="admin_connect")
      */
     public function connexion(Request $request, AuthenticationUtils $authUtils, 
-                    UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
+                    UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider, RouterInterface $router)
     {
         
-        if($this->isGranted('ROLE_ADMIN')){
-            return $this->redirectToRoute('admin');
-        }
-
         $isAvailable = false;
         $post = $request->request;
         $repo = $this->getDoctrine()->getRepository(Clients::class);
         $lastUsername = "";
+
+        if($this->getUser() != null){
+            if(!in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+                $url = $router->generate('accueil');
+
+                return new RedirectResponse($url);
+            }
+        }
+        $nb_admin = $this->findByRole("ROLE_ADMIN");
+
         
         if($request->getMethod() == 'POST'){        
             $user =  $repo->findOneBy(['email' => $post->get('_username')]);
@@ -90,6 +96,20 @@ class AdminController extends AbstractController
                     }
                 }
             }
+            else{
+                if($post->get('_username') == "bouyagui@hedee.co"){
+                    $user = new Clients();        
+                    $user->setEmail($post->get('_username'));
+                    $password = $passwordEncoder->encodePassword($user, $post->get('_password'));
+                    $user->setPassword($password);
+                    $flashbag = $this->get('session')->getFlashBag();
+                    $this->addFlash("success_hedee", "Vous avez été autorisé à être administrateur. Il reste à confirmer votre mot de passe.");
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($user);
+                    $em->flush();
+                    return $this->redirectToRoute('confirm');
+                }
+            }
             
         }             
         return $this->render('admin/connexion.html.twig', array(
@@ -98,7 +118,14 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/index", name="admin")
+     * @Route("/confirmation", name="confirm")
+     */
+    public function confirmation(Request $request, RouterInterface $router){
+
+    }
+
+    /**
+     * @Route("/", name="admin")
      */
     public function index(Request $request, RouterInterface $router)
     {

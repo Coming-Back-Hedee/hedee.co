@@ -112,7 +112,10 @@
                     <div id="recap_produit"></div>
                     <label for="recap_prix">Montant de l'achat</label><input id="recap_prix" type="text" readonly><br>
                     {#<img id="facture_jpg" alt="Votre facture est en cours de chargement">#}
-                    {{ form_row(form1.cgu) }} 
+                    <div class="cgu">
+                        {{ form_widget(form1.cgu) }}
+                        {{ form_label(form1.cgu) }} 
+                    </div>
                     {{ form_row(form1._token) }}
                 </section> <!-- fin étape 4 formulaire -->
                 
@@ -248,6 +251,12 @@
             errorPlacement: function errorPlacement(error, element) { element.before(error); },
         });
 
+        function scrollTo( target ) {
+            if( target.length ) {
+                $("html, body").stop().animate( { scrollTop: target.offset().top }, 1500);
+            }
+        }
+
 
         function step(form){
             form.children("div").steps({
@@ -258,9 +267,7 @@
                 onInit: function (event, currentIndex){
                     if(currentIndex === 0){
                         document.getElementById("menuprevious").parentElement.style.display = "none";
-                    }
-                    else{
-                        document.getElementById("menuprevious").parentElement.style.display = "table-cell";
+                            $("html, body").animate({scrollTop : 0}, 1500);
                     }
                 },
                 onStepChanging: function (event, currentIndex, newIndex)
@@ -323,7 +330,6 @@
                 },
                 onStepChanged: function (event, currentIndex, priorIndex)
                 {   
-                    
                     //passe directement à l'étape 4 si l'utilisateur est connecté
                     if (currentIndex === 1){
                         document.getElementById("menuprevious").parentElement.style.display = "table-cell";
@@ -370,7 +376,6 @@
                             $('#cp_perso').val("0".concat($('#cp_perso').val()))
                     }
                     if (currentIndex == 3){
-                        
                         document.getElementById("steps-uid-0-t-2").lastElementChild.style.display = 'inline';
                     }
                 },

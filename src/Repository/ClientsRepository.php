@@ -29,6 +29,15 @@ class ClientsRepository extends ServiceEntityRepository implements UserLoaderInt
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findByRole($role){
+        return $this->createQueryBuilder('u')
+            ->select('count(u)')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%')
+            ->getQuery()
+            ->getResult();
+    }      
     
 
     // /**

@@ -30,11 +30,11 @@ comment_ca_marche:
     defaults:
       template: 'utile/how.html.twig'  
 
-contact:
-    path: /contact
-    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
-    defaults:
-      template: 'utile/contact.html.twig'
+#/contact:
+#    path: /contact
+#    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+#    defaults:
+#      template: 'utile/contact.html.twig'
 
 test:
     path: /test

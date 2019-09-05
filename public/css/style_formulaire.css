@@ -155,8 +155,7 @@ a > .fa{
 .steps ul li   {
     display:inline;
     list-style: none;
-    padding-left: 10px;
-    margin: 20px;
+    margin: 12px;
 }
 
 .steps ul li a {
@@ -230,6 +229,18 @@ textarea{
     font-family: "Work Sans"; 
 }
 
+.cgu{
+    margin-top: 5%;
+}
+.cgu input{
+    width: initial;
+}
+
+.cgu label{
+    margin: initial;
+    display: initial;
+    font-weight: 800;
+}
 
 /* Title inutiles */
 .help-text {
@@ -261,6 +272,8 @@ textarea{
 
 #menuprevious{   
     text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
     background-color: #fff;
     padding: 12px 20px;
     color: var(--orange_perso);
@@ -274,6 +287,8 @@ textarea{
 }
 
 #menunext, #menufinish{
+    text-transform: uppercase;
+    font-weight: 600;
     text-decoration: none;
     background-color: var(--orange_perso);
     padding: 12px 20px;
@@ -356,8 +371,12 @@ textarea{
 /*************************** POPUP ***************************/
 .bloc_popup{
     display: flex;
-    margin: auto;
-    
+    margin: auto;   
+}
+
+.bloc_popup button{
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 .block_left1{
@@ -432,23 +451,19 @@ a:visited, a{
     margin-right: auto;
     margin-left: 0;
     min-height: 300px;
-   
+
 }
 
 .block_left1 + .block_right{
     color: var(--bleu_perso);
     box-shadow: 8px 8px 0px var(--bleu-pale);
-    border: solid 2px var(--bleu-pale);
-    border-left: none;
-    border-bottom: none;
+    border-top: solid 2px var(--bleu-pale);
 }
 
 .block_left2 + .block_right{
     color: var(--orange_perso);
     box-shadow: 8px 8px 0px var(--orange-pale);
-    border: solid 2px var(--orange-pale);
-    border-left: none;
-    border-bottom: none;
+    border-top: solid 2px var(--orange-pale);
 }
 
 #connexion, #inscription{
@@ -537,12 +552,12 @@ a:visited, a{
         margin-right:auto;
         text-align:center;
         box-sizing: content-box !important;
-
+        padding-inline-start: 0px !important;
     }
 
     .steps ul li{
         display: none;
-        width: fit-content;
+        width: 180px;
     }
 
     .steps ul li.current  {
@@ -558,6 +573,15 @@ a:visited, a{
     .block_right{
         order: -1;
         height: 300px;
+        box-shadow: 8px -8px 0px var(--bleu-pale) !important;      
+    }
+
+    .block_left1 + .block_right{
+        border-left: solid 2px var(--bleu-pale) !important;
+    }
+
+    .block_left2 + .block_right{
+        border-left: solid 2px var(--orange-pale) !important;
     }
 
     .block_left1{
@@ -566,6 +590,7 @@ a:visited, a{
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
+        box-shadow: 8px -8px 0px var(--bleu-pale) !important;
     }
     
     .block_left2{
@@ -574,6 +599,7 @@ a:visited, a{
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
+        box-shadow: 8px -8px 0px var(--orange-pale) !important;
     }
 
     #connexion input, #inscription input{

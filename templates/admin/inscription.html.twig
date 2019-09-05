@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+ {% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/admin.css')}}"> 
+{% endblock %}
+{% block main %}
+<div id="connexion">
+    <form action="{{ path('admin_connect') }}" method="post">
+        {% for message in app.flashes('success_hedee') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div>
+            <input type="hidden" name="_csrf_token">
+
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="_password" />
+        </div>
+
+
+        <br>
+
+        <input type="hidden" name="_target_path" value="{{path('admin')}}" />
+
+        <button type="submit" >Se connecter</button>
+    </form>
+</div>
+{% endblock %}
+{% block javascript %}a
+{% endblock %}
+

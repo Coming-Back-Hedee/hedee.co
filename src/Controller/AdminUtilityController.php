@@ -38,7 +38,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/magasins", methods="GET", name="admin_utility_magasin")
      */
-    public function getMagasinApi(Request $request, MagasinsRepository $magasinsRepository){
+    public function getMagasinApi(Request $request, MagasinsRepository $magasinsRepository, RouterInterface $router){
 
         //$session = $request->getSession();
         //$nom_enseigne = $session->get('enseigne');
@@ -62,7 +62,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/enseignes", methods="GET", name="admin_utility_enseigne")
      */
-    public function getEnseignesApi(Request $request, EnseignesRepository $enseignesRepository){
+    public function getEnseignesApi(Request $request, EnseignesRepository $enseignesRepository, RouterInterface $router){
 
         //$enseignesRepository = $this->getDoctrine()->getRepository(Enseignes::class);
         if($request->isXmlHttpRequest()){
@@ -82,7 +82,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/categories", methods="GET", name="admin_utility_categorie")
      */
-    public function getCategoriesApi(Request $request, EnseignesRepository $enseignesRepository){
+    public function getCategoriesApi(Request $request, EnseignesRepository $enseignesRepository, RouterInterface $router){
 
         //$enseignesRepository = $this->getDoctrine()->getRepository(Enseignes::class);
         if($request->isXmlHttpRequest()){
@@ -103,7 +103,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/marques", methods="GET", name="admin_utility_marques")
      */
-    public function getMarquesApi(Request $request, MarquesRepository $marquesRepository){
+    public function getMarquesApi(Request $request, MarquesRepository $marquesRepository, RouterInterface $router){
 
         //$enseignesRepository = $this->getDoctrine()->getRepository(Enseignes::class);
         if($request->isXmlHttpRequest()){
@@ -124,7 +124,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/villes", methods="GET", name="admin_utility_villes")
      */
-    public function getVillesApi(Request $request, CorrespCPVilleRepository $repository){
+    public function getVillesApi(Request $request, CorrespCPVilleRepository $repository, RouterInterface $router){
 
         //$enseignesRepository = $this->getDoctrine()->getRepository(Enseignes::class);
         if($request->isXmlHttpRequest()){
@@ -145,7 +145,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/all_demandes", methods="GET", name="admin_all_demandes")
      */
-    public function getAllDemandes(Request $request, DemandesRepository $demandesRepository){
+    public function getAllDemandes(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         if($request->isXmlHttpRequest()){
             $demandes = $demandesRepository->findAllReverse();
             $encoders = [new JsonEncoder()]; // If no need for XmlEncoder
@@ -169,7 +169,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/all_demandes_reverse", methods="GET", name="admin_all_demandes_reverse")
      */
-    public function getAllDemandesRe(Request $request, DemandesRepository $demandesRepository){
+    public function getAllDemandesRe(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         
         if($request->isXmlHttpRequest()){
             $demandes = $demandesRepository->findAllReverse();
@@ -194,7 +194,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/demandes_en_cours", methods="GET", name="admin_demandes_en_cours")
      */
-    public function getDemandesEnCours(Request $request, DemandesRepository $demandesRepository){
+    public function getDemandesEnCours(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         if($request->isXmlHttpRequest()){
             $demandes = $demandesRepository->findByReverse('En cours');
             $encoders = [new JsonEncoder()]; 
@@ -218,7 +218,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/demandes_remboursees", methods="GET", name="admin_demandes_r")
      */
-    public function getDemandesRemboursees(Request $request, DemandesRepository $demandesRepository){
+    public function getDemandesRemboursees(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         
         if($request->isXmlHttpRequest()){
             $demandes = $demandesRepository->findByReverse('Remboursé');
@@ -243,7 +243,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/demandes_non_remboursees", methods="GET", name="admin_demandes_nr")
      */
-    public function getDemandesNonRemboursees(Request $request, DemandesRepository $demandesRepository){
+    public function getDemandesNonRemboursees(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         if($request->isXmlHttpRequest()){
             $demandes = $demandesRepository->findByReverse('Non remboursé');
             $encoders = [new JsonEncoder()]; 
@@ -267,7 +267,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/demandes_alerte", methods="GET", name="admin_demandes_alerte")
      */
-    public function getDemandesAlerte(Request $request, DemandesRepository $demandesRepository){
+    public function getDemandesAlerte(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         if($request->isXmlHttpRequest()){
             $demandes = $demandesRepository->findByReverse('Alerte prix');
             $encoders = [new JsonEncoder()]; 
@@ -291,7 +291,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/client_demandes", methods="GET", name="client_demandes")
      */
-    public function getClientDemandes(Request $request, DemandesRepository $demandesRepository){
+    public function getClientDemandes(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         if($request->isXmlHttpRequest()){
             $client = $this->getUser();
             $demandes = $demandesRepository->findClientReverse($client->getId());
@@ -316,7 +316,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/client_demandes_reverse", methods="GET", name="client_demandes_reverse")
      */
-    public function getClientDemandesReverse(Request $request, DemandesRepository $demandesRepository){
+    public function getClientDemandesReverse(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         if($request->isXmlHttpRequest()){
         $client = $this->getUser();
         $demandes = $demandesRepository->findBy(["client" => $client]);
