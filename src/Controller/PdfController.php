@@ -32,7 +32,6 @@ class PdfController extends AbstractController
         $nom_bdd = ucfirst($nom_enseigne);
         $repo = $this->getDoctrine()->getRepository(Enseignes::class);
         $enseigne =  $repo->findOneBy(['nomEnseigne' => $nom_enseigne]);
-        $nom = $enseigne->getNomEnseigne();
         $dir = getcwd();
         $bgImg = $dir . "\\img\\facture\\bg.png";
 
@@ -152,7 +151,8 @@ class PdfController extends AbstractController
             $pdf->Cell(37,25,$reference,0,0,'C',0);*/
         }
         else{
-            $url = $post['urlProduit'];
+            //$url = $post['urlProduit'];
+            $url = "https://app.zeplin.io/project/5d5847e012736e9b6c9fb786/screen/5d584b8303703951ee4c1f7e";
             
             $nbLignes = ceil($pdf->GetStringWidth($url) / ($pdf->GetPageWidth() - 2 * PDF_MARGIN_LEFT - 50));
             $details .= "\nURL : ";
@@ -162,19 +162,19 @@ class PdfController extends AbstractController
                 $details .= "\n";
             }
             $points .= "\n............................................................................................";
-            $details .= "Montant de l'achat : $nbLignes";
+            $details .= "Montant de l'achat : $prix ";
             $pdf->Write(10, $details);
             $pdf->SetXY(PDF_MARGIN_LEFT+50, $position+4);
             $pdf->SetLeftMargin(PDF_MARGIN_LEFT+50);
             $pdf->Write(10, $points);
             
-            $pdf->SetXY(PDF_MARGIN_LEFT+50, $position+8);
+            $pdf->SetXY(PDF_MARGIN_LEFT+50, $position);
             //$pdf->Write(10, "$url ");
             
             $pdf->MultiCell(120, 5, $url, 1, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
             //$pdf->MultiCell(117,5,utf8_decode($url),0,'C',false);
             //$pdf->SetDrawColor(0,0,255);
-            $pdf->Link(PDF_MARGIN_LEFT+50, $position+4, 120, 30,$url);
+            $pdf->Link(PDF_MARGIN_LEFT+50, $position+15, 120, $nbLignes*5 ,$url);
         }
         $pdf->Text(PDF_MARGIN_LEFT+50, $position + 4, $categorie);
         

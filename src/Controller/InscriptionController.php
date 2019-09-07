@@ -41,12 +41,12 @@ class InscriptionController extends AbstractController
         ]);        
 
         $form->handleRequest($request);
-        /*$repo = $this->getDoctrine()->getRepository(Clients::class);
+        $repo = $this->getDoctrine()->getRepository(Clients::class);
         $email =  $repo->findOneBy(['email' => $user->getEmail()]);
         if($email != null){
             $session->getFlashBag()->add('warning', "Cette adresse email est déjà utilisée.");
             return $this->redirectToRoute('inscription');
-        }*/
+        }
 
         $bodyMail = $mailer->createBodyMail('inscription/mail2.html.twig', [
             'user' => $user
@@ -58,6 +58,7 @@ class InscriptionController extends AbstractController
             // Encode le mot de passe
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+            $user->setPhoto("/img/emoji/=D.png");
             /*$user->setCodeParrainage();
             
             if($request->request->get('inscription')['codeParrainage'] != ""){ 
@@ -86,7 +87,7 @@ class InscriptionController extends AbstractController
             $em->persist($user);
             $em->flush();
             
-            $mailer->sendMessage('from@email.com', $user->getEmail(), 'Confirmation de la création de votre compte Rembourseo', $bodyMail);
+            $mailer->sendAdminMessage("hello@hedee.co", $user->getEmail(), 'Confirmation de la création de votre compte Rembourseo', $bodyMail);
             
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
@@ -141,6 +142,7 @@ class InscriptionController extends AbstractController
             $user->setEmail($post->get('_username'));
             $password = $passwordEncoder->encodePassword($user, $post->get('_password'));
             $user->setPassword($password);
+            $user->setPhoto("/img/emoji/=D.png");
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -149,7 +151,7 @@ class InscriptionController extends AbstractController
             $bodyMail = $mailer->createBodyMail('inscription/mail2.html.twig', [
                 'user' => $user
             ]);
-            $mailer->sendMessage('from@email.com', $user->getEmail(), 'Confirmation de la création de votre compte Rembourseo', $bodyMail);
+            $mailer->sendAdminMessage('hello@hedee.co', $user->getEmail(), 'Confirmation de la création de votre compte Rembourseo', $bodyMail);
             return new JsonResponse(true);
         } 
         else{

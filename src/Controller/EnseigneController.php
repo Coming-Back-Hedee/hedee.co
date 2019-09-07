@@ -74,11 +74,11 @@ class EnseigneController extends AbstractController
                 $form = $request->request->get('demandes');
                 //$form['dateAchat'] = (\DateTime::createFromFormat('d-m-Y',$form['dateAchat']));
 
-                if ($user == null){
+                if($user == null){
+
                     $repo = $em->getRepository(Clients::class);
-                    $user = $repo->findOneBy(['email' => $form['client']['email']]);
-                    $user->bis_construct($form['client']);
-                    $em->flush();
+                    $user = $repo->findOneBy(['email' => $form['client']['email']]);  
+                    //$user->bis_construct($form['client']);     
                 }
 
                 if($request->request->get('choix') == "internet"){
@@ -294,7 +294,7 @@ class EnseigneController extends AbstractController
             $demande->setEnseigne($session->get('enseigne'));            
             $demande->setFacture($path);
             $demande->setDateAchat($dateAchat);
-            $user->setPhoto("/img/emoji/=D.png");
+            
             
             $repo = $em->getRepository(Clients::class);
             //$user = $repo->findOneBy(['email' => $post['client']['email']]);
@@ -310,7 +310,7 @@ class EnseigneController extends AbstractController
             $bodyMail = $mailer->createBodyMail('enseigne/mail2.html', [ 'user' => $user,
                 'demande' => $demande
             ]);
-            $mailer->sendMessage('from@email.com', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail);
+            $mailer->sendAdminMessage('hello@hedee.co', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail);
 
             return $this->redirectToRoute('profil');
         }

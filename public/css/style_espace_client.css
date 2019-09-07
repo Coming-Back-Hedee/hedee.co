@@ -21,7 +21,7 @@ body {
 
 .container{
     min-height: 300px;
-    max-height: 800px;
+    max-height: 1400px;
 }
 
 .normal_font{
@@ -31,6 +31,11 @@ body {
     font-stretch: normal;
     line-height: 1.33;
     letter-spacing: 1.2px;
+}
+
+.normal_font > a{
+    color: var(--bleu_perso);
+    text-decoration: underline;
 }
 
 .bloc_header {
@@ -64,6 +69,14 @@ body {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+}
+
+.middle{
+    font-weight: 600;
+}
+
+#entete-tableau{
+    text-transform: uppercase;
 }
 
 #mes-demandes{
@@ -110,7 +123,7 @@ body {
     background-image: linear-gradient( #e1def9, #fff);
     box-shadow: 10px 10px 0 0 rgba(40, 0, 220, 0.2);
     position: absolute;
-    z-index: 1000;
+    width: 350px;
     transition: all 0.4s ease 0s;
   }
   
@@ -134,7 +147,7 @@ body {
     width: 100%;
     padding: 5%;
     font-family: "Work Sans";
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
@@ -161,7 +174,7 @@ body {
     position: absolute;
     right: 10%;
 
-    color: #41484c;
+    color: var(--bleu_perso);
     text-align: center;
     width: 20px;
     line-height: 18px;
@@ -199,8 +212,8 @@ body {
     width: 90%;
 }
 
-.demande_button{
-    color: initial;
+.demande_button > a{
+    color: #fff !important;
 }
 
 #mes-demandes tr td:nth-child(1n){
@@ -241,6 +254,7 @@ body {
     color: var(--bleu_perso);
     border-radius: 80px;
     border: solid 1px var(--bleu-pale);
+    text-transform: uppercase;
 
 }
 
@@ -251,7 +265,7 @@ body {
     background-color: var(--orange_perso);
     border-radius: 80px;
     color: #fff;
-    
+    width: 55px;
 }
 
 input{
@@ -261,14 +275,43 @@ input{
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    /*background-color: #CED8F6;*/
     color: var(--bleu_perso);
-    margin-bottom: 10px;
+}
+
+.input-group-text{
+    background-color: var(--bleu-pale);
+    color: var(--bleu_perso);
+    height: 55px;
+}
+    
+form[name=info_client]  label{
+    color: var(--bleu_perso);
+    font-size: 18px;
+}
+
+form[name=info_client] input, form[name=info_client] select{
+    background-color: var(--bleu-pale);
+    color: var(--bleu_perso);
+    margin-bottom: 2.5%;
+    font-size: 18px;
+    height: 55px;
+}
+
+form[name=info_client] input{
+    padding: 8px 14px;
+}
+
+form[name=info_client] select{
+    width: 100%;
+}
+
+form[name=info_client] p{
+    font-size: 18px;
 }
 
 label {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 6px;
+    margin-top: 15px;
     display: block;   
 }
 
@@ -329,19 +372,10 @@ label {
         font-size: 12px;
     }
     
-    form[name=info_client] input, form[name=info_client] select{
-        display: block;
-        width: 100%;
-        padding: 8px 14px;
-        font-size: 12px;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-        background-color: #CED8F6;
-        color: var(--bleu_perso);
-        margin-bottom: 2.5%;
+    .input-group{
+        flex-wrap: nowrap;
     }
-
+    
     #entete-tableau{
         background-color: var(--bleu-pale);
         font-size: 12px;
@@ -484,7 +518,7 @@ label {
         padding: 4%;
     }
     
-    #tab tr td:nth-child(1n) { width:25%;}
+    #tab tr td:nth-child(1n) { width:33.3%;}
     
   
     
@@ -499,21 +533,6 @@ label {
         text-align: left;
     }
     
-    form[name=info_client]  label{
-        color: var(--bleu_perso);
-    }
-    
-    form[name=info_client] input, form[name=info_client] select{
-        display: block;
-        width: 100%;
-        padding: 8px 14px;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-        background-color: #CED8F6;
-        color: var(--bleu_perso);
-        margin-bottom: 2.5%;
-    }
     
     .input-group{
         flex-wrap: nowrap;
@@ -538,16 +557,12 @@ label {
 
     #sidebar-wrapper {
         width: 98%;
-        height: 800px;
+        height: 700px;
     }
 
     .sidebar-nav{
         height: 700px;
     }
-    
-    .sidebar-nav li {
-        line-height: 40px;        
-      }
       
       .sidebar-nav li a {
         color: var(--bleu_perso);
@@ -618,9 +633,8 @@ label {
         padding: 4%;
     }
     
-    #tab tr td:nth-child(1n) { width:22%;}
+    #tab tr td:nth-child(1n) { width:33.3%;}
     
-    #tab tr td:first-child { width: 34%;}
     
     #entete-tableau{
         background-color: var(--bleu-pale);
@@ -632,9 +646,10 @@ label {
         letter-spacing: 1.2px;
         text-align: left;
     }
-    
-    form[name=info_client]  label{
-        color: var(--bleu_perso);
+
+    .compte_button, .demande_button{
+        width: 100%;
+        padding: 20px;
     }
     
     form[name=info_client] input, form[name=info_client] select{
@@ -644,9 +659,8 @@ label {
         display: inline-block;
         border: 1px solid #ccc;
         box-sizing: border-box;
-        background-color: #CED8F6;
+        background-color: var(--bleu-pale);
         color: var(--bleu_perso);
-        margin-bottom: 5%;
     }
     
     .input-group{

@@ -212,12 +212,12 @@ class Clients implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getNumeroTelephone(): ?int
+    public function getNumeroTelephone()
     {
         return $this->numeroTelephone;
     }
 
-    public function setNumeroTelephone(int $numeroTelephone): self
+    public function setNumeroTelephone($numeroTelephone): self
     {
         $this->numeroTelephone = $numeroTelephone;
 

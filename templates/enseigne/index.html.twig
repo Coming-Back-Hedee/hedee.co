@@ -68,11 +68,12 @@
     } /***** fin fonction loadForm *****/ 
 
     var redirect = function(){
+        console.log(document.getElementsByClassName("replace_btn"))
             Array.from(document.getElementsByClassName("replace_btn")).forEach(function(btn){
-                console.log(document.getElementsByClassName("replace_btn"))
                 btn.addEventListener('click', function(e){
-                e.preventDefault()
-                document.getElementById("menunext").click()
+                    e.preventDefault()
+                    console.log(document.getElementById("menunext"))
+                    document.getElementById("menunext").click()
                 })
             })
         }
@@ -104,7 +105,6 @@
     attachDatepicker()
 
     function attachDatepicker(){   
-        console.log($("#datepicker" )) 
         $("#datepicker" ).datepicker({ 
             minDate: -30, maxDate: 0, 
             altField: "#datepicker",

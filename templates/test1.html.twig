@@ -19,6 +19,8 @@
 			<button class="close js-menu-client-close"><i class="fa fa-close" style="font-size:24px"></i></button>
 			{{ form_start(form, {'attr': {'id': 'inscription'}}) }}
 				<h3> Rejoindre hedee </h3>
+
+				{{ form_row(form._token) }}
 				{{ form_widget(form.email, {'attr' : {'placeholder' : 'Votre adresse mail'}, 'id': 'email'}) }}
 
 				{{ form_widget(form.plainPassword.first, {'attr' : {'placeholder' : 'Votre mot de passe'}, 'id': 'password1'}) }}
@@ -38,4 +40,12 @@
 	</div>
 </div>
 
+{% endblock %}
+
+{% block javascript %}
+	<script>
+		$('.js-menu-client-close').click(function(){
+			window.location.href = "{{ path('accueil') }}"
+		})
+	</script>
 {% endblock %}

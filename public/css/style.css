@@ -550,7 +550,8 @@ main {
 /* FOOTER - reseaux sociaux + infos site*/
 
 footer {
-    margin-bottom: 0 !important
+    margin-bottom: 0 !important;
+    margin-top: 5%;
 }
 
 .footer_bleu {

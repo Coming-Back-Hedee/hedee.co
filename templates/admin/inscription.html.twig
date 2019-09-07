@@ -6,14 +6,16 @@
 {% endblock %}
 {% block main %}
 <div id="connexion">
-    <form action="{{ path('admin_connect') }}" method="post">
+    <form action="{{ path('connexion') }}" method="post">
         {% for message in app.flashes('success_hedee') %}
             <div class="flash-notice">
                 {{ message }}
             </div>
         {% endfor %}
         <div>
-            <input type="hidden" name="_csrf_token">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <label for="username">Email:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}"/>
 
             <label for="password">Mot de passe:</label>
             <input type="password" id="password" name="_password" />

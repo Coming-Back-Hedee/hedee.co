@@ -1,4 +1,11 @@
 swiftmailer:
-    #delivery_addresses: ['hello@hedee.co']
-    url: '%env(MAILER_URL)%'
+    #delivery_addresses: ['skm.jeremy@gmail.com']
+    transport: smtp
+    auth_mode: login
+    port: 465
+    host: smtp.phpnet.org
+    username: hello@hedee.co
+    password: Bouya123
+    encryption: ssl
+    #url: '%env(MAILER_URL)%'
     #spool: { type: 'memory' }

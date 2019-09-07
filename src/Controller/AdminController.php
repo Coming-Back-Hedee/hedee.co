@@ -43,11 +43,12 @@ class AdminController extends AbstractController
     public function connexion(Request $request, AuthenticationUtils $authUtils, 
                     UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider, RouterInterface $router)
     {
-        
+        $admin = ["bouyagui@hedee.co", "skm.jeremy@gmail.com"];
         $isAvailable = false;
         $post = $request->request;
         $repo = $this->getDoctrine()->getRepository(Clients::class);
         $lastUsername = "";
+        $session = $request->getSession();
 
         if($this->getUser() != null){
             if(!in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
@@ -56,7 +57,7 @@ class AdminController extends AbstractController
                 return new RedirectResponse($url);
             }
         }
-        $nb_admin = $this->findByRole("ROLE_ADMIN");
+        $nb_admin = $repo->findByRole("ROLE_ADMIN");
 
         
         if($request->getMethod() == 'POST'){        
@@ -97,10 +98,12 @@ class AdminController extends AbstractController
                 }
             }
             else{
-                if($post->get('_username') == "bouyagui@hedee.co"){
+                if(in_array($post->get('_username'), $admin)){
                     $user = new Clients();        
                     $user->setEmail($post->get('_username'));
+                    $session->set("usermail", $post->get('_username'));
                     $password = $passwordEncoder->encodePassword($user, $post->get('_password'));
+                    $user->setRoles(["ROLE_ADMIN"]);
                     $user->setPassword($password);
                     $flashbag = $this->get('session')->getFlashBag();
                     $this->addFlash("success_hedee", "Vous avez été autorisé à être administrateur. Il reste à confirmer votre mot de passe.");
@@ -120,8 +123,30 @@ class AdminController extends AbstractController
     /**
      * @Route("/confirmation", name="confirm")
      */
-    public function confirmation(Request $request, RouterInterface $router){
+    public function confirmation(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouterInterface $router){
+        $session = $request->getSession();
+        $repo = $this->getDoctrine()->getRepository(Clients::class);
+        $user =  $repo->findOneBy(['email' => $session->get('usermail')]);
 
+        /*if($request->getMethod() == 'POST' && $session->get('username') != null){ 
+            if($passwordEncoder->isPasswordValid($user, $request->request->get('_password'))){
+                $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+
+                // For older versions of Symfony, use security.context here
+                $this->get("security.token_storage")->setToken($token);
+
+                // Fire the login event
+                // Logging the user in above the way we do it doesn't do this automatically
+                $event = new InteractiveLoginEvent($request, $token);
+                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+                $url = $router->generate('admin');
+
+                return new RedirectResponse($url);
+            }
+        }*/
+        return $this->render('admin/inscription.html.twig', array(
+            'last_username' => $user->getEmail()
+        ));
     }
 
     /**
@@ -211,7 +236,7 @@ class AdminController extends AbstractController
             }
             $test1 = $pdf->Output($path_pdf, 'F');
             
-            $mailer->sendMessage('from@email.com', $dossier->getClient()->getEmail(), $mail_objet, $bodyMail);
+            $mailer->sendAdminMessage('hello@hedee.co', $dossier->getClient()->getEmail(), $mail_objet, $bodyMail);
         }
 
         return $this->render('admin/dossier_client.html.twig', [

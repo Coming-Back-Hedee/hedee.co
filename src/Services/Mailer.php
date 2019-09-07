@@ -19,6 +19,19 @@ class Mailer
         $this->mailer = $mailer;
     }
 
+    public function sendAdminMessage($from, $to, $subject, $body, $attachement = null)
+    {
+        $mail = (new \Swift_Message($subject))
+            ->setFrom("hello@hedee.co")
+            ->setTo($to)
+            ->setSubject($subject)
+            ->setBody($body)
+            ->setReplyTo($from)
+            ->setContentType('text/html');
+
+        $this->mailer->send($mail);
+    }
+
     public function sendMessage($from, $to, $subject, $body, $attachement = null)
     {
         $mail = (new \Swift_Message($subject))

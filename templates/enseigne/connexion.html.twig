@@ -3,8 +3,8 @@
 	<div class="bloc_popup row">
 		<div class="block_left1 col-xs-12 col-sm-12 col-md-6 col-lg-6">
 			<div class="switch">			
-					<button class="btn switch_first" onclick="hideC();">Je rejoins hedee</button>
-					<button class="btn switch_second1" onclick="hideC();">
+					<button class="btn switch_first" onclick="hideC(event);">Je rejoins hedee</button>
+					<button class="btn switch_second1" onclick="hideC(event);">
                         <i class="fa fa-arrow-right" style="font-size:24px"></i>
                     </button>
 				
@@ -25,7 +25,7 @@
 
 				<a href="{{path('request_resetting')}}" target="blank">Mot de passe oublié</a>
 				<br>
-				<button class="blue_button replace_btn">Je me connecte</button>
+				<button class="blue_button replace_btn" onclick="return false;">Je me connecte</button>
 			</div>
 		</div>
 	</div>
@@ -39,11 +39,13 @@
     {% block javascript %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        function hideC(){
+        redirect()
+        function hideC(e){
+            e.preventDefault();
             radiobtn = document.getElementById("pmembre");
             radiobtn.checked = true;
             changeM();
-            redirect()
+            //redirect()
         } 
         $("#password1").on('input', function(){
             var x = this.value;

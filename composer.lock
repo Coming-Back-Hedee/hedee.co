@@ -57,9 +57,9 @@
                 },
                 {
                     "name": "Jens Hausdorf",
+                    "role": "Maintainer",
                     "email": "mail@jens-hausdorf.de",
-                    "homepage": "https://jens-hausdorf.de",
-                    "role": "Maintainer"
+                    "homepage": "https://jens-hausdorf.de"
                 }
             ],
             "description": "A set of tools to build binary drivers",
@@ -6119,8 +6119,8 @@
             "authors": [
                 {
                     "name": "Nicola Asuni",
-                    "email": "info@tecnick.com",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "info@tecnick.com"
                 }
             ],
             "description": "TCPDF is a PHP class for generating PDF documents and barcodes.",

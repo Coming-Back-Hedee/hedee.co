@@ -39,7 +39,14 @@ class AccueilController extends AbstractController
     public function contact(Request $request, Mailer $mailer)
     {
         $session = $request->getSession();
-        $mailer->sendMessage('from@email.com', "jeremykihoulou@gmail.com", 'Confirmation de la création de votre compte Rembourseo', "Ceci est le corps du mail");
+        if($request->getMethod() == 'POST'){
+            $post = $request->request;
+            $expediteur = $post->get('mail');
+            $message = $post->get('message');
+            $objet = $post->get('objet');
+            $mailer->sendMessage($expediteur, "bouyagui@hedee.co", $objet , $message);
+        }
+        //$mailer->sendMessage('from@email.com', "jeremykihoulou@gmail.com", 'Confirmation de la création de votre compte Rembourseo', "Ceci est le corps du mail");
 
 
         return $this->render('utile/contact.html.twig');

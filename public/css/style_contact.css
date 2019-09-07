@@ -12,17 +12,14 @@
 .bloc_header_pre {
     background: linear-gradient(0.25turn, #fff, var(--bleu-pale));
     width:100%;
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--bleu-pale);
 }
 
 .bloc_header {
     background: linear-gradient(0.25turn, #fff, var(--bleu-pale));
     width:100%;
-}
-
-.bloc_header_pre{
-    border-bottom: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--bleu-pale);
 }
 
 .bloc_header_pre > div {

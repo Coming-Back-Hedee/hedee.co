@@ -1,10 +1,16 @@
-﻿/* 1er BLOC - vérifier votre éligibilité*/
+﻿:root {
+    --orange_perso: #ff3c00;
+    --orange-pale: #ffd5d2;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
+}
+
+/* 1er BLOC - vérifier votre éligibilité*/
 .bloc1 {
     background: linear-gradient(0.25turn, #fff, var(--orange-pale));
     width:100%;
     height: 45px;
-    /*display:flex;
-    flex-wrap:wrap; */
+    margin-top: 40px
 }
 
 .bloc1 > p {
@@ -332,9 +338,4 @@
    .encart_title_pourquoi {
        margin-bottom: 22px
    }
-
-
-
-
-
 }
