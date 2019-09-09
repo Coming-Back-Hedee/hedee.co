@@ -1,4 +1,4 @@
-            <div>
+<div>
                 <div class="filters">
                     <form>
                         Trier par :
@@ -11,10 +11,9 @@
                 <table id="tab" class="table1" border="1">
                     <thead id="entete-tableau">
                         <tr>
-								<td>MES DEMANDES</td>
-								<td>STATUS</td>
-								<td>MONTANT</td>
-								<td>DETAILS</td>
+								<td>Mes demandes</td>
+								<td>Statut</td>
+								<td>Montant</td>
 							</tr>
                     </thead>
                     <tbody id="mes-demandes">
@@ -31,7 +30,6 @@
                 all_demandes(this.value)
             });
         var table = document.getElementById("mes-demandes");
-
         var all_demandes = function (ordre){
             empty_section(table)
             if(ordre == "Date décroissante")
@@ -48,7 +46,6 @@
                             var td1 = document.createElement('TD');
                             var td2 = document.createElement('TD');
                             var td3 = document.createElement('TD');
-                            var td4 = document.createElement('TD');
                             var remboursement = " - ";
                             var produit = "Achat sur internet";
                             if(demande.statut ==  "Remboursé"){
@@ -58,21 +55,21 @@
                                 produit = demande.referenceProduit
                             }
                             const date = new Date(demande.dateAchat.timestamp*1000)
-                            td1.innerHTML = produit 
+                            td1.innerHTML = produit +"<br>"
                             var span1 = document.createElement('SPAN');
-                            var button = document.createElement('BUTTON');
-                            span1.innerHTML = "<br>Dossier n°" + demande.numeroDossier + "<br>" + date.toLocaleDateString()
+                            var a1 = document.createElement('a');
+                            a1.setAttribute('href', demande.facture);
+                            a1.setAttribute('target', 'blank');
+                            a1.innerText = "Dossier n°" + demande.numeroDossier
+                            span1.append(a1);
+                            span1.innerHTML += "<br>" + date.toLocaleDateString()
                             span1.setAttribute('class', 'normal_font')
                             td1.append(span1)                        
                             td2.innerHTML = demande.statut                     
-                            td3.innerHTML = remboursement 
-                            button.innerHTML = "<a href='" + demande.facture + "' target='blank'>VOIR</a>" 
-                            button.setAttribute('class', 'rounded_btn')
-                            td4.append(button)   
+                            td3.innerHTML = remboursement   
                             tr.appendChild(td1);
                             tr.appendChild(td2);
                             tr.appendChild(td3);
-                            tr.appendChild(td4);
                             table.appendChild(tr)                    
                     });
                     test(nb, '#tab')               
@@ -94,7 +91,6 @@
             //$(a).after('<div id="nav"></div>');
             document.getElementById('nav').innerHTML = "";
             nav = "#nav"
-
             var rowsShown = 6;
             var rowsTotal = nb;
             var numPages = rowsTotal/rowsShown;

@@ -1,6 +1,6 @@
 
                     <div class="code_postal">
-                        {{ form_label(form1.ville) }}
+                        {{ form_label(form1.ville) }} <span class="etoile">*</span>
                         
                         {{ form_errors(form1.ville) }}
                         {{ form_widget(form1.ville, {'attr' : {'placeholder' : 'Ex: Paris'}, 'id': 'cp'}) }}
@@ -8,7 +8,7 @@
                     </div>  <!-- fin class="code_postal" -->
 
                     <div class="marque">
-                        {{ form_label(form1.marqueProduit) }}
+                        {{ form_label(form1.marqueProduit) }} <span class="etoile">*</span>
                         
                         {{ form_errors(form1.marqueProduit) }}
                         {{ form_widget(form1.marqueProduit, {'attr': {'placeholder' : 'Ex: Sony, Apple, Asus'}, 'id': 'mar'}) }}
@@ -16,7 +16,7 @@
                     </div> <!-- fin class="marque" -->
 
                     <div class="reference">
-                        {{ form_label(form1.referenceProduit) }}
+                        {{ form_label(form1.referenceProduit) }} <span class="etoile">*</span>
                         {{ form_errors(form1.referenceProduit) }}
                         {{ form_widget(form1.referenceProduit, {'attr': {'placeholder' : 'Ex: Iphone 6S Or 64Go'}, 'id': 'ref'}) }}
                         {{ form_help(form1.referenceProduit) }}

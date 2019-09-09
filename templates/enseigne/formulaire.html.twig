@@ -30,10 +30,9 @@
                 <section>
                     <div class="title_box container">
                         <h2>Pas si vite !</h2>
-                        <p>Avant de passer à l'étape suivante, Hedee souhaite savoir <strong>
-                            si vous êtes nouveau dans l'aventure
-                            ou si vous avez déjà rejoint la communauté ! </strong>
-                        </p>
+                        <p>Avant de passer à l'étape suivante, Hedee souhaite savoir
+                            <span class="title_box1">si vous êtes nouveau dans l'aventure
+                            ou si vous avez déjà rejoint la communauté !</span> 
                     </div> <!-- fin class="title_box" -->
                     {% if form1.client.email is defined %}
                         <div id="pre_auth" class="pre_auth" style="display: none;"><label for="connect"> Possédez vous un compte ?</label>
@@ -49,8 +48,8 @@
                 <h3 style="display: none;">Coordonnées</h3>
                 <section>
                     <div class="title_box">
-                        <h2>Encore un petit effort...</h2>
-                        <p>Merci de confirmer vos coordonnées, ou modifiez-les si nécessaire !</p>
+                        <h2>Encore un <span class="title_box1">petit effort...</span></h2>
+                        <p>Merci de <span class="coordonnees">confirmer vos coordonnées,</span> ou <span class="coordonnees">modifiez-les</span> si nécessaire !</p>
                     </div> <!-- fin class="title_box" -->
                     <div id="info_client container" class="info_client">
 
@@ -105,7 +104,7 @@
                 <h3 style="display: none;">Validation</h3>
                 <section>
                     <div class="title_box">
-                        <h2>Récapitulatif de votre demande</h2>
+                        <h2>Récapitulatif de <span class="title_box1">votre demande</span></h2>
                     </div> <!-- fin class="title_box" -->
                     <label for="recap_ens">Enseigne</label><input id="recap_ens" type="text" readonly><br>
                     <label for="recap_cat">Catégorie du produit</label><input id="recap_cat" type="text" readonly><br>
@@ -407,7 +406,7 @@
                         type: 'get',
                         url: "{{path('felicitation')}}",
                         success: function (data) {
-                            $('#header_title').html(data); 
+                            $('#bloc_header').html(data); 
                             $('#form_location').html(""); 
                         }
                     });

@@ -1,11 +1,11 @@
             
                                    
                     <div class="url">
-                        {{ form_label(form1.urlProduit) }}
+                        {{ form_label(form1.urlProduit) }} <span class="etoile">*</span>
                   
                         {{ form_errors(form1.urlProduit) }}
                         {{ form_widget(form1.urlProduit, {'attr' : {'placeholder' : 'http://www.exemple.com/page-produit/',
-                        'type' : 'url'}, 'id': 'url'}) }}
+                        'type' : 'url'}, 'id': 'url', 'class': 'etoile'}) }}
                         {{ form_help(form1.urlProduit) }}
                     </div> <!-- fin class="reference" -->
                     <div id="paragraph_id1">URL invalide</div>

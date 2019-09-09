@@ -1,6 +1,9 @@
+{% extends 'base.html.twig' %}
 
+{% block head %} {% endblock %}
     
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    {% block stylesheets %} 
+    {{ parent() }}
     <link rel="stylesheet" href="{{asset('css/jeremy.css')}}">
     <link rel="stylesheet" href="{{asset('css/style_felicitation.css')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -10,12 +13,16 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
     <script type="text/javascript" src="{{asset('js/iscroll.js')}}"></script>
+    {% endblock %}
 
+    {% block title %}Félicitation !{% endblock %}
+
+    {% block main %}
     <div class="fel-wrapper">
         <div class="bloc_fel">
             <div>
                 <h1>Félicitations !</h1>
-                <h3>Hedee part à la chasse aux pris bas !</h3>
+                <h2>Hedee part à la chasse aux pris bas !</h2>
                 <p>Nous vous remercions pour votre demande. <br>
                 Vous recevrez une alerte par mail dès qu'hedee aura trouvé votre produit au prix le plus bas.</p>
                 <div class="button_group row">
@@ -32,9 +39,11 @@
                 </div>
             </div>
             <div class="big_emoji">
-                <img src="{{asset('img/parcours_remboursement/emoj_fel.png')}}" alt="" > 
+                <img src="{{asset('img/parcours_remboursement/emoj_fel.png')}}" alt="" width="200" height="200" class="img-fluid" > 
             </div>
         </div> <!-- fin class="bloc_fel" -->
     </div>  <!-- fin class="fel-wrapper" -->
+
+{% endblock %} {#fin block main#}
 
     
