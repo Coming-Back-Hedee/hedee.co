@@ -19,7 +19,7 @@ main{
 body {
     font-family: 'Work sans';
     width: 100%;
-    
+    min-height:960px;
 }
 
 /* HEADER */
@@ -55,7 +55,6 @@ header {
     margin-left:auto;
     margin-right:auto;
 }
-
 
 
 .compte_client {
@@ -550,7 +549,8 @@ main {
 /* FOOTER - reseaux sociaux + infos site*/
 
 footer {
-    margin-bottom: 0 !important
+    margin-bottom: 0 !important;
+    margin-top: 5%;
 }
 
 .footer_bleu {

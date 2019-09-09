@@ -460,17 +460,15 @@ a:visited, a{
 .block_left1 + .block_right{
     color: var(--bleu_perso);
     box-shadow: 8px 8px 0px var(--bleu-pale);
-    border: solid 2px var(--bleu-pale);
-    border-left: none;
-    border-bottom: none;
+    border-top: solid 2px var(--bleu-pale);
+    border-right: solid 2px var(--bleu-pale);
 }
 
 .block_left2 + .block_right{
     color: var(--orange_perso);
     box-shadow: 8px 8px 0px var(--orange-pale);
-    border: solid 2px var(--orange-pale);
-    border-left: none;
-    border-bottom: none;
+    border-top: solid 2px var(--orange-pale);
+    border-right: solid 2px var(--orange-pale);
 }
 
 #connexion, #inscription{
@@ -635,6 +633,11 @@ a:visited, a{
     }
 
     /****************** POPUP ******************/
+
+    .bloc_popup{
+        width: 960px;
+    }
+
     .block_left1{
         height: 300px;
         width: 300px;

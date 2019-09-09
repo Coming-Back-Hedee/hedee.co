@@ -59,17 +59,20 @@
 }
 
 .demande_button{
+    text-transform: uppercase;
     background-color: var(--orange_perso);
     color: #fff;
     
 }
 
 .compte_button{
+    text-transform: uppercase;
     background-color:#fff;
     color: var(--bleu_perso);
 }
 
 .orange_button{
+    text-transform: uppercase;
     display: block;
     text-align: center;
     padding: 12.5px;
@@ -80,6 +83,7 @@
 }
 
 .blue_button{
+    text-transform: uppercase;
     display: block;
     text-align: center;
     padding: 12.5px;
@@ -90,6 +94,7 @@
 }
 
 .whiteo_button{
+    text-transform: uppercase;
     display: block;
     text-align: center;
     padding: 12.5px;

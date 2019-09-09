@@ -1,4 +1,4 @@
-    <div class="container les_infos">
+ <div class="container les_infos">
         {{form_start(form1, {'attr': {'id': 'form-enseigne'} }) }}
             <div>
                 <h3 style="display: none;">Achat</h3>
@@ -9,11 +9,11 @@
                     <div id="mole" class="mole container">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                               <p> Où avez-vous fait votre achat ? <span class="etoile">*</span> </p>
+                               <p> Où avez-vous fait votre achat ? </p>
                             </div>
                             <div class="col">                               
                                 <input type="radio" name="choix" value="magasin" id="magasin"/>
-                                <label for="magasin">En boutique</label>
+                                <label for="magasin">Magasin</label>
                             </div>
                             <div class="col">                               
                                 <input type="radio" name="choix" value="internet" id="internet"/>
@@ -112,7 +112,10 @@
                     <div id="recap_produit"></div>
                     <label for="recap_prix">Montant de l'achat</label><input id="recap_prix" type="text" readonly><br>
                     {#<img id="facture_jpg" alt="Votre facture est en cours de chargement">#}
-                    {{ form_row(form1.cgu) }} 
+                    <div class="cgu">
+                        {{ form_widget(form1.cgu) }}
+                        {{ form_label(form1.cgu) }} 
+                    </div>
                     {{ form_row(form1._token) }}
                 </section> <!-- fin étape 4 formulaire -->
                 
@@ -125,8 +128,6 @@
         var recap;
         var dialog =  $( "#dialog-message" );
         var form = $("#form-enseigne");
-
-
         
         step(form)
         $('body').on('change', 'input[name=choix]', function() {
@@ -134,7 +135,6 @@
             /*form.validate({
                 errorPlacement: function errorPlacement(error, element) { element.before(error); },
             });*/
-
             if($("[name='choix']:checked").val() == "internet"){
                 var url = "{{ path('internet') }}";
                 $.ajax({
@@ -243,18 +243,26 @@
                 },               
             }
         });
-
         form.validate({
             errorPlacement: function errorPlacement(error, element) { element.before(error); },
         });
-
-
+        function scrollTo( target ) {
+            if( target.length ) {
+                $("html, body").stop().animate( { scrollTop: target.offset().top }, 1500);
+            }
+        }
         function step(form){
             form.children("div").steps({
                 headerTag: "h3",
                 bodyTag: "section",
                 contentMode: "async",
                 transitionEffect: "slideLeft",
+                onInit: function (event, currentIndex){
+                    if(currentIndex === 0){
+                        document.getElementById("menuprevious").parentElement.style.display = "none";
+                            $("html, body").animate({scrollTop : 0}, 1500);
+                    }
+                },
                 onStepChanging: function (event, currentIndex, newIndex)
                 {
                 if(currentIndex > newIndex){
@@ -271,7 +279,6 @@
                         
                         if($('[name=connect]:checked').length != 1 && {{app.user|json_encode|raw}} == null)
                             return false;
-
                         if($("[name='connect']:checked").val() == "pmembre"){
                             if(form.valid()){
                                 $.ajax({
@@ -298,7 +305,6 @@
                             if($("[name='choix']:checked").val() == "magasin"){
                                 $('#recap_marque').val($('#mar').val());
                                 $('#recap_ref').val($('#ref').val());
-
                             }
                             if($("[name='choix']:checked").val() == "internet"){
                                 $('#recap_url').val($('#url').val());
@@ -311,12 +317,12 @@
                     form.validate().settings.ignore = ":disabled,:hidden";
                     return form.valid();
                 }
-
                 },
                 onStepChanged: function (event, currentIndex, priorIndex)
                 {   
                     //passe directement à l'étape 4 si l'utilisateur est connecté
                     if (currentIndex === 1){
+                        document.getElementById("menuprevious").parentElement.style.display = "table-cell";
                         document.getElementById("menunext").parentElement.style.display = "none";
                         if (priorIndex == 0 && $("[name='connect']:checked").val() != "pmembre" && 
                             ({{app.user|json_encode|raw}} != null) || $('#steps-uid-0-t-4').parent().attr('aria-disabled') == false )
@@ -324,7 +330,6 @@
                             form.children("div").steps("next");
                             document.getElementById("steps-uid-0-t-1").lastElementChild.style.display = 'inline';
                         }
-
                         if (priorIndex == 2 && $("[name='connect']:checked").val() != "pmembre")
                         {
                             form.children("div").steps("previous");
@@ -332,9 +337,7 @@
                         document.getElementById("steps-uid-0-t-0").lastElementChild.style.display = 'inline';
                         
                         redirect()
-
                     }
-
                     if (currentIndex == 2){
                         document.getElementById("steps-uid-0-t-1").lastElementChild.style.display = 'inline';
                         if($("[name='connect']:checked").val() == "membre"){
@@ -360,7 +363,6 @@
                             $('#cp_perso').val("0".concat($('#cp_perso').val()))
                     }
                     if (currentIndex == 3){
-                        
                         document.getElementById("steps-uid-0-t-2").lastElementChild.style.display = 'inline';
                     }
                 },
@@ -378,12 +380,10 @@
                             data: { "_username": $('#email').val(), "_password": $('#password1').val() }
                         });
                     }
-
                     var url = "/demande-remboursement/";
                     var form2 = document.getElementById("form-enseigne");
                     var donnees = new FormData(form2)
                              
-
                     $.ajax({
                         url: url,
                         type: "POST",
@@ -394,7 +394,6 @@
                             form.preventDefault(); 
                         } */            
                     });
-
                     if({{app.user|json_encode|raw}} == null){
                         $.ajax({
                             url: '/connexion4',
@@ -408,9 +407,8 @@
                         type: 'get',
                         url: "{{path('felicitation')}}",
                         success: function (data) {
-                            $('#bloc_header').html(data); 
+                            $('#header_title').html(data); 
                             $('#form_location').html(""); 
-
                         }
                     });
                     //window.location = "{{ path('felicitation')}}"
@@ -440,7 +438,4 @@
         }  /***** fin function step *****/
     });        
     </script>
-        
-
-
         

@@ -157,7 +157,7 @@
 
 					<div class="entete_menu_open">
 							<div class="logo_h_entete">
-								<a href="{{ path('accueil') }}"> <img src="{{asset('img/header/logo_hedee.png')}}" width="150" height="130" class="img-fluid" alt=""> </a>
+								<a href="#"> <img src="{{asset('img/header/logo_hedee.png')}}" width="150" height="130" class="img-fluid" alt=""> </a>
 							</div>
 					</div>
 				
@@ -366,9 +366,6 @@
 			</div><!--fin class="container-fluid"-->
 		</footer>
 	
-
-		<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
-		
 		
 		<script src="{{asset('jquery/jquery-steps/build/jquery.steps.js')}}"></script>
 		<script src="{{asset('jquery/jquery-validate/dist/jquery.validate.js')}}"></script>
@@ -389,7 +386,7 @@
 				rangelength: jQuery.validator.format("Entre {0} et {1} caractères acceptés."),
 				range: jQuery.validator.format("Valeurs entre {0} et {1} acceptées."),
 				//max: jQuery.validator.format("votre message  inférieur ou égal à {0}."),
-				min: jQuery.validator.format("Nous ne prenons en compte que les achats supérieurs ou égal à {0}.")
+				min: jQuery.validator.format("Nous ne prenons en compte que les achats supérieurs ou égaux à {0}.")
 			});
 			$.validator.addMethod(
 				"regex_prix",

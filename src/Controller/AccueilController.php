@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,12 +11,10 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 use App\Entity\Categories;
 use App\Entity\EligibiliteTest;
-
 use App\Form\EligibiliteType;
-
+use App\Services\Mailer;
 class AccueilController extends AbstractController
 {
     /**
@@ -28,8 +24,22 @@ class AccueilController extends AbstractController
     {
         $session = $request->getSession();
         $session->clear();
-
         return $this->render('accueil/index.html.twig');
     }
-
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contact(Request $request, Mailer $mailer)
+    {
+        $session = $request->getSession();
+        if($request->getMethod() == 'POST'){
+            $post = $request->request;
+            $expediteur = $post->get('mail');
+            $message = $post->get('message');
+            $objet = $post->get('objet');
+            $mailer->sendMessage($expediteur, "bouyagui@hedee.co", $objet , $message);
+        }
+        //$mailer->sendMessage('from@email.com', "jeremykihoulou@gmail.com", 'Confirmation de la création de votre compte Rembourseo', "Ceci est le corps du mail");
+        return $this->render('utile/contact.html.twig');
+    }
 }
