@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Adresses;
 use App\Entity\Clients;
 use App\Entity\Demandes;
 use App\Entity\ModeVersement;
@@ -88,8 +89,13 @@ class ProfilController extends AbstractController
             $mode->setProprietaire($post['proprietaire']);
             $user->setModeVersement($mode);
             $em->flush();
+            $flashbag = $this->get('session')->getFlashBag();
+
+            // Add flash message
+            $flashbag->add("success", "Le nouveau mode de versement a bien été pris en compte");
 
             $url = $router->generate('profil');
+            $url .= "#porte-monnaie";
 
             return new RedirectResponse($url);
         }
@@ -123,28 +129,34 @@ class ProfilController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $form = $this->createForm(InfoClientType::class, $user);
+        $flashbag = $this->get('session')->getFlashBag();
+        $flashbag->add("success", "Vos changements ont bien été pris en compte");
 
         if ($request->isMethod('POST')){
             $post = $request->request->get('info_client');
-            if(array_key_exists('nom', $post)){
-                $user->setNom(ucfirst($post['nom']));
-                $user->setPrenom(ucfirst($post['prenom']));
-                
+            if(null !== $post['nom']){
+                $user->setNom(ucfirst($post['nom']));               
             }
-            if(array_key_exists('dateNaissance', $post)){
+            if("" !== $post['prenom']){
+                $user->setPrenom(ucfirst($post['prenom']));              
+            }
+            if("" !== $post['dateNaissance']['day'] ){
                 $string = $post['dateNaissance']['day'] . "-" ;
                 $string .=  $post['dateNaissance']['month'] . "-" . $post['dateNaissance']['year'];
                 $dateNaissance = \DateTime::createFromFormat('d-m-Y',$string);
                 $user->setDateNaissance($dateNaissance);
             }
-            if(array_key_exists('numeroTelephone', $post)){
+            if("" !== $post['numeroTelephone']){
                 $user->setNumeroTelephone($post['numeroTelephone']);
             }
-            if(array_key_exists('adresse', $post)){
-                $user->getAdresse()->bis_construct($post['adresse']);
+            if("" !== $post['adresse']['nomRue']){
+                $adresse = new Adresses();
+                $adresse->bis_construct($post['adresse']);
+                $user->setAdresse($adresse);
             }
             $em->flush();
             $url = $router->generate('profil');
+            $url .= "#informations-personnelles";
 
             return new RedirectResponse($url);
         }

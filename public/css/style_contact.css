@@ -73,6 +73,16 @@ textarea{
     min-height: 220px;
 }
 
+form button{
+    margin: auto;
+    font-size: 12px;
+    font-family: "Work Sans";
+    font-weight: 420;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 0.8px;
+}
 
 /* 2e BLOC - etapes pour demande de remboursement */
 .bloc2 {

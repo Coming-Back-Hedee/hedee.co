@@ -158,7 +158,7 @@ a > .fa{
     display:inline;
     list-style: none;
     padding-left: 10px;
-    margin: 20px;
+    margin: 5px;
 }
 
 .steps ul li a {
@@ -717,14 +717,14 @@ a:visited, a{
     .block_left1{
         height: 330.60px;
         width: 330.6px;
-        background-image: url("../img/popup/Groupe\ 193.png");
+        background-image: url("../img/popup/Groupe\ 192b.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe\ 193b.png");
+        background-image: url("../img/popup/Groupe\ 192.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;

@@ -1,3 +1,8 @@
+            {% for message in app.flashes('success') %}
+                <div class="flash-notice-sucess">
+                    {{ message }}
+                </div>
+            {% endfor %}
             <div>
                 {{ form_start(form) }}
                     {{ form_label(form.prenom) }}

@@ -77,8 +77,11 @@ class EnseigneController extends AbstractController
                 if($user == null){
 
                     $repo = $em->getRepository(Clients::class);
-                    $user = $repo->findOneBy(['email' => $form['client']['email']]);  
-                    //$user->bis_construct($form['client']);     
+                    $user = $repo->findOneBy(['email' => $form['client']['email']]);
+                    if(!$user){
+                        $user = new Clients();
+                        $user->bis_construct($form['client']);  
+                    }   
                 }
 
                 if($request->request->get('choix') == "internet"){
@@ -98,10 +101,9 @@ class EnseigneController extends AbstractController
                 $post1 = $request->request->get('eligibilite');
                 $session->set('enseigne', $post1['enseigne']);
                 $session->set('date_achat', $post1['date_achat']);
-                $array_cat = array('Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
-                'Santé et beauté', 'Auto et moto', 'Sports et mode');
+                $array_cat = array('High-Tech et électroménagers', 'Maison et jardin','Santé et beauté','Mode et sport');
                 //var_dump($array_cat[$session->get('categorie')]);
-                $session->set('categorie', $array_cat[$post1['categorie']]);
+                $session->set('categorie', $array_cat[$post1['categorie']-1]);
                 $session->set('prix', $post1['prix']);
                 $session->set('path', $post1['_token']);
 

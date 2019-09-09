@@ -309,10 +309,20 @@ form[name=info_client] p{
     font-size: 18px;
 }
 
+form[name=info_client] button{
+    margin: auto;
+    font-size: 16px;
+}
+
 label {
     margin-bottom: 6px;
-    margin-top: 15px;
-    display: block;   
+    margin-top: 12px;
+    display: block;  
+    font-weight: 420;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 0.8px; 
 }
 
 #tab{

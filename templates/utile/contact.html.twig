@@ -18,6 +18,12 @@
         <div class="bloc_header">
             <h1 class="header_title">Contactez hedee</h1>
         </div>
+
+        {% for message in app.flashes('success') %}
+            <div class="flash-notice flash-success">
+                {{ message }} <span class="flash-notice-close"><i class="fa fa-close" style="font-size:24px"></i></span>
+            </div>
+        {% endfor %}
         
         <div class="bloc1">
             <form method="post" action="{{ path('contact')}}">
@@ -42,7 +48,7 @@
                     <label for="message">Votre message</label>
                     <textarea type="text" name="message" id="message"></textarea>
 
-                    <button type="submit">Je contacte hedee</button>
+                    <button class="orange_button" type="submit">Je contacte hedee</button>
                 </div>
             </form>
 

@@ -151,8 +151,7 @@ class PdfController extends AbstractController
             $pdf->Cell(37,25,$reference,0,0,'C',0);*/
         }
         else{
-            //$url = $post['urlProduit'];
-            $url = "https://app.zeplin.io/project/5d5847e012736e9b6c9fb786/screen/5d584b8303703951ee4c1f7e";
+            $url = $post['urlProduit'];
             
             $nbLignes = ceil($pdf->GetStringWidth($url) / ($pdf->GetPageWidth() - 2 * PDF_MARGIN_LEFT - 50));
             $details .= "\nURL : ";
@@ -162,7 +161,7 @@ class PdfController extends AbstractController
                 $details .= "\n";
             }
             $points .= "\n............................................................................................";
-            $details .= "Montant de l'achat : $prix ";
+            $details .= "Montant de l'achat : ";
             $pdf->Write(10, $details);
             $pdf->SetXY(PDF_MARGIN_LEFT+50, $position+4);
             $pdf->SetLeftMargin(PDF_MARGIN_LEFT+50);
@@ -175,17 +174,18 @@ class PdfController extends AbstractController
             //$pdf->MultiCell(117,5,utf8_decode($url),0,'C',false);
             //$pdf->SetDrawColor(0,0,255);
             $pdf->Link(PDF_MARGIN_LEFT+50, $position+15, 120, $nbLignes*5 ,$url);
+            $pdf->Text(PDF_MARGIN_LEFT+50, $position+($nbLignes+4)*5 , "$prix €");
         }
         $pdf->Text(PDF_MARGIN_LEFT+50, $position + 4, $categorie);
-        
-        
+         
     }
 
     public function footer($pdf){
         $texte = "Hedee a trouvé moins cher !";
         $mid_x = $pdf->GetPageWidth()/2; // the middle of the "PDF screen", fixed by now.
         $pdf->SetDrawColor(40, 0, 220); // Couleur des filets
-        $pdf->SetFont('dejavusans', 'B', 24);
+        $pdf->SetTextColor(40, 0, 220);
+        $pdf->SetFont('dejavusans', 'B', 16);
         
         $pdf->Text($mid_x - ($pdf->GetStringWidth($texte) / 2), 140, $texte);
         $pdf->Rect(15,210,45,30,'D');
@@ -194,6 +194,7 @@ class PdfController extends AbstractController
     }
 
     public function details_footer($pdf, AlertePrix $alerte, $session){
+        $pdf->SetTextColor(40, 0, 220);
         $mid_x = $pdf->GetPageWidth()/2; // the middle of the "PDF screen", fixed by now.
         $pdf->SetFont('dejavusans', '', 16);
         $diffPrix = $alerte->getDifferencePrix() . "€";
@@ -201,11 +202,14 @@ class PdfController extends AbstractController
         $pdf->SetFont('dejavusans', 'B', 24);
         $pdf->Text($mid_x - ($pdf->GetStringWidth($diffPrix) / 2), 165,$diffPrix);
         $pdf->SetXY(15,210);
+        $pdf->Text(37.5 - ($pdf->GetStringWidth("Magasin:") / 2), 200, "Magasin:");
         $pdf->Cell(45,30,$alerte->getEnseigne(),0,0,'C',0);
         $pdf->SetXY(82.5,210);
+        $pdf->Text(105 - ($pdf->GetStringWidth("Date du constat:") / 2), 200, "Date du constat:");
         $pdf->Cell(45,30,date_format($alerte->getDate(),"d/m/Y"),0,0,'C',0);
-        $pdf->SetXY(150,210);     
-        $pdf->Cell(45,30,$alerte->getPrix(),0,0,'C',0);
+        $pdf->SetXY(150,210);
+        $pdf->Text(172.5 - ($pdf->GetStringWidth("Prix le moins cher") / 2), 200, "Prix le moins chèr");     
+        $pdf->Cell(45,30,"$alerte->getPrix()€",0,0,'C',0);
     }
 
     public function recup_pdf($pdf, $path){

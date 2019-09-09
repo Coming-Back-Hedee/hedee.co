@@ -284,13 +284,13 @@
 			{% block main %}
 			{% endblock %}
         </main>
-		<div class="js-menu-cookie">
+		{#<div class="js-menu-cookie">
 			Ce site Internet utilise des cookies. 
 			Vous pouvez les désactiver dans les paramètres de votre navigateur. 
 			Vous trouverez davantage d’informations concernant notre politique 
 			en matière de cookies dans notre Politique de confidentialité.
 			<button class="close js-menu-cookie-close">OK</button>
-		</div>
+		</div>#}
 		<footer>
 			<div class="container-fluid footer_bleu">
 					<div class="row">
@@ -372,7 +372,16 @@
 			</div><!--fin class="container-fluid"-->
 		</footer>
 	
-		
+		<script src="{{ asset('js/cookiechoices.js') }}"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function(event){
+				cookieChoices.showCookieConsentBar('Ce site utilise des cookies pour vous offrir le meilleur service. En poursuivant votre navigation, vous acceptez l’utilisation des cookies.', 
+				'J’accepte', 
+				'En savoir plus', 
+				'{{ path("mentions_legales") }}'
+				);
+			});
+		</script>
 		<script src="{{asset('jquery/jquery-steps/build/jquery.steps.js')}}"></script>
 		<script src="{{asset('jquery/jquery-validate/dist/jquery.validate.js')}}"></script>
 		<script>
@@ -418,6 +427,10 @@
 		</script>
 
 		<script>
+			$('.flash-notice-close').click(function(){
+				console.log($(this))
+				$(this).parent().fadeOut()
+			})
 			$.ucfirst = function(str) {
 					var word = ""
 					var text = str;
@@ -430,6 +443,8 @@
 					return word;
 				};
 		</script>
+
+			
 		<script type="text/javascript">
 			var user = "{{app.user|json_encode|raw}}"
 			//if(user == "null"){ modalConnect(null);}
