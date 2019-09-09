@@ -143,6 +143,20 @@
     z-index: 5;
 }
 
+
+.cgu{
+    margin-top: 5%;
+}
+.cgu input{
+    width: initial;
+}
+
+.cgu label{
+    margin: initial;
+    display: initial;
+    font-weight: 800;
+}
+
 /* style popup 
 
 

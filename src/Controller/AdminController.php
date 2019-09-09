@@ -106,7 +106,7 @@ class AdminController extends AbstractController
                     $user->setRoles(["ROLE_ADMIN"]);
                     $user->setPassword($password);
                     $flashbag = $this->get('session')->getFlashBag();
-                    $this->addFlash("success_hedee", "Vous avez été autorisé à être administrateur. Il reste à confirmer votre mot de passe.");
+                    $this->addFlash("success_hedee", "Veuillez confirmer votre mot de passe..");
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($user);
                     $em->flush();

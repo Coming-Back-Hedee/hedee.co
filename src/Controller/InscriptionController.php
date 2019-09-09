@@ -59,9 +59,9 @@ class InscriptionController extends AbstractController
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setPhoto("/img/emoji/=D.png");
-            /*$user->setCodeParrainage();
+            //$user->setCodeParrainage();
             
-            if($request->request->get('inscription')['codeParrainage'] != ""){ 
+            /*if($request->request->get('inscription')['codeParrainage'] != ""){ 
                 $codeP = $request->request->get('inscription')['codeParrainage'];
                           
                 $parrain = $repo->findOneBy(['codeParrainage' => $codeP]);
@@ -80,11 +80,10 @@ class InscriptionController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $user2 = $repo->findOneBy(['email' => $user->getEmail()]);
+            //$user2 = $repo->findOneBy(['email' => $user->getEmail()]);
             
 
-            $user2->setCodeParrainage();                
-            $em->persist($user);
+            $user->setCodeParrainage();                
             $em->flush();
             
             $mailer->sendAdminMessage("hello@hedee.co", $user->getEmail(), 'Confirmation de la création de votre compte Rembourseo', $bodyMail);
@@ -142,10 +141,14 @@ class InscriptionController extends AbstractController
             $user->setEmail($post->get('_username'));
             $password = $passwordEncoder->encodePassword($user, $post->get('_password'));
             $user->setPassword($password);
+            
             $user->setPhoto("/img/emoji/=D.png");
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
+            $em->flush();
+
+            $user->setCodeParrainage();                
             $em->flush();
 
             $bodyMail = $mailer->createBodyMail('inscription/mail2.html.twig', [
