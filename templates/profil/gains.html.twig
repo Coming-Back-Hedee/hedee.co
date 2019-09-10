@@ -5,7 +5,7 @@
     {% endfor %}
     {% if user.modeVersement is null %} 
         <div class="empty_mv">
-            <h2>Vous n'avez pas encore de moyen de versement</h2>
+            <h2>Vous n'avez pas encore de mode de versement...</h2>
             <p>Ajoutez-en un pour vous faire rembourser ! </p>
 
             <a id="add_mv" href="#" onClick="add(event, this)">
@@ -17,12 +17,13 @@
         </div>
     {% else %} 
 		<div class="jumbotron">
-            <p>Hedee vous a fait gagner </p> 
-            <p>{{ controller_name }}€</p> 
-            <p>Depuis votre inscription</p>                       
+            <h3>Super !</h3> 
+            <p>Hedee vous a fait gagner :</p> 
+            <p class="euros">{{ controller_name }}€</p>   
+            <p>depuis votre inscription</p>                   
         </div>
         <div id="mv_location">
-            Mon mode de versement
+            <p>Mon mode de versement</p>
             <div class="media border p-3">
                 <img src="{{user.photo}}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
                 <div class="media-body">
@@ -30,7 +31,7 @@
                     <p>{{ user.modeVersement.proprietaire ~ ", IBAN *******"
                          ~  user.modeVersement.iban|slice(user.modeVersement.iban|length-3, user.modeVersement.iban|length) }}
                     </p>
-                    <span><a href="#" onClick="add(event, this)">Modifier</a></span>     
+                    <span><a href="#" onClick="add(event, this)">MODIFIER</a></span>     
                 </div>
             </div>
         </div>
