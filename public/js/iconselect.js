@@ -124,6 +124,7 @@ function IconSelect($$elementID, $$parameters) {
     this.getSelectedIndex = function(){ return _selectedIndex; };
     this.getSelectedValue = function(){ return _icons[_selectedIndex].iconValue };
     this.getSelectedFilePath = function(){ return _icons[_selectedIndex].iconFilePath };
+    //this.setSelectedIndex = function(index){ this._selectedIndex = index; return _selectedIndex };
     
     
     

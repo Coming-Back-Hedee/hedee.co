@@ -4,14 +4,29 @@
                     {{ form_widget(form.proprietaire) }} 
                     {{ form_label(form.swiftBic) }}
                     {{ form_widget(form.swiftBic) }} 
+                    {% for message in app.flashes('warningBic') %}
+                        <div class="flash-notice-warning">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                     {{ form_label(form.iban) }}
                     {{ form_widget(form.iban) }}
+                    {% for message in app.flashes('warningIban') %}
+                        <div class="flash-notice-warning">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                     <div class="vanish">
                         {{ form_widget(form.cancel) }} 
                         {{ form_widget(form.submit) }} 
                     </div>
                 {{ form_end(form) }}
         </div>
+        {% for message in app.flashes('success') %}
+            <div class="flash-notice-sucess">
+                {{ message }}
+            </div>
+        {% endfor %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>       
             $('#mode_versement_proprietaire').val("{{ app.user.prenom ~ " " ~ app.user.nom }}");

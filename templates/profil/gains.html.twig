@@ -1,8 +1,4 @@
-    {% for message in app.flashes('success') %}
-            <div class="flash-notice-sucess">
-                {{ message }}
-            </div>
-    {% endfor %}
+    
     {% if user.modeVersement is null %} 
         <div class="empty_mv">
             <h2>Vous n'avez pas encore de moyen de versement</h2>

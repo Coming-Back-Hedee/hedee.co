@@ -1,7 +1,9 @@
-            {% for message in app.flashes('success') %}
-                <div class="flash-notice-sucess">
-                    {{ message }}
-                </div>
+            {% for label, messages in app.flashes(['warning', 'error', 'success']) %}
+                {% for message in messages %}
+                    <div class="flash notice-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
             {% endfor %}
             <div>
                 {{ form_start(form) }}
@@ -9,7 +11,9 @@
                     {{ form_widget(form.prenom) }}
                     {{ form_label(form.nom) }}
                     {{ form_widget(form.nom) }}
-                    {{ form_label(form.dateNaissance) }}
+
+                    {% if form.dateNaissance is defined %}
+                        {{ form_label(form.dateNaissance) }}
                         <div class="row">
                             <div class="col"> 
                                 {{ form_widget(form.dateNaissance.day) }} 
@@ -23,6 +27,12 @@
                                 {{ form_widget(form.dateNaissance.year) }}
                             </div>
                         </div>
+                    {% else %}
+                        <label for="birthdate">Date de naissance </label>
+                        <input id="birthdate" type="text" value="{{app.user.dateNaissance|date("d/m/Y")}}" readonly>
+                    {% endif %}
+                    
+
                     <label for="mail">Adresse email</label>
                     <input id="mail" type="text" value="{{app.user.email}}" readonly>
                     {{ form_label(form.numeroTelephone) }}

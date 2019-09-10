@@ -1,7 +1,24 @@
 :root {
-    --orange_perso: #ff3c00;
+	--orange_perso: #ff3c00;
     --bleu_perso: #2800dc;
     --bleu-pale: #e1def9;
+}
+
+main{
+	color: var(--bleu_perso);
+}
+
+a{
+	color: var(--bleu_perso);
+}
+
+a:hover{
+	text-decoration: none;
+	color: var(--bleu_perso);
+}
+
+h3{
+	text-align: center;
 }
 
 div#colonne1 {
@@ -15,6 +32,33 @@ div#colonne2 {
 
 }
 
+.nav-tabs {
+	border: 1px solid var(--bleu-pale);
+	box-shadow: 8px 8px 0px var(--bleu-pale);
+	margin-bottom: 40px;
+}
+
+.nav-tabs li{
+	padding: 10px;
+	border-right: 1px solid var(--bleu-pale);
+}
+
+.nav-tabs li:hover{
+	background-color: var(--bleu-pale);
+}
+
+.tab-content{
+	border: 1px solid var(--bleu-pale);
+}
+
+label{
+	display: block;
+}
+
+input{
+	background-color: var(--orange-pale);
+}
+
 .filtre{
 	margin-right: 1%;
 	background-color: white;
@@ -23,8 +67,8 @@ div#colonne2 {
 	color: black;
 }
 
-button.active{
-	background-color: #ccc;
+li.active{
+	background-color: var(--bleu-pale);
 }
 
 .modif{
@@ -41,6 +85,16 @@ button.active{
 
 .jumbotron{
   text-align: center;
+}
+
+textarea{
+	background-color: var(--orange-pale);
+	width: 100%;
+	margin: auto;
+}
+
+.col{
+	margin: auto;
 }
 
 #mes-demandes > tr td::nth-child(1n) { width:25%;}

@@ -23,7 +23,7 @@
                         <nav id="spy">
                             <ul class="sidebar-nav nav">
                                 <li class="profile">
-                                    <img class="photo-profil" src="{{asset('img/emoji/=D.png')}}" alt="Photo de votre profil" />
+                                    <img class="photo-profil" src="{{ app.user.photo }}" alt="Photo de votre profil" />
                                     <div class="hello_profil">
                                         <p class="profil-label">Bonjour </p>
                                         <p class="profil-name"> {{app.user.prenom}} !</p>
@@ -145,6 +145,7 @@
                         var selectedText;
                                                     
                         selectedText = document.getElementById('selected-text');
+
                                                     
                         document.getElementById('my-icon-select').addEventListener('changed', function(e){
                             selectedText.value = iconSelect.getSelectedValue();
@@ -157,6 +158,12 @@
                         icons.push({'iconFilePath':'{{asset("img/emoji/=o.png")}}', 'iconValue':'3'});
                                                     
                         iconSelect.refresh(icons); 
+                        icons.forEach(function(elt){
+                            if(elt.iconFilePath == "{{ app.user.photo }}"){
+                                iconSelect.setSelectedIndex(elt.iconValue-1)
+                            }
+                        })
+                        //console.logdocument.getElementsByClassName("icon")();
                     }
                 }
             });   

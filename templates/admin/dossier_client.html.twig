@@ -6,7 +6,7 @@
 {% endblock %}
 {% block main %}
     <div class="container">
-            <a href="{{ path('admin') }}"><button>Retour</button></a>
+            <a href="{{ path('admin') }}"><button class="blue_button" >Retour</button></a>
             <h1>Dossier numéro {{alerte.dossier.numeroDossier}}</h1>
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#info_achat">Informations d'achat</a></li>
@@ -26,21 +26,30 @@
                         <p>Prix d'achat :{{ alerte.dossier.prixAchat }}</p>
                     {% endif %}
                 </div>
+
+                {% if alerte.dossier.commentaires != null %}
+                    <div>
+                        <h3>Commentaire client</h3>
+                        <textarea rows="5" cols="33" readonly>{{ alerte.dossier.commentaires }}</textarea>
+                    </div>
+                {% endif %}
                 <div>
                     <h3>Meilleure offre trouvée</h3>
                     {{form_start(form, {'attr' : {'autocomplete' : 'off', 'id' : 'form-alerte'}}) }}
-                        <div id="colonne1">
-                            {{ form_label(form.prix) }}
-                            {{ form_widget(form.prix, {'id': 'prix'}) }}
-                        </div>
-                        <div id="colonne2">
-                            {{ form_label(form.enseigne) }}
-                            {{ form_widget(form.enseigne) }}
-                        </div>
-                        <div id="centre">
-                            {{ form_label(form.date) }}
-                            {{ form_widget(form.date) }}
+                        <div class="row">
+                            <div class="col">
+                                {{ form_label(form.prix) }}
+                                {{ form_widget(form.prix, {'id': 'prix'}) }}
+                            </div>
+                            <div  class="col">
+                                {{ form_label(form.enseigne) }}
+                                {{ form_widget(form.enseigne) }}
+                            </div>
+                            <div  class="col">
+                                {{ form_label(form.date) }}
+                                {{ form_widget(form.date) }}
 
+                            </div>
                         </div>
                         <div>
                             {{ form_label(form.differencePrix) }}
@@ -50,14 +59,20 @@
                     {{form_end(form)}}
                 </div>
                 <div>
+                    <h3>Remboursement</h3>
                     {{form_start(formC, {'attr' : {'autocomplete' : 'off', 'id' : 'form-cloture'}}) }}
-                        {{ form_label(formC.montantCloture) }}
-                        {{ form_widget(formC.montantCloture) }}
-                        {{ form_widget(formC.clotureR, {'attr' : {'type' : 'submit'}}) }}
-
-                        {{ form_widget(formC.clotureNR, {'attr' : {'type' : 'submit'}}) }}
+                        <div class="row">
+                            <div class="col">
+                                {{ form_label(formC.montantCloture) }}
+                                {{ form_widget(formC.montantCloture) }}
+                                {{ form_widget(formC.clotureR, {'attr' : {'type' : 'submit'}}) }}
+                            </div>
+                            <div class="col">
+                                {{ form_widget(formC.clotureNR, {'attr' : {'type' : 'submit'}}) }}
+                            </div>
                         {#<button style="float:left;">Client remboursé</button>
                         <button style="float:right;">Client non remboursé</button>#}
+                        </div>
                     {{form_end(formC)}}
                 </div>
             </div>

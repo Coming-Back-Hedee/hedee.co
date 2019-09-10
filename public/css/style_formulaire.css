@@ -582,7 +582,8 @@ a:visited, a{
     /************** POPUP *****************/
     
     .block_right{
-        box-shadow: 8px -8px 0px var(--bleu-pale) !important;      
+        box-shadow: 8px -8px 0px var(--bleu-pale) !important;  
+        order: -1;    
     }
 
     .block_left1 + .block_right{
@@ -594,8 +595,8 @@ a:visited, a{
     }	   
 
     .block_left1{
-        height: 350px;
-        background-image: url("../img/popup/Groupe\ 194.png");
+        height: 330px;
+        background-image: url("../img/popup/Groupe191.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
@@ -603,8 +604,8 @@ a:visited, a{
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe\ 194b.png");
-        height: 350px;
+        background-image: url("../img/popup/Groupe191b.png");
+        height: 330px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
@@ -655,20 +656,20 @@ a:visited, a{
     /****************** POPUP ******************/
 
     .bloc_popup{
-        width: 960px;
+        width: 660px;
     }
 
     .block_left1{
         height: 300px;
         width: 300px;
-        background-image: url("../img/popup/Groupe\ 194.png");
+        background-image: url("../img/popup/Groupe194.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe\ 194b.png");
+        background-image: url("../img/popup/Groupe194b.png");
         height: 300px;
         width: 300px;
         background-size: cover;
@@ -699,6 +700,10 @@ a:visited, a{
         width: 720px
     }
 
+    .bloc_popup{
+        width: 960px;
+    }
+
     .les_infos {
         display: table;
         color: var(--bleu_perso);
@@ -715,26 +720,26 @@ a:visited, a{
 
     /**************** POPUP ********************/
     .block_left1{
-        height: 330.60px;
-        width: 330.6px;
-        background-image: url("../img/popup/Groupe\ 192b.png");
+        height: 480px;
+        width: 480px;
+        background-image: url("../img/popup/Groupe193.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe\ 192.png");
+        background-image: url("../img/popup/Groupe193b.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
-        height: 330.60px;
-        width: 330.6px;
+        height: 480px;
+        width: 480px;
     }
 
     .block_right{
-        height: 330.60px;
-        width: 330.6px;
+        height: 480px;
+        width: 480px;
     }
 
     #connexion input, #inscription input{
