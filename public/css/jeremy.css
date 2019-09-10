@@ -39,6 +39,20 @@
     font-size: 60px;
 }
 
+.flash-success{
+    background-color: var(--bleu-pale);
+    padding: 30px;
+    color: var(--bleu_perso);
+    width: 400px;
+    height: 100px;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.flash-notice > span{
+    float: right;
+}
+
 .compte_button, .demande_button{
     border-style: none;
     border-radius: 40px;
@@ -61,8 +75,7 @@
 .demande_button{
     text-transform: uppercase;
     background-color: var(--orange_perso);
-    color: #fff;
-    
+    color: #fff;    
 }
 
 .compte_button{
@@ -141,6 +154,20 @@
     background-color: var(--orange_perso);
     color: #fff;
     z-index: 5;
+}
+
+
+.cgu{
+    margin-top: 5%;
+}
+.cgu input{
+    width: initial;
+}
+
+.cgu label{
+    margin: initial;
+    display: initial;
+    font-weight: 800;
 }
 
 /* style popup 

@@ -18,27 +18,37 @@
         <div class="bloc_header">
             <h1 class="header_title">Contactez hedee</h1>
         </div>
+
+        {% for message in app.flashes('success') %}
+            <div class="flash-notice flash-success">
+                {{ message }} <span class="flash-notice-close"><i class="fa fa-close" style="font-size:24px"></i></span>
+            </div>
+        {% endfor %}
         
         <div class="bloc1">
-            <form>
+            <form method="post" action="{{ path('contact')}}">
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <label for="prenom">Votre nom</label>
+                            <label for="nom">Votre nom</label>
                             <input type="text" name="nom" id="nom">
                         </div>
                         <div class="col">
-                            <label for="nom">Votre prénom</label>
+                            <label for="prenom">Votre prénom</label>
                             <input type="text" name="prenom" id="prenom">
                         </div>
                     </div>
-                
+                    
                     <label for="mail">Votre adresse mail</label>
                     <input type="text" name="mail" id="mail" {% if app.user != null %} value="{{ app.user.email }}" {% endif %}>
-                    <label for="message">Votre message</label>
-                    <textarea type="text" name="prenom" id="message"></textarea>
 
-                    <button type="submit">Je contacte hedee</button>
+                    <label for="objet">Objet</label>
+                    <input type="text" name="objet" id="objet">
+                    
+                    <label for="message">Votre message</label>
+                    <textarea type="text" name="message" id="message"></textarea>
+
+                    <button class="orange_button" type="submit">Je contacte hedee</button>
                 </div>
             </form>
 

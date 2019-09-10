@@ -16,7 +16,7 @@
     <div class="container">
         <div id="wrapper">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
 
                     <!-- Sidebar -->
                     <div id="sidebar-wrapper">
@@ -30,21 +30,25 @@
                                     </div>
                                 </li>
                                 <li class="middle">
-                                    <a href="#anch1">
-                                        <span class="fa fa-chevron-right"> Mes demandes de remboursement</span>
+                                    <a id="demandes-remboursement" href="#anch1">
+                                        <span class="fa fa-chevron-right"> </span>
+                                        <p>Mes demandes de remboursement</p>
                                     </a>
                                 </li>
                                 <li class="middle">
-                                    <a href="#anch1">
-                                        <span class="fa fa-chevron-right"> Mes informations personnelles</span>
+                                    <a id="informations-personnelles" href="#anch1">
+                                        <span class="fa fa-chevron-right"> </span>
+                                        <p>Mes informations</p>
+                                        <p>personnelles</p>
                                     </a>
                                 </li>
                                 <li class="middle">
-                                    <a href="#anch1" >
-                                        <span class="fa fa-chevron-right"> Mon porte-monnaie</span>
+                                    <a id="porte-monnaie" href="#anch1" >
+                                        <span class="fa fa-chevron-right"> </span>
+                                        <p>Mon porte-monnaie</p>
                                     </a>
                                 </li>
-                                <li class="middle">
+                                <li>
                                     <button class="demande_button">
                                         <a  href="{{path('enseigne')}}" title="Je fais une nouvelle demande">
                                             Je fais une nouvelle demande
@@ -64,7 +68,7 @@
 
                 <!-- Page content -->
                 <div class="col-lg-1"><button id="coming_back">Retour</button></div>
-                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-8">
+                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-7">
                     <div id="page-content-wrapper">
                         <div class="row">
                             <div class="col-md-12 well">
@@ -84,134 +88,84 @@
 
         </div>
     </div>
-    <div class="bloc_footer"></div>
       
 {% endblock %}
 {% block javascript %}
 
 <script>        
     $(document).ready(function() {
-        window.onpopstate = function(e){
-            e.preventDefault()
-            alert()
-        }
         $('#coming_back').click(function(){
             $('#sidebar-wrapper').show()
             $('#page-content-wrapper').hide()
             $('.active').removeClass('active')
-
+            history.replaceState(null, null, ' ');
         });
         var section = document.querySelectorAll("a[href='#anch1']")
         Array.from(section).forEach(function(li){
             li.addEventListener('click', function(e){
                 e.preventDefault()
-                switch(li.firstElementChild.innerText){
-                    case 'Mon porte-monnaie':
-                        if(!$(this).parent().hasClass('active')){
-                            url = "{{ path('gains') }}";
-                            $('.active').removeClass('active')
-                            $(this).parent().addClass('active')
-                            changeTab(url)
-                            if(window.innerWidth < 1025){
-                                $('#sidebar-wrapper').hide()
-                                $('#page-content-wrapper').show()
-
-                            }
-                        }
-                        break;
-                        
-                    case 'Mes demandes de remboursement':
-                        if(!$(this).parent().hasClass('active')){
-                            url = "{{ path('demandes') }}";
-                            $('.active').removeClass('active')
-                            $(this).parent().addClass('active')
-                            changeTab(url)
-                            if(window.innerWidth < 1025){
-                                $('#sidebar-wrapper').hide()
-                                $('#page-content-wrapper').show()
-
-                            }
-                        }
-                        break;
-
-                    case 'Mes informations personnelles':
-                        if(!$(this).parent().hasClass('active')){
-                            url = "{{ path('info_client') }}";
-                            $('.active').removeClass('active')
-                            $(this).parent().addClass('active')
-                            changeTab(url)
-                            if(window.innerWidth < 1025){
-                                $('#sidebar-wrapper').hide()
-                                $('#page-content-wrapper').show()
-                            }
-                        }
-                        break;
-                }                
-            })
-
+                id = $(this).attr('id')                      
+                loadTab(id); 
+                $("html, body").animate({scrollTop : 0}, 1500);       
+            });
         });
-
-        function changeTab(url){
+        function loadTab(id){
+            window.location.hash = "#" + id;
+            
+            if(!$(window.location.hash).parent().hasClass('active')){
+                    $('.active').removeClass('active')
+                    $(window.location.hash).parent().addClass('active')
+                    if(window.innerWidth < 1025){
+                        $('#sidebar-wrapper').hide()
+                        $('#page-content-wrapper').show()
+                    }
+                }
+            switch(id){
+                case "informations-personnelles":
+                    url = "{{path('info_client')}}"
+                    title = "Mes informations personnelles";
+                    break;
+                case "porte-monnaie":
+                    url = "{{path('gains')}}"
+                    title = "Mon porte-monnaie";
+                    break;
+                default:
+                   url = "{{path('demandes')}}"
+                title = "Mes demandes de remboursement"; 
+            }  
+            $("#header_title").html(title)
             $.ajax({
                 type: 'get',
                 url: url,
                 success: function (data) {
                     $("#anch1").html(data);
-                    var title;
-                    switch(url){
-                        case "{{path('info_client')}}":
-                            var iconSelect;
-                            var selectedText;
-                                        
-                            selectedText = document.getElementById('selected-text');
-                                        
-                            document.getElementById('my-icon-select').addEventListener('changed', function(e){
-                                selectedText.value = iconSelect.getSelectedValue();
-                            });
-                                        
-                            iconSelect = new IconSelect("my-icon-select");
-
-                            var icons = [];
-                            icons.push({'iconFilePath':'{{asset("img/emoji/;).png")}}', 'iconValue':'1'});
-                            icons.push({'iconFilePath':'{{asset("img/emoji/=D.png")}}', 'iconValue':'2'});
-                            icons.push({'iconFilePath':'{{asset("img/emoji/=o.png")}}', 'iconValue':'3'});
-                                        
-                            iconSelect.refresh(icons);
-                            title = "Mes informations personnelles";
-                            break;
-                        case "{{path('demandes')}}":
-                            title = "Mes demandes de remboursement";
-                            break;
-                        
-                        case "{{path('gains')}}":
-                            title = "Mon porte-monnaie";
-                            break;
+                    if(url == "{{path('info_client')}}"){
+                        var iconSelect;
+                        var selectedText;
+                                                    
+                        selectedText = document.getElementById('selected-text');
+                                                    
+                        document.getElementById('my-icon-select').addEventListener('changed', function(e){
+                            selectedText.value = iconSelect.getSelectedValue();
+                        });
+                                                    
+                        iconSelect = new IconSelect("my-icon-select");
+                        var icons = [];
+                        icons.push({'iconFilePath':'{{asset("img/emoji/;).png")}}', 'iconValue':'1'});
+                        icons.push({'iconFilePath':'{{asset("img/emoji/=D.png")}}', 'iconValue':'2'});
+                        icons.push({'iconFilePath':'{{asset("img/emoji/=o.png")}}', 'iconValue':'3'});
+                                                    
+                        iconSelect.refresh(icons); 
                     }
-                    $("#header_title").html(title)      
                 }
-            });
+            });   
+                  
         }
           
         if(window.innerWidth >= 1025){
-            window.onload = changeTab("{{ path('demandes') }}");
-            $('.middle:first').addClass('active')
+            console.log(window.location.hash.substr(1))
+            window.onload = loadTab(window.location.hash.substr(1));
         }
-        else{
-            window.onbeforeunload =  function(e){
-                if(($('.active').length > 0)){
-                    //e.preventDefault();
-                    location.href = document.referrer;
-                    $('#sidebar-wrapper').show()
-                    $('#page-content-wrapper').hide()
-                    $('.active').removeClass('active')
-                    return false;
-                }
-                
-                //console.log(e)
-                
-            }
-        }
-
     });
 </script>
 

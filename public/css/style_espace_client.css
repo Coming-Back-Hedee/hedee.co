@@ -33,16 +33,15 @@ body {
     letter-spacing: 1.2px;
 }
 
+.normal_font > a{
+    color: var(--bleu_perso);
+    text-decoration: underline;
+}
+
 .bloc_header {
-    background-image: url("../img/parcours_client/Rectangle\ 166.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;
-    height: 199px;
+    background-color:  var(--bleu_perso);
+    height: 200px;
     width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     margin-bottom: 5%;
     color: #fff;
     text-align: center;
@@ -50,13 +49,22 @@ body {
     flex-direction: column;
 }
 
-.bloc_header > h1, .bloc_header > h3, .bloc_header_pre > div{
-    margin: auto;
-    font-weight: normal;
+.bloc_header > h1{
+    
+    font-weight: 600;
     font-style: normal;
     font-stretch: normal;
-    line-height: 1;
-    letter-spacing: -1.5px;
+    line-height: 1.2;
+    letter-spacing: -1.25px;
+}
+
+.bloc_header > h3 {
+    margin-top: 50px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
 }
 
 .bloc_footer {
@@ -70,6 +78,14 @@ body {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+}
+
+.middle{
+    font-weight: 600;
+}
+
+#entete-tableau{
+    text-transform: uppercase;
 }
 
 #mes-demandes{
@@ -154,9 +170,21 @@ body {
     color: var(--bleu_perso);
     display: block;
     text-decoration: none;
+    
   }
+
   .sidebar-nav li a span{
      width: 80%;
+  }
+
+  .sidebar-nav li a > p {
+      font-family: 'Work Sans';
+      margin-top: -20px;
+      font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
   }
 
   .profile > img{
@@ -167,7 +195,6 @@ body {
   .sidebar-nav li a span:before {
     position: absolute;
     right: 10%;
-
     color: #41484c;
     text-align: center;
     width: 20px;
@@ -248,6 +275,7 @@ body {
     color: var(--bleu_perso);
     border-radius: 80px;
     border: solid 1px var(--bleu-pale);
+    text-transform: uppercase;
 
 }
 
@@ -258,6 +286,7 @@ body {
     background-color: var(--orange_perso);
     border-radius: 80px;
     color: #fff;
+    width: 55px;
     
 }
 
@@ -268,15 +297,68 @@ input{
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    /*background-color: #CED8F6;*/
     color: var(--bleu_perso);
-    margin-bottom: 10px;
+}
+
+input{
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    color: var(--bleu_perso);
+}
+
+.input-group-text{
+    background-color: var(--bleu-pale);
+    color: var(--bleu_perso);
+    height: 55px;
+}
+    
+form[name=info_client]  label{
+    color: var(--bleu_perso);
+    font-size: 18px;
+}
+
+form[name=info_client] input, form[name=info_client] select{
+    background-color: var(--bleu-pale);
+    color: var(--bleu_perso);
+    margin-bottom: 2.5%;
+    font-size: 18px;
+    height: 55px;
+}
+
+form[name=info_client] input{
+    padding: 8px 14px;
+}
+
+form[name=info_client] select{
+    width: 100%;
+}
+
+form[name=info_client] p{
+    font-size: 18px;
+}
+
+form[name=info_client] button{
+    margin: auto;
+    font-size: 16px;
 }
 
 label {
-    margin-bottom: 10px;
-    margin-top: 10px;
-    display: block;   
+    margin-bottom: 6px;
+    margin-top: 12px;
+    display: block;  
+    font-weight: 420;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 0.8px; 
+}
+
+#tab{
+    box-shadow: 10px 10px 0 0 rgba(40, 0, 220, 0.2);
 }
 
 .vanish{
@@ -308,9 +390,6 @@ label {
     #sidebar-wrapper {
     
         /*background: var(--bleu-pale);*/
-        background-image: url("../img/parcours_client/Composant_m.png");
-        background-size: 100%;
-        background-repeat: no-repeat;
         position: absolute;
         z-index: 1000;
         transition: all 0.4s ease 0s;
@@ -335,19 +414,10 @@ label {
         font-size: 12px;
     }
     
-    form[name=info_client] input, form[name=info_client] select{
-        display: block;
-        width: 100%;
-        padding: 8px 14px;
-        font-size: 12px;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-        background-color: #CED8F6;
-        color: var(--bleu_perso);
-        margin-bottom: 2.5%;
+    .input-group{
+        flex-wrap: nowrap;
     }
-
+    
     #entete-tableau{
         background-color: var(--bleu-pale);
         font-size: 12px;
@@ -425,7 +495,6 @@ label {
     }
     
     .sidebar-nav li {
-        width: 97%;
         font-size: 12px;
         height: fit-content;
       }
@@ -491,7 +560,7 @@ label {
         padding: 4%;
     }
     
-    #tab tr td:nth-child(1n) { width:25%;}
+    #tab tr td:nth-child(1n) { width:33.3%;}
     
   
     
@@ -506,21 +575,6 @@ label {
         text-align: left;
     }
     
-    form[name=info_client]  label{
-        color: var(--bleu_perso);
-    }
-    
-    form[name=info_client] input, form[name=info_client] select{
-        display: block;
-        width: 100%;
-        padding: 8px 14px;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-        background-color: #CED8F6;
-        color: var(--bleu_perso);
-        margin-bottom: 2.5%;
-    }
     
     .input-group{
         flex-wrap: nowrap;
@@ -545,18 +599,12 @@ label {
 
     #sidebar-wrapper {
         width: 98%;
-        height: 800px;
+        height: 700px;
     }
 
     .sidebar-nav{
         height: 700px;
     }
-    
-    .sidebar-nav li {
-        line-height: 40px;
-        width: 97%;
-        
-      }
       
       .sidebar-nav li a {
         color: var(--bleu_perso);
@@ -627,9 +675,8 @@ label {
         padding: 4%;
     }
     
-    #tab tr td:nth-child(1n) { width:22%;}
+    #tab tr td:nth-child(1n) { width:33.3%;}
     
-    #tab tr td:first-child { width: 34%;}
     
     #entete-tableau{
         background-color: var(--bleu-pale);
@@ -641,9 +688,10 @@ label {
         letter-spacing: 1.2px;
         text-align: left;
     }
-    
-    form[name=info_client]  label{
-        color: var(--bleu_perso);
+
+    .compte_button, .demande_button{
+        width: 100%;
+        padding: 20px;
     }
     
     form[name=info_client] input, form[name=info_client] select{
@@ -653,9 +701,8 @@ label {
         display: inline-block;
         border: 1px solid #ccc;
         box-sizing: border-box;
-        background-color: #CED8F6;
+        background-color: var(--bleu-pale);
         color: var(--bleu_perso);
-        margin-bottom: 5%;
     }
     
     .input-group{

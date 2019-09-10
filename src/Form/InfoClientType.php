@@ -3,9 +3,7 @@ namespace App\Form;
  
 use App\Entity\Clients;
 use App\Entity\Adresses;
-
 use App\Form\AdresseType;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,7 +29,11 @@ class InfoClientType extends AbstractType
                 'required' => false,
                 'years' => range(date('Y')-10, date('Y')-110)] )
             ->add('adresse',AdresseType::class, ['label' => 'Votre adresse', 'required' => false])           
-            ->add('submit', SubmitType::class, ['label' => 'Valider'])
+            ->add('submit', SubmitType::class, ['label' => 'Valider', 
+                                                'attr' => [
+                                                            'class' => 'blue_button'
+                                                            ]
+            ])
             ;        
     }
  

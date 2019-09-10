@@ -1,88 +1,9 @@
+ {% for message in app.flashes('success') %}
+                <div class="flash-notice-sucess">
+                    {{ message }}
+                </div>
+            {% endfor %}
             <div>
-                {#<table class="table" border="1">
-                    <tbody id="mes-infos">
-                        <tr>
-                            <td>Nom</td>
-                            <td>{{ user.prenom ~ " " ~ user.nom }}</td>
-                            <td>
-                                <a href="#" class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</a>
-                                <div id="modif_p_id" class="modif">
-                                    {{ form_start(form) }}
-                                        {{ form_label(form.prenom) }}
-                                        {{ form_widget(form.prenom) }} <br>
-                                        {{ form_label(form.nom) }}
-                                        {{ form_widget(form.nom) }} <br>
-                                        <button type="submit" onclick="event.preventDefault(); modify()">Changer</button> 
-                                        <button class="cancel">Annuler</button>
-                                    {{ form_end(form, {'render_rest': false} ) }}
-                                </div>
-                            </td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Adresse mail</td>
-                            <td>{{ user.email }}</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Date de naissance</td>
-                            <td>{{ user.dateNaissance|date('d/m/Y') }}</td>
-                            <td>
-                                <a href="#" class="modif_link"> <i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</a>
-                                <div id="modif_birth" class="modif">
-                                    {{ form_start(form) }}
-                                        {{ form_label(form.dateNaissance) }}
-                                        {{ form_widget(form.dateNaissance.day) }} 
-                                        {{ form_widget(form.dateNaissance.month) }}
-                                        {{ form_widget(form.dateNaissance.year) }}<br>
-                                        <button type="submit" onclick="return modify()">Changer</button> 
-                                        <button class="cancel">Annuler</button>
-                                    {{ form_end(form, {'render_rest': false} ) }}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Numéro de téléphone </td>
-                            <td>+33{{ user.numeroTelephone }}</td>
-                            <td>
-                                <a href="#" class="modif_link"><i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</a>
-                                <div id="modif_p_tel" class="modif">
-                                    {{ form_start(form) }}
-                                        {{ form_label(form.numeroTelephone) }}
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">+33</span>
-                                            </div>
-                                            {{ form_widget(form.numeroTelephone) }}
-                                        </div>
-                                        <button type="submit" onclick=" modify(); return false;">Changer</button> 
-                                        <button class="cancel">Annuler</button>
-                                    {{ form_end(form, {'render_rest': false} ) }}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Adresse</td>
-                            <td>{{ user.adresse.nomRue }} <br> {{ user.adresse.ville }} <br> {{ user.adresse.codePostal }}</td>
-                            <td>
-                                <a href="#" class="modif_link"><i class='fas fa-pencil-alt' style="display: none;"></i> Modifier</a>
-                                <div id="modif_p_adresse" class="modif">
-                                    {{ form_start(form) }}
-                                        {{ form_label(form.adresse.nomRue) }}   
-                                        {{ form_widget(form.adresse.nomRue) }} <br>
-                                        {{ form_label(form.adresse.ville) }}   
-                                        {{ form_widget(form.adresse.ville) }} <br>
-                                        {{ form_label(form.adresse.codePostal) }} 
-                                        {{ form_widget(form.adresse.codePostal) }} <br>
-                                        <button type="submit">Changer</button> 
-                                        <button class="cancel">Annuler</button>
-                                    {{ form_end(form, {'render_rest': false} ) }}
-                                </div>
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>#}
                 {{ form_start(form) }}
                     {{ form_label(form.prenom) }}
                     {{ form_widget(form.prenom) }}
@@ -112,9 +33,9 @@
                         {{ form_widget(form.numeroTelephone) }}
                     </div>
                     {{ form_label(form.adresse.nomRue) }}   
-                    {{ form_widget(form.adresse.nomRue) }} <br>
-                    {{ form_label(form.adresse.ville) }}   <br>
-                    {{ form_widget(form.adresse.ville) }} <br>
+                    {{ form_widget(form.adresse.nomRue) }} 
+                    {{ form_label(form.adresse.ville) }}   
+                    {{ form_widget(form.adresse.ville) }} 
                     {{ form_label(form.adresse.codePostal) }} 
                     {{ form_widget(form.adresse.codePostal) }} 
                 
@@ -122,65 +43,11 @@
                 <p>Choisir une image de profil</p><div id="my-icon-select"></div>
         
                 <input type="text" id="selected-text" name="selected-text" style="width:65px; display: none">
+                
+
+                {{ form_widget(form.submit) }} 
+
                 {{ form_end(form, {'render_rest': false} ) }}
                 
             </div>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
  
-        {#<script>
-        $(document).ready(function() {
-            var annulations = document.getElementsByClassName('cancel');
-            Array.from(annulations).forEach(function(annulation){
-                annulation.addEventListener('click', function(e){
-                    e.preventDefault()
-                    annulation.parentNode.parentNode.style.display = "none"
-                    annulation.parentNode.parentNode.parentNode.firstElementChild.style.display = "block"
-                })
-            })
-    
-            var icons = document.getElementById('mes-infos')
-            Array.from(icons.children).forEach(function(icon){
-                if(icon.lastElementChild.firstElementChild!= null){
-                    icon.addEventListener('mouseover', function(){
-                        icon.lastElementChild.firstElementChild.firstElementChild.style.display = "block"
-                    })
-                    icon.addEventListener('mouseout', function(){
-                        icon.lastElementChild.firstElementChild.firstElementChild.style.display = "none";
-                    })
-                    icon.lastElementChild.firstElementChild.addEventListener('click', function(){
-                        this.style.display = "none";
-                        icon.lastElementChild.lastElementChild.style.display = "block";
-                    })
-                }
-            })
-                function modify(){
-                    alert()
-                    var url = "{{ path('info_client') }}"
-                    var donnees = form.serialize();
-                    
-                    $.ajax({
-                        type: 'post',
-                        url: url,
-                        data: donnees, 
-                        success: function (data, status){
-                            
-                            }
-                    })
-                    window.history.back();
-                    return false
-                }
-
-            /*var submit = ($( "[name=info_client]" ))
-            Array.from(submit).forEach(function(button){
-                button.addEventListener('submit', function(e){
-                    e.preventDefault();
-                    window.history.forward(-1);        
-                    //location.reload();
-
-                })
-
-            })*/
-        })
-        </script>#}

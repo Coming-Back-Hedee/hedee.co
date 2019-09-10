@@ -1,17 +1,14 @@
 <?php
-
 namespace App\Controller;
-
+use App\Entity\Adresses;
 use App\Entity\Clients;
 use App\Entity\Demandes;
 use App\Entity\ModeVersement;
 use App\Entity\AlertePrix;
 use App\Repository\DemandesRepository;
-
 use App\Form\AdresseType;
 use App\Form\InfoClientType;
 use App\Form\ModeVersementType;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,13 +19,11 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
 /**
  * @Route("/profil")
  */
 class ProfilController extends AbstractController
 {
-
     /**
      * @Route("/", name="profil")
      */
@@ -39,14 +34,12 @@ class ProfilController extends AbstractController
         $session->clear();       
         
         $repo = $this->getDoctrine()->getRepository(Demandes::class);
-        $demandes = $repo->findBy(['client' => $user]);
-
+        //$demandes = $repo->findBy(['client' => $user]);
         return $this->render('profil/index.html.twig', [
             'user' => $user,
-            'demandes' => $demandes,
+            //'demandes' => $demandes,
         ]);
     }
-
     /**
      * @Route("/demandes", name="demandes")
      */
@@ -58,13 +51,11 @@ class ProfilController extends AbstractController
         
         $repo = $this->getDoctrine()->getRepository(Demandes::class);
         $demandes = $repo->findBy(['client' => $user]);
-
         return $this->render('profil/demandes.html.twig', [
             'user' => $user,
             'demandes' => $demandes,
         ]);
     }
-
     /**
      * @Route("/gains", name="gains")
      */
@@ -79,7 +70,6 @@ class ProfilController extends AbstractController
         forEach($dossiersRembourses as $dossier){
             $gains = $gains + $dossier->getMontantRemboursement();
         }
-
         if ($request->isMethod('POST')){
             $mode = new ModeVersement();
             $post = $request->request->get('mode_versement');
@@ -88,12 +78,13 @@ class ProfilController extends AbstractController
             $mode->setProprietaire($post['proprietaire']);
             $user->setModeVersement($mode);
             $em->flush();
-
+            $flashbag = $this->get('session')->getFlashBag();
+            // Add flash message
+            $flashbag->add("success", "Le nouveau mode de versement a bien été pris en compte");
             $url = $router->generate('profil');
-
+            $url .= "#porte-monnaie";
             return new RedirectResponse($url);
         }
-
         
         return $this->render('profil/gains.html.twig', [
             'controller_name' => $gains,
@@ -113,7 +104,6 @@ class ProfilController extends AbstractController
             'user' => $user,
         ]);
     }*/
-
     /**
      * @Route("/informations-generales", name="info_client")
      */
@@ -123,29 +113,33 @@ class ProfilController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $form = $this->createForm(InfoClientType::class, $user);
-
+        $flashbag = $this->get('session')->getFlashBag();
+        $flashbag->add("success", "Vos changements ont bien été pris en compte");
         if ($request->isMethod('POST')){
             $post = $request->request->get('info_client');
-            if(array_key_exists('nom', $post)){
-                $user->setNom(ucfirst($post['nom']));
-                $user->setPrenom(ucfirst($post['prenom']));
-                
+            if(null !== $post['nom']){
+                $user->setNom(ucfirst($post['nom']));               
             }
-            if(array_key_exists('dateNaissance', $post)){
+            if("" !== $post['prenom']){
+                $user->setPrenom(ucfirst($post['prenom']));              
+            }
+            if("" !== $post['dateNaissance']['day'] ){
                 $string = $post['dateNaissance']['day'] . "-" ;
                 $string .=  $post['dateNaissance']['month'] . "-" . $post['dateNaissance']['year'];
                 $dateNaissance = \DateTime::createFromFormat('d-m-Y',$string);
                 $user->setDateNaissance($dateNaissance);
             }
-            if(array_key_exists('numeroTelephone', $post)){
+            if("" !== $post['numeroTelephone']){
                 $user->setNumeroTelephone($post['numeroTelephone']);
             }
-            if(array_key_exists('adresse', $post)){
-                $user->getAdresse()->bis_construct($post['adresse']);
+            if("" !== $post['adresse']['nomRue']){
+                $adresse = new Adresses();
+                $adresse->bis_construct($post['adresse']);
+                $user->setAdresse($adresse);
             }
             $em->flush();
             $url = $router->generate('profil');
-
+            $url .= "#informations-personnelles";
             return new RedirectResponse($url);
         }
         return $this->render('profil/informations.html.twig', [
@@ -154,7 +148,6 @@ class ProfilController extends AbstractController
             'form' => $form->CreateView(),
         ]);
     }
-
     /**
      * @Route("/mode_versement", name="mode_versement")
      */
@@ -166,9 +159,7 @@ class ProfilController extends AbstractController
         /*}
         else{
             $url = $router->generate('accueil');
-
             return new RedirectResponse($url);
         }*/
     }
-
 }
