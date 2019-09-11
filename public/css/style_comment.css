@@ -148,7 +148,8 @@
 }
 
 .lignes {
-    width: 100%
+    width: 100%;
+    margin-left: initial;
 }
 
 .electronique {
@@ -321,7 +322,7 @@
     .encart_bouton {
         width: 250px;
         height: 30px;
-        
+        margin: auto;
     }
 
 

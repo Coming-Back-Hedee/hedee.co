@@ -84,6 +84,7 @@ form button{
     font-stretch: normal;
     line-height: 1;
     letter-spacing: 0.8px;
+    padding: 20px !important;
 }
 
 /* 2e BLOC - etapes pour demande de remboursement */
@@ -97,6 +98,15 @@ form button{
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+}
+
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){
+    .bloc1{
+        margin-left: initial;
+        margin-right: initial;
+    }
 }
 
 

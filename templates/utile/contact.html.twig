@@ -32,16 +32,12 @@
         <div class="bloc1">
             <form method="post" action="{{ path('contact')}}">
                 <div class="container">
-                    <div class="row">
-                        <div class="col">
                             <label for="nom">Votre nom</label>
                             <input type="text" name="nom" id="nom">
-                        </div>
-                        <div class="col">
+                      
                             <label for="prenom">Votre prénom</label>
                             <input type="text" name="prenom" id="prenom">
-                        </div>
-                    </div>
+       
                     
                     <label for="mail">Votre adresse mail</label>
                     <input type="text" name="mail" id="mail" {% if app.user != null %} value="{{ app.user.email }}" {% endif %}>

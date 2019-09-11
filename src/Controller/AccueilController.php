@@ -39,9 +39,9 @@ class AccueilController extends AbstractController
     public function contact(Request $request, Mailer $mailer)
     {
         $flashbag = $this->get('session')->getFlashBag();
-        $flashbag->add("success", "Votre message a bien été envoyé");
+        /*$flashbag->add("success", "Votre message a bien été envoyé");
         $flashbag->add("success", "Votre deuxième message a bien été envoyé");
-        $flashbag->add("warning", "Votre troisième message n'a pas été envoyé");
+        $flashbag->add("warning", "Votre troisième message n'a pas été envoyé");*/
         $session = $request->getSession();
         if($request->getMethod() == 'POST'){
             $post = $request->request;

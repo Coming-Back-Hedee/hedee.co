@@ -33,18 +33,6 @@ body {
     margin-right: auto;
 }
 
-.bloc_footer {
-    background-image: url("../img/parcours_remboursement/Composant\ 2.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center ;
-    height: 250px;
-    width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-}
-
 label {
     margin-bottom: 5px;
     margin-top: 20px;
@@ -472,6 +460,18 @@ li[aria-selected=false]{
     width: 55px;
 }
 
+.switch_first:hover{
+    color: var(--bleu_perso);
+}
+
+.switch_first2:hover{
+    color: var(--orange_perso);
+}
+
+.switch_second1:hover, .switch_second2:hover{
+    color: #fff;
+}
+
 a:visited, a{
     color: var(--bleu_perso);
 }
@@ -653,6 +653,13 @@ a:visited, a{
         height: 30px;  
     }
 
+    input#num{
+        width: 85%;
+    }
+
+    .input-group {
+        flex-wrap: wrap; 
+    }
 }
 
 

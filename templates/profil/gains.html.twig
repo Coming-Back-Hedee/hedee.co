@@ -1,6 +1,6 @@
     
     {% if user.modeVersement is null %} 
-        <div class="empty_mv">
+        <div id="empty_mv">
             <h2>Vous n'avez pas encore de mode de versement...</h2>
             <p>Ajoutez-en un pour vous faire rembourser ! </p>
 
@@ -8,8 +8,7 @@
                 <button class="btn add_first">Ajouter un nouveau mode de versement</button>
                 <button class="btn add_second"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
             </a>
-            <div id="mv_location">
-            </div>
+            
         </div>
     {% else %} 
 		<div class="jumbotron">
@@ -32,12 +31,14 @@
             </div>
         </div>
     {% endif %}
+    <div id="mv_location"></div>
                         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>
             function add(e, link){
                 e.preventDefault()
                 $('#add_mv').hide()
+                $('#empty_mv').hide()
                 $.ajax({
                     type: 'get',
                     url: "{{path('mode_versement')}}",

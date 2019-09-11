@@ -67,19 +67,6 @@ body {
     letter-spacing: normal;
 }
 
-.bloc_footer {
-    background-image: url("../img/parcours_decouverte/footer.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center ;
-    height: 700px;
-    width:100%;
-    margin-top: 5%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-}
-
 .middle{
     font-weight: 600;
     border-bottom: 0.75px;
@@ -152,10 +139,8 @@ body {
 }
 
 #sidebar-wrapper {
-    /*background: var(--bleu-pale);*/
-    background-image: url("../img/parcours_client/Composant.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
+    background-image: linear-gradient(160deg, var(--bleu-pale), #fff);
+    box-shadow: 8px 8px 0 0 rgba(40, 0, 220, 0.2);
     position: absolute;
     transition: all 0.4s ease 0s;
   }
@@ -177,7 +162,7 @@ body {
   }      
   
   .sidebar-nav li {
-    width: 97.25%;
+    width: 100%;
     padding: 5%;
     font-family: "Work Sans";
     font-size: 16px;
@@ -312,15 +297,15 @@ body {
 
 
 /*Mon porte monnaie - client n'a pas renseigné un RIB*/
-.empty_mv{
+#empty_mv{
     text-align: center;
 }
 
-.empty_mv form{
+#empty_mv form{
     text-align: initial;
 }
 
-.empty_mv h2 {
+#empty_mv h2 {
     margin-top: 50px;
     font-weight: 600;
     font-style: normal;
@@ -329,7 +314,7 @@ body {
     letter-spacing: -0.63px;
 }
 
-.empty_mv p {
+#empty_mv p {
     margin-top: 30px;
     font-size : 18px;
     font-weight: 400;
@@ -545,11 +530,18 @@ form[name=info_client] button{
     display: table-cell;
     margin: auto;
     font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1;
-  padding: 20px
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    padding: 20px
+}
+
+#nav{
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
 }
 
 
@@ -581,12 +573,6 @@ form[name=info_client] button{
         font-size: 12px;
         height: fit-content;
       }
-
-    
-
-    .bloc_footer {
-        margin-top: 150px;
-    }
 
     form[name=info_client]  label{
         color: var(--bleu_perso);

@@ -177,14 +177,14 @@ class PdfController extends AbstractController
             $pdf->SetLeftMargin(PDF_MARGIN_LEFT+50);
             $pdf->Write(10, $points);
             
-            $pdf->SetXY(PDF_MARGIN_LEFT+50, $position);
+            $pdf->SetXY(PDF_MARGIN_LEFT+50, $position+4);
             //$pdf->Write(10, "$url ");
             
             $pdf->MultiCell(120, 5, $url, 1, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
             //$pdf->MultiCell(117,5,utf8_decode($url),0,'C',false);
             //$pdf->SetDrawColor(0,0,255);
             $pdf->Link(PDF_MARGIN_LEFT+50, $position+15, 120, $nbLignes*5 ,$url);
-            $pdf->Text(PDF_MARGIN_LEFT+50, $position+($nbLignes+4)*5 , "$prix €");
+            $pdf->Text(PDF_MARGIN_LEFT+50, $position+($nbLignes+5)*5 , "$prix €");
         }
         $pdf->Text(PDF_MARGIN_LEFT+50, $position + 4, $categorie);
          
