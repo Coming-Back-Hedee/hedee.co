@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="{{asset('css/style.css')}}">
 		<link rel="stylesheet" href="{{asset('css/grillade-flex.css')}}">
 		
-    	<link rel="stylesheet" href="{{asset('css/jeremy.css')}}">
+
 		<link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.css')}}">
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -425,8 +425,7 @@
 			$('.flash-notice-close').click(function(){
 				temp = $(this).parent().next()
 				$(this).parent().fadeOut()
-				//console.log($(this))
-				temp.animate({ "top": "-=100px" }, "slow" );
+				//temp.animate({ "top": "-=100px" }, "slow" );
 			})
 			$.ucfirst = function(str) {
 					var word = ""

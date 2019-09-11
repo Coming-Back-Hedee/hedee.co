@@ -101,10 +101,11 @@ class ProfilController extends AbstractController
                 $errorBic = $form['swiftBic']->getErrors();
                 $flashbag->add("warningIban", $errorIban);
                 $flashbag->add("warningBic", $errorBic);
+                $flashbag->add("warningIban", $errorIban);
+                $flashbag->add("warningBic", $errorBic);
             }
             // Add flash message
-            $flashbag->add("warningIban", $errorIban);
-            $flashbag->add("warningBic", $errorBic);
+            
 
             $url = $router->generate('profil');
             $url .= "#porte-monnaie";

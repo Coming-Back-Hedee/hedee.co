@@ -152,37 +152,8 @@
     height: 520px;
 }
 
-.js-menu-cookie{
-    position: fixed;
-    display: none;
-    opacity: 0;
-    
-    
-}
- 
-.js-menu-cookie.is-open {
-    display: flex;
-    bottom: 36px;
-    width: 100%;
-    opacity: 1;
-    background-color: var(--orange_perso);
-    color: #fff;
-    z-index: 5;
-}
 
 
-.cgu{
-    margin-top: 5%;
-}
-.cgu input{
-    width: initial;
-}
-
-.cgu label{
-    margin: initial;
-    display: initial;
-    font-weight: 800;
-}
 
 /* style popup 
 

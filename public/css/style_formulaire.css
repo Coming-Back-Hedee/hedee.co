@@ -553,11 +553,28 @@ a:visited, a{
     font-size: 18px
 }
 
+.cgu{
+    margin-top: 5%;
+}
+.cgu input{
+    width: initial;
+}
+
+.cgu label{
+    margin: initial;
+    display: initial;
+    font-weight: 800;
+}
+
 
 
 /**********PARTIE RESPONSIVE DESIGN***********/
             /***POUR MOBILE***/
 @media screen and (max-width:767.98px){ 
+
+    .title_box > h2{
+        font-size: 28px;
+    }
 
     .form_elig, .les_infos{
 

@@ -1,12 +1,9 @@
 /*
  Copyright 2014 Google Inc. All rights reserved.
-
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
  http://www.apache.org/licenses/LICENSE-2.0
-
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,8 +28,8 @@
     var dismissLinkId = 'cookieChoiceDismiss';
 
     function _createHeaderElement(cookieText, dismissText, linkText, linkHref) {
-      var butterBarStyles = 'position:fixed;width:100%;background-color:#2800dc;color:#ff3c00;' +
-          'margin:0; left:0; bottom:0; padding:4px;z-index:1000;text-align:center;';
+      var butterBarStyles = 'position:fixed;width:100%;background-color:#ffd5d2;color:#ff3c1e;' +
+          'margin:0; left:0; bottom:0; padding:4px;z-index:1000;text-align:center';
 
       var cookieConsentElement = document.createElement('div');
       cookieConsentElement.id = cookieConsentId;
@@ -104,6 +101,10 @@
       dismissLink.href = '#';
       dismissLink.style.marginLeft = '15px';
       dismissLink.style.color = '#ff3c00';
+      dismissLink.style.display = 'block';
+      dismissLink.style.fontWeight = 'bold';
+      dismissLink.style.textAlign = 'center';
+      dismissLink.style.fontSize = '18px';
       return dismissLink;
     }
 

@@ -12,15 +12,15 @@ body {
 main{
     color: var(--bleu_perso);
     position: relative;
-    z-index: -1;
     margin: auto;
     overflow: hidden;
 }
 
+
 .bloc1bis {
     background: linear-gradient(0.25turn, #fff, #e1def9);
     width:100%;
-    height: 150px;
+    height: 198px;
 }
 
 .bloc1bis h1 {
@@ -52,14 +52,90 @@ main{
 
 input{
     border: solid 2px;
-    border-color: var(--bleu-pale); 
+    border-color: #eeecfa; 
     margin: auto;
     display: block;
     width: 80%;
+    padding : 10px;
+    background-color: #eeecfa; 
 } 
+
+input::placeholder {
+    color:var(--bleu_perso);
+
+}
 
 form button{
     margin: auto;
     margin-top: 7.5%;
     width: 100px;
+}
+
+/*page renouveler son mdp*/
+.bloc1 .container > h1 {
+    font-size: 1.5rem;
+    text-align:center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#reinitialisation_mdp_plainPassword_first {
+    margin-bottom: 20px;
+}
+
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){ 
+    .bloc1{
+        width: 90%;
+    }
+
+    .bloc1bis h1 {
+        font-size: 2.2rem;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /*page renouveler son mdp*/
+    .bloc1 .container  {
+        width: 90%;
+    }
+
+    .bloc1 .container > h1 {
+        font-size: 2.2rem;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
+
+
+/* **************  POUR TABLETTE  ********************* */
+@media (min-width: 768px) and (max-width:991.98px){ 
+
+    .bloc1 {
+        width: 70%;
+    }
+
+    .bloc1bis h1 {
+        font-size: 2.2rem;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /*page renouveler son mdp*/
+    .bloc1 .container  {
+        width: 70%;
+    }
+
+    .bloc1 .container > h1 {
+        font-size: 2.2rem;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 }

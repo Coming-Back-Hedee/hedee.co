@@ -20,8 +20,8 @@ body {
 }
 
 .container{
-    min-height: 300px;
-    max-height: 1400px;
+    min-height: 600px;
+    
 }
 
 .normal_font{
@@ -39,8 +39,8 @@ body {
 }
 
 .bloc_header {
-    background-color: var(--bleu_perso);
-    height: 199px;
+    background-color:  var(--bleu_perso);
+    height: 200px;
     width:100%;
     margin-bottom: 5%;
     color: #fff;
@@ -49,13 +49,22 @@ body {
     flex-direction: column;
 }
 
-.bloc_header > h1, .bloc_header > h3, .bloc_header_pre > div{
-    margin: auto;
-    font-weight: normal;
+.bloc_header > h1{
+    
+    font-weight: 600;
     font-style: normal;
     font-stretch: normal;
-    line-height: 1;
-    letter-spacing: -1.5px;
+    line-height: 1.2;
+    letter-spacing: -1.25px;
+}
+
+.bloc_header > h3 {
+    margin-top: 50px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
 }
 
 .bloc_footer {
@@ -73,6 +82,9 @@ body {
 
 .middle{
     font-weight: 600;
+    border-bottom: 0.75px;
+    border-bottom-style: solid;
+    border-bottom-color: #fff;
 }
 
 #entete-tableau{
@@ -94,10 +106,32 @@ body {
     font-size: 16px;
 }
 
+.filters > form {
+    font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: 1.2px;
+  text-align: right;
+  color: var(--ultramarine-blue);
+}
+
+.filters > form > select {
+    margin-bottom: 15px;
+    border: solid 1px #e1def9; 
+    padding: 10px
+}
+
 .hello_profil{
     float: right;
-    margin-top: 15%;
+    margin-top: 5%;
     margin-right: 15%;
+    font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.8;
+  letter-spacing: normal;
 }
 
 .profil-name{
@@ -118,12 +152,11 @@ body {
 }
 
 #sidebar-wrapper {
-    
     /*background: var(--bleu-pale);*/
-    background-image: linear-gradient( #e1def9, #fff);
-    box-shadow: 10px 10px 0 0 rgba(40, 0, 220, 0.2);
+    background-image: url("../img/parcours_client/Composant.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
     position: absolute;
-    width: 350px;
     transition: all 0.4s ease 0s;
   }
   
@@ -144,10 +177,10 @@ body {
   }      
   
   .sidebar-nav li {
-    width: 100%;
+    width: 97.25%;
     padding: 5%;
     font-family: "Work Sans";
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
@@ -161,8 +194,19 @@ body {
     display: block;
     text-decoration: none;
   }
+
   .sidebar-nav li a span{
      width: 80%;
+  }
+
+  .sidebar-nav li a > p {
+      font-family: 'Work Sans';
+      margin-top: -7px;
+      font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.2;
+        letter-spacing: normal;
   }
 
   .profile > img{
@@ -173,7 +217,6 @@ body {
   .sidebar-nav li a span:before {
     position: absolute;
     right: 10%;
-
     color: var(--bleu_perso);
     text-align: center;
     width: 20px;
@@ -181,7 +224,6 @@ body {
   }
   
   .sidebar-nav li.active {
-    
     background: #fff;
     text-decoration: none;
   }
@@ -207,13 +249,34 @@ body {
     border: solid 1px var(--very-light-purple);    
 }
 
+
 .rounded_btn{
     margin: auto;
     width: 90%;
 }
 
-.demande_button > a{
+.demande_button{
+    width: 90% !important;
+    margin-left: 20px;
+    margin-top: 10px
+}
+
+.demande_button a {
     color: #fff !important;
+    font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+.compte_button {
+    width: 90% !important;
+    margin-left: 20px
+}
+
+.compte_button a {
+    font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
 }
 
 #mes-demandes tr td:nth-child(1n){
@@ -238,6 +301,17 @@ body {
     font-family: "Work Sans";
 }
 
+#tab{
+    box-shadow: 10px 10px 0 0 rgba(40, 0, 220, 0.2);
+}
+
+.blue_button {
+    width: 30%;
+}
+
+
+
+/*Mon porte monnaie - client n'a pas renseigné un RIB*/
 .empty_mv{
     text-align: center;
 }
@@ -246,16 +320,48 @@ body {
     text-align: initial;
 }
 
+.empty_mv h2 {
+    margin-top: 50px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: -0.63px;
+}
+
+.empty_mv p {
+    margin-top: 30px;
+    font-size : 18px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+}
+
+.add_first, .add_second {
+    margin-top : 50px;
+}
+
 .add_first{
-    padding: 12.5px;
+    padding: 13.5px;
     padding-right: 25px;
     position: relative;
     background-color: #fff;
     color: var(--bleu_perso);
     border-radius: 80px;
-    border: solid 1px var(--bleu-pale);
     text-transform: uppercase;
+    -moz-box-shadow: 0 0 20px #e1def9;  
+	-webkit-box-shadow: 0 0 20px #e1def9;  
+    box-shadow: 0 0 20px #e1def9;
 
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+.add_first:hover {
+    color: var(--bleu_perso);
 }
 
 .add_second{
@@ -268,14 +374,126 @@ body {
     width: 55px;
 }
 
-input{
+/*Mon porte monnaie - client a renseigné un RIB*/
+.jumbotron {
+    background-color: #ffD5D2;
+    color: #FF3C00;
+    border-radius:0;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: -0.63px;
+    text-align:center;
+}
+
+.jumbotron h3 {
+    font-size: 50px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: -1.25px
+}
+
+.euros {
+    border: 1px solid #fff;
+    padding: 30px;
+    width: 40%;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.jumbotron p {
+    margin-top: 15px
+}
+
+#mv_location > p {
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: -0.63px;
+}
+
+.border {
+    border: 1px solid #e1def9!important;
+}
+
+.media-body span a {
+    color : #ff3c00;
+    font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: 1.4px;
+}
+
+.media-body span a :hover {
+    color:none
+}
+
+#info_client_prenom, #info_client_nom,  #info_client_dateNaissance_day,
+#info_client_dateNaissance_month,  #info_client_dateNaissance_year,
+#mail, #info_client_numeroTelephone, #info_client_adresse_nomRue, 
+#info_client_adresse_ville, #info_client_adresse_codePostal {
+    background-color: #eeecfa;
+    border:none;
+}
+
+.input-group-text {
+    border:none;
+}
+
+.icon-select .selected-box {
+    border: 1px solid #e1def9 !important;
+}
+
+#my-icon-select-box-scroll {
+    background-color: #eeecfa !important;
+    height: 120px
+}
+
+.icon {
+    border: 1px solid #e1def9 !important;
+}
+
+/* mode de verserment - modifier RIB existant*/
+#form_versement .bank {
+    font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.14;
+  letter-spacing: -0.63px;
+}
+
+#form_versement h3 {
+    font-weight: normal;
+    margin-bottom: 20px
+}
+
+#form_versement label {
+    font-size: 22px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  margin-bottom: 6px;
+    margin-top: 12px;
+    display: block;  
+}
+
+#form_versement input {
+    margin-bottom: 20px;
     display: block;
     width: 100%;
     padding: 12px 20px;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid var(--bleu-pale);;
     box-sizing: border-box;
     color: var(--bleu_perso);
+    font-size: 18px
 }
 
 .input-group-text{
@@ -314,21 +532,6 @@ form[name=info_client] button{
     font-size: 16px;
 }
 
-label {
-    margin-bottom: 6px;
-    margin-top: 12px;
-    display: block;  
-    font-weight: 420;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1;
-    letter-spacing: 0.8px; 
-}
-
-#tab{
-    box-shadow: 10px 10px 0 0 rgba(40, 0, 220, 0.2);
-}
-
 .vanish{
     display: flex;
     flex-wrap: nowrap;
@@ -341,7 +544,15 @@ label {
 .vanish button{
     display: table-cell;
     margin: auto;
+    font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  padding: 20px
 }
+
+
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
