@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Renouvellement de mot de passe{% endblock %}
+{% block title %}Mot de passe oublié ?{% endblock %}
 
 {% block stylesheets %} 
     {{ parent() }}
@@ -9,6 +9,7 @@
 
 {% block main %}
 <div class="container-fluid">
+    <div class="row">
     
     <div class="bloc1bis"><h1>Mot de passe oublié ?</h1></div>
     <div class="bloc1">
@@ -24,6 +25,7 @@
                 {{ message }}
             </div>
         {% endfor %}
+    </div>
     </div>
 </div>
 {% endblock %}
