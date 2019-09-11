@@ -39,14 +39,28 @@
     font-size: 60px;
 }
 
-.flash-success{
-    background-color: var(--bleu-pale);
-    padding: 30px;
-    color: var(--bleu_perso);
+.notices{
+    position: fixed;
+    bottom: 40px;
+    opacity: 0.5;
+}
+
+.flash-notice{
     width: 400px;
     height: 100px;
+    padding: 30px;
     margin-bottom: 2%;
     margin-top: 2%;
+}
+
+.flash-success{
+    background-color: var(--bleu_perso);
+    color: #fff;
+}
+
+.flash-warning{
+    background-color: var(--orange_perso);
+    color: #fff;
 }
 
 .flash-notice > span{

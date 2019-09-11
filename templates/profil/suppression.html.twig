@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+ {% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/style_espace_client.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
+    <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
+        
+    <script type="text/javascript" src="{{asset('js/iscroll.js')}}"></script>
+{% endblock %}
+{% block main %}
+<h1>Votre compte a bien été supprimé</h1>
+{% endblock %}

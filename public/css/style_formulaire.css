@@ -150,31 +150,37 @@ ul[role=menu]{
     display:none
 }
     
-a > .fa{
+/*a > .fa{
     display: none;
+}*/
+.steps{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
 }
 
 .steps ul li   {
     display:inline;
     list-style: none;
     padding-left: 10px;
-    margin: 5px;
+    margin: 1px;
 }
 
 .steps ul li a {
     text-decoration: none;
+    padding: 15px 10px 15px 26px !important;
 }
 
 /*page informations de commande - votre achat*/
 .steps ul .first.current a {
     background-color: var(--bleu_perso);
-    padding: 15px;
+    /*padding: 15px;*/
     color: #fff;
 }
 
 .steps ul .disabled a, .steps ul .done a {
     background-color: #fff;
-    padding: 15px;
+    /*padding: 15px;*/
     color: var(--bleu_perso);
 	-moz-box-shadow: 0 0 20px #e1def9;  
 	-webkit-box-shadow: 0 0 20px #e1def9;  
@@ -183,13 +189,13 @@ a > .fa{
 
 .steps ul .disabled.last a {
     background-color: #fff;
-    padding: 15px;
+    /*padding: 15px;*/
     color: var(--bleu_perso);;
     
 }
 
 #steps-uid-0-t-0, #steps-uid-0-t-1, #steps-uid-0-t-2, #steps-uid-0-t-3 {
-    border:none
+    border:none;
 }
 
 textarea{
@@ -271,6 +277,10 @@ textarea{
 
 }
 
+li[aria-selected=false]{
+    color: #fff;
+}
+
 #menuprevious{
     font-weight: 600;
     text-transform: uppercase;
@@ -312,6 +322,14 @@ textarea{
 .steps ul .current a {
     background-color: var(--bleu_perso);
     padding: 15px;
+    color: #fff;
+}
+
+.steps ul .current .fa {
+    color: var(--bleu_perso);
+}
+
+.steps ul .disabled .fa {
     color: #fff;
 }
 
@@ -441,6 +459,7 @@ textarea{
     background-color: var(--orange_perso);
     border-radius: 80px;
     color: #fff;
+    width: 55px;
 }
 
 .switch_second2{
@@ -450,6 +469,7 @@ textarea{
     background-color: var(--bleu_perso);
     border-radius: 60px;
     color: #fff;
+    width: 55px;
 }
 
 a:visited, a{

@@ -21,17 +21,6 @@ h3{
 	text-align: center;
 }
 
-div#colonne1 {
-	float: left;
-	width: 33%;
-}
-
-div#colonne2 {
-	float: right;
-	width: 33%;
-
-}
-
 .nav-tabs {
 	border: 1px solid var(--bleu-pale);
 	box-shadow: 8px 8px 0px var(--bleu-pale);

@@ -338,8 +338,8 @@
 								<div class="list_footer">
 									<ul>
 										<li><a href="{{ path('mentions_legales') }}">Mentions légales</a></li>
-										<li><a href="#">CGU</a></li>
-										<li><a href="#">Données personnelles</a></li>
+										<li><a href="{{ path('cgu') }}">CGU</a></li>
+										<li><a href="{{ path('donnees_perso') }}">Données personnelles</a></li>
 									</ul>
 								</div>
 
@@ -365,6 +365,7 @@
 					</div><!--fin class="row footer_bleu"-->
 			</div><!--fin class="container-fluid"-->
 		</footer>
+		
 	
 		<script src="{{ asset('js/cookiechoices.js') }}"></script>
 		<script>
@@ -424,7 +425,8 @@
 			$('.flash-notice-close').click(function(){
 				temp = $(this).parent().next()
 				$(this).parent().fadeOut()
-				temp.animate({ "top": "+=100px" }, "slow" );
+				//console.log($(this))
+				temp.animate({ "top": "-=100px" }, "slow" );
 			})
 			$.ucfirst = function(str) {
 					var word = ""

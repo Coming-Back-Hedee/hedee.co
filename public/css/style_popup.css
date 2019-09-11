@@ -62,7 +62,6 @@ footer{
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
-    line-height: 1;
     letter-spacing: 1.8px;
     text-align: center;
     height: 54.2px;
@@ -79,7 +78,6 @@ footer{
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
-    line-height: 1;
     letter-spacing: 1.8px;
     text-align: center;
     height: 54.2px;
@@ -207,14 +205,14 @@ input{
     .block_left1{
         height: 300px;
         width: 300px;
-        background-image: url("../img/popup/Groupe\ 194.png");
+        background-image: url("../img/popup/Groupe194.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe\ 194b.png");
+        background-image: url("../img/popup/Groupe194b.png");
         height: 300px;
         width: 300px;
         background-size: cover;
@@ -246,14 +244,14 @@ input{
     .block_left1{
         height: 580px;
         width: 580px;
-        background-image: url("../img/popup/Groupe\ 194bt.png");
+        background-image: url("../img/popup/Groupe193.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe\ 194t.png");
+        background-image: url("../img/popup/Groupe193b.png");
         height: 580px;
         width: 580px;
         background-size: cover;
@@ -290,14 +288,14 @@ input{
     .block_left1{
         height: 480px;
         width: 480px;
-        background-image: url("../img/popup/Groupe192b.png");
+        background-image: url("../img/popup/Groupe192.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
     }
     
     .block_left2{
-        background-image: url("../img/popup/Groupe192.png");
+        background-image: url("../img/popup/Groupe192b.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;

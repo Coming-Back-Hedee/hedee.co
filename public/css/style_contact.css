@@ -20,6 +20,7 @@
 .bloc_header {
     background: linear-gradient(0.25turn, #fff, var(--bleu-pale));
     width:100%;
+    height: 150px;
 }
 
 .bloc_header_pre > div {
@@ -62,7 +63,7 @@ input, select{
     width: 100%;
     padding: 12px 20px;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid var(--bleu-pale);
     box-sizing: border-box;
     /*background-color: #CED8F6;*/
     color: var(--bleu_perso);
@@ -71,6 +72,7 @@ input, select{
 textarea{
     width: 100%;
     min-height: 220px;
+    border: 1px solid var(--bleu-pale);
 }
 
 form button{

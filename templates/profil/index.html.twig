@@ -45,15 +45,16 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <button class="demande_button">
-                                        <a  href="{{path('enseigne')}}" title="Je fais une nouvelle demande">
+                                     <a href="{{path('enseigne')}}" title="Je fais une nouvelle demande">
+                                        <button class="demande_button">
                                             Je fais une nouvelle demande
-                                        </a>
-                                    </button>
-                                    <button class="compte_button">
-                                        <a href="{{path('logout')}}" title="Je me déconnecte">
+                                        </button>
+                                    </a>
+                                    
+                                    <a href="{{path('logout')}}" title="Je me déconnecte">
+                                        <button class="compte_button">                                       
                                             Je me déconnecte
-                                        </a>
+                                    </a>
                                     </button>
                                 </li>
                             </ul>
@@ -73,11 +74,15 @@
                             </div>
                         </div>
 
-                            {#<div class="navbar navbar-default navbar-static-bottom">
-                                <p class="navbar-text pull-left">
-                                    Built by <a href="http://mvnguyen.com" target="_blank">Michael V Nguyen
+                        <div class="navbar navbar-default navbar-static-bottom">
+                            <button id="delete_account" class="orange_button" type="submit">Supprimer mon compte</button>
+                                <div id="dialog-confirm" title="Empty the recycle bin?">
+                                <p>
+                                    <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+                                    These items will be permanently deleted and cannot be recovered. Are you sure?
                                 </p>
-                            </div>#}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,6 +174,7 @@
             });   
                   
         }
+        
 
           
         if(window.innerWidth >= 1025){
@@ -177,5 +183,37 @@
         }
     });
 </script>
+            <script>
+                $( function() {
+                    $( "#dialog-confirm" ).dialog({
+                    autoOpen: false,
+                    show: {
+                        effect: "blind",
+                        duration: 1000
+                    },
+                    hide: {
+                        effect: "blind",
+                        duration: 1000
+                    },
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: {
+                        "Supprimer votre compte": function() {
+                        $( this ).dialog( "close" );
+                        },
+                        Cancel: function() {
+                        $( this ).dialog( "close" );
+                        }
+                    }
+                    });
+
+                    $( "#delete_account" ).on( "click", function() {
+                        console.log("iuo")
+                        $( "#dialog-confirm" ).dialog( "open" );
+                    });
+                } );
+            </script>
 
 {% endblock %}

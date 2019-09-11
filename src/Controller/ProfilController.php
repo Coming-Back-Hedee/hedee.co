@@ -226,4 +226,17 @@ class ProfilController extends AbstractController
         }*/
     }
 
+    /**
+     * @Route("/suppression", name="suppression")
+     */
+    public function suppression_compte(Request $request, RouterInterface $router)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $em->remove($user);
+        $em->flush($user);
+
+        return $this->render('profil/suppression.html.twig');
+
+    }
 }

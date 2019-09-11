@@ -36,6 +36,9 @@ class ReinitialisationMdpController extends AbstractController
             ])
             ->getForm();
         $form->handleRequest($request);
+        if($this->getUser() != null){
+            return $this->redirectToRoute("profil");
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -62,9 +65,9 @@ class ReinitialisationMdpController extends AbstractController
                 'user' => $user
             ]);
             $mailer->sendAdminMessage('hello@hedee.co', $user->getEmail(), 'Renouvellement du mot de passe', $bodyMail);
-            $request->getSession()->getFlashBag()->add('success', "Un mail va vous être envoyé afin que vous puissiez renouveller votre mot de passe. Le lien que vous recevrez sera valide 24h.");
+            $request->getSession()->getFlashBag()->add('success', "Un mail va vous être envoyé afin que vous puissiez renouveller votre mot de passe. Le lien que vous recevrez sera valide 10 minutes.");
 
-            return $this->redirectToRoute("connexion");
+            //return $this->redirectToRoute("connexion");
         }
 
         return $this->render('reinitialisation_mdp/requete.html.twig', [

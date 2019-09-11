@@ -11,13 +11,6 @@ foire_aux_questions:
     defaults:
       template: 'utile/faq.html.twig'
 
-
-conditions:
-    path: /cgv
-    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
-    defaults:
-      template: 'utile/cgv.html.twig'
-
 a_propos:
     path: /qui-sommes-nous
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
@@ -36,14 +29,26 @@ comment_ca_marche:
 #    defaults:
 #      template: 'utile/contact.html.twig'
 
-test:
-    path: /test
-    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
-    defaults:
-      template: 'test.html.twig'
+#test:
+#    path: /test
+#   controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+#    defaults:
+#     template: 'test.html.twig'
 
 mentions_legales:
     path: mentions-legales
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
     defaults:
       template: 'utile\mentions.html.twig'
+
+cgu:
+    path: conditions-generales-utilisation
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+      template: 'utile\cgv.html.twig'
+
+donnees_perso:
+    path: donnees-personnelles
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+      template: 'utile\donnees.html.twig'
