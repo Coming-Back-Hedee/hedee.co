@@ -98,6 +98,9 @@
 
 <script>        
     $(document).ready(function() {
+        var page = $('.bloc_header'); // Page cible
+		var speed = 750; // Durée de l'animation (en ms)
+		$('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
 
         $('#coming_back').click(function(){
             $('#sidebar-wrapper').show()
@@ -110,9 +113,12 @@
         Array.from(section).forEach(function(li){
             li.addEventListener('click', function(e){
                 e.preventDefault()
-                id = $(this).attr('id')                      
+                var id = $(this).attr('id') 
+                var page = $('.bloc_header'); // Page cible
+			    var speed = 750; // Durée de l'animation (en ms)                     
                 loadTab(id); 
-                $("html, body").animate({scrollTop : 0}, 1500);       
+                $('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
+   
             });
         });
 

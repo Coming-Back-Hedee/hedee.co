@@ -94,8 +94,13 @@
                 <p>Nom : {{alerte.dossier.client.nom}}</p>
                 <p>Numéro de téléphone : {{alerte.dossier.client.numeroTelephone}}</p>
                 <p>Email : {{alerte.dossier.client.email}}</p>
-                <p>Nombre de parrainage : {{alerte.dossier.client.nbParrainage}}</p>
+                {#<p>Nombre de parrainage : {{alerte.dossier.client.nbParrainage}}</p>#}
                 <p>Mandat signé : {{ (alerte.dossier.client.isActive) ? 'Oui' : 'Non' }}</p>
+                {% if alerte.dossier.client.modeVersement %}}
+                    <p> IBAN : {{ alerte.dossier.client.modeVersement.IBAN }}</p>
+                    <p> BIC : {{ alerte.dossier.client.modeVersement.swiftBic }}</p>
+                {% endif %}
+                
                 
             </div>
 

@@ -191,11 +191,15 @@ class PdfController extends AbstractController
     }
 
     public function footer($pdf){
+        $pdf->SetFillColor(255);
+        $pdf->Rect(0, 155, $pdf->GetPageWidth(), $pdf->GetPageHeight(), 'F');
+        $pdf->SetTextColor(40, 0, 220);
+        $pdf->SetFillColor(40, 0, 220);
         $texte = "Hedee a trouvé moins cher !";
         $mid_x = $pdf->GetPageWidth()/2; // the middle of the "PDF screen", fixed by now.
         $pdf->SetDrawColor(40, 0, 220); // Couleur des filets
         $pdf->SetTextColor(40, 0, 220);
-        $pdf->SetFont('dejavusans', 'B', 16);
+        $pdf->SetFont('dejavusans', 'B', 12);
         
         $pdf->Text($mid_x - ($pdf->GetStringWidth($texte) / 2), 140, $texte);
         $pdf->Rect(15,210,45,30,'D');
@@ -204,22 +208,28 @@ class PdfController extends AbstractController
     }
 
     public function details_footer($pdf, AlertePrix $alerte, $session){
-        $pdf->SetTextColor(40, 0, 220);
         $mid_x = $pdf->GetPageWidth()/2; // the middle of the "PDF screen", fixed by now.
-        $pdf->SetFont('dejavusans', '', 16);
+        $pdf->SetFont('dejavusans', '', 24);
         $diffPrix = $alerte->getDifferencePrix() . "€";
-        $pdf->Text($mid_x - ($pdf->GetStringWidth("Vous pouvez gagner") / 2), 155, "Vous pouvez gagner");
-        $pdf->SetFont('dejavusans', 'B', 24);
+        $prix = $alerte->getPrix() . "€";
+        $enseigne = $alerte->getEnseigne();
+        $date = date_format($alerte->getDate(),'d/m/Y');
+        $pdf->Text($mid_x - ($pdf->GetStringWidth("Vous pouvez gagner") / 2), 155, "Vous pouvez gagner");      
         $pdf->Text($mid_x - ($pdf->GetStringWidth($diffPrix) / 2), 165,$diffPrix);
-        $pdf->SetXY(15,210);
+        $pdf->SetFont('dejavusans', 'B', 9);
         $pdf->Text(37.5 - ($pdf->GetStringWidth("Magasin:") / 2), 200, "Magasin:");
-        $pdf->Cell(45,30,$alerte->getEnseigne(),0,0,'C',0);
-        $pdf->SetXY(82.5,210);
         $pdf->Text(105 - ($pdf->GetStringWidth("Date du constat:") / 2), 200, "Date du constat:");
-        $pdf->Cell(45,30,date_format($alerte->getDate(),"d/m/Y"),0,0,'C',0);
+        $pdf->Text(172.5 - ($pdf->GetStringWidth("Prix le moins cher") / 2), 200, "Prix le moins cher"); 
+
+        $pdf->SetXY(15,210);
+        
+        $pdf->Cell(45,30, $enseigne,0,0,'C',0);
+        $pdf->SetXY(82.5,210);
+        
+        $pdf->Cell(45,30, $date,0,0,'C',0);
         $pdf->SetXY(150,210);
-        $pdf->Text(172.5 - ($pdf->GetStringWidth("Prix le moins cher") / 2), 200, "Prix le moins chèr");     
-        $pdf->Cell(45,30,"$alerte->getPrix()€",0,0,'C',0);
+            
+        $pdf->Cell(45,30, $prix, 0, 0,'C',0);
     }
 
     public function recup_pdf($pdf, $path){

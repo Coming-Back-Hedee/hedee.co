@@ -78,10 +78,8 @@ class EnseigneController extends AbstractController
 
                     $repo = $em->getRepository(Clients::class);
                     $user = $repo->findOneBy(['email' => $form['client']['email']]);
-                    if(!$user){
-                        $user = new Clients();
-                        $user->bis_construct($form['client']);  
-                    }   
+                    $user->bis_construct($form['client']);  
+                    
                 }
 
                 if($request->request->get('choix') == "internet"){
