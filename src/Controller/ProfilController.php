@@ -70,19 +70,34 @@ class ProfilController extends AbstractController
         forEach($dossiersRembourses as $dossier){
             $gains = $gains + $dossier->getMontantRemboursement();
         }
+        $flashbag = $this->get('session')->getFlashBag();
         if ($request->isMethod('POST')){
-            $mode = new ModeVersement();
             $post = $request->request->get('mode_versement');
-            $mode->setSwiftBic(strtoupper($post['swiftBic']));
-            $mode->setIban(strtoupper($post['iban']));
-            $mode->setProprietaire($post['proprietaire']);
-            $user->setModeVersement($mode);
-            $em->flush();
-            $flashbag = $this->get('session')->getFlashBag();
+            $form->submit($post);
+            if ($form->isValid()){
+                $mode = new ModeVersement();
+                
+                $mode->setSwiftBic(strtoupper($post['swiftBic']));
+                $mode->setIban(strtoupper($post['iban']));
+                $mode->setProprietaire($post['proprietaire']);
+                $user->setModeVersement($mode);
+                $em->flush();
+                
+                $message = "Le nouveau mode de versement a bien été pris en compte";
+                $flashbag->add("success", $message);
+            }
+            else{
+                $errorIban = $form['iban']->getErrors();
+                $errorBic = $form['swiftBic']->getErrors();
+                $flashbag->add("warningIban", $errorIban);
+                $flashbag->add("warningBic", $errorBic);
+            }
             // Add flash message
-            $flashbag->add("success", "Le nouveau mode de versement a bien été pris en compte");
+            $flashbag->add("warningIban", $errorIban);
+            $flashbag->add("warningBic", $errorBic);
             $url = $router->generate('profil');
             $url .= "#porte-monnaie";
+            
             return new RedirectResponse($url);
         }
         
@@ -107,36 +122,64 @@ class ProfilController extends AbstractController
     /**
      * @Route("/informations-generales", name="info_client")
      */
-    public function informations(Request $request, RouterInterface $router )
+    public function informations(Request $request, RouterInterface $router)
     {
+        $emojis = ["", ";).png", "=D.png", "=o.png"];
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $form = $this->createForm(InfoClientType::class, $user);
         $flashbag = $this->get('session')->getFlashBag();
-        $flashbag->add("success", "Vos changements ont bien été pris en compte");
+        
         if ($request->isMethod('POST')){
             $post = $request->request->get('info_client');
-            if(null !== $post['nom']){
-                $user->setNom(ucfirst($post['nom']));               
+            if($user->getNom() != $post['nom']){
+                $user->setNom(ucfirst($post['nom']));
+                $flashbag->add("success", "Votre changement de nom a bien été pris en compte");             
             }
-            if("" !== $post['prenom']){
-                $user->setPrenom(ucfirst($post['prenom']));              
+            if($user->getPrenom() != $post['prenom']){
+                $user->setPrenom(ucfirst($post['prenom']));
+                $flashbag->add("success", "Votre changement de prénom a bien été pris en compte");             
             }
-            if("" !== $post['dateNaissance']['day'] ){
+            if(array_key_exists('dateNaissance', $post) && "" !== $post['dateNaissance']['day'] ){
                 $string = $post['dateNaissance']['day'] . "-" ;
                 $string .=  $post['dateNaissance']['month'] . "-" . $post['dateNaissance']['year'];
                 $dateNaissance = \DateTime::createFromFormat('d-m-Y',$string);
                 $user->setDateNaissance($dateNaissance);
+                $flashbag->add("success", "Votre changement de date de naissance a bien été pris en compte");
             }
-            if("" !== $post['numeroTelephone']){
-                $user->setNumeroTelephone($post['numeroTelephone']);
+            if($user->getNumeroTelephone() != $post['numeroTelephone']){
+                if($form->isSubmitted() && $form->isValid()){
+                    $user->setNumeroTelephone($post['numeroTelephone']);
+                    $flashbag->add("success", "Votre changement de numéro de télephone a bien été pris en compte");
+                }
+                else{
+                    $errors = $form->getErrors();
+                    $flashbag->add("success", "Votre numéro de téléphone n'a pu être changé");
+                    foreach ($errors as $error) {
+                        $flashbag->add("warning", $error);
+                    }
+                }            
             }
-            if("" !== $post['adresse']['nomRue']){
-                $adresse = new Adresses();
-                $adresse->bis_construct($post['adresse']);
-                $user->setAdresse($adresse);
+            if("" != $post['adresse']['nomRue']){
+                if($form->isSubmitted() && $form->isValid()){
+                    $adresse = new Adresses();
+                    $adresse->bis_construct($post['adresse']);
+                    $user->setAdresse($adresse);
+                    $flashbag->add("success", "Votre changement d'adresse a bien été pris en compte");
+                }
+                else{
+                    $errors = $form['adresse']->getErrors();
+                    foreach ($errors as $error) {
+                        $flashbag->add("warning", $error);
+                    }
+                }          
             }
+            if($user->getPhoto() != $emojis[$request->request->get('selected-text')]){
+                $user->setPhoto( "/img/emoji/" . $emojis[$request->request->get('selected-text')]);
+                $flashbag->add("success", "Votre changement de photo de profil a bien été pris en compte");
+            }
+            
             $em->flush();
             $url = $router->generate('profil');
             $url .= "#informations-personnelles";
@@ -155,6 +198,8 @@ class ProfilController extends AbstractController
     {
         //if($request->isXmlHttpRequest()){
             $form = $this->createForm(ModeVersementType::class);
+            $flashbag = $this->get('session')->getFlashBag();
+            
             return $this->render('profil/m_versement.html.twig', ['form' => $form->CreateView()]);
         /*}
         else{

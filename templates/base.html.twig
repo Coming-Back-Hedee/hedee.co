@@ -157,7 +157,7 @@
 
 					<div class="entete_menu_open">
 							<div class="logo_h_entete">
-								<a href="#"> <img src="{{asset('img/header/logo_hedee.png')}}" width="150" height="130" class="img-fluid" alt=""> </a>
+								<a href="{{ path('accueil') }}"> <img src="{{asset('img/header/logo_hedee.png')}}" width="150" height="130" class="img-fluid" alt=""> </a>
 							</div>
 					</div>
 				
@@ -278,13 +278,7 @@
 			{% block main %}
 			{% endblock %}
         </main>
-		{#<div class="js-menu-cookie">
-			Ce site Internet utilise des cookies. 
-			Vous pouvez les désactiver dans les paramètres de votre navigateur. 
-			Vous trouverez davantage d’informations concernant notre politique 
-			en matière de cookies dans notre Politique de confidentialité.
-			<button class="close js-menu-cookie-close">OK</button>
-		</div>#}
+
 		<footer>
 			<div class="container-fluid footer_bleu">
 					<div class="row">
@@ -307,7 +301,7 @@
 								</div>
 
 								<div class="col-4-md-4 mr-3 linkedin">
-									<a href="#">  <img width="50" height="50" class="img-fluid" src="{{asset('img/footer/linkedin_bleu.png')}}" alt="" > </a>
+									<a href="#">  <img width="50" href=#ight="50" class="img-fluid" src="{{asset('img/footer/linkedin_bleu.png')}}" alt="" > </a>
 								</div>
 							</div>
 						</div> <!--fin class="reseau_sociaux"-->
@@ -337,7 +331,7 @@
 
 								<div class="list_footer">
 									<ul>
-										<li><a href="#">Mentions légales</a></li>
+										<li><a href="{{ path('mentions_legales') }}">Mentions légales</a></li>
 										<li><a href="#">CGU</a></li>
 										<li><a href="#">Données personnelles</a></li>
 									</ul>
@@ -420,8 +414,9 @@
 
 		<script>
 			$('.flash-notice-close').click(function(){
-				console.log($(this))
+				temp = $(this).parent().next()
 				$(this).parent().fadeOut()
+				temp.animate({ "top": "+=100px" }, "slow" );
 			})
 			$.ucfirst = function(str) {
 					var word = ""

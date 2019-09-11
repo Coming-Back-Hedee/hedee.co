@@ -62,9 +62,11 @@ class PdfController extends AbstractController
         $path_pdf = $dir . "\\factures\\" . $session->get('path') . ".pdf";
         $test1 = $pdf->Output($path_pdf, 'F');
                 
-        /*$jpeg = $dir . "/factures/" . $session->get('path') .".png";
-        exec("magick convert $path_pdf -colorspace RGB -density 300 -quality 85 $jpeg");
+        $jpeg = $dir . "/factures/" . $session->get('path') .".png";
+        /*exec("magick convert $path_pdf -colorspace RGB -density 300 -quality 85 $jpeg");
+        
         $data = ['path' => $jpeg];*/
+        exec("magick convert $path_pdf -colorspace RGB -density 300 -trim  -quality 100 $jpeg");
         
         //return new JsonResponse(true);
         return new Response($pdf->Output(), 200, array(
@@ -123,14 +125,21 @@ class PdfController extends AbstractController
             $details .= "\nRéference : ";
             $details .= "\nMontant de l'achat : ";
             $pdf->Write(10, $details);
-            $points .= "\n...........................................................................................";
-            $points .= "\n...........................................................................................";
-            $points .= "\n...........................................................................................";
-            $pdf->Text(PDF_MARGIN_LEFT+50, $position + 34, "$prix €");
-            /*$marque = $post['marqueProduit'];
-            $pdf->Cell(37,25,$marque,0,0,'C',0);
-            $pdf->SetXY(148,100);
+            $marque = $post['marqueProduit'];
             $reference = $post['referenceProduit'];
+            $points .= "\n...........................................................................................";
+            $points .= "\n...........................................................................................";
+            $points .= "\n...........................................................................................";
+            $pdf->SetXY(PDF_MARGIN_LEFT+50, $position+4);
+            $pdf->SetLeftMargin(PDF_MARGIN_LEFT+50);
+            $pdf->Write(10, $points);
+            $pdf->Text(PDF_MARGIN_LEFT+50, $position + 14, $marque);
+            $pdf->Text(PDF_MARGIN_LEFT+50, $position + 24, $reference);
+            $pdf->Text(PDF_MARGIN_LEFT+50, $position + 34, "$prix €");
+            
+            /*$pdf->Cell(37,25,$marque,0,0,'C',0);
+            $pdf->SetXY(148,100);
+            
             $pdf->Cell(37,25,$reference,0,0,'C',0);*/
         }
         else{

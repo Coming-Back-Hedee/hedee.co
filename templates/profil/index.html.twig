@@ -23,7 +23,7 @@
                         <nav id="spy">
                             <ul class="sidebar-nav nav">
                                 <li class="profile">
-                                    <img class="photo-profil" src="{{asset('img/emoji/=D.png')}}" alt="Photo de votre profil" />
+                                    <img class="photo-profil" src="{{ app.user.photo }}" alt="Photo de votre profil" />
                                     <div class="hello_profil">
                                         <p class="profil-label">Bonjour </p>
                                         <p class="profil-name"> {{app.user.prenom}} !</p>

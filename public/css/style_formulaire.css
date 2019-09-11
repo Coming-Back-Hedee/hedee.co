@@ -69,6 +69,10 @@ input, select{
     color: var(--bleu_perso);
 }
 
+input[type=file]{
+    border: none;
+}
+
 .input-group-prepend button{
     background-color: #CED8F6;
     border: 1px solid #ccc;
@@ -490,7 +494,6 @@ textarea{
 .fa-arrow-right:hover {
     color: #fff;
 }
-
 
 .switch_second2{
     padding: 12.5px;
