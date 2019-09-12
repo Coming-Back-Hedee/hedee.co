@@ -170,7 +170,7 @@
     </div> <!-- fin class="row utiliser_hedee" -->
 
 
-<!--AVIS CLIENT A INTEGRER SI VRAIS AVIS DEPOSES-->
+<!-- *****ne pas supprimer***** AVIS CLIENT A INTEGRER SI VRAIS AVIS DEPOSES -->
     <!--<div class="row avis_hedee">  
         <div class="col-md-12 bloc4">
             <div class="row justify-content-center avis">
@@ -210,7 +210,7 @@
                 </div>
 
                 <div class="col-4-md-4">
-                    <img src="{{asset('img/accueil/french-tech.png')}}" alt="" width="200" height="200" class="img-fluid">
+                    <img src="{{asset('img/accueil/cci-paris.png')}}" alt="" width="200" height="200" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-4">
@@ -255,31 +255,7 @@
 
 
 {% block javascript %} 
- {# <script>
-   
-    var iconSelect;
-    var selectedText;
-
-        window.onload = function(){
-            
-            selectedText = document.getElementById('selected-text');
-            
-            document.getElementById('my-icon-select').addEventListener('changed', function(e){
-               selectedText.value = iconSelect.getSelectedValue();
-            });
-            
-            iconSelect = new IconSelect("my-icon-select");
-
-            var icons = [];
-            icons.push({'iconFilePath':'{{asset("img/emoji/;).png")}}', 'iconValue':'1'});
-            icons.push({'iconFilePath':'{{asset("img/emoji/=D.png")}}', 'iconValue':'2'});
-            icons.push({'iconFilePath':'{{asset("img/emoji/=o.png")}}', 'iconValue':'3'});
-            
-            iconSelect.refresh(icons);
-
-        };
-</script>
-#}       
+ 
 {% endblock %} {#fin block javascript#}
 
 

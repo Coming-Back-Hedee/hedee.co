@@ -91,6 +91,10 @@ main {
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
+
     main {
         min-height: 500px !important;
     }
@@ -136,6 +140,11 @@ main {
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:1024.98px){ 
+
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
+    
     main {
         min-height: 400px !important;
     }

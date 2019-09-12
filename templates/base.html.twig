@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
+		{#<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-147752985-1"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag(‘js’, new Date());  gtag(‘config’, ‘UA-147752985-1’);
+		</script>#}
+		
         <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -19,7 +27,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-				
+		
 
         {% block stylesheets %}
 		{% endblock %}
@@ -462,60 +470,6 @@
 			});
 		</script>
 
-		{#<script>
-				// Functions
-			function openInscriptionMenu() {
-				$('.js-menu-inscription').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
-				$('footer').fadeToggle('1200');
-
-			}
-			function closeInscriptionMenu() {
-				$('.js-menu-inscription').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
-				//$('.footer').fadeToggle('1200');
-			}
-
-			function openConnectionMenu() {
-				$('.js-menu-connection').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
-				$('footer').fadeToggle('1200');
-
-			}
-			function closeConnectionMenu() {
-				$('.js-menu-connection').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
-				//$('.footer').fadeToggle('1200');
-			}
-
-		// Document Ready
-			jQuery(document).ready(function($){
-				 // When everything has finished loading
-				$('.js-menu-client-button').click(function(){
-					openConnectionMenu(); // Run the openMenu function
-				});
-				$('.js-menu-client-close').click(function(){
-					 // When the element with the class 'js-menu-close' is clicked
-					closeInscriptionMenu(); // Run the closeMenu function
-					closeConnectionMenu()
-				});
-				$('#switch_inscription').click(function(){
-					$('.js-menu-inscription').addClass('is-open');
-					$('.js-menu-connection').removeClass('is-open');
-					openInscriptionMenu();
-				});
-				$('#switch_connection').click(function(){
-					$('.js-menu-connection').addClass('is-open');
-					$('.js-menu-inscription').removeClass('is-open');
-					openConnectionMenu();
-				});
-			});
-			window.onclick = function(event){console.log(event.target)}
-		// Keyboard Accessibility
-			jQuery(document).keyup(function(e) { // Listen for keyboard presses
-				if (e.keyCode === 27) { // 'Esc' key
-					if ($('.js-menu-container').hasClass('is-open')) { // If the menu is open close it
-						closeMenu(); // Run the closeMenu function
-					}
-				}
-			});
-		</script>#}
 
 			<!--RAJOUT SCRIPT-->			
 		<script>

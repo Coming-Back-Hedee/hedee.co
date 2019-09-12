@@ -250,6 +250,10 @@
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
+
     .bloc1 h1 {
         font-size: 35px
     }
@@ -332,6 +336,10 @@
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:991.98px){ 
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
+    
     .bloc1bis {
         height: 800px;
         max-width:100%;

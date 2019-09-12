@@ -103,11 +103,15 @@ form button{
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
     .bloc1{
         margin-left: initial;
         margin-right: initial;
     }
 }
+
 
 
 

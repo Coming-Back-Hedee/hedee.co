@@ -101,6 +101,9 @@ width: 100%
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
 
     .header_title {
         font-size: 1.75rem;
@@ -120,7 +123,10 @@ width: 100%
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:991.98px){ 
-
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
+    
     .header_title {
         font-size: 2.25rem;
     }

@@ -12,8 +12,6 @@
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    /*display:flex;
-    flex-wrap:wrap; */
 }
 
 .entete {
@@ -134,15 +132,8 @@
 }
 
 .bloc3 {
-   /* background-image: url("../img/parcours_decouverte/Groupe\ 48.png") ;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;*/
     height: 880px;
     max-width: 100%;
-    /*-webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;*/
 }
 
 .sous_title_utiliser {
@@ -155,7 +146,6 @@
 
 .petit_title {
     margin-right : 35px;
-    
 }
 
 .bloc4 {
@@ -195,12 +185,6 @@
 }
 
 .bloc6 {
-    /*background-image: url("../img/accueil/encart_cta.png") ;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center ;
-    min-height: 500px;
-    max-width: 100%;*/
     background-size: contain;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -232,28 +216,18 @@
     line-height: 0.5;
 }
 
-/*.footer{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 93px);
+.encart_bouton {
+    margin-left: auto;
+    margin-right: auto;
 }
-.reseaux_sociaux {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
-}
-.infos_hedee {
-    grid-column-start: 3;
-    grid-column-end: 4;
-    grid-row-start: 3;
-    grid-row-end: 5;
-} */
-
 
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
+
     .bloc1 {
         height: 550px;
     }
@@ -262,6 +236,7 @@
         width: 100%
     }
     .grand_title > h1 {
+        margin-top:-15px;
         font-size: 30px;
         text-align:center
     } 
@@ -279,7 +254,7 @@
     }
 
     .bloc1bis {
-        height: 800px;
+        height: 750px;
         width:100%;
     }
 
@@ -306,7 +281,9 @@
         width: 230px;
         height:230px;
         margin-top: 35px;
-        margin-bottom: 35px
+        margin-bottom: 35px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .comment_ca_marche_button {
@@ -314,7 +291,7 @@
     } 
       
     .bloc2 {
-        height: 920px;
+        height: 900px;
     }
 
     .sous_title > h2 {
@@ -337,9 +314,8 @@
         width: 230px
     }
 
-
     .bloc3 {
-        height: 1430px
+        height: 1350px
     }
 
     .version_pc {
@@ -349,12 +325,12 @@
     .version_mobile {
         display:block;
         width: 100%;
+        margin-top: -20px;
     }
 
     .version_mobile p {
         margin-left:3px;
         margin-right:3px
-
     }
 
     .image1_tester, .image3_recuperer {
@@ -393,21 +369,19 @@
     }
     
     .encart_1, .encart_2 {
-        
         line-height: 1;
     }
 
-    .encart_bouton {
-        width: 250px;
-        height: 30px;
-        
-    }
  }
 
 
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:991.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
+    
     .bloc1 {
         height: 450px;
     }

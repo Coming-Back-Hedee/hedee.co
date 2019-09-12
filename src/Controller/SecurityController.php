@@ -11,6 +11,7 @@ use App\Security\FormLoginAuthenticator;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -63,76 +64,98 @@ class SecurityController extends AbstractController
     /**
      * @Route("/connexion2", name="connexion2")
      */
-    public function login2(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
-                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
+    public function login2(Request $request, AuthenticationUtils $authUtils, 
+                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider, RouterInterface $router)
     {
-        $isAvailable = false;
-        $post = $request->request;
-        $repo = $this->getDoctrine()->getRepository(Clients::class);
-        
-        $user =  $repo->findOneBy(['email' => $post->get('_username')]);
-        if($user != null){
-            if($post->has('_password')){
-                $plainPassword = $post->get('_password');
-                if($passwordEncoder->isPasswordValid($user, $plainPassword)){
-                    $isAvailable = true;
+        if($request->isXmlHttpRequest()){
+            $isAvailable = false;
+            $post = $request->request;
+            $repo = $this->getDoctrine()->getRepository(Clients::class);
+            
+            $user =  $repo->findOneBy(['email' => $post->get('_username')]);
+            if($user != null){
+                if($post->has('_password')){
+                    $plainPassword = $post->get('_password');
+                    if($passwordEncoder->isPasswordValid($user, $plainPassword)){
+                        $isAvailable = true;
 
+                    }
                 }
-            }
-            else
-                $isAvailable = true;
-        }           
-        $data = $isAvailable;   
-        return new JsonResponse($data);
+                else
+                    $isAvailable = true;
+            }           
+            $data = $isAvailable;   
+            return new JsonResponse($data);
+        }
+        else{
+            $url = $router->generate('accueil');
+
+            return new RedirectResponse($url);
+        }
     }
 
     /**
      * @Route("/connexion3", name="connexion3")
      */
-    public function login3(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
-                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
+    public function login3(Request $request, AuthenticationUtils $authUtils, 
+                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider, RouterInterface $router)
     {
-        $post = $request->request;
-        $repo = $this->getDoctrine()->getRepository(Clients::class);
-        
-        $user =  $repo->findOneBy(['email' => $post->get('_username')]); 
-        $encoders = [new JsonEncoder()]; // If no need for XmlEncoder
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
+        if($request->isXmlHttpRequest()){
+            $post = $request->request;
+            $repo = $this->getDoctrine()->getRepository(Clients::class);
+            
+            $user =  $repo->findOneBy(['email' => $post->get('_username')]); 
+            $encoders = [new JsonEncoder()]; // If no need for XmlEncoder
+            $normalizers = [new ObjectNormalizer()];
+            $serializer = new Serializer($normalizers, $encoders);
 
-        $jsonObject = $serializer->serialize($user, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-         return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+            $jsonObject = $serializer->serialize($user, 'json', [
+                'circular_reference_handler' => function ($object) {
+                    return $object->getId();
+                }
+            ]);
+            return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+        }
+        else{
+            $url = $router->generate('accueil');
+    
+            return new RedirectResponse($url);
+        }
     }
 
     /**
      * @Route("/connexion4", name="connexion4")
      */
-    public function login4(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
-                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
+    public function login4(Request $request, AuthenticationUtils $authUtils, 
+                        UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider, RouterInterface $router)
     {
-        $post = $request->request;
-        $repo = $this->getDoctrine()->getRepository(Clients::class);
-        
-        $user =  $repo->findOneBy(['email' => $post->get('_username')]);
+        if($request->isXmlHttpRequest()){
+            $post = $request->request;
+            $repo = $this->getDoctrine()->getRepository(Clients::class);
+            
+            $user =  $repo->findOneBy(['email' => $post->get('_username')]);
 
-        // Here, "public" is the name of the firewall in your security.yml
-        $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+            // Here, "public" is the name of the firewall in your security.yml
+            $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
 
-        // For older versions of Symfony, use security.context here
-        $this->get("security.token_storage")->setToken($token);
+            // For older versions of Symfony, use security.context here
+            $this->get("security.token_storage")->setToken($token);
 
-        // Fire the login event
-        // Logging the user in above the way we do it doesn't do this automatically
-        $event = new InteractiveLoginEvent($request, $token);
-        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
-        //$url = $this->router->generate('profil');
+            // Fire the login event
+            // Logging the user in above the way we do it doesn't do this automatically
+            $event = new InteractiveLoginEvent($request, $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+            //$url = $this->router->generate('profil');
 
-        //return new RedirectResponse($url);
-        return new JsonResponse(true);
+            //return new RedirectResponse($url);
+            return new JsonResponse(true);
+        }
+        else{
+            $url = $router->generate('accueil');
+
+            return new RedirectResponse($url);
+        }
+
     }
 }
 

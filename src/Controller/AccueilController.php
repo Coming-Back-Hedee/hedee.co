@@ -39,10 +39,7 @@ class AccueilController extends AbstractController
     public function contact(Request $request, Mailer $mailer)
     {
         $flashbag = $this->get('session')->getFlashBag();
-        $flashbag->add("success", "Votre message a bien été envoyé");
-        $flashbag->add("success", "Votre deuxième message a bien été envoyé");
-        $flashbag->add("warning", "Votre troisième message n'a pas été envoyé");
-        $session = $request->getSession();
+         $session = $request->getSession();
         if($request->getMethod() == 'POST'){
             $post = $request->request;
             $expediteur = $post->get('mail');
@@ -51,9 +48,7 @@ class AccueilController extends AbstractController
             $mailer->sendMessage($expediteur, "bouyagui2@gmail.com", $objet , $message);
             $flashbag->add("success", "Votre message a bien été envoyé");
         }
-        //$mailer->sendMessage('from@email.com', "jeremykihoulou@gmail.com", 'Confirmation de la création de votre compte Rembourseo', "Ceci est le corps du mail");
-
-
+        
         return $this->render('utile/contact.html.twig');
     }
 

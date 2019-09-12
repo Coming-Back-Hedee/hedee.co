@@ -111,10 +111,12 @@
                     <label for="recap_cat">Catégorie du produit</label><input id="recap_cat" type="text" readonly><br>
                     <div id="recap_produit"></div>
                     <label for="recap_prix">Montant de l'achat</label><input id="recap_prix" type="text" readonly><br>
-                    {#<img id="facture_jpg" alt="Votre facture est en cours de chargement">#}
+                    
                     <div class="cgu">
                         {{ form_widget(form1.cgu) }}
-                        {{ form_label(form1.cgu) }} 
+                        <label for="demandes_cgu">
+                            <a href="{{ path('cgu') }}" target="blank"> J'accepte les Conditions générales d'utilisation </a>
+                        </label>
                     </div>
                     {{ form_row(form1._token) }}
                 </section> <!-- fin étape 4 formulaire -->

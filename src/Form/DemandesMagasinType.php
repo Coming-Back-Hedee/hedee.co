@@ -44,7 +44,10 @@ class DemandesMagasinType extends AbstractType
             ])
             ->add('pieceJointe', FileType::class,   ['label' => 'Merci de joindre la facture de votre achat', 'mapped' => false, 'required' => false])
             ->add('client', ClientType::class,   ['label' => 'Informations client'])
-            ->add('cgu', CheckboxType::class,   ['label' => 'Conditions générales d\'utilisation'])
+            ->add('cgu', CheckboxType::class,   ['label' => 'J\'accepte les Conditions générales d\'utilisation',
+                                                'attr' => [
+                                                    'class' => 'lecture_cgu'
+                                                ]])
             
         ;
     }
