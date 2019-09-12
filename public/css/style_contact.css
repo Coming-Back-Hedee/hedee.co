@@ -73,6 +73,7 @@ textarea{
     width: 100%;
     min-height: 220px;
     border: 1px solid var(--bleu-pale);
+    color: var(--bleu_perso);
 }
 
 form button{

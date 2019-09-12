@@ -173,7 +173,7 @@
             })
 
             $('#select_enseigne').on('change', function(){               
-                this.value = $.ucfirst(this.value)
+                this.value = ucfirst(this.value)
                 $.validator.addMethod(
                     "validation_enseigne",
                     function(value, element, array) {

@@ -58,16 +58,6 @@ class PdfController extends AbstractController
         $this->entete_facture($enseigne, $pdf, $post, $session);      
         $this->cooordonnes_client($pdf, $post);
         $this->details_table(80, $pdf, $post, $session);
-        /*$this->rectangle_w_title($pdf, 25,100,40,30,'DF', 30, 46, "Catégorie");
-        if($session->get('choix') == 'magasin'){
-            $this->rectangle_w_title($pdf, 85,100,40,30,'DF', 90, 103, "Marque" );
-            $this->rectangle_w_title($pdf, 145,100,40,30,'DF', 150, 167, "Référence");
-        }
-        else{
-            $this->rectangle_w_title($pdf, 85,100, 120,30,'DF', 90, 98, "URL" );
-        }
-        
-        $this->rectangle_w_title($pdf, 135,150,40,30,'DF', 140, 155, "Prix payé");*/
         
        
         $path_pdf = $dir . "\\factures\\" . $session->get('path') . ".pdf";
@@ -78,7 +68,7 @@ class PdfController extends AbstractController
         
 
         $data = ['path' => $jpeg];*/
-        exec("magick convert $path_pdf -colorspace RGB -density 300 -trim  -quality 100 $jpeg");
+       // exec("magick convert $path_pdf -colorspace RGB -density 300 -trim  -quality 100 $jpeg");
         
         //return new JsonResponse(true);
 

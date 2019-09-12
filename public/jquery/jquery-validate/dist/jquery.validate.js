@@ -1555,7 +1555,7 @@ $.extend( $.validator, {
 					regexp = new RegExp(regexp);
 				else if (regexp.global)
 					regexp.lastIndex = 0;
-				return this.optional(element) || /^[1-9][0-9]{8}$/.test( value );
+				return this.optional(element) || /^[0-9][0-9]{8,9}$/.test( value );
 			},
 
 		// https://jqueryvalidation.org/remote-method/

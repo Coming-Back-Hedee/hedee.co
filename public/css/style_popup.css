@@ -161,10 +161,12 @@ input{
 
 #connexion input{
     border-color: var(--bleu-pale);
+    color: var(--bleu_perso);
 }
 
 #inscription input{
     border-color: var(--orange-pale);
+    color: var(--orange_perso);
 }
 
 .switch_first:hover{
@@ -293,8 +295,11 @@ input{
 /* **************  POUR GRANDS ECRANS  ********************* */
 @media screen and (min-width: 992px) and (max-height: 1080px){
     main{
-        height: 558px;
-       
+        height: 558px;       
+    }
+
+    .bloc_popup{
+        width: 960px;
     }
 
     .block_left1{

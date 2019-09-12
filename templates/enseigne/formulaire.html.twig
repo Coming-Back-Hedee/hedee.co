@@ -330,6 +330,9 @@
                 },
                 onStepChanged: function (event, currentIndex, priorIndex)
                 {   
+                    var page = $('.bloc_header'); // Page cible
+                    var speed = 750; // Durée de l'animation (en ms)
+                    $('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
                     //passe directement à l'étape 4 si l'utilisateur est connecté
                     if (currentIndex === 1){
                         document.getElementById("menuprevious").parentElement.style.display = "table-cell";

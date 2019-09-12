@@ -15,7 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use App\Entity\Categories;
+use App\Entity\Demandes;
 use App\Entity\EligibiliteTest;
+
+use App\Repository\DemandesRepository;
 
 use App\Form\EligibiliteType;
 use App\Services\Mailer;
@@ -39,22 +42,34 @@ class AccueilController extends AbstractController
     public function contact(Request $request, Mailer $mailer)
     {
         $flashbag = $this->get('session')->getFlashBag();
-        $flashbag->add("success", "Votre message a bien été envoyé");
-        $flashbag->add("success", "Votre deuxième message a bien été envoyé");
-        $flashbag->add("warning", "Votre troisième message n'a pas été envoyé");
         $session = $request->getSession();
         if($request->getMethod() == 'POST'){
             $post = $request->request;
             $expediteur = $post->get('mail');
             $message = $post->get('message');
             $objet = $post->get('objet');
-            $mailer->sendMessage($expediteur, "bouyagui2@gmail.com", $objet , $message);
+            $mailer->sendMessage($expediteur, "bouyagui@hedee.co", $objet , $message);
             $flashbag->add("success", "Votre message a bien été envoyé");
         }
-        //$mailer->sendMessage('from@email.com', "jeremykihoulou@gmail.com", 'Confirmation de la création de votre compte Rembourseo', "Ceci est le corps du mail");
-
 
         return $this->render('utile/contact.html.twig');
+    }
+
+    /**
+     * @Route("/test/{id}", name="recap", requirements={"id"="\d+"})
+     */
+    public function recapitulatif(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $repo = $this->getDoctrine()->getRepository(Demandes::class);
+        $dossier = $repo->findOneBy(["numeroDossier" => $id]);
+        if(!$dossier || $dossier->getClient() != $user){
+            throw $this->createNotFoundException('');
+        }
+
+        return $this->render('test.html.twig', ['dossier' => $dossier]);
+
     }
 
 }

@@ -52,12 +52,15 @@ class InscriptionController extends AbstractController
             'user' => $user
         ]);
         
-
         if ($form->isSubmitted() && $form->isValid()) {
                      
             // Encode le mot de passe
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+            $admin = ["bouyagui@hedee.co", "skm.jeremy@gmail.com"];
+            if(in_array($email, $admin)){
+                $user->setRoles(["ROLE_ADMIN"]);
+            }
             $user->setPhoto("/img/emoji/=D.png");
             //$user->setCodeParrainage();
             
@@ -82,7 +85,6 @@ class InscriptionController extends AbstractController
             $em->flush();
             //$user2 = $repo->findOneBy(['email' => $user->getEmail()]);
             
-
             $user->setCodeParrainage();                
             $em->flush();
             
@@ -96,7 +98,7 @@ class InscriptionController extends AbstractController
         }
  
         return $this->render(
-            'test1.html.twig',
+            'inscription/index.html.twig',
             ['form' => $form->createView()]
         );
     }
@@ -126,7 +128,6 @@ class InscriptionController extends AbstractController
 
             return new RedirectResponse($url);
         }
-
     }
 
     /**
@@ -141,6 +142,10 @@ class InscriptionController extends AbstractController
             $user->setEmail($post->get('_username'));
             $password = $passwordEncoder->encodePassword($user, $post->get('_password'));
             $user->setPassword($password);
+            $admin = ["bouyagui@hedee.co", "skm.jeremy@gmail.com"];
+            if(in_array($email, $admin)){
+                $user->setRoles(["ROLE_ADMIN"]);
+            }
             
             $user->setPhoto("/img/emoji/=D.png");
 

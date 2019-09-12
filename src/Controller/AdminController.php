@@ -128,22 +128,6 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Clients::class);
         $user =  $repo->findOneBy(['email' => $session->get('usermail')]);
 
-        /*if($request->getMethod() == 'POST' && $session->get('username') != null){ 
-            if($passwordEncoder->isPasswordValid($user, $request->request->get('_password'))){
-                $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
-
-                // For older versions of Symfony, use security.context here
-                $this->get("security.token_storage")->setToken($token);
-
-                // Fire the login event
-                // Logging the user in above the way we do it doesn't do this automatically
-                $event = new InteractiveLoginEvent($request, $token);
-                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
-                $url = $router->generate('admin');
-
-                return new RedirectResponse($url);
-            }
-        }*/
         return $this->render('admin/inscription.html.twig', array(
             'last_username' => $user->getEmail()
         ));
@@ -165,7 +149,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/dossier-{numeroDossier}", name="dossier", requirements={"page"="\d+"})
+     * @Route("/admin/dossier-{numeroDossier}", name="dossier", requirements={"numeroDossier"="\d+"})
      */
     public function dossierClient(Request $request, Mailer $mailer, $numeroDossier)
     {

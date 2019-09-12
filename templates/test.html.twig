@@ -1,46 +1,87 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %} 
-    <link rel="stylesheet" href="{{asset('css/style_popup.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style_facture.css')}}">
 {% endblock %}
 
 {% block title %}Demande de remboursement{% endblock %}
 
 {% block main %}
 <div id="content" class="container">
-
-	<div class="bloc_popup row">
-		<div class="block_left1 col-xs-12 col-sm-12 col-md-12 col-lg-6">
-			<a href="{{ path('inscription') }}" class="switch">			
-					<button class="btn switch_first"><p>JE REJOINS HEDEE</p></button>
-					<button class="btn switch_second1"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
+	<div class="row">
+		<div class="facture col">	
+			<div class="header">
+				<center>  
+					<img width="200" height="30" class="img-fluid mt-4" src="{{asset('img/logo.png')}}" alt="" > 
+				</center>
+			</div>
+			<div class="container-fluid">
+				<div class="top row">
+					<div class="col">
+						<h1 class="enseigne">Darty</h1>
+					</div>
+					<div class="col">
+						<div class="info_client">
+							<p>{{ dossier.client.prenom ~ " " ~ dossier.client. nom }} <br> 
+							{{ dossier.client.adresse.nomRue }} <br> 
+							{{ dossier.client.adresse.codePostal ~ " " ~ dossier.client.adresse.ville }} <br>
+							 +33{{ dossier.client.numeroTelephone }} <br> {{ dossier.client.email }}
+							</p>
+					</div>
+					</div>
+				</div>
+				<div class="middle">
+					<div class="details_achat">
+						<p>Catégorie du produit : <span class="tabulation"> {{ dossier.categorieProduit }}</span></p>
+						{% if dossier.urlProduit is defined  %}
+						 	<p>URL : <span class="tabulation"> {{ dossier.urlProduit }}</span></p>
+						{% else %}
+							<p>Marque : <span class="tabulation"> {{ dossier.marqueProduit }}</span></p>
+							<p>Référence : <span class="tabulation"> {{ dossier.referenceProduit }}</span></p>
+						{% endif %}
+						<br><br><br>
+						<p>Montant de l'achat : <span class="tabulation"> {{ dossier.prixAchat }}€</span></p>
+					</div>
+				</div>
 				
-			</a>
-		</div>
-		<div class="block_right col-xs-12 col-sm-12 col-md-12 col-lg-6">
-			<button class="close js-menu-client-close"><i class="fa fa-close" style="font-size:24px"></i></button>
-			<form action="{{ path('connexion') }}" method="post" id="connexion">
-				<h3> J'ai déjà un compte </h3> 
+				<div class="bottom">
+				{% if dossier.hasAlertesPrix %}
+					<div class="genial">
+						<p><strong>Hedee a trouvé moins cher !</strong><br>Vous pouvez gagner </br>
+						<h1> {{ dossier.lastAlerte.differencePrix }}€</h1>
+						</p>
+					
+					</div>
+					<div class="details_alerte">
+						<div class="row">
+							
+							<div class="col"><p>Enseigne:</p>
+								<div class="details_box">{{ dossier.lastAlerte.enseigne }}</div>
+							</div>
+							
+							<div class="col"><p>Date du constat:</p>
+							<div class="details_box">{{ dossier.lastAlerte.date|date('d/m/Y') }}</div>
+							</div>
+							
+							<div class="col"><p>Prix le moins cher:</p>
+								<div class="details_box">{{ dossier.lastAlerte.prix }}</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				</div>
 				
-				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-				<input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Votre adresse mail"/>
-
-				<input type="password" id="password" name="_password" placeholder="Votre mot de passe"/>
-				
-				<input type="hidden" name="_target_path" value="/profil" />
-				<a href="{{path('request_resetting')}}" target="blank">Mot de passe oublié</a>
-				<br>
-				<button class="blue_button">Je me connecte</button>
-			</form>
+					
+				<div class="footer">
+					<p>&copy; 2019 hedee.co Tous droits réservés<p>
+				</div>
+			</div>		
 		</div>
 	</div>
+	<p>Hedee s'occupe de tout... <br> Il vous informera lorsque vous serez remboursé</p>
 </div>
 
 {% endblock %}
+
 {% block javascript %}
-	<script>
-		$('.js-menu-client-close').click(function(){
-			window.location.href = "{{ path('accueil') }}"
-		})
-	</script>
 {% endblock %}

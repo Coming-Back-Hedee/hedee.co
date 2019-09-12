@@ -16,6 +16,7 @@ use App\Form\ModeVersementType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Form\Forms;
@@ -214,17 +215,33 @@ class ProfilController extends AbstractController
      */
     public function mode_versement(Request $request, RouterInterface $router )
     {
-        //if($request->isXmlHttpRequest()){
+        if($request->isXmlHttpRequest()){
             $form = $this->createForm(ModeVersementType::class);
             $flashbag = $this->get('session')->getFlashBag();
             
             return $this->render('profil/m_versement.html.twig', ['form' => $form->CreateView()]);
-        /*}
+        }
         else{
             $url = $router->generate('accueil');
 
             return new RedirectResponse($url);
-        }*/
+        }
+    }
+
+    /**
+     * @Route("/dossier/{id}", name="recap1", requirements={"id"="\d+"})
+     */
+    public function recapitulatif(Request $request, RouterInterface $router, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $repo = $this->getDoctrine()->getRepository(Demandes::class);
+        $dossier = $repo->findOneBy(["numeroDossier" => $id]);
+        if(!$dossier || $dossier->getClient() != $user){
+            throw $this->createNotFoundException('');
+        }
+
+        return $this->render('test.html.twig', ['dossier' => $dossier]);
     }
 
     /**
