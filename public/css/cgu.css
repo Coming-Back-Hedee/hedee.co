@@ -1,0 +1,40 @@
+:root {
+    --orange_perso: #ff3c00;
+    --orange-pale: #ffd5d2;
+    --bleu_perso: #2800dc;
+    --bleu-pale: #e1def9;
+}
+
+.mentions{
+    font-family: "Work Sans";
+}
+
+.bloc1 {
+    background: linear-gradient(0.25turn, #fff, var(--bleu-pale));
+    width:100%;
+    height: 200px
+}
+
+.bloc1 h1 {
+    text-align: center;
+    color: var(--bleu_perso);
+    font-weight: 500;
+    font-family: "Work Sans";
+    margin-top: 70px
+}
+
+.bloc2 {
+    width:60%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.section {
+    margin-top: 40px;
+    color: var(--bleu_perso);
+}
+
+.section h2 {
+    font-weight: 400px;
+    font-size: 30px
+}
