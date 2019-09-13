@@ -5,6 +5,10 @@
     --bleu-pale: #e1def9;
 }
 
+body {
+    font-family: 'Work Sans', sans-serif;
+} 
+
 .mentions{
     font-family: "Work Sans";
 }

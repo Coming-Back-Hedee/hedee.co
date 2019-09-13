@@ -332,6 +332,9 @@
                 },
                 onStepChanged: function (event, currentIndex, priorIndex)
                 {   
+                    var page = $('.bloc_header'); // Page cible
+                    var speed = 750; // Durée de l'animation (en ms)
+                    $('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
                     //passe directement à l'étape 4 si l'utilisateur est connecté
                     if (currentIndex === 1){
                         document.getElementById("menuprevious").parentElement.style.display = "table-cell";
@@ -342,7 +345,6 @@
                             form.children("div").steps("next");
                             document.getElementById("steps-uid-0-t-1").lastElementChild.style.display = 'inline';
                         }
-
                         if (priorIndex == 2 && $("[name='connect']:checked").val() != "pmembre")
                         {
                             form.children("div").steps("previous");
@@ -350,9 +352,7 @@
                         document.getElementById("steps-uid-0-t-0").lastElementChild.style.display = 'inline';
                         
                         redirect()
-
                     }
-
                     if (currentIndex == 2){
                         document.getElementById("steps-uid-0-t-1").lastElementChild.style.display = 'inline';
                         if($("[name='connect']:checked").val() == "membre"){
@@ -395,12 +395,10 @@
                             data: { "_username": $('#email').val(), "_password": $('#password1').val() }
                         });
                     }
-
                     var url = "/demande-remboursement/";
                     var form2 = document.getElementById("form-enseigne");
                     var donnees = new FormData(form2)
                              
-
                     $.ajax({
                         url: url,
                         type: "POST",
@@ -411,7 +409,6 @@
                             form.preventDefault(); 
                         } */            
                     });
-
                     if({{app.user|json_encode|raw}} == null){
                         $.ajax({
                             url: '/connexion4',
@@ -427,7 +424,6 @@
                         success: function (data) {
                             $('#bloc_header').html(data); 
                             $('#form_location').html(""); 
-
                         }
                     });
                     /*$('#form_location').html(""); 
@@ -460,7 +456,3 @@
         }  /***** fin function step *****/
     });        
     </script>
-        
-
-
-        

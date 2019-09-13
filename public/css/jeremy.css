@@ -444,6 +444,10 @@ input{
 }*/
 
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
+
     .title_box > h2{
         font-size: 28px;
     }
@@ -468,6 +472,9 @@ input{
 }
 
 @media (min-width: 768px) and (max-width:1024.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
 
     .header_title{
         font-size: 48px;

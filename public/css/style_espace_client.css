@@ -19,7 +19,7 @@ body {
     color: var(--bleu_perso);
 }
 
-.container{
+main > .container{
     min-height: 600px;
     
 }

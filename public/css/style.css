@@ -950,6 +950,9 @@ input.error, select.error{
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
 
     .bloc_header_pre > div {
         font-size: 12px;
@@ -1003,7 +1006,9 @@ input.error, select.error{
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:1024.98px){ 
-
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
 
     #desktop {
         visibility: visible

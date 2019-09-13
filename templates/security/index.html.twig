@@ -1,79 +1,46 @@
 {% extends 'base.html.twig' %}
-{% block title %}Inscription{% endblock %}
 
-{% block main %}
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
-<div id="connexion">
-    <form action="{{ path('connexion') }}" method="post">
-        <div>
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
-        </div>
-
-        <br>
-
-        <div>
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="_password" />
-        </div>
-        <a href="{{path('request_resetting')}}">J'ai oublié mon mot de passe</a>
-
-        <br>
-        {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        
-        #}
-
-        <input type="hidden" name="_target_path" value="/profil" />
-        <button type="submit" >Se connecter</button>
-    </form>
-    <button onclick="hideAndDisplayI();" >Créer un compte</button>
-</div>
-<div id="inscription" style="display:none;">
-    <form action="{{ path('inscription') }}" method="post">
-
-        {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        
-        #}
-        {{ form_start(form) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.plainPassword.first) }}
-            {{ form_row(form.plainPassword.second) }}      
-        {{ form_end(form) }}
-        
-        {% for message in app.flashes('warning') %}
-            <div class="flash-notice">
-                {{ message }}
-            </div>
-        {% endfor %}
-        
-        <input type="hidden" name="_target_path" value="/profil" />
-    </form>
-    <button onclick="hideAndDisplayC();" >Se connecter</button>
-</div>
-
-<script>
-    var div_inscription = document.getElementById("inscription");  
-    var div_connexion = document.getElementById("connexion");  
-    console.log(div_inscription.style.display)
-    console.log(div_connexion.style.display)
-    function hideAndDisplayI(){
-        div_inscription.style.display = "block";
-        div_connexion.style.display = "none"
-
-    }
-    function hideAndDisplayC(){
-        div_connexion.style.display = "block";
-        div_inscription.style.display = "none"
-
-    }
-</script>
+{% block stylesheets %} 
+    <link rel="stylesheet" href="{{asset('css/style_popup.css')}}">
 {% endblock %}
 
+{% block title %}Demande de remboursement{% endblock %}
 
+{% block main %}
+<div id="content" class="container">
+
+	<div class="bloc_popup row">
+		<div class="block_left1 col-xs-12 col-sm-12 col-md-12 col-lg-6">
+			<a href="{{ path('inscription') }}" class="switch">			
+					<button class="btn switch_first"><p>JE REJOINS HEDEE</p></button>
+					<button class="btn switch_second1"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
+				
+			</a>
+		</div>
+		<div class="block_right col-xs-12 col-sm-12 col-md-12 col-lg-6">
+			<button class="close js-menu-client-close"><i class="fa fa-close" style="font-size:24px"></i></button>
+			<form action="{{ path('connexion') }}" method="post" id="connexion">
+				<h3> J'ai déjà un compte </h3> 
+				
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Votre adresse mail"/>
+
+				<input type="password" id="password" name="_password" placeholder="Votre mot de passe"/>
+				
+				<input type="hidden" name="_target_path" value="/profil" />
+				<a href="{{path('request_resetting')}}" target="blank">Mot de passe oublié</a>
+				<br>
+				<button class="blue_button">Je me connecte</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{% block javascript %}
+	<script>
+		$('.js-menu-client-close').click(function(){
+			window.location.href = "{{ path('accueil') }}"
+		})
+	</script>
+{% endblock %}

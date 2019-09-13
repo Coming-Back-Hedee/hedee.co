@@ -1,16 +1,11 @@
 <?php
-
 namespace App\Controller;
-
 use App\Entity\Clients;
 use App\Entity\Demandes;
 use App\Entity\AlertePrix;
-
 use App\Form\ClotureType;
 use App\Form\AlerteType;
-
 use App\Services\Mailer;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,14 +24,12 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use setasign\Fpdi\PdfReader;
-
 /**
  * @Route("/admin")
  */
 class AdminController extends AbstractController
 {
     private $dispatcher;
-
     /**
      * @Route("/connexion", name="admin_connect")
      */
@@ -49,16 +42,13 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Clients::class);
         $lastUsername = "";
         $session = $request->getSession();
-
         if($this->getUser() != null){
             if(!in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
                 $url = $router->generate('accueil');
-
                 return new RedirectResponse($url);
             }
         }
         $nb_admin = $repo->findByRole("ROLE_ADMIN");
-
         
         if($request->getMethod() == 'POST'){        
             $user =  $repo->findOneBy(['email' => $post->get('_username')]);
@@ -68,10 +58,8 @@ class AdminController extends AbstractController
                     if(in_array("ROLE_ADMIN", $user->getRoles()) && $passwordEncoder->isPasswordValid($user, $plainPassword)){
                     // Here, "public" is the name of the firewall in your security.yml
                         $token = new UsernamePasswordToken($user, $plainPassword, "main", $user->getRoles());
-
                         // For older versions of Symfony, use security.context here
                         $this->get("security.token_storage")->setToken($token);
-
                         // Fire the login event
                         // Logging the user in above the way we do it doesn't do this automatically
                         $event = new InteractiveLoginEvent($request, $token);
@@ -83,14 +71,11 @@ class AdminController extends AbstractController
                         // get the login error if there is one
                         $error = "Connexion non autorisée";
                         $flashbag = $this->get('session')->getFlashBag();
-
                         // Add flash message
                         $flashbag->add("warning", $error);
                         
-
                         // last username entered by the user
                         $lastUsername = $post->get('_username');
-
                         return $this->render('admin/connexion.html.twig', array(
                             'last_username' => $lastUsername
                         ));
@@ -119,7 +104,6 @@ class AdminController extends AbstractController
             'last_username' => $lastUsername
         ));
     }
-
     /**
      * @Route("/confirmation", name="confirm")
      */
@@ -127,28 +111,10 @@ class AdminController extends AbstractController
         $session = $request->getSession();
         $repo = $this->getDoctrine()->getRepository(Clients::class);
         $user =  $repo->findOneBy(['email' => $session->get('usermail')]);
-
-        /*if($request->getMethod() == 'POST' && $session->get('username') != null){ 
-            if($passwordEncoder->isPasswordValid($user, $request->request->get('_password'))){
-                $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
-
-                // For older versions of Symfony, use security.context here
-                $this->get("security.token_storage")->setToken($token);
-
-                // Fire the login event
-                // Logging the user in above the way we do it doesn't do this automatically
-                $event = new InteractiveLoginEvent($request, $token);
-                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
-                $url = $router->generate('admin');
-
-                return new RedirectResponse($url);
-            }
-        }*/
         return $this->render('admin/inscription.html.twig', array(
             'last_username' => $user->getEmail()
         ));
     }
-
     /**
      * @Route("/", name="admin")
      */
@@ -158,14 +124,12 @@ class AdminController extends AbstractController
         //$demandes = $repo->findAll();
         if(!$this->isGranted('ROLE_ADMIN')){
             $url = $router->generate('admin_connect');
-
             return new RedirectResponse($url);
         }    
         return $this->render('admin/index.html.twig');
     }
-
     /**
-     * @Route("/admin/dossier-{numeroDossier}", name="dossier", requirements={"page"="\d+"})
+     * @Route("/admin/dossier-{numeroDossier}", name="dossier", requirements={"numeroDossier"="\d+"})
      */
     public function dossierClient(Request $request, Mailer $mailer, $numeroDossier)
     {
@@ -174,24 +138,18 @@ class AdminController extends AbstractController
         if ($dossier == null){
             return $this->render('enseigne/404_enseigne.html.twig');
         }
-
         $alerte = new AlertePrix();
         $alerte->setDossier($dossier);
-
         $form1= $this->createForm(AlerteType::class, $alerte);
         $form2= $this->createForm(ClotureType::class, $alerte);
-
         $form1->handleRequest($request);
         $form2->handleRequest($request);
-
         $em = $this->getDoctrine()->getManager();
         if ($request->isMethod('POST')) {
             $pdf = new FPDI();
             $path_pdf = getcwd() . $dossier->getFacture();
             $post = $request->request;
             $this->forward('App\Controller\PdfController::recup_pdf', ['pdf'  => $pdf,  'path'  => $path_pdf]);
-
-
             if ($form2->isSubmitted() && $form2->isValid()) {
                 $montant = $post->get('cloture')['montantCloture'];
                 if(array_key_exists('clotureNR', $post->get('cloture'))){
@@ -202,11 +160,9 @@ class AdminController extends AbstractController
                     $em->flush();
                     $bodyMail = $mailer->createBodyMail('admin/mail_nremboursement.html.twig', ['dossier' => $dossier]);
                 }
-
                 if(array_key_exists('clotureR', $post->get('cloture'))){
                     $statut = 'Remboursé';
                     $mail_objet = "Alerte de remboursement";
-
                     $dossier->setStatut('Remboursé');
                     $dossier->setMontantRemboursement($montant);
                     $em->flush();
@@ -214,13 +170,11 @@ class AdminController extends AbstractController
                         'dossier' => $dossier, 
                         ]);
                 }
-
             }
             
             if ($form1->isSubmitted() && $form1->isValid()) {
                 $statut = "Baisse de prix";
                 $mail_objet = "Alerte baisse de prix";             
-
                 //On modifie le récapitulatif
                 $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf]);
                 $this->forward('App\Controller\PdfController::details_footer', [
@@ -238,7 +192,6 @@ class AdminController extends AbstractController
             
             $mailer->sendAdminMessage('hello@hedee.co', $dossier->getClient()->getEmail(), $mail_objet, $bodyMail);
         }
-
         return $this->render('admin/dossier_client.html.twig', [
             'alerte' => $alerte,
             'form' => $form1->CreateView(),

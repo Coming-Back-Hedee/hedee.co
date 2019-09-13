@@ -1,21 +1,18 @@
 <?php
-
 namespace App\Controller;
-
 use App\Entity\Adresses;
 use App\Entity\Clients;
 use App\Entity\Demandes;
 use App\Entity\ModeVersement;
 use App\Entity\AlertePrix;
 use App\Repository\DemandesRepository;
-
 use App\Form\AdresseType;
 use App\Form\InfoClientType;
 use App\Form\ModeVersementType;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Form\Forms;
@@ -23,13 +20,11 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
 /**
  * @Route("/profil")
  */
 class ProfilController extends AbstractController
 {
-
     /**
      * @Route("/", name="profil")
      */
@@ -41,13 +36,11 @@ class ProfilController extends AbstractController
         
         $repo = $this->getDoctrine()->getRepository(Demandes::class);
         //$demandes = $repo->findBy(['client' => $user]);
-
         return $this->render('profil/index.html.twig', [
             'user' => $user,
             //'demandes' => $demandes,
         ]);
     }
-
     /**
      * @Route("/demandes", name="demandes")
      */
@@ -59,13 +52,11 @@ class ProfilController extends AbstractController
         
         $repo = $this->getDoctrine()->getRepository(Demandes::class);
         $demandes = $repo->findBy(['client' => $user]);
-
         return $this->render('profil/demandes.html.twig', [
             'user' => $user,
             'demandes' => $demandes,
         ]);
     }
-
     /**
      * @Route("/gains", name="gains")
      */
@@ -106,14 +97,11 @@ class ProfilController extends AbstractController
             }
             // Add flash message
             
-
             $url = $router->generate('profil');
             $url .= "#porte-monnaie";
             
-
             return new RedirectResponse($url);
         }
-
         
         return $this->render('profil/gains.html.twig', [
             'controller_name' => $gains,
@@ -133,7 +121,6 @@ class ProfilController extends AbstractController
             'user' => $user,
         ]);
     }*/
-
     /**
      * @Route("/informations-generales", name="info_client")
      */
@@ -190,7 +177,6 @@ class ProfilController extends AbstractController
                     }
                 }          
             }
-
             if($user->getPhoto() != $emojis[$request->request->get('selected-text')]){
                 $user->setPhoto( "/img/emoji/" . $emojis[$request->request->get('selected-text')]);
                 $flashbag->add("success", "Votre changement de photo de profil a bien été pris en compte");
@@ -199,7 +185,6 @@ class ProfilController extends AbstractController
             $em->flush();
             $url = $router->generate('profil');
             $url .= "#informations-personnelles";
-
             return new RedirectResponse($url);
         }
         return $this->render('profil/informations.html.twig', [
@@ -208,25 +193,36 @@ class ProfilController extends AbstractController
             'form' => $form->CreateView(),
         ]);
     }
-
     /**
      * @Route("/mode_versement", name="mode_versement")
      */
     public function mode_versement(Request $request, RouterInterface $router )
     {
-        //if($request->isXmlHttpRequest()){
+        if($request->isXmlHttpRequest()){
             $form = $this->createForm(ModeVersementType::class);
             $flashbag = $this->get('session')->getFlashBag();
             
             return $this->render('profil/m_versement.html.twig', ['form' => $form->CreateView()]);
-        /*}
+        }
         else{
             $url = $router->generate('accueil');
-
             return new RedirectResponse($url);
-        }*/
+        }
     }
-
+    /**
+     * @Route("/dossier/{id}", name="recap1", requirements={"id"="\d+"})
+     */
+    public function recapitulatif(Request $request, RouterInterface $router, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $repo = $this->getDoctrine()->getRepository(Demandes::class);
+        $dossier = $repo->findOneBy(["numeroDossier" => $id]);
+        if(!$dossier || $dossier->getClient() != $user){
+            throw $this->createNotFoundException('');
+        }
+        return $this->render('test.html.twig', ['dossier' => $dossier]);
+    }
     /**
      * @Route("/suppression", name="suppression")
      */
@@ -236,8 +232,6 @@ class ProfilController extends AbstractController
         $user = $this->getUser();
         $em->remove($user);
         $em->flush($user);
-
         return $this->render('profil/suppression.html.twig');
-
     }
 }
