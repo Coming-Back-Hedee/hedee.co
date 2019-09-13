@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %} 
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="{{asset('css/style_formulaire.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
     <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
@@ -65,17 +66,14 @@
     } /***** fin fonction loadForm *****/ 
 
     var redirect = function(){
-        console.log(document.getElementsByClassName("replace_btn"))
             Array.from(document.getElementsByClassName("replace_btn")).forEach(function(btn){
                 btn.addEventListener('click', function(e){
                     e.preventDefault()
-                    console.log(document.getElementById("menunext"))
                     document.getElementById("menunext").click()
                 })
             })
         }
          /***** fin fonction redirect *****/ 
-
     var changeM = function() {
         if($("[name='connect']:checked").val() == "membre"){
             var url = "{{ path('membre') }}";
@@ -100,7 +98,6 @@
         }               
     } /***** fin fonction changeM *****/ 
     attachDatepicker()
-
     function attachDatepicker(){   
         $("#datepicker" ).datepicker({ 
             minDate: -30, maxDate: 0, 
@@ -118,7 +115,6 @@
             dateFormat: 'dd-mm-yy' 
         }); 
     } /***** fin fonction attachDatepicker *****/
-
 </script>
 
 <script>
@@ -127,7 +123,6 @@
         //attachDatepicker($( "#datepicker" ))
         $('body').on('change', 'input[name=connect]', changeM);
         
-
         $("#form-eligibilite").validate({
             rules: {
                 "eligibilite[categorie]":{
@@ -171,9 +166,8 @@
                 minLength: 1,
                 delay: 100,
             })
-
             $('#select_enseigne').on('change', function(){               
-                this.value = $.ucfirst(this.value)
+                this.value = ucfirst(this.value)
                 $.validator.addMethod(
                     "validation_enseigne",
                     function(value, element, array) {
@@ -193,4 +187,3 @@
 </script>
    
 {% endblock %} {# fin javascript #}
-

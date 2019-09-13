@@ -106,6 +106,7 @@ footer{
     border-radius: 60px;
     width: 55px;
     color: #fff;
+    
 }
 
 a:visited, a{
@@ -161,10 +162,12 @@ input{
 
 #connexion input{
     border-color: var(--bleu-pale);
+    color: var(--bleu_perso);
 }
 
 #inscription input{
     border-color: var(--orange-pale);
+    color: var(--orange_perso);
 }
 
 .switch_first:hover{
@@ -203,9 +206,6 @@ input{
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
-    body {
-        font-family: 'Work Sans', sans-serif;
-    } 
 
     main{
         height: 648px;
@@ -251,9 +251,6 @@ input{
 
 /* **************  POUR TABLETTES  ********************* */
 @media (min-width: 768px) and (max-width:1024.98px) and (min-height: 720px){
-    body {
-        font-family: 'Work Sans', sans-serif;
-    } 
 
     main{
         height: 1198px;
@@ -298,13 +295,12 @@ input{
 
 /* **************  POUR GRANDS ECRANS  ********************* */
 @media screen and (min-width: 992px) and (max-height: 1080px){
-    body {
-        font-family: 'Work Sans', sans-serif;
-    } 
-
     main{
-        height: 558px;
-       
+        height: 558px;       
+    }
+
+    .bloc_popup{
+        width: 960px;
     }
 
     .block_left1{

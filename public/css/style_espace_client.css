@@ -50,7 +50,6 @@ main > .container{
 }
 
 .bloc_header > h1{
-    
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
@@ -233,7 +232,6 @@ main > .container{
     color: var(--bleu_perso);
     border: solid 1px var(--very-light-purple);    
 }
-
 
 .rounded_btn{
     margin: auto;
@@ -552,7 +550,6 @@ form[name=info_client] button{
         font-family: 'Work Sans', sans-serif;
     }
 
-
     .sidebar-nav li a > p {
         font-size: 20px
     }
@@ -581,8 +578,6 @@ form[name=info_client] button{
     }
 
     #sidebar-wrapper {
-    
-        /*background: var(--bleu-pale);*/
         position: absolute;
         z-index: 1000;
         transition: all 0.4s ease 0s;
@@ -715,7 +710,6 @@ form[name=info_client] button{
       
       .sidebar-nav li a span {
         right: 10%;
-        
         line-height: 18px;
       }
                     
@@ -782,7 +776,6 @@ form[name=info_client] button{
         letter-spacing: 1.2px;
         text-align: left;
     }
-    
     
     .input-group{
         flex-wrap: nowrap;

@@ -1,4 +1,4 @@
-    <div class="container les_infos">
+<div class="container les_infos">
         {{form_start(form1, {'attr': {'id': 'form-enseigne'} }) }}
             <div>
                 <h3 style="display: none;">Achat</h3>
@@ -111,12 +111,10 @@
                     <label for="recap_cat">Catégorie du produit</label><input id="recap_cat" type="text" readonly><br>
                     <div id="recap_produit"></div>
                     <label for="recap_prix">Montant de l'achat</label><input id="recap_prix" type="text" readonly><br>
-                    
+                    {#<img id="facture_jpg" alt="Votre facture est en cours de chargement">#}
                     <div class="cgu">
                         {{ form_widget(form1.cgu) }}
-                        <label for="demandes_cgu">
-                            <a href="{{ path('cgu') }}" target="blank"> J'accepte les Conditions générales d'utilisation </a>
-                        </label>
+                        {{ form_label(form1.cgu) }} 
                     </div>
                     {{ form_row(form1._token) }}
                 </section> <!-- fin étape 4 formulaire -->
@@ -130,8 +128,6 @@
         var recap;
         var dialog =  $( "#dialog-message" );
         var form = $("#form-enseigne");
-
-
         
         step(form)
         $('body').on('change', 'input[name=choix]', function() {
@@ -139,7 +135,6 @@
             /*form.validate({
                 errorPlacement: function errorPlacement(error, element) { element.before(error); },
             });*/
-
             if($("[name='choix']:checked").val() == "internet"){
                 var url = "{{ path('internet') }}";
                 $.ajax({
@@ -248,18 +243,14 @@
                 },               
             }
         });
-
         form.validate({
             errorPlacement: function errorPlacement(error, element) { element.before(error); },
         });
-
         function scrollTo( target ) {
             if( target.length ) {
                 $("html, body").stop().animate( { scrollTop: target.offset().top }, 1500);
             }
         }
-
-
         function step(form){
             form.children("div").steps({
                 headerTag: "h3",
@@ -288,7 +279,6 @@
                         
                         if($('[name=connect]:checked').length != 1 && {{app.user|json_encode|raw}} == null)
                             return false;
-
                         if($("[name='connect']:checked").val() == "pmembre"){
                             if(form.valid()){
                                 $.ajax({
@@ -315,7 +305,6 @@
                             if($("[name='choix']:checked").val() == "magasin"){
                                 $('#recap_marque').val($('#mar').val());
                                 $('#recap_ref').val($('#ref').val());
-
                             }
                             if($("[name='choix']:checked").val() == "internet"){
                                 $('#recap_url').val($('#url').val());
@@ -328,7 +317,6 @@
                     form.validate().settings.ignore = ":disabled,:hidden";
                     return form.valid();
                 }
-
                 },
                 onStepChanged: function (event, currentIndex, priorIndex)
                 {   
@@ -456,3 +444,4 @@
         }  /***** fin function step *****/
     });        
     </script>
+        

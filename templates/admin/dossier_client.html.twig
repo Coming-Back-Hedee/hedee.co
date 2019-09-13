@@ -2,6 +2,7 @@
 
 {% block title %}Hello AdminController!{% endblock %}
  {% block stylesheets %}
+ <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" href="{{asset('css/admin.css')}}"> 
 {% endblock %}
 {% block main %}
@@ -92,11 +93,11 @@
             <div id="fiche_client" class="tab-pane fade">
                 <p>Prénom : {{alerte.dossier.client.prenom}}</p>
                 <p>Nom : {{alerte.dossier.client.nom}}</p>
-                <p>Numéro de téléphone : {{alerte.dossier.client.numeroTelephone}}</p>
+                <p>Numéro de téléphone : +33{{alerte.dossier.client.numeroTelephone}}</p>
                 <p>Email : {{alerte.dossier.client.email}}</p>
                 {#<p>Nombre de parrainage : {{alerte.dossier.client.nbParrainage}}</p>#}
                 <p>Mandat signé : {{ (alerte.dossier.client.isActive) ? 'Oui' : 'Non' }}</p>
-                {% if alerte.dossier.client.modeVersement %}}
+                {% if alerte.dossier.client.modeVersement %}
                     <p> IBAN : {{ alerte.dossier.client.modeVersement.IBAN }}</p>
                     <p> BIC : {{ alerte.dossier.client.modeVersement.swiftBic }}</p>
                 {% endif %}
@@ -110,12 +111,10 @@
 {% endblock %}
 {% block javascript %}
 <script>
-
     $("#prix").on("change", function (e) {
         var diffPrix = document.getElementById("diffPrix");
         diffPrix.value =  {{alerte.dossier.prixAchat}} - this.value;
         
     });
-
 </script>
 {% endblock %}
