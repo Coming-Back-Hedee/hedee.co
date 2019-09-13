@@ -38,9 +38,9 @@ class ProfilController extends AbstractController
     {
         $user = $this->getUser();
         $session = $request->getSession();
-        $session->clear();       
+        //$session->clear();       
         
-        $repo = $this->getDoctrine()->getRepository(Demandes::class);
+        //$repo = $this->getDoctrine()->getRepository(Demandes::class);
         //$demandes = $repo->findBy(['client' => $user]);
 
         return $this->render('profil/index.html.twig', [

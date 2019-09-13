@@ -145,8 +145,11 @@
                     break;
 
                 default:
-                   url = "{{path('demandes')}}"
-                title = "Mes demandes de remboursement"; 
+                    url = "{{path('demandes')}}"
+                    title = "Mes demandes de remboursement";
+                    $('.active').removeClass('active')
+                    $('#demandes-remboursement').parent().addClass('active')
+                    break;
             }  
             $("#header_title").html(title)
             $.ajax({
@@ -180,8 +183,7 @@
                         //console.logdocument.getElementsByClassName("icon")();
                     }
                 }
-            });   
-                  
+            });                     
         }
         
 

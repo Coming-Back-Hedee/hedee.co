@@ -155,9 +155,9 @@ label {
 input{
     border: solid 2px;
     border-color: var(--bleu-pale); 
-    margin: 7.5% auto;
+    margin-top: 7.5%;
     display: block;
-} 
+}
 
 #connexion input{
     border-color: var(--bleu-pale);

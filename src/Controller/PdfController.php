@@ -60,10 +60,11 @@ class PdfController extends AbstractController
         $this->details_table(80, $pdf, $post, $session);
         
        
-        $path_pdf = $dir . "\\factures\\" . $session->get('path') . ".pdf";
+        $path_pdf = $this->getParameter('upload_factures_directory') . "/" . $session->get('path') . ".pdf";
         $test1 = $pdf->Output($path_pdf, 'F');
                 
-        $jpeg = $dir . "/factures/" . $session->get('path') .".png";
+        //$jpeg = $dir . "/factures/" . $session->get('path') .".png";
+        
         /*exec("magick convert $path_pdf -colorspace RGB -density 300 -quality 85 $jpeg");
         
 
@@ -153,28 +154,18 @@ class PdfController extends AbstractController
         else{
             $url = $post['urlProduit'];
             
-            $nbLignes = ceil($pdf->GetStringWidth($url) / ($pdf->GetPageWidth() - 2 * PDF_MARGIN_LEFT - 50));
+            $nbLignes = ($pdf->GetStringWidth($url) / ($pdf->GetPageWidth() - PDF_MARGIN_RIGHT - PDF_MARGIN_LEFT - 70));
+            $details .= "\nMontant de l'achat : ";
             $details .= "\nURL : ";
-            
-            for($i = 0; $i < $nbLignes; $i++){
-                $points .= "\n";
-                $details .= "\n";
-            }
-            $points .= "\n............................................................................................";
-            $details .= "Montant de l'achat : ";
+            $points .= "\n............................................................................................";          
             $pdf->Write(10, $details);
             $pdf->SetXY(PDF_MARGIN_LEFT+50, $position+4);
             $pdf->SetLeftMargin(PDF_MARGIN_LEFT+50);
             $pdf->Write(10, $points);
+            $pdf->Text(PDF_MARGIN_LEFT+50, $position + 14, "$prix €");
             
-            $pdf->SetXY(PDF_MARGIN_LEFT+50, $position+4);
-            //$pdf->Write(10, "$url ");
-            
-            $pdf->MultiCell(120, 5, $url, 1, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
-            //$pdf->MultiCell(117,5,utf8_decode($url),0,'C',false);
-            //$pdf->SetDrawColor(0,0,255);
-            $pdf->Link(PDF_MARGIN_LEFT+50, $position+15, 120, $nbLignes*5 ,$url);
-            $pdf->Text(PDF_MARGIN_LEFT+50, $position+($nbLignes+5)*5 , "$prix €");
+            $pdf->SetXY(PDF_MARGIN_LEFT+50,$position + 24);
+            $pdf->MultiCell(120, 5, $url, 1, 'J', 1, 0, '', '', true, 0, false, true, 40, 'T');
         }
         $pdf->Text(PDF_MARGIN_LEFT+50, $position + 4, $categorie);
          

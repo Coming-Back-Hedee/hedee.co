@@ -2,16 +2,22 @@
 
 {% block title %}Hello AdminController!{% endblock %}
  {% block stylesheets %}
-	<link rel="stylesheet" href="{{asset('css/admin.css')}}"> 
+	{<link rel="stylesheet" href="{{asset('css/admin.css')}}"> 
 {% endblock %}
 {% block main %}
-    <div class="container">
+    {#<div class="container">
             <a href="{{ path('admin') }}"><button class="blue_button" >Retour</button></a>
             <h1>Dossier numéro {{alerte.dossier.numeroDossier}}</h1>
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#info_achat">Informations d'achat</a></li>
-                <li><a data-toggle="tab" href="#historique">Historique</a></li>
-                <li><a data-toggle="tab" href="#fiche_client">Fiche client</a></li>
+            <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#info_achat">Informations d'achat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#historique">Historique</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#fiche_client">Fiche client</a>
+                </li>
             </ul>
             <div class="tab-content">
             <div id="info_achat" class="tab-pane fade in active">
@@ -70,8 +76,6 @@
                             <div class="col">
                                 {{ form_widget(formC.clotureNR, {'attr' : {'type' : 'submit'}}) }}
                             </div>
-                        {#<button style="float:left;">Client remboursé</button>
-                        <button style="float:right;">Client non remboursé</button>#}
                         </div>
                     {{form_end(formC)}}
                 </div>
@@ -94,7 +98,7 @@
                 <p>Nom : {{alerte.dossier.client.nom}}</p>
                 <p>Numéro de téléphone : +33{{alerte.dossier.client.numeroTelephone}}</p>
                 <p>Email : {{alerte.dossier.client.email}}</p>
-                {#<p>Nombre de parrainage : {{alerte.dossier.client.nbParrainage}}</p>#}
+                {#<p>Nombre de parrainage : {{alerte.dossier.client.nbParrainage}}</p>
                 <p>Mandat signé : {{ (alerte.dossier.client.isActive) ? 'Oui' : 'Non' }}</p>
                 {% if alerte.dossier.client.modeVersement %}
                     <p> IBAN : {{ alerte.dossier.client.modeVersement.IBAN }}</p>
@@ -105,6 +109,110 @@
             </div>
 
 
+        </div>
+    </div>#}
+    <div class="container">
+        <a href="{{ path('admin') }}"><button class="blue_button" >Retour</button></a>
+        <br>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#info_achat">Informations d'achat</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#historique">Historique</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#fiche_client">Fiche client</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="info_achat" class="container tab-pane active"><br>
+                <div>
+                    <h3>Achat client</h3>
+                    {% if alerte.dossier.urlProduit %}
+                        <p>Lien :<a href='{{alerte.dossier.urlProduit}}'> {{alerte.dossier.urlProduit}}</a></p>
+                    {% endif %}
+
+                    {% if alerte.dossier.marqueProduit %}
+                        <p>Marque :{{ alerte.dossier.marqueProduit }}</p>
+                        <p>Prix d'achat :{{ alerte.dossier.prixAchat }}</p>
+                    {% endif %}
+                </div>
+
+                {% if alerte.dossier.commentaires != null %}
+                    <div>
+                        <h3>Commentaire client</h3>
+                        <textarea rows="5" cols="33" readonly>{{ alerte.dossier.commentaires }}</textarea>
+                    </div>
+                {% endif %}
+                <div>
+                    <h3>Meilleure offre trouvée</h3>
+                    {{form_start(form, {'attr' : {'autocomplete' : 'off', 'id' : 'form-alerte'}}) }}
+                        <div class="row">
+                            <div class="col">
+                                {{ form_label(form.prix) }}
+                                {{ form_widget(form.prix, {'id': 'prix'}) }}
+                            </div>
+                            <div  class="col">
+                                {{ form_label(form.enseigne) }}
+                                {{ form_widget(form.enseigne) }}
+                            </div>
+                            <div  class="col">
+                                {{ form_label(form.date) }}
+                                {{ form_widget(form.date) }}
+
+                            </div>
+                        </div>
+                        <div>
+                            {{ form_label(form.differencePrix) }}
+                            {{ form_widget(form.differencePrix, {'attr' : {'readonly': true}, 'id': 'diffPrix'}) }}
+                            <button type="submit" style="float:right;">Alerter</button>
+                        </div>
+                    {{form_end(form)}}
+                </div>
+                <div>
+                    <h3>Remboursement</h3>
+                    {{form_start(formC, {'attr' : {'autocomplete' : 'off', 'id' : 'form-cloture'}}) }}
+                        <div class="row">
+                            <div class="col">
+                                {{ form_label(formC.montantCloture) }}
+                                {{ form_widget(formC.montantCloture) }}
+                                {{ form_widget(formC.clotureR, {'attr' : {'type' : 'submit'}}) }}
+                            </div>
+                            <div class="col">
+                                {{ form_widget(formC.clotureNR, {'attr' : {'type' : 'submit'}}) }}
+                            </div>
+                        </div>
+                    {{form_end(formC)}}
+                </div>
+            </div>
+            <div id="historique" class="container tab-pane fade"><br>
+                <h3>Statut :{{ alerte.dossier.statut }}</h3>
+                <ol>
+                {% for alertePrix in alerte.dossier.alertesPrix %}
+                    <li>
+                        Baisse de prix de {{ alertePrix.differencePrix }}€ constatée le {{ alertePrix.date|date("m/d/Y") }} 
+                        chez {{ alertePrix.enseigne }} 
+                    </li>
+                {% endfor %}
+                </ol>
+            </div>
+            <div id="fiche_client" class="container tab-pane fade"><br>
+                <h3>Fiche client</h3>
+                <p>Prénom : {{alerte.dossier.client.prenom}}</p>
+                <p>Nom : {{alerte.dossier.client.nom}}</p>
+                <p>Numéro de téléphone : +33{{alerte.dossier.client.numeroTelephone}}</p>
+                <p>Email : {{alerte.dossier.client.email}}</p>
+                <p>Nombre de parrainage : {{alerte.dossier.client.nbParrainage}}</p>
+                <p>Mandat signé : {{ (alerte.dossier.client.isActive) ? 'Oui' : 'Non' }}</p>
+                {% if alerte.dossier.client.modeVersement %}
+                    <p> IBAN : {{ alerte.dossier.client.modeVersement.IBAN }}</p>
+                    <p> BIC : {{ alerte.dossier.client.modeVersement.swiftBic }}</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

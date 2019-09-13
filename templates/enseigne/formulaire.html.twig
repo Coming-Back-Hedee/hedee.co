@@ -43,6 +43,8 @@
                         <div id="auth">
                             {% include 'enseigne/connexion.html.twig' %}
                         </div>
+                    {% else %}
+                        <p>Vous êtes déja connectés</p>
                     {% endif %}
                 </section> <!-- fin étape 2 formulaire -->                
                 
@@ -214,6 +216,7 @@
                 },
                 "demandes[client][plainPassword][second]":{
                     "required": true,
+                    "minlength": 4,
                     "equalTo": {
                         param :"#password1",
                         depends: function(element) {
@@ -239,7 +242,7 @@
             },
             messages: {
                 "demandes[cgu]": {
-                    required: "Vous devez accepter les conditions pour poursuivre le demande",                   
+                    "required": "Vous devez accepter les conditions pour poursuivre le demande",                   
                 },
                 "demandes[client][plainPassword][first]":{
                     "remote" : "mauvaise combinaison adresse email et mot de passe"
@@ -287,7 +290,7 @@
                         if($('[name=connect]:checked').length != 1 && {{app.user|json_encode|raw}} == null)
                             return false;
 
-                        if($("[name='connect']:checked").val() == "pmembre"){
+                        /*if($("[name='connect']:checked").val() == "pmembre"){
                             if(form.valid()){
                                 $.ajax({
                                     type: 'post',
@@ -299,30 +302,9 @@
                                     }
                                 })
                             }
-                        }
+                        }*/
                     }
-                    if(currentIndex == 2){
-                        if(form.valid()){
-                            var url = "{{ path('facture') }}";
-                            var donnees = form.serialize();
-                            /*array_cat = ['Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
-                                'Santé et beauté', 'Auto et moto', 'Sports et mode'];*/
-                            $('#recap_ens').val("{{app.session.get('enseigne')}}");
-                            $('#recap_cat').val("{{app.session.get('categorie')}}");
-                            $('#recap_prix').val("{{app.session.get('prix')}}");
-                            if($("[name='choix']:checked").val() == "magasin"){
-                                $('#recap_marque').val($('#mar').val());
-                                $('#recap_ref').val($('#ref').val());
-
-                            }
-                            if($("[name='choix']:checked").val() == "internet"){
-                                $('#recap_url').val($('#url').val());
-                            }
-                            $.post(url, donnees, function(data,status){                         
-                            });
-                        }
-                        return form.valid();
-                    }
+                    
                     form.validate().settings.ignore = ":disabled,:hidden";
                     return form.valid();
                 }
@@ -356,8 +338,7 @@
 
                     if (currentIndex == 2){
                         document.getElementById("steps-uid-0-t-1").lastElementChild.style.display = 'inline';
-                        if($("[name='connect']:checked").val() == "membre"){
-                            
+                        if($("[name='connect']:checked").val() == "membre"){                           
                             $.ajax({
                                 type: 'post',
                                 url: '/connexion3',
@@ -369,17 +350,34 @@
                                     $('#num').val(data.numeroTelephone);
                                     $('#demandes_client_adresse_nomRue').val(data.adresse.nomRue);
                                     $('#demandes_client_adresse_ville').val(data.adresse.ville);
-                                    $('#cp_perso').val(data.adresse.codePostal);
-                                    
+                                    $('#cp_perso').val(data.adresse.codePostal);                                   
                                 }
-                            });
-                            
+                            });                           
                         }
+
                         if($('#cp_perso').val().length == 4)
                             $('#cp_perso').val("0".concat($('#cp_perso').val()))
                     }
                     if (currentIndex == 3){
-                        document.getElementById("steps-uid-0-t-2").lastElementChild.style.display = 'inline';
+                        var url = "{{ path('facture') }}";
+                        var donnees = form.serialize();
+                            
+                        $.post(url, donnees, function(data,status){                         
+                        });
+            
+                        /*array_cat = ['Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
+                                'Santé et beauté', 'Auto et moto', 'Sports et mode'];*/
+                        $('#recap_ens').val("{{app.session.get('enseigne')}}");
+                        $('#recap_cat').val("{{app.session.get('categorie')}}");
+                        $('#recap_prix').val("{{app.session.get('prix')}}");
+                        if($("[name='choix']:checked").val() == "magasin"){
+                            $('#recap_marque').val($('#mar').val());
+                            $('#recap_ref').val($('#ref').val());
+                        }
+                        if($("[name='choix']:checked").val() == "internet"){
+                            $('#recap_url').val($('#url').val());
+                        }
+                        document.getElementById("steps-uid-0-t-2").lastElementChild.style.display = 'inline';                     
                     }
                 },
                 onFinishing: function (event, currentIndex)
@@ -431,31 +429,6 @@
 
                         }
                     });
-                    /*$('#form_location').html(""); 
-                    $('#bloc_header').load("{{path('felicitation')}} #content")*/
-                    
-                    //window.location = "{{ path('felicitation')}}"
-                    /*dialog.dialog({
-                        closeOnEscape: false,
-                        open: function(event, ui) {
-                            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                        },
-                        modal: true, draggable: false,
-                        buttons: {
-                            Ok: function() {
-                                if({{app.user|json_encode|raw}} == null){
-                                    $.ajax({
-                                        url: '/connexion4',
-                                        type: "POST",
-                                        data: { "_username": $('#email').val() },
-                                        //processData: false,  // indique à jQuery de ne pas traiter les données
-                                        //contentType: false ,  // indique à jQuery de ne pas configurer le contentType           
-                                    });
-                                }
-                                document.location.href="{{ path('profil') }}";
-                            }
-                        }
-                    });*/
                 }
             });
         }  /***** fin function step *****/

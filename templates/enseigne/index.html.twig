@@ -36,7 +36,6 @@
     } /***** fin fonction verifierCaracteres *****/ 
 
     function verifierCaracteres1(event) {
-        //console.log(event.keyCode);
         var caracteres = [44, 46, 48, 49, 50, 51, 52 ,53, 54, 55, 56, 57]
         if(caracteres.indexOf(event.keyCode) < 0){
             event.preventDefault;
@@ -65,11 +64,9 @@
     } /***** fin fonction loadForm *****/ 
 
     var redirect = function(){
-        console.log(document.getElementsByClassName("replace_btn"))
             Array.from(document.getElementsByClassName("replace_btn")).forEach(function(btn){
                 btn.addEventListener('click', function(e){
                     e.preventDefault()
-                    console.log(document.getElementById("menunext"))
                     document.getElementById("menunext").click()
                 })
             })

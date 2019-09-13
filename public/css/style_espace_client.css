@@ -457,20 +457,19 @@ main > .container{
     margin-bottom: 20px
 }
 
-#form_versement label {
+#form_versement label.required {
     font-size: 22px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.17;
-  letter-spacing: normal;
-  margin-bottom: 6px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    margin-bottom: 6px;
     margin-top: 12px;
     display: block;  
 }
 
 #form_versement input {
-    margin-bottom: 20px;
     display: block;
     width: 100%;
     padding: 12px 20px;
@@ -521,6 +520,7 @@ form[name=info_client] button{
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
+    padding-top: 20px;
     margin: auto;
     width: 70%;
     padding-inline-start: 0;

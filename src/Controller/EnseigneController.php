@@ -194,16 +194,16 @@ class EnseigneController extends AbstractController
      * @Route("/pmembre", name="pmembre")
      */
     public function formInscript(Request $request, RouterInterface $router){
-        //if($request->isXmlHttpRequest()){
+        if($request->isXmlHttpRequest()){
             $demande = new Demandes();
             $formInternet = $this->createForm(DemandesInternetType::class, $demande);
             return $this->render('enseigne/inscription.html.twig', ['form1' => $formInternet->CreateView()]);
-        //}
-        /*else{
+        }
+        else{
             $url = $router->generate('accueil');
 
             return new RedirectResponse($url);
-        }*/
+        }
     }
 
     /**
@@ -224,16 +224,16 @@ class EnseigneController extends AbstractController
      * @Route("/membre", name="membre")
      */
     public function formIConnect(Request $request, RouterInterface $router){
-        //if($request->isXmlHttpRequest()){
+        if($request->isXmlHttpRequest()){
             $demande = new Demandes();
             $formInternet = $this->createForm(DemandesInternetType::class, $demande);
             return $this->render('enseigne/connexion.html.twig', ['form1' => $formInternet->CreateView()]);
-        /*}
+        }
         else{
             $url = $router->generate('accueil');
 
             return new RedirectResponse($url);
-        }*/     
+        }    
     }
 
     /**

@@ -44,8 +44,25 @@
 
 {% block javascript %}
 	<script>
-		$('.js-menu-client-close').click(function(){
-			window.location.href = "{{ path('accueil') }}"
-		})
+		$(document).ready(function() {
+			var form = $("#inscription");
+			form.validate({
+				rules: {
+					"inscription[plainPassword][first]":{
+						"minlength": 4,
+					}
+				},
+				messages: {
+                	"inscription[plainPassword][first]":{
+						"minlength": jQuery.validator.format("Le mot de passe doit contenir au moins {0} caractères.")
+					}
+				}
+			});
+			
+
+			$('.js-menu-client-close').click(function(){
+				window.location.href = "{{ path('accueil') }}"
+			})
+		});
 	</script>
 {% endblock %}

@@ -35,10 +35,10 @@ class ClientType extends AbstractType
                     'first_options'  => array('label' => 'Mot de passe'),
                     'second_options' => array('label' => 'Confirmer le mot de passe'),
                 ));
-                $form->add('dateNaissance', dateType::class, [
+                /*$form->add('dateNaissance', dateType::class, [
                     'label' => 'Date de naissance', 
                     'required' => false,
-                    'years' => range(date('Y')-10, date('Y')-110) ] );
+                    'years' => range(date('Y')-10, date('Y')-110) ] );*/
             }
 
         })

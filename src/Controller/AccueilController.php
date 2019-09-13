@@ -31,6 +31,14 @@ class AccueilController extends AbstractController
     public function index(Request $request)
     {
         $session = $request->getSession();
+        $check_path = "/factures/" . $session->get('path');
+        $repo = $this->getDoctrine()->getRepository(Demandes::class);
+        $to_delete = $repo->findBy(['facture' => $check_path]);
+        /*if(!$to_delete){
+
+        }*/
+
+        //var_dump($session->get('path'));
         $session->clear();
 
         return $this->render('accueil/index.html.twig');
