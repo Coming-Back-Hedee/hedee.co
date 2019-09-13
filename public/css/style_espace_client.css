@@ -552,6 +552,24 @@ form[name=info_client] button{
         font-family: 'Work Sans', sans-serif;
     }
 
+
+    .sidebar-nav li a > p {
+        font-size: 20px
+    }
+
+    #header_title {
+        font-size : 35px
+    }
+
+    .demande_button {
+        height: 50px;
+        margin-top:-10px
+    }
+
+    .compte_button {
+        height: 50px;
+    }
+
     .menu_profil nav li  {
         width :100%;
         min-height:20px;
@@ -581,10 +599,27 @@ form[name=info_client] button{
     form[name=info_client]  label{
         color: var(--bleu_perso);
         font-size: 12px;
+        display:block;
+        font-size: 20px
+    }
+
+    #info_client_prenom, #info_client_nom, #info_client_dateNaissance_day, 
+    #info_client_dateNaissance_month, #info_client_dateNaissance_year, 
+    #mail, #info_client_numeroTelephone, #info_client_adresse_nomRue, 
+    #info_client_adresse_ville, #info_client_adresse_codePostal {
+        width: 100%;
+    }
+
+    #empty_mv h2 {
+        font-size: 25px;
     }
     
     .input-group{
         flex-wrap: nowrap;
+    }
+
+    .add_second {
+        display :none
     }
     
     #entete-tableau{
@@ -620,10 +655,6 @@ form[name=info_client] button{
         letter-spacing: normal;
     }
 
-    .add_first{
-        font-size: 12px;
-    }
-
     .add_second{
         font-size: 12px;
     }
@@ -631,6 +662,11 @@ form[name=info_client] button{
     form p{
         font-size: 12px;
         color: var(--bleu_perso);
+    }
+
+    .steps ul li a {
+        text-decoration: none;
+        padding: 15px 5px 15px 10px !important;
     }
 }
 

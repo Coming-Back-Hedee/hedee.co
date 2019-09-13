@@ -1,29 +1,36 @@
 
     <link rel="stylesheet" href="{{asset('css/style_felicitation.css')}}">
 
-    <div class="fel-wrapper" id="content">
-        <div class="bloc_fel">
-            <div>
-                <h1>Félicitations !</h1>
+    <div class="container-fluid felicitation">
+        <div class="row">
+            
+                <div class="bloc1">
+                    <h1>Félicitations !</h1>
+                </div>
+
+            <div class="texte_chasse">
                 <h2>Hedee part à la chasse aux pris bas !</h2>
                 <p>Nous vous remercions pour votre demande. <br>
                 Vous recevrez une alerte par mail dès qu'hedee aura trouvé votre produit au prix le plus bas.</p>
-                <div class="button_group row">
-                    <div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            </div> 
+                
+            <div class="button_group row">
+                <div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <a href="{{ path('enseigne') }}">
                             <button class="orange_button demande_button">Faire une autre demande</button>
                         </a>
-                    </div>
-                    <div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                </div>
+                <div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <a href="{{ path('profil') }}">
                             <button class="whiteo_button compte_button">J'accède à mon compte</button>
                         </a>
-                    </div>
                 </div>
             </div>
+
             <div class="big_emoji">
                 <img src="{{asset('img/parcours_remboursement/emoj_fel.png')}}" alt="" width="200" height="200" class="img-fluid" > 
             </div>
-        </div> <!-- fin class="bloc_fel" -->
-    </div>  <!-- fin class="fel-wrapper" -->
+
+    </div><!-- fin class="row" -->
+</div><!-- fin class="container-fluid" -->
 

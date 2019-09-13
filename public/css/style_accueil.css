@@ -291,7 +291,7 @@
     } 
       
     .bloc2 {
-        height: 900px;
+        height: 1100px;
     }
 
     .sous_title > h2 {
@@ -302,12 +302,13 @@
     }
 
     .img_carre {
-        width:210px;
-        height:210px
+        width:260px;
+        height:260px;
+        margin-top : 15px
     }
 
     .img_carre_bouton {
-        margin-left: 5px
+        margin-left: 5px;
     }
 
     .mission_hedee_button {
@@ -439,12 +440,12 @@
     }
 
     .img_carre {
-        width:210px;
-        height:210px
+        width:260px;
+        height:260px
     }
 
     .img_carre_bouton {
-        margin-left: 5px
+        margin-left: 2px
     }
 
     .mission_hedee_button {

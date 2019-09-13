@@ -110,9 +110,14 @@ form button{
     body {
         font-family: 'Work Sans', sans-serif;
     } 
+
     .bloc1{
         margin-left: initial;
         margin-right: initial;
+    }
+
+    .orange_button {
+        margin-top: 20px
     }
 }
 
