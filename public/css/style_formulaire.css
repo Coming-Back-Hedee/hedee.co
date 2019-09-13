@@ -12,7 +12,7 @@ html, body, div, main  {
 }
 
 body {
-    font-family: "Work Sans";
+    font-family: 'Work Sans', sans-serif;
     color: var(--bleu_perso);
     width: 100%;
     

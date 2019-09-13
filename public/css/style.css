@@ -17,7 +17,7 @@ main{
 }
 
 body {
-    font-family: 'Work sans';
+    font-family: 'Work Sans', sans-serif;
     width: 100%;
     min-height:960px;
 }
@@ -997,12 +997,7 @@ input.error, select.error{
     .logos_reseau {
         margin-top: 50px
     }
-
-    
-
  }
-
-
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:1024.98px){ 

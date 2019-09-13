@@ -5,8 +5,12 @@
     --bleu-pale: #e1def9;
 }
 
-.mentions{
-    font-family: "Work Sans";
+body {
+    font-family: 'Work Sans', sans-serif;
+} 
+
+.donnees{
+    font-family: 'Work Sans', sans-serif;
 }
 
 .bloc1 {
@@ -50,6 +54,10 @@
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){ 
+    .donnees{
+        font-family: "Work Sans";
+    }
+
     .bloc1 h1 {
         margin-top: 50px;
     }
@@ -59,17 +67,17 @@
         margin-left:auto;
         margin-right:auto;
     }
-
 }
-
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:1024.98px){ 
+    .donnees{
+        font-family: "Work Sans";
+    }
+
     .bloc2 {
         width:80%;
         margin-left:auto;
         margin-right:auto;
     }
-
-
 }

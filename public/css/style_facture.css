@@ -5,6 +5,10 @@
     --bleu-pale: #e1def9;
 }
 
+body {
+    font-family: 'Work Sans', sans-serif;
+}
+
 main{
     color: var(--bleu_perso);
     font-family: "Work Sans";

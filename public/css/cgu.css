@@ -5,8 +5,12 @@
     --bleu-pale: #e1def9;
 }
 
-.mentions{
-    font-family: "Work Sans";
+body {
+    font-family: 'Work Sans', sans-serif;
+} 
+
+.cgu{
+    font-family: 'Work Sans', sans-serif;
 }
 
 .bloc1 {
@@ -38,3 +42,35 @@
     font-weight: 400px;
     font-size: 30px
 }
+
+
+/* **************  POUR MOBILE  ********************* */
+@media screen and (max-width:767.98px){ 
+    .cgu{
+        font-family: "Work Sans";
+    }
+
+    .bloc1 h1 {
+        margin-top: 20px;
+    }
+    
+    .bloc2 {
+        width:90%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+}
+
+
+/* **************  POUR TABLETTE  ********************* */
+@media (min-width: 768px) and (max-width:1024.98px){
+    .cgu{
+        font-family: "Work Sans";
+    }
+
+    .bloc2 {
+        width:80%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+ }

@@ -12,7 +12,7 @@ html, body, div, main  {
 }
 
 body {
-    font-family: "Work Sans";
+    font-family: 'Work Sans', sans-serif;
     font-size: 14px;
     width: 100%;
     min-height:960px;

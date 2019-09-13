@@ -7,6 +7,10 @@ and open the template in the editor.
     Created on : Nov 28, 2013, 7:09:35 AM
     Author     : bugraozden
 */
+body {
+    font-family: 'Work Sans', sans-serif;
+}
+
 
 .icon-select{
     width:0px;

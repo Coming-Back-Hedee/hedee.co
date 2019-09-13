@@ -20,6 +20,7 @@ main{
 body{
     min-height: initial;
     height: fit-content;
+    font-family: 'Work Sans', sans-serif;
 }
 
 footer{
