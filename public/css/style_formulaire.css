@@ -345,7 +345,7 @@ li[aria-selected=false]{
 
 #prenom, #nom, #num, #demandes_client_adresse_nomRue, 
 #demandes_client_adresse_ville, #cp_perso,
-#recap_ens, #recap_cat, #recap_url, #recap_prix {
+#recap_ens, #recap_cat, #recap_url, #recap_prix, #recap_marque, #recap_ref {
     background-color: #eeecfa;
     border:none
 }
@@ -594,6 +594,10 @@ a:visited, a{
         font-size: 28px;
     }
 
+    .demander {
+        width:70%
+    }
+
     .form_elig, .les_infos{
 
         width: 100%;
@@ -628,6 +632,10 @@ a:visited, a{
 
     .steps ul li.current  {
         display: block
+    }
+
+    #steps-uid-0-t-0, #steps-uid-0-t-1, #steps-uid-0-t-2, #steps-uid-0-t-3 {
+        margin-left : -90px;
     }
 
     .number{
@@ -716,6 +724,10 @@ a:visited, a{
 
     .steps ul li.current  {
         display: block
+    }
+
+    #steps-uid-0-t-0, #steps-uid-0-t-1, #steps-uid-0-t-2, #steps-uid-0-t-3 {
+        margin-left : -150px;
     }
 
     /****************** POPUP ******************/

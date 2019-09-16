@@ -21,7 +21,6 @@ body {
 
 main > .container{
     min-height: 600px;
-    
 }
 
 .normal_font{
@@ -94,13 +93,13 @@ main > .container{
 
 .filters > form {
     font-size: 16px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.33;
-  letter-spacing: 1.2px;
-  text-align: right;
-  color: var(--ultramarine-blue);
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: 1.2px;
+    text-align: right;
+    color: var(--ultramarine-blue);
 }
 
 .filters > form > select {
@@ -114,10 +113,10 @@ main > .container{
     margin-top: 5%;
     margin-right: 15%;
     font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.8;
-  letter-spacing: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
 }
 
 .profil-name{
@@ -276,12 +275,13 @@ main > .container{
     border-style: none;
     border-radius: 40px;
     padding: 4px 20px;
-    margin-bottom: 15px;
+    margin-bottom: 45px;
     width: 78.1125px;
     height: 28.8px;
     text-align: center;
     font-size: 14px;
     font-family: "Work Sans";
+    display: none;
 }
 
 #tab{
@@ -405,11 +405,11 @@ main > .container{
 .media-body span a {
     color : #ff3c00;
     font-size: 14px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.29;
-  letter-spacing: 1.4px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: 1.4px;
 }
 
 .media-body span a :hover {
@@ -444,10 +444,10 @@ main > .container{
 /* mode de verserment - modifier RIB existant*/
 #form_versement .bank {
     font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.14;
-  letter-spacing: -0.63px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: -0.63px;
 }
 
 #form_versement h3 {
@@ -457,12 +457,12 @@ main > .container{
 
 #form_versement label {
     font-size: 22px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.17;
-  letter-spacing: normal;
-  margin-bottom: 6px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    margin-bottom: 6px;
     margin-top: 12px;
     display: block;  
 }
@@ -542,6 +542,9 @@ form[name=info_client] button{
     width: fit-content;
 }
 
+.flash, .flash-notice-sucess {
+    color : var(--orange_perso);
+}
 
 
 /* **************  POUR MOBILE  ********************* */
@@ -579,7 +582,6 @@ form[name=info_client] button{
 
     #sidebar-wrapper {
         position: absolute;
-        z-index: 1000;
         transition: all 0.4s ease 0s;
         height: 576px;
         width: 90%
@@ -685,12 +687,14 @@ form[name=info_client] button{
     }
 
     .profil-label, .profil-name{
-        font-size: 12px;
+        font-size: 18px;
     }
 
     #sidebar-wrapper {
-        width: 98%;
+        width: 75%;
         height: 700px;
+        margin-left: 60px;
+    
     }
 
     .sidebar-nav{
@@ -712,6 +716,29 @@ form[name=info_client] button{
         right: 10%;
         line-height: 18px;
       }
+
+      .sidebar-nav li a > p {
+          font-size : 18px
+       }
+
+       #demandes-remboursement {
+           margin-top: 40px
+       }
+
+    .fa-chevron-right {
+           font-size : 16px
+       }
+
+    .demande_button {
+        height: 50px;
+        margin-top:-10px;
+        width: 70% !important;
+    }
+
+    .compte_button {
+        height: 50px;
+        width: 70% !important;
+    }
                     
     
     .btn-menu {

@@ -114,7 +114,8 @@
                     {#<img id="facture_jpg" alt="Votre facture est en cours de chargement">#}
                     <div class="cgu">
                         {{ form_widget(form1.cgu) }}
-                        {{ form_label(form1.cgu) }} 
+                        {# {{ form_label(form1.cgu) }} #}
+                        <label>J'accepte les <a href="{{ path('cgu') }}" target="_blank">conditions générales d'utilisation</a></label
                     </div>
                     {{ form_row(form1._token) }}
                 </section> <!-- fin étape 4 formulaire -->
