@@ -33,7 +33,7 @@ class EligibiliteType extends AbstractType
 
             ->add('enseigne', TextType::class, ['label' => 'Renseignez le nom de l\'enseigne'])
             ->add('date_achat', TextType::class, ['label' => 'Sélectionnez la date d\'achat'])       
-            ->add('prix', MoneyType::class, ['label' => 'Inscrivez le montant de l\'achat en euros', 'currency' => false])
+            ->add('prix', MoneyType::class, ['label' => 'Inscrivez le montant de l\'achat', 'currency' => false])
             //->add('submit', SubmitType::class, ['label' => 'Demander le remboursement'])     
         ;
     }

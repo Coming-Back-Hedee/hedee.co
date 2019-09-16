@@ -12,7 +12,7 @@ html, body, div, main  {
 }
 
 body {
-    font-family: "Work Sans";
+    font-family: 'Work Sans', sans-serif;
     color: var(--bleu_perso);
     width: 100%;
     
@@ -84,9 +84,7 @@ input[type=file]{
     font-weight: 450;
     font-style: normal;
     font-stretch: normal;
-  
 }
-
 
 ul[role=menu]{
     display: flex;
@@ -157,6 +155,19 @@ ul[role=menu]{
 .steps ul li a {
     text-decoration: none;
     padding: 15px 10px 15px 26px !important;
+}
+
+.clearfix ul {
+    margin-bottom: 50px;
+    margin-top:20px;
+}
+
+.clearfix::after {
+    margin-top: 50px;
+}
+
+.title_box h2 {
+    margin-top : 30px
 }
 
 /*page informations de commande - votre achat*/
@@ -334,7 +345,7 @@ li[aria-selected=false]{
 
 #prenom, #nom, #num, #demandes_client_adresse_nomRue, 
 #demandes_client_adresse_ville, #cp_perso,
-#recap_ens, #recap_cat, #recap_url, #recap_prix {
+#recap_ens, #recap_cat, #recap_url, #recap_prix, #recap_marque, #recap_ref {
     background-color: #eeecfa;
     border:none
 }
@@ -343,6 +354,10 @@ li[aria-selected=false]{
     color: #2800dc; 
     background-color: #E1DEF9;
     border: none
+}
+
+.lecture_cgu {
+    cursor: pointer;
 }
 
 /*Page Valider*/
@@ -571,9 +586,16 @@ a:visited, a{
 /**********PARTIE RESPONSIVE DESIGN***********/
             /***POUR MOBILE***/
 @media screen and (max-width:767.98px){ 
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
 
     .title_box > h2{
         font-size: 28px;
+    }
+
+    .demander {
+        width:70%
     }
 
     .form_elig, .les_infos{
@@ -610,6 +632,10 @@ a:visited, a{
 
     .steps ul li.current  {
         display: block
+    }
+
+    #steps-uid-0-t-0, #steps-uid-0-t-1, #steps-uid-0-t-2, #steps-uid-0-t-3 {
+        margin-left : -90px;
     }
 
     .number{
@@ -665,6 +691,9 @@ a:visited, a{
 
             /***POUR TABLETTE***/
 @media (min-width: 768px) and (max-width:1024.98px){ 
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
     
     .form_elig, .les_infos{
         width: 610px
@@ -695,6 +724,10 @@ a:visited, a{
 
     .steps ul li.current  {
         display: block
+    }
+
+    #steps-uid-0-t-0, #steps-uid-0-t-1, #steps-uid-0-t-2, #steps-uid-0-t-3 {
+        margin-left : -150px;
     }
 
     /****************** POPUP ******************/
@@ -790,4 +823,4 @@ a:visited, a{
         height: 40px;  
     }    
 
- } 
+ }

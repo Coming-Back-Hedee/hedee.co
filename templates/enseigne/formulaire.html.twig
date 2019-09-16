@@ -117,6 +117,7 @@
                     <div class="cgu">
                         {{ form_widget(form1.cgu) }}
                         {{ form_label(form1.cgu) }} 
+                        <label for="demandes_cgu">J'accepte les <a href="{{ path('cgu') }}" target="_blank">conditions générales d'utilisation</a></label
                     </div>
                     {{ form_row(form1._token) }}
                 </section> <!-- fin étape 4 formulaire -->
@@ -253,7 +254,6 @@
                 $("html, body").stop().animate( { scrollTop: target.offset().top }, 1500);
             }
         }
-
 
         function step(form){
             form.children("div").steps({

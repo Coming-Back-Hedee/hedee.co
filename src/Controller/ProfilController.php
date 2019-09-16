@@ -85,33 +85,21 @@ class ProfilController extends AbstractController
         if ($request->isMethod('POST')){
             $post = $request->request->get('mode_versement');
             $form->submit($post);
-            if ($form->isValid()){
-                $mode = new ModeVersement();
-                
-                $mode->setSwiftBic(strtoupper($post['swiftBic']));
-                $mode->setIban(strtoupper($post['iban']));
-                $mode->setProprietaire($post['proprietaire']);
-                $user->setModeVersement($mode);
-                $em->flush();
-                
-                $message = "Le nouveau mode de versement a bien été pris en compte";
-                $flashbag->add("success", $message);
+            if($form->isSubmitted() && $form->isValid()){
+                if($user->getModeVersement() == null){
+                    $modeVersement = new ModeVersement();
+                    $modeVersement->bis_construct($post);
+                    $user->setModeVersement($modeVersement);
+                }
+                $flashbag->add("success", "Le nouveau mode de versement a bien été pris en compte"); 
             }
             else{
-                $errorIban = $form['iban']->getErrors();
-                $errorBic = $form['swiftBic']->getErrors();
-                $flashbag->add("warningIban", $errorIban);
-                $flashbag->add("warningBic", $errorBic);
-                $flashbag->add("warningIban", $errorIban);
-                $flashbag->add("warningBic", $errorBic);
+                $flashbag->add("warning", "Toutes vos modifications n'ont pas été prises en compte"); 
             }
-            // Add flash message
-            
-
+            $em->flush();
             $url = $router->generate('profil');
             $url .= "#porte-monnaie";
             
-
             return new RedirectResponse($url);
         }
 
@@ -149,52 +137,17 @@ class ProfilController extends AbstractController
         
         if ($request->isMethod('POST')){
             $post = $request->request->get('info_client');
-            if($user->getNom() != $post['nom']){
-                $user->setNom(ucfirst($post['nom']));
-                $flashbag->add("success", "Votre changement de nom a bien été pris en compte");             
-            }
-            if($user->getPrenom() != $post['prenom']){
-                $user->setPrenom(ucfirst($post['prenom']));
-                $flashbag->add("success", "Votre changement de prénom a bien été pris en compte");             
-            }
-            if(array_key_exists('dateNaissance', $post) && "" !== $post['dateNaissance']['day'] ){
-                $string = $post['dateNaissance']['day'] . "-" ;
-                $string .=  $post['dateNaissance']['month'] . "-" . $post['dateNaissance']['year'];
-                $dateNaissance = \DateTime::createFromFormat('d-m-Y',$string);
-                $user->setDateNaissance($dateNaissance);
-                $flashbag->add("success", "Votre changement de date de naissance a bien été pris en compte");
-            }
-            if($user->getNumeroTelephone() != $post['numeroTelephone']){
-                if($form->isSubmitted() && $form->isValid()){
-                    $user->setNumeroTelephone($post['numeroTelephone']);
-                    $flashbag->add("success", "Votre changement de numéro de télephone a bien été pris en compte");
-                }
-                else{
-                    $errors = $form->getErrors();
-                    $flashbag->add("success", "Votre numéro de téléphone n'a pu être changé");
-                    foreach ($errors as $error) {
-                        $flashbag->add("warning", $error);
-                    }
-                }            
-            }
-            if("" != $post['adresse']['nomRue']){
-                if($form->isSubmitted() && $form->isValid()){
+            $form->submit($post);
+            if($form->isSubmitted() && $form->isValid()){
+                if($user->getAdresse() == null){
                     $adresse = new Adresses();
-                    $adresse->bis_construct($post['adresse']);
+                    $adresse->bis_construct($post);
                     $user->setAdresse($adresse);
-                    $flashbag->add("success", "Votre changement d'adresse a bien été pris en compte");
                 }
-                else{
-                    $errors = $form['adresse']->getErrors();
-                    foreach ($errors as $error) {
-                        $flashbag->add("warning", $error);
-                    }
-                }          
+                $flashbag->add("success", "Vos modifications ont bien été prises en compte"); 
             }
-
-            if($user->getPhoto() != $emojis[$request->request->get('selected-text')]){
-                $user->setPhoto( "/img/emoji/" . $emojis[$request->request->get('selected-text')]);
-                $flashbag->add("success", "Votre changement de photo de profil a bien été pris en compte");
+            else{
+                $flashbag->add("warning", "Toutes vos modifications n'ont pas été prises en compte"); 
             }
             
             $em->flush();

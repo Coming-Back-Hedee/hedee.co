@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 use setasign\Fpdi\Tcpdf\Fpdi;
 use setasign\Fpdi\PdfReader;
@@ -28,6 +30,7 @@ class PdfController extends AbstractController
         $nom_enseigne = $session->get('enseigne');;
                  
         $session->set('choix', $request->request->get('choix'));
+        
         
         $nom_bdd = ucfirst($nom_enseigne);
         $repo = $this->getDoctrine()->getRepository(Enseignes::class);
@@ -59,19 +62,20 @@ class PdfController extends AbstractController
         $this->cooordonnes_client($pdf, $post);
         $this->details_table(80, $pdf, $post, $session);
         
-       
+        $filesystem = new Filesystem();
         $path_pdf = $session->get('path') . ".pdf";
-        $test1 = $pdf->Output($path_pdf, 'F');
-                
-        //$jpeg = $dir . "/factures/" . $session->get('path') .".png";
+        $pdf_string = $pdf->Output($path_pdf, 'S');
+        file_put_contents('/www/hedee/public/factures/' . $path_pdf, $pdf_string);
+        //$filesystem->copy($path_pdf, $this->getParameter('upload_files_directory') . '../factures/' . $session->get('path') . '.pdf');
+                      
         
-        /*exec("magick convert $path_pdf -colorspace RGB -density 300 -quality 85 $jpeg");
         
+        //exec("magick convert $path_pdf -colorspace RGB -density 300 -quality 85 $jpeg");
 
-        $data = ['path' => $jpeg];*/
+        /*$data = ['path' => $jpeg];*/
        // exec("magick convert $path_pdf -colorspace RGB -density 300 -trim  -quality 100 $jpeg");
-        $dir = "public/factures";
-        exec("mv $path_pdf $dir");
+        //$dir = "public/factures";
+        //exec("mv $path_pdf $dir");
         return new JsonResponse(true);
         
         //return new Response($pdf->Output(), 200, array(

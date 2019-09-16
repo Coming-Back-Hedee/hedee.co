@@ -6,6 +6,7 @@
 
 {% block stylesheets %} 
     {{ parent() }}
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="{{asset('css/style_accueil.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
     <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
@@ -13,7 +14,7 @@
     <script type="text/javascript" src="{{asset('js/iscroll.js')}}"></script>
 {% endblock %}
 
-{% block title %}Hedee{% endblock %}
+{% block title %}Gagnez de l'argent dès que le prix de votre achat baisse {% endblock %}
 
 {% block main %}
     <div class="container-fluid">
@@ -84,21 +85,21 @@
 
             <div class="row justify-content-center mt-5 img_carre_bouton">
                 <div class="col-4-md-4 mr-4 img_carre">
-                    <img src="{{asset('img/accueil/gagnant.png')}}" alt="" width="250" height="250" class="img-fluid">
+                    <img src="{{asset('img/accueil/gagnant.png')}}" alt="" width="300" height="300" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-4 mr-4 img_carre">
-                    <img src="{{asset('img/accueil/automatique.png')}}" alt="" width="250" height="250" class="img-fluid">
+                    <img src="{{asset('img/accueil/automatique.png')}}" alt="" width="300" height="300" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-4 mr-4 img_carre">
-                    <img src="{{asset('img/accueil/gratuit.png')}}" alt="" width="250" height="250" class="img-fluid">
+                    <img src="{{asset('img/accueil/gratuit.png')}}" alt="" width="300" height="300" class="img-fluid">
                 </div>
             </div>
             
             <div class="row justify-content-center mt-5 mb-5">
                 <div class="col-4-md-4 mission_hedee_button  ">
-                    <a href="{{ path('a_propos') }}">  <img width="250" height="30" class="img-fluid" src="{{asset('img/accueil/bouton_accueil3.png')}}" alt="" > </a>
+                    <a href="{{ path('a_propos') }}">  <img width="300" height="30" class="img-fluid" src="{{asset('img/accueil/bouton_accueil3.png')}}" alt="" > </a>
                 </div>
             </div>
                     
@@ -170,7 +171,7 @@
     </div> <!-- fin class="row utiliser_hedee" -->
 
 
-<!--AVIS CLIENT A INTEGRER SI VRAIS AVIS DEPOSES-->
+<!-- *****ne pas supprimer***** AVIS CLIENT A INTEGRER SI VRAIS AVIS DEPOSES -->
     <!--<div class="row avis_hedee">  
         <div class="col-md-12 bloc4">
             <div class="row justify-content-center avis">
@@ -210,7 +211,7 @@
                 </div>
 
                 <div class="col-4-md-4">
-                    <img src="{{asset('img/accueil/french-tech.png')}}" alt="" width="200" height="200" class="img-fluid">
+                    <img src="{{asset('img/accueil/cci-paris.png')}}" alt="" width="200" height="200" class="img-fluid">
                 </div>
 
                 <div class="col-4-md-4">
@@ -230,10 +231,9 @@
                     <h3><strong>trop cher ?</strong></h3>
                 </div>
                 
-                <div class="encart_1 text-center mb-5">
+                <div class="encart_1 text-center mb-3">
                     <p><strong>Payez votre produit au prix juste.</strong></p>
-                    <p>Hedee trouve pour vous le prix juste et vous rembourse automatiquement</p>
-                    <p>la différence.</p>
+                    <p>Hedee trouve pour vous le prix juste et vous rembourse automatiquement la différence</p>
                 </div>
 
                 <div class="encart_2 text-center mb-4">
@@ -254,9 +254,6 @@
 {% endblock %} {#fin block main#}
 
 
-{% block javascript %}    
+{% block javascript %} 
+ 
 {% endblock %} {#fin block javascript#}
-
-
-
-

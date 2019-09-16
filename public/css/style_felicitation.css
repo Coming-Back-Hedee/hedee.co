@@ -4,41 +4,39 @@
     --bleu-pale: #e1def9;
 }
 
+body {
+    font-family: 'Work Sans', sans-serif;
+}
+
 main {
     min-height: 550px !important;
 }
 
-.fel-wrapper{
-    font-family: "Work Sans";
+.bloc1 {
+    background: linear-gradient(0.25turn, #fff, var(--bleu-pale));
     width:100%;
-    min-height: 550px;
+    height: 170px;
 }
 
-.bloc_fel{
-    position: relative;
-    vertical-align: middle;
-    padding: 0px 80px;
-    opacity: 1;
-}
-
-.bloc_fel > div {
-    padding-top: 3.5%;
-    padding-bottom: 12.5%;
-    color: var(--bleu_perso);
-    text-align: center;
-}
-
-.bloc_fel div > h1{
-    font-size: 42px;
+.bloc1 > h1 {
+    color:#2800dc;
+    font-size: 44px;
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
     line-height: 1;
     letter-spacing: -1.5px;
-    
+    text-align: center;
+    margin-top: 60px
 }
 
-.bloc_fel div > h2{
+.texte_chasse{
+    width:100%;
+    min-height: 150px;
+    color:#2800dc;
+}
+
+.texte_chasse > h2 {
     font-size: 32px;
     font-weight: 600;
     font-style: normal;
@@ -49,7 +47,7 @@ main {
     margin-bottom: 40px;
 }
 
-.bloc_fel div > p{
+.texte_chasse > P {
     font-size: 20px;
     font-weight: 500;
     font-style: normal;
@@ -57,6 +55,7 @@ main {
     line-height: 1.17;
     letter-spacing: normal;
 }
+
 
 .demande_button {
     float: right;
@@ -79,8 +78,11 @@ main {
     border: 1.5px solid #ff3c00 ;
     float: left;
 }
+
 .button_group{
     margin-top: 40px;
+    width:100%;
+    min-height: 150px;
 }
 
 .big_emoji {
@@ -91,34 +93,38 @@ main {
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
+
     main {
         min-height: 500px !important;
     }
-    
-    .fel-wrapper{
-        min-height: 500px;
+
+    .texte_chasse > h2 {
+        font-size : 28px;  
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;  
     }
 
-    .bloc_fel{
-        padding: 0px 30px;
+    .texte_chasse > p {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
+
+    .button_group {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
     .compte_button, .demande_button{
-        font-size: 15px;
+        font-size: 17px;
         width: 100%;
         letter-spacing: none;
         max-height: 60px;
-    }
-
-    .bloc_fel div > h1{
-        font-size: 32px;
-    }
-    
-    .bloc_fel div > h2{
-        font-size: 25px;
-    }
-    
-    .bloc_fel div > p{
-        font-size: 18px;
     }
 
     .demande_button {
@@ -136,36 +142,50 @@ main {
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:1024.98px){ 
-    main {
-        min-height: 400px !important;
-    }
-    
-    .fel-wrapper{
-        min-height: 400px;
+
+    body {
+        font-family: 'Work Sans', sans-serif;
     }
 
+    main {
+        min-height: 500px !important;
+    }
+
+    .texte_chasse > h2 {
+        font-size : 28px;  
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;  
+    }
+
+    .texte_chasse > p {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .button_group {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
     .compte_button, .demande_button{
-        font-size: 18px;
+        font-size: 17px;
         width: 100%;
         letter-spacing: none;
         max-height: 60px;
     }
 
+    .demande_button {
+        float: none;
+    }
+
+    .compte_button {
+        float: none;
+    }
+
     .big_emoji {
         display:none
-    }
-}
-
-/* **************  POUR MOBILE  ********************* */
-@media screen and (max-width:767.98px){
-    .compte_button, .demande_button{
-        font-size: 22px
-    }
-}
-
-/* **************  POUR TABLETTE  ********************* */
-@media (min-width: 768px) and (max-width:1024.98px){ 
-    .compte_button, .demande_button{
-        font-size: 18px
     }
 }

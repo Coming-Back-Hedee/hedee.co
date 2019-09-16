@@ -35,6 +35,14 @@ class ModeVersement
      * @ORM\OneToOne(targetEntity="App\Entity\Clients", mappedBy="modeVersement", cascade={"persist", "remove"})
      */
     private $clients;
+    
+    public function bis_construct($form)
+    {
+        
+        $this->proprietaire = $form['proprietaire'];
+        $this->iban = ucfirst($form['iban']);
+        $this->swiftBic = $form['swiftBic'];
+    }
 
     public function getId(): ?int
     {

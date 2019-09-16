@@ -12,7 +12,7 @@ html, body, div, main  {
 }
 
 body {
-    font-family: "Work Sans";
+    font-family: 'Work Sans', sans-serif;
     font-size: 14px;
     width: 100%;
     min-height:960px;
@@ -21,7 +21,6 @@ body {
 
 main > .container{
     min-height: 600px;
-    
 }
 
 .normal_font{
@@ -50,7 +49,6 @@ main > .container{
 }
 
 .bloc_header > h1{
-    
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
@@ -95,13 +93,13 @@ main > .container{
 
 .filters > form {
     font-size: 16px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.33;
-  letter-spacing: 1.2px;
-  text-align: right;
-  color: var(--ultramarine-blue);
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: 1.2px;
+    text-align: right;
+    color: var(--ultramarine-blue);
 }
 
 .filters > form > select {
@@ -115,10 +113,10 @@ main > .container{
     margin-top: 5%;
     margin-right: 15%;
     font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.8;
-  letter-spacing: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
 }
 
 .profil-name{
@@ -234,7 +232,6 @@ main > .container{
     border: solid 1px var(--very-light-purple);    
 }
 
-
 .rounded_btn{
     margin: auto;
     width: 90%;
@@ -278,12 +275,13 @@ main > .container{
     border-style: none;
     border-radius: 40px;
     padding: 4px 20px;
-    margin-bottom: 15px;
+    margin-bottom: 45px;
     width: 78.1125px;
     height: 28.8px;
     text-align: center;
     font-size: 14px;
     font-family: "Work Sans";
+    display: none;
 }
 
 #tab{
@@ -407,11 +405,11 @@ main > .container{
 .media-body span a {
     color : #ff3c00;
     font-size: 14px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.29;
-  letter-spacing: 1.4px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: 1.4px;
 }
 
 .media-body span a :hover {
@@ -446,10 +444,10 @@ main > .container{
 /* mode de verserment - modifier RIB existant*/
 #form_versement .bank {
     font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.14;
-  letter-spacing: -0.63px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: -0.63px;
 }
 
 #form_versement h3 {
@@ -457,7 +455,7 @@ main > .container{
     margin-bottom: 20px
 }
 
-#form_versement label.required {
+#form_versement label {
     font-size: 22px;
     font-weight: normal;
     font-style: normal;
@@ -470,6 +468,7 @@ main > .container{
 }
 
 #form_versement input {
+    margin-bottom: 20px;
     display: block;
     width: 100%;
     padding: 12px 20px;
@@ -520,7 +519,6 @@ form[name=info_client] button{
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    padding-top: 20px;
     margin: auto;
     width: 70%;
     padding-inline-start: 0;
@@ -544,10 +542,34 @@ form[name=info_client] button{
     width: fit-content;
 }
 
+.flash, .flash-notice-sucess {
+    color : var(--orange_perso);
+}
 
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    }
+
+    .sidebar-nav li a > p {
+        font-size: 20px
+    }
+
+    #header_title {
+        font-size : 35px
+    }
+
+    .demande_button {
+        height: 50px;
+        margin-top:-10px
+    }
+
+    .compte_button {
+        height: 50px;
+    }
+
     .menu_profil nav li  {
         width :100%;
         min-height:20px;
@@ -559,10 +581,7 @@ form[name=info_client] button{
     }
 
     #sidebar-wrapper {
-    
-        /*background: var(--bleu-pale);*/
         position: absolute;
-        z-index: 1000;
         transition: all 0.4s ease 0s;
         height: 576px;
         width: 90%
@@ -577,10 +596,27 @@ form[name=info_client] button{
     form[name=info_client]  label{
         color: var(--bleu_perso);
         font-size: 12px;
+        display:block;
+        font-size: 20px
+    }
+
+    #info_client_prenom, #info_client_nom, #info_client_dateNaissance_day, 
+    #info_client_dateNaissance_month, #info_client_dateNaissance_year, 
+    #mail, #info_client_numeroTelephone, #info_client_adresse_nomRue, 
+    #info_client_adresse_ville, #info_client_adresse_codePostal {
+        width: 100%;
+    }
+
+    #empty_mv h2 {
+        font-size: 25px;
     }
     
     .input-group{
         flex-wrap: nowrap;
+    }
+
+    .add_second {
+        display :none
     }
     
     #entete-tableau{
@@ -616,10 +652,6 @@ form[name=info_client] button{
         letter-spacing: normal;
     }
 
-    .add_first{
-        font-size: 12px;
-    }
-
     .add_second{
         font-size: 12px;
     }
@@ -628,12 +660,20 @@ form[name=info_client] button{
         font-size: 12px;
         color: var(--bleu_perso);
     }
+
+    .steps ul li a {
+        text-decoration: none;
+        padding: 15px 5px 15px 10px !important;
+    }
 }
 
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:991.98px){
-
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
+    
     .profile{
         height: 100px;
     }
@@ -647,12 +687,14 @@ form[name=info_client] button{
     }
 
     .profil-label, .profil-name{
-        font-size: 12px;
+        font-size: 18px;
     }
 
     #sidebar-wrapper {
-        width: 98%;
+        width: 75%;
         height: 700px;
+        margin-left: 60px;
+    
     }
 
     .sidebar-nav{
@@ -672,9 +714,31 @@ form[name=info_client] button{
       
       .sidebar-nav li a span {
         right: 10%;
-        
         line-height: 18px;
       }
+
+      .sidebar-nav li a > p {
+          font-size : 18px
+       }
+
+       #demandes-remboursement {
+           margin-top: 40px
+       }
+
+    .fa-chevron-right {
+           font-size : 16px
+       }
+
+    .demande_button {
+        height: 50px;
+        margin-top:-10px;
+        width: 70% !important;
+    }
+
+    .compte_button {
+        height: 50px;
+        width: 70% !important;
+    }
                     
     
     .btn-menu {
@@ -739,7 +803,6 @@ form[name=info_client] button{
         letter-spacing: 1.2px;
         text-align: left;
     }
-    
     
     .input-group{
         flex-wrap: nowrap;
@@ -877,9 +940,9 @@ form[name=info_client] button{
     #tab{
         font-size: 16px;
     }
+}
 
-    #chargement{
-        background: url('../img/ajax-loader.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
-        margin-top: 40%;
-    }
+#chargement{
+    background: url('../img/ajax-loader.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
+    margin-top: 40%;
 }

@@ -147,7 +147,7 @@ class AdminUtilityController extends AbstractController
      */
     public function getAllDemandes(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         if($request->isXmlHttpRequest()){
-            $demandes = $demandesRepository->findAllReverse();
+            $demandes = $demandesRepository->findAll();
             $encoders = [new JsonEncoder()]; // If no need for XmlEncoder
             $normalizers = [new ObjectNormalizer()];
             $serializer = new Serializer($normalizers, $encoders);
