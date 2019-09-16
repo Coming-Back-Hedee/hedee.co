@@ -60,7 +60,7 @@ class PdfController extends AbstractController
         $this->details_table(80, $pdf, $post, $session);
         
        
-        $path_pdf = $this->getParameter('upload_factures_directory') . "/" . $session->get('path') . ".pdf";
+        $path_pdf = $session->get('path') . ".pdf";
         $test1 = $pdf->Output($path_pdf, 'F');
                 
         //$jpeg = $dir . "/factures/" . $session->get('path') .".png";
@@ -70,11 +70,12 @@ class PdfController extends AbstractController
 
         $data = ['path' => $jpeg];*/
        // exec("magick convert $path_pdf -colorspace RGB -density 300 -trim  -quality 100 $jpeg");
+        $dir = "public/factures";
+        exec("mv $path_pdf $dir");
+        return new JsonResponse(true);
         
-        //return new JsonResponse(true);
-
-        return new Response($pdf->Output(), 200, array(
-            'Content-Type' => 'application/pdf'));  
+        //return new Response($pdf->Output(), 200, array(
+        //    'Content-Type' => 'application/pdf'));  
         
     }
 

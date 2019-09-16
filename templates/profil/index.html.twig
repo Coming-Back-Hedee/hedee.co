@@ -73,6 +73,9 @@
                         <div class="row">
                             <div class="col-md-12 well">
                                 <legend id="anch1"></legend>
+                                <div id="chargement">
+                                    Chargement en cours...
+                                </div>
 
                             </div>
                         </div>
@@ -98,6 +101,15 @@
 
 <script>        
     $(document).ready(function() {
+        $( document ).ajaxStart(function() {
+            $("#anch1").hide();
+            $( "#chargement" ).show();
+        });
+        $( document ).ajaxStop(function() {
+            $("#chargement").hide();
+            $("#anch1").show();
+        });
+
         var page = $('.bloc_header'); // Page cible
 		var speed = 750; // Durée de l'animation (en ms)
 		$('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
@@ -131,6 +143,16 @@
                     if(window.innerWidth < 1025){
                         $('#sidebar-wrapper').hide()
                         $('#page-content-wrapper').show()
+                    }
+                    else{
+                        $( document ).ajaxStart(function() {
+                            $("#anch1").hide();
+                            $( "#chargement" ).show();
+                        });
+                        $( document ).ajaxStop(function() {
+                            $("#chargement").hide();
+                            $("#anch1").show();
+                        });
                     }
                 }
             switch(id){

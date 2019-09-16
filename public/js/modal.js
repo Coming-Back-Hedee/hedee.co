@@ -1,5 +1,6 @@
 
 
+//Vérifie si l'élément match correspond à l'élément node ou un de ses ancêtres
       function ancestor(node, match)
       {
             
@@ -25,77 +26,152 @@
          
          return node;
       }
-      
-      function modalConnect(button){
-         var modal = document.getElementById("modal");
-         var show = document.getElementById("show");
-         
-         //var form = $("#eligibilite"); 
-         //var fond = document.getElementById("fond");
-         
-         window.onclick = function(event) {
-            if (modal.style.display == "none"){
-               if (event.target == show  || ancestor(event.target, 'show') != null || event.target == button){        
-                  event.preventDefault();  
-                  showModal();
-               return;
-               }
-            }
-            else{
-               if (ancestor(event.target, 'modal') == null){
-                     modal.style.display = "none";
-                  }
-               }      
-         }
-      }  
-   
-   // Lorsque l'on modifie la taille du navigateur la taille du fond change
-   /*$(window).resize(function () {
-      resizeModal()
-   });*/
 
-   function showModal(){
-      var id = '#modal';
-   
-      $.ajax({
-         type: 'get',
-         url: url,
-         success: function (data) {
-            $(id).html(data);
+      //Fonction pour fermer les messages
+      $('.flash-notice-close').click(function(){
+         temp = $(this).parent().next()
+         $(this).parent().fadeOut()
+      })
+
+      // Fonctions pour le menu déroulant
+      function openMenu() {
+         $('.js-menu-container').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+         $('.navbar.fixed-top').fadeToggle('1200');
+      }
+      function closeMenu() {
+         $('.js-menu-container').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+         $('.navbar.fixed-top').fadeToggle('1200');
+      }
+      // Document Ready
+      jQuery(document).ready(function($){ // When everything has finished loading
+         $('.js-menu-cookie').addClass('is-open');
+         $('.js-menu-button').click(function(){ // When the element with the class 'js-menu-button' is clicked
+            openMenu(); // Run the openMenu function
+         });
+         $('.js-menu-close').click(function(){ // When the element with the class 'js-menu-close' is clicked
+            closeMenu(); // Run the closeMenu function
+         });
+      });
+      // Keyboard Accessibility
+      jQuery(document).keyup(function(e) { // Listen for keyboard presses
+         if (e.keyCode === 27) { // 'Esc' key
+            if ($('.js-menu-container').hasClass('is-open')) { // If the menu is open close it
+               closeMenu(); // Run the closeMenu function
+            }
          }
       });
-   
-      // On definit la taille de la fenetre modale
-      resizeModal();
-      
-      // Effet de transition     
-      $('#fond').fadeIn(1000);   
-      $('#fond').fadeTo("slow",0.8);
-      
-      // Effet de transition   
-      $(id).fadeIn(2000);
-      
-         $('.popup .close').click(function (e) {
-            // On désactive le comportement du lien
-            e.preventDefault();
+
+      	function openInscriptionMenu() {
+				$('.js-menu-inscription').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+				$('footer').fadeToggle('1200');
+
+			}
+			function closeInscriptionMenu() {
+				$('.js-menu-inscription').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+				//$('.footer').fadeToggle('1200');
+			}
+
+			function openConnectionMenu() {
+				$('.js-menu-connection').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+				$('footer').fadeToggle('1200');
+
+			}
+			function closeConnectionMenu() {
+				$('.js-menu-connection').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+				//$('.footer').fadeToggle('1200');
+			}
+
+		// Document Ready
+			jQuery(document).ready(function($){
+				 // When everything has finished loading
+				$('.js-menu-client-button').click(function(){
+					openConnectionMenu(); // Run the openMenu function
+				});
+				$('.js-menu-client-close').click(function(){
+					 // When the element with the class 'js-menu-close' is clicked
+					closeInscriptionMenu(); // Run the closeMenu function
+					closeConnectionMenu()
+				});
+				$('#switch_inscription').click(function(){
+					$('.js-menu-inscription').addClass('is-open');
+					$('.js-menu-connection').removeClass('is-open');
+					openInscriptionMenu();
+				});
+				$('#switch_connection').click(function(){
+					$('.js-menu-connection').addClass('is-open');
+					$('.js-menu-inscription').removeClass('is-open');
+					openConnectionMenu();
+				});
          });
-   }
+         
+		// Keyboard Accessibility
+			jQuery(document).keyup(function(e) { // Listen for keyboard presses
+				if (e.keyCode === 27) { // 'Esc' key
+					if ($('.js-menu-container').hasClass('is-open')) { // If the menu is open close it
+						closeMenu(); // Run the closeMenu function
+					}
+				}
+         });
+
+      // Fonction pour fermer le menu insription/connexion
+      $('.js-menu-client-close').click(function(){
+			window.location.href = "{{ path('accueil') }}"
+		})
 
 
-	function resizeModal(){
-      var modal = $('#modal');
-      // On récupère la largeur de l'écran et la hauteur de la page afin de cacher la totalité de l'écran
-      var winH = $(document).height();
-      var winW = $(window).width();
+         // Fonctions pour le menu inscription/connexion
+         /*
+         	function openInscriptionMenu() {
+				$('.js-menu-inscription').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+				$('footer').fadeToggle('1200');
+
+			}
+			function closeInscriptionMenu() {
+				$('.js-menu-inscription').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+				//$('.footer').fadeToggle('1200');
+			}
+
+			function openConnectionMenu() {
+				$('.js-menu-connection').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+				$('footer').fadeToggle('1200');
+
+			}
+			function closeConnectionMenu() {
+				$('.js-menu-connection').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+				//$('.footer').fadeToggle('1200');
+			}
+
+		// Document Ready
+			jQuery(document).ready(function($){
+				 // When everything has finished loading
+				$('.js-menu-client-button').click(function(){
+					openConnectionMenu(); // Run the openMenu function
+				});
+				$('.js-menu-client-close').click(function(){
+					 // When the element with the class 'js-menu-close' is clicked
+					closeInscriptionMenu(); // Run the closeMenu function
+					closeConnectionMenu()
+				});
+				$('#switch_inscription').click(function(){
+					$('.js-menu-inscription').addClass('is-open');
+					$('.js-menu-connection').removeClass('is-open');
+					openInscriptionMenu();
+				});
+				$('#switch_connection').click(function(){
+					$('.js-menu-connection').addClass('is-open');
+					$('.js-menu-inscription').removeClass('is-open');
+					openConnectionMenu();
+				});
+			});
+			window.onclick = function(event){console.log(event.target)}
+		// Keyboard Accessibility
+			jQuery(document).keyup(function(e) { // Listen for keyboard presses
+				if (e.keyCode === 27) { // 'Esc' key
+					if ($('.js-menu-container').hasClass('is-open')) { // If the menu is open close it
+						closeMenu(); // Run the closeMenu function
+					}
+				}
+			});*/
       
-      // le fond aura la taille de l'écran
-      $('#fond').css({'width':winW,'height':winH});
-      
-      // On récupère la hauteur et la largeur de l'écran
-      var winH = $(window).height();
-      // On met la fenêtre modale au centre de l'écran
-      modal.css('top', winH/2 - modal.height()/2);
-      modal.css('left', winW/2 - modal.width()/2);
-	}
 
 

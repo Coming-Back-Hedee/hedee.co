@@ -23,29 +23,6 @@
 {% block javascript %}
 {{ parent() }}
 <script>
-    function verifierCaracteres(event) {	 		
-                        
-        var caracteres = [48, 49, 50, 51, 52 ,53, 54, 55, 56, 57]
-        if(caracteres.indexOf(event.keyCode) < 0){
-            event.preventDefault;
-            return false;
-        }
-        else{
-            return true;
-        }	
-    } /***** fin fonction verifierCaracteres *****/ 
-
-    function verifierCaracteres1(event) {
-        var caracteres = [44, 46, 48, 49, 50, 51, 52 ,53, 54, 55, 56, 57]
-        if(caracteres.indexOf(event.keyCode) < 0){
-            event.preventDefault;
-            return false;
-        }
-        else{
-            return true;
-        }
-    } /***** fin fonction verifierCaracteres1 *****/ 
-
     function loadForm(){
         if($("#form-eligibilite").valid()){
             var donnees = $('#form-eligibilite').serialize()
@@ -63,15 +40,7 @@
         }
     } /***** fin fonction loadForm *****/ 
 
-    var redirect = function(){
-            Array.from(document.getElementsByClassName("replace_btn")).forEach(function(btn){
-                btn.addEventListener('click', function(e){
-                    e.preventDefault()
-                    document.getElementById("menunext").click()
-                })
-            })
-        }
-         /***** fin fonction redirect *****/ 
+    
 
     var changeM = function() {
         if($("[name='connect']:checked").val() == "membre"){
@@ -98,30 +67,11 @@
     } /***** fin fonction changeM *****/ 
     attachDatepicker()
 
-    function attachDatepicker(){   
-        $("#datepicker" ).datepicker({ 
-            minDate: -30, maxDate: 0, 
-            altField: "#datepicker",
-            closeText: 'Fermer',
-            prevText: 'Précédent',
-            nextText: 'Suivant',
-            currentText: 'Aujourd\'hui',
-            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-            weekHeader: 'Sem.',
-            dateFormat: 'dd-mm-yy' 
-        }); 
-    } /***** fin fonction attachDatepicker *****/
-
 </script>
 
 <script>
     $(document).ready(function() {
         var recap;
-        //attachDatepicker($( "#datepicker" ))
         $('body').on('change', 'input[name=connect]', changeM);
         
 
@@ -142,6 +92,11 @@
                     "number": true,
                     "min": 20,
                     "regex_prix": /^[0-9]+(\.[0-9]{1,2})?$/
+                }
+            },
+            messages: {
+                "eligibilite[prix]":{
+                    "min": jQuery.validator.format("Hedee ne prend en compte que les achats supérieurs ou égaux à {0}."),
                 }
             },
         })

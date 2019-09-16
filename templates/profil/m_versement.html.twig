@@ -42,14 +42,6 @@
                         "bic": true,
                     }
                 },
-                messages: {
-                    "mode_versement[iban]":{
-                        "iban": "IBAN non valide"
-                    },
-                    "mode_versement[swiftBic]":{
-                        "bic": "BIC non valide"
-                    }
-                }
             });   
             $('#mode_versement_proprietaire').val("{{ app.user.prenom ~ " " ~ app.user.nom }}");
             var annulations = document.getElementsByClassName('cancel');

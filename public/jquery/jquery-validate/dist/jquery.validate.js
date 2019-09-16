@@ -363,24 +363,26 @@ $.extend( $.validator, {
 
 	messages: {
 		required: "Ce champ est requis.",
-		remote: "Please fix this field.",
+		remote: "Veuillez corrgier ce champ.",
 		email: "Veuillez entrer une adresse mail valide.",
 		url: "Veuillez entrer une URL valide.",
 		date: "Veuillez entrer un date valide.",
-		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
-		digits: "Please enter only digits.",
-		equalTo: "Please enter the same value again.",
+		dateISO: "Veuillez entrer une date (ISO).",
+		number: "Verifiez que vous avez rentré un nombre valide",
+		digits: "Seuls les chiffres sont autorisés pour ce champ.",
+		equalTo: "Veuillez entrez la même valeur que pour le champ précédent",
+		categorie: "Veuillez sélectionner une catégorie",
 		regex_phone: "Le numéro n'est pas valide",
-		bic: "Please specify a valid BIC code",
-		iban: "Please specify a valid IBAN",
-		maxlength: $.validator.format( "Please enter no more than {0} characters." ),
-		minlength: $.validator.format( "Veuillez entrer au moins {0} caractères." ),
-		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
-		range: $.validator.format( "Please enter a value between {0} and {1}." ),
-		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
-		min: $.validator.format( "Please enter a value greater than or equal to {0}." ),
-		step: $.validator.format( "Please enter a multiple of {0}." )
+		regex_prix: "Vérifiez que vous avez mis au maximum 2 chiffres après la virgule",
+		bic: "Veuillez vérifier que votre BIC est valide",
+		iban: "Veuillez vérifier que votre IBAN est valide",
+		maxlength: jQuery.validator.format("Au plus {0} caractères."),
+		minlength: jQuery.validator.format("Au moins {0} caractères."),
+		rangelength: jQuery.validator.format("Entre {0} et {1} caractères acceptés."),
+		range: jQuery.validator.format("Valeurs entre {0} et {1} acceptées."),
+		max: $.validator.format( "Veuillez entrer une valure inférieure ou égale à {0}." ),
+		min: $.validator.format( "Veuillez entrer une valeur supérieure ou égale {0}." ),
+		step: $.validator.format( "Veuillez entrer un multiple de {0}." )
 	},
 
 	autoCreateRanges: false,
@@ -1550,7 +1552,21 @@ $.extend( $.validator, {
 			return value === target.val();
 		},
 
-		
+		categorie: function(value, element) {
+			if (value == 0)
+				return false
+			else
+				return true
+		},
+
+		regex_prix:	function(value, element, regexp) {
+			if (regexp.constructor != RegExp)
+				regexp = new RegExp(regexp);
+			else if (regexp.global)
+				regexp.lastIndex = 0;
+				return this.optional(element) || regexp.test(value);
+		},
+
 		regex_phone: function(value, element, regexp) {
 				if (regexp.constructor != RegExp)
 					regexp = new RegExp(regexp);

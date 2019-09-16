@@ -128,17 +128,11 @@
         <script>
         $(document).ready(function() {
         var recap;
-        var dialog =  $( "#dialog-message" );
         var form = $("#form-enseigne");
-
-
         
         step(form)
         $('body').on('change', 'input[name=choix]', function() {
             
-            /*form.validate({
-                errorPlacement: function errorPlacement(error, element) { element.before(error); },
-            });*/
 
             if($("[name='choix']:checked").val() == "internet"){
                 var url = "{{ path('internet') }}";
