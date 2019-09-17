@@ -58,11 +58,6 @@
                             const date = new Date(demande.dateAchat.timestamp*1000)
                             td1.innerHTML = produit +"<br>"
                             var span1 = document.createElement('SPAN');
-                            var a1 = document.createElement('a');
-                            a1.setAttribute('href', demande.facture);
-                            a1.setAttribute('target', 'blank');
-                            a1.innerText = "Dossier n°" + demande.numeroDossier
-                            span1.append(a1);
                             span1.innerHTML += "<br>" + date.toLocaleDateString()
                             span1.setAttribute('class', 'normal_font')
                             td1.append(span1)                        

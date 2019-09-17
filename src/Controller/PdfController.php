@@ -1,20 +1,17 @@
 <?php
-
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Console\Output\OutputInterface;
-
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use setasign\Fpdi\PdfReader;
-
 use App\Entity\Enseignes;
 use App\Entity\AlertePrix;
-
 class PdfController extends AbstractController
 {
     /**
@@ -24,30 +21,25 @@ class PdfController extends AbstractController
     {
         $post = $request->request->get('demandes');
         $session = $request->getSession();        
-
         $nom_enseigne = $session->get('enseigne');;
                  
         $session->set('choix', $request->request->get('choix'));
+        
         
         $nom_bdd = ucfirst($nom_enseigne);
         $repo = $this->getDoctrine()->getRepository(Enseignes::class);
         $enseigne =  $repo->findOneBy(['nomEnseigne' => $nom_enseigne]);
         $dir = getcwd();
         $bgImg = $dir . "\\img\\facture\\bg.png";
-
-
         //$pdf = new \FPDF();
         $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         // remove default header/footer
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-
         // set default monospaced font
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
         // set margins
         $pdf->SetMargins(PDF_MARGIN_LEFT, 0, PDF_MARGIN_RIGHT);
-
         // set auto page breaks
         $pdf->SetAutoPageBreak(FALSE);
         $pdf->SetTextColor(40, 0, 220);
@@ -58,35 +50,26 @@ class PdfController extends AbstractController
         $this->entete_facture($enseigne, $pdf, $post, $session);      
         $this->cooordonnes_client($pdf, $post);
         $this->details_table(80, $pdf, $post, $session);
-        /*$this->rectangle_w_title($pdf, 25,100,40,30,'DF', 30, 46, "Catégorie");
-        if($session->get('choix') == 'magasin'){
-            $this->rectangle_w_title($pdf, 85,100,40,30,'DF', 90, 103, "Marque" );
-            $this->rectangle_w_title($pdf, 145,100,40,30,'DF', 150, 167, "Référence");
-        }
-        else{
-            $this->rectangle_w_title($pdf, 85,100, 120,30,'DF', 90, 98, "URL" );
-        }
         
-        $this->rectangle_w_title($pdf, 135,150,40,30,'DF', 140, 155, "Prix payé");*/
+        $filesystem = new Filesystem();
+        $path_pdf = $session->get('path') . ".pdf";
+        $pdf_string = $pdf->Output($path_pdf, 'S');
+        file_put_contents('/www/hedee/public/factures/' . $path_pdf, $pdf_string);
+        //$filesystem->copy($path_pdf, $this->getParameter('upload_files_directory') . '../factures/' . $session->get('path') . '.pdf');
+                      
         
-       
-        $path_pdf = $dir . "\\factures\\" . $session->get('path') . ".pdf";
-        $test1 = $pdf->Output($path_pdf, 'F');
-                
-        $jpeg = $dir . "/factures/" . $session->get('path') .".png";
-        /*exec("magick convert $path_pdf -colorspace RGB -density 300 -quality 85 $jpeg");
         
-
-        $data = ['path' => $jpeg];*/
-        exec("magick convert $path_pdf -colorspace RGB -density 300 -trim  -quality 100 $jpeg");
+        //exec("magick convert $path_pdf -colorspace RGB -density 300 -quality 85 $jpeg");
+        /*$data = ['path' => $jpeg];*/
+       // exec("magick convert $path_pdf -colorspace RGB -density 300 -trim  -quality 100 $jpeg");
+        //$dir = "public/factures";
+        //exec("mv $path_pdf $dir");
+        return new JsonResponse(true);
         
-        //return new JsonResponse(true);
-
-        return new Response($pdf->Output(), 200, array(
-            'Content-Type' => 'application/pdf'));  
+        //return new Response($pdf->Output(), 200, array(
+        //    'Content-Type' => 'application/pdf'));  
         
     }
-
     public function rectangle_w_title($pdf, $x, $y, $w, $h, $style, $x1_blank, $x2_blank, $title){
         $pdf->SetDrawColor(0); // Couleur des filets
         $pdf->SetFillColor(255);
@@ -100,7 +83,6 @@ class PdfController extends AbstractController
         $y_text = $y-2;
         $pdf->Text($x_text, $y_text, $title);
     }
-
     public function entete_facture($enseigne, $pdf, $post, $session){
         $numCommande = $post['numeroCommande'];
         $dateAchat = $session->get('date_achat');
@@ -109,7 +91,6 @@ class PdfController extends AbstractController
         //$pdf->SetXY(40,71);
         //$pdf->Cell(28,7,$dateAchat,1,0,'L',0);
     }
-
     public function cooordonnes_client($pdf, $post){
         $nom = ucfirst($post['client']['nom']);
         $prenom = ucfirst($post['client']['prenom']);
@@ -126,7 +107,6 @@ class PdfController extends AbstractController
         $pdf->SetLeftMargin(143);
         $pdf->Write(5, $adresse);
     }
-
     public function details_table($position, $pdf, $post, $session){
         $categorie = $session->get('categorie');
         $prix = $session->get('prix');
@@ -154,7 +134,6 @@ class PdfController extends AbstractController
             $pdf->Text(PDF_MARGIN_LEFT+50, $position + 24, $reference);
             $pdf->Text(PDF_MARGIN_LEFT+50, $position + 34, "$prix €");
             
-
             /*$pdf->Cell(37,25,$marque,0,0,'C',0);
             $pdf->SetXY(148,100);
             
@@ -163,33 +142,22 @@ class PdfController extends AbstractController
         else{
             $url = $post['urlProduit'];
             
-            $nbLignes = ceil($pdf->GetStringWidth($url) / ($pdf->GetPageWidth() - 2 * PDF_MARGIN_LEFT - 50));
+            $nbLignes = ($pdf->GetStringWidth($url) / ($pdf->GetPageWidth() - PDF_MARGIN_RIGHT - PDF_MARGIN_LEFT - 70));
+            $details .= "\nMontant de l'achat : ";
             $details .= "\nURL : ";
-            
-            for($i = 0; $i < $nbLignes; $i++){
-                $points .= "\n";
-                $details .= "\n";
-            }
-            $points .= "\n............................................................................................";
-            $details .= "Montant de l'achat : ";
+            $points .= "\n............................................................................................";          
             $pdf->Write(10, $details);
             $pdf->SetXY(PDF_MARGIN_LEFT+50, $position+4);
             $pdf->SetLeftMargin(PDF_MARGIN_LEFT+50);
             $pdf->Write(10, $points);
+            $pdf->Text(PDF_MARGIN_LEFT+50, $position + 14, "$prix €");
             
-            $pdf->SetXY(PDF_MARGIN_LEFT+50, $position+4);
-            //$pdf->Write(10, "$url ");
-            
-            $pdf->MultiCell(120, 5, $url, 1, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
-            //$pdf->MultiCell(117,5,utf8_decode($url),0,'C',false);
-            //$pdf->SetDrawColor(0,0,255);
-            $pdf->Link(PDF_MARGIN_LEFT+50, $position+15, 120, $nbLignes*5 ,$url);
-            $pdf->Text(PDF_MARGIN_LEFT+50, $position+($nbLignes+5)*5 , "$prix €");
+            $pdf->SetXY(PDF_MARGIN_LEFT+50,$position + 24);
+            $pdf->MultiCell(120, 5, $url, 1, 'J', 1, 0, '', '', true, 0, false, true, 40, 'T');
         }
         $pdf->Text(PDF_MARGIN_LEFT+50, $position + 4, $categorie);
          
     }
-
     public function footer($pdf){
         $pdf->SetFillColor(255);
         $pdf->Rect(0, 155, $pdf->GetPageWidth(), $pdf->GetPageHeight(), 'F');
@@ -206,7 +174,6 @@ class PdfController extends AbstractController
         $pdf->Rect(82.5,210,45,30,'D');
         $pdf->Rect(150,210,45,30,'D');
     }
-
     public function details_footer($pdf, AlertePrix $alerte, $session){
         $mid_x = $pdf->GetPageWidth()/2; // the middle of the "PDF screen", fixed by now.
         $pdf->SetFont('dejavusans', '', 24);
@@ -220,7 +187,6 @@ class PdfController extends AbstractController
         $pdf->Text(37.5 - ($pdf->GetStringWidth("Magasin:") / 2), 200, "Magasin:");
         $pdf->Text(105 - ($pdf->GetStringWidth("Date du constat:") / 2), 200, "Date du constat:");
         $pdf->Text(172.5 - ($pdf->GetStringWidth("Prix le moins cher") / 2), 200, "Prix le moins cher"); 
-
         $pdf->SetXY(15,210);
         
         $pdf->Cell(45,30, $enseigne,0,0,'C',0);
@@ -231,7 +197,6 @@ class PdfController extends AbstractController
             
         $pdf->Cell(45,30, $prix, 0, 0,'C',0);
     }
-
     public function recup_pdf($pdf, $path){
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
@@ -244,7 +209,6 @@ class PdfController extends AbstractController
         $templateId = $pdf->importPage(1);
         $pdf->AddPage();
         $pdf->useTemplate($templateId, ['adjustPageSize' => true]);
-
         //return $pdf;
     }
 }
