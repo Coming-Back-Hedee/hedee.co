@@ -307,7 +307,7 @@ class EnseigneController extends AbstractController
             $em->flush();
 
             
-            $bodyMail = $mailer->createBodyMail('enseigne/mail2.html', [ 'user' => $user,
+            $bodyMail = $mailer->createBodyMail('enseigne/mail2.html.twig', [ 'user' => $user,
                 'demande' => $demande
             ]);
             $mailer->sendAdminMessage('hello@hedee.co', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail);

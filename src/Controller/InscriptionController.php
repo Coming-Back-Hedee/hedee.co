@@ -43,7 +43,7 @@ class InscriptionController extends AbstractController
             $session->getFlashBag()->add('warning', "Cette adresse email est déjà utilisée.");
             return $this->redirectToRoute('inscription');
         }
-        $bodyMail = $mailer->createBodyMail('inscription/mail2.html.twig', [
+        $bodyMail = $mailer->createBodyMail('inscription/mail3.html.twig', [
             'user' => $user
         ]);
         
