@@ -414,7 +414,15 @@
                     }
                 },
                 onFinishing: function (event, currentIndex)
-                {            
+                {    
+                    if($("[name='choix']:checked").val() == "magasin"){
+                        $("#url").prop("disabled", true);
+                    }
+                    if($("[name='choix']:checked").val() == "internet"){
+                        $("#mar").prop("disabled", true);
+                        $("#ref").prop("disabled", true);
+                        $("#cp").prop("disabled", true);
+                    }
                     form.validate().settings.ignore = ":disabled";
                     return form.valid();
                 },

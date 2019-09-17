@@ -169,7 +169,7 @@ class AdminUtilityController extends AbstractController
     /**
      * @Route("/all_demandes_reverse", methods="GET", name="admin_all_demandes_reverse")
      */
-    public function getAllDemandesRe(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
+    public function getAllDemandesR(Request $request, DemandesRepository $demandesRepository, RouterInterface $router){
         
         if($request->isXmlHttpRequest()){
             $demandes = $demandesRepository->findAllReverse();
