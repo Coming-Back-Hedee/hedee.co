@@ -27,7 +27,7 @@ class DebugCommandTest extends TestCase
         $ret = $tester->execute([], ['decorated' => false]);
 
         $this->assertEquals(0, $ret, 'Returns 0 in case of success');
-        $this->assertContains('Functions', trim($tester->getDisplay()));
+        $this->assertStringContainsString('Functions', trim($tester->getDisplay()));
     }
 
     public function testFilterAndJsonFormatOptions()
@@ -89,12 +89,10 @@ class DebugCommandTest extends TestCase
         $this->assertEquals($expected, json_decode($tester->getDisplay(true), true));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Console\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Malformed namespaced template name "@foo" (expecting "@namespace/template_name").
-     */
     public function testMalformedTemplateName()
     {
+        $this->expectException('Symfony\Component\Console\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Malformed namespaced template name "@foo" (expecting "@namespace/template_name").');
         $this->createCommandTester()->execute(['name' => '@foo']);
     }
 
@@ -286,7 +284,7 @@ TXT
         $ret = $tester->execute(['name' => 'base.html.twig'], ['decorated' => false]);
 
         $this->assertEquals(0, $ret, 'Returns 0 in case of success');
-        $this->assertContains('[OK]', $tester->getDisplay());
+        $this->assertStringContainsString('[OK]', $tester->getDisplay());
     }
 
     public function testWithGlobals()
@@ -295,7 +293,7 @@ TXT
         $tester = $this->createCommandTester([], [], null, null, false, ['message' => $message]);
         $tester->execute([], ['decorated' => true]);
         $display = $tester->getDisplay();
-        $this->assertContains(\json_encode($message), $display);
+        $this->assertStringContainsString(json_encode($message), $display);
     }
 
     public function testWithGlobalsJson()
@@ -304,7 +302,7 @@ TXT
         $tester = $this->createCommandTester([], [], null, null, false, $globals);
         $tester->execute(['--format' => 'json'], ['decorated' => true]);
         $display = $tester->getDisplay();
-        $display = \json_decode($display, true);
+        $display = json_decode($display, true);
         $this->assertSame($globals, $display['globals']);
     }
 
@@ -313,10 +311,10 @@ TXT
         $tester = $this->createCommandTester();
         $tester->execute(['--format' => 'json'], ['decorated' => false]);
         $display = $tester->getDisplay();
-        $display1 = \json_decode($display, true);
+        $display1 = json_decode($display, true);
         $tester->execute(['--filter' => 'date', '--format' => 'json'], ['decorated' => false]);
         $display = $tester->getDisplay();
-        $display2 = \json_decode($display, true);
+        $display2 = json_decode($display, true);
         $this->assertNotSame($display1, $display2);
     }
 

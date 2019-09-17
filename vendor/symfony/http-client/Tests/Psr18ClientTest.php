@@ -23,7 +23,7 @@ class Psr18ClientTest extends TestCase
 {
     private static $server;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         TestHttpServer::start();
     }
@@ -73,5 +73,14 @@ class Psr18ClientTest extends TestCase
 
         $this->expectException(Psr18RequestException::class);
         $client->sendRequest($factory->createRequest('BAD.METHOD', 'http://localhost:8057'));
+    }
+
+    public function test404()
+    {
+        $factory = new Psr17Factory();
+        $client = new Psr18Client(new NativeHttpClient());
+
+        $response = $client->sendRequest($factory->createRequest('GET', 'http://localhost:8057/404'));
+        $this->assertSame(404, $response->getStatusCode());
     }
 }

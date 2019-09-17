@@ -39,10 +39,6 @@ final class WrappedListener implements ListenerInterface
     public function __construct($listener)
     {
         $this->listener = $listener;
-
-        if (null === self::$hasVarDumper) {
-            self::$hasVarDumper = class_exists(ClassStub::class);
-        }
     }
 
     /**
@@ -54,7 +50,7 @@ final class WrappedListener implements ListenerInterface
         if (\is_callable($this->listener)) {
             ($this->listener)($event);
         } else {
-            @trigger_error(sprintf('Calling the "%s::handle()" method from the firewall is deprecated since Symfony 4.3, implement "__invoke()" instead.', \get_class($this)), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Calling the "%s::handle()" method from the firewall is deprecated since Symfony 4.3, implement "__invoke()" instead.', \get_class($this->listener)), E_USER_DEPRECATED);
             $this->listener->handle($event);
         }
         $this->time = microtime(true) - $startTime;
@@ -76,8 +72,25 @@ final class WrappedListener implements ListenerInterface
 
     public function getInfo(): array
     {
-        if (null === $this->stub) {
-            $this->stub = self::$hasVarDumper ? new ClassStub(\get_class($this->listener)) : \get_class($this->listener);
+        if (null !== $this->stub) {
+            // no-op
+        } elseif (self::$hasVarDumper ?? self::$hasVarDumper = class_exists(ClassStub::class)) {
+            $this->stub = ClassStub::wrapCallable($this->listener);
+        } elseif (\is_array($this->listener)) {
+            $this->stub = (\is_object($this->listener[0]) ? \get_class($this->listener[0]) : $this->listener[0]).'::'.$this->listener[1];
+        } elseif ($this->listener instanceof \Closure) {
+            $r = new \ReflectionFunction($this->listener);
+            if (false !== strpos($r->name, '{closure}')) {
+                $this->stub = 'closure';
+            } elseif ($class = $r->getClosureScopeClass()) {
+                $this->stub = $class->name.'::'.$r->name;
+            } else {
+                $this->stub = $r->name;
+            }
+        } elseif (\is_string($this->listener)) {
+            $this->stub = $this->listener;
+        } else {
+            $this->stub = \get_class($this->listener).'::__invoke';
         }
 
         return [

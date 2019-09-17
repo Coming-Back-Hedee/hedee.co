@@ -37,7 +37,7 @@ class ValidatorCacheWarmer extends AbstractPhpFileCacheWarmer
      */
     public function __construct(ValidatorBuilderInterface $validatorBuilder, string $phpArrayFile)
     {
-        if (2 < \func_num_args() && \func_get_arg(2) instanceof CacheItemPoolInterface) {
+        if (2 < \func_num_args() && func_get_arg(2) instanceof CacheItemPoolInterface) {
             @trigger_error(sprintf('The CacheItemPoolInterface $fallbackPool argument of "%s()" is deprecated since Symfony 4.2, you should not pass it anymore.', __METHOD__), E_USER_DEPRECATED);
         }
         parent::__construct($phpArrayFile);
@@ -62,10 +62,10 @@ class ValidatorCacheWarmer extends AbstractPhpFileCacheWarmer
                     if ($metadataFactory->hasMetadataFor($mappedClass)) {
                         $metadataFactory->getMetadataFor($mappedClass);
                     }
-                } catch (\ReflectionException $e) {
-                    // ignore failing reflection
                 } catch (AnnotationException $e) {
                     // ignore failing annotations
+                } catch (\Exception $e) {
+                    $this->ignoreAutoloadException($mappedClass, $e);
                 }
             }
         }

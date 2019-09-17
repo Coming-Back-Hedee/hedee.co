@@ -37,14 +37,14 @@ class MockResponse implements ResponseInterface
 
     /**
      * @param string|string[]|iterable $body The response body as a string or an iterable of strings,
-     *                                       yielding an empty string simulates a timeout,
+     *                                       yielding an empty string simulates an idle timeout,
      *                                       exceptions are turned to TransportException
      *
      * @see ResponseInterface::getInfo() for possible info, e.g. "response_headers"
      */
     public function __construct($body = '', array $info = [])
     {
-        $this->body = \is_iterable($body) ? $body : (string) $body;
+        $this->body = is_iterable($body) ? $body : (string) $body;
         $this->info = $info + $this->info;
 
         if (!isset($info['response_headers'])) {
@@ -76,6 +76,15 @@ class MockResponse implements ResponseInterface
     public function getInfo(string $type = null)
     {
         return null !== $type ? $this->info[$type] ?? null : $this->info;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function cancel(): void
+    {
+        $this->info['error'] = 'Response has been canceled.';
+        $this->body = null;
     }
 
     /**
@@ -150,8 +159,11 @@ class MockResponse implements ResponseInterface
         foreach ($responses as $response) {
             $id = $response->id;
 
-            if (!$response->body) {
-                // Last chunk
+            if (null === $response->body) {
+                // Canceled response
+                $response->body = [];
+            } elseif ([] === $response->body) {
+                // Error chunk
                 $multi->handlesActivity[$id][] = null;
                 $multi->handlesActivity[$id][] = null !== $response->info['error'] ? new TransportException($response->info['error']) : null;
             } elseif (null === $chunk = array_shift($response->body)) {
@@ -242,7 +254,7 @@ class MockResponse implements ResponseInterface
 
         // populate info related to headers
         $info = $mock->getInfo() ?: [];
-        $response->info['http_code'] = ($info['http_code'] ?? 0) ?: $mock->getStatusCode(false) ?: 200;
+        $response->info['http_code'] = ($info['http_code'] ?? 0) ?: $mock->getStatusCode() ?: 200;
         $response->addResponseHeaders($info['response_headers'] ?? [], $response->info, $response->headers);
         $dlSize = isset($response->headers['content-encoding']) ? 0 : (int) ($response->headers['content-length'][0] ?? 0);
 
@@ -265,7 +277,7 @@ class MockResponse implements ResponseInterface
         if (!\is_string($body)) {
             foreach ($body as $chunk) {
                 if ('' === $chunk = (string) $chunk) {
-                    // simulate a timeout
+                    // simulate an idle timeout
                     $response->body[] = new ErrorChunk($offset);
                 } else {
                     $response->body[] = $chunk;

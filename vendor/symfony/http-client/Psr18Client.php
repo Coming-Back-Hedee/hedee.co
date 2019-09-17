@@ -65,21 +65,33 @@ final class Psr18Client implements ClientInterface
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
         try {
+            $body = $request->getBody();
+
+            if ($body->isSeekable()) {
+                $body->seek(0);
+            }
+
             $response = $this->client->request($request->getMethod(), (string) $request->getUri(), [
                 'headers' => $request->getHeaders(),
-                'body' => (string) $request->getBody(),
+                'body' => $body->getContents(),
                 'http_version' => '1.0' === $request->getProtocolVersion() ? '1.0' : null,
             ]);
 
             $psrResponse = $this->responseFactory->createResponse($response->getStatusCode());
 
-            foreach ($response->getHeaders() as $name => $values) {
+            foreach ($response->getHeaders(false) as $name => $values) {
                 foreach ($values as $value) {
                     $psrResponse = $psrResponse->withAddedHeader($name, $value);
                 }
             }
 
-            return $psrResponse->withBody($this->streamFactory->createStream($response->getContent()));
+            $body = $this->streamFactory->createStream($response->getContent(false));
+
+            if ($body->isSeekable()) {
+                $body->seek(0);
+            }
+
+            return $psrResponse->withBody($body);
         } catch (TransportExceptionInterface $e) {
             if ($e instanceof \InvalidArgumentException) {
                 throw new Psr18RequestException($e, $request);

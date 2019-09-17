@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}Hedee{% endblock %}</title>
+	
+		<link rel="icon" href="{{asset('img/favicon.jpg')}}">
+		<link rel="stylesheet" href="{{asset('css/style.css')}}">
+		
+
+		<link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.css')}}">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+				
+
+        {% block stylesheets %}
+		{% endblock %}
+    </head>
+
+
+	<body>
+		<header>
+			<!-- *******MENU DESKTOP ET TABLETTE****** -->
+			<div class="navbar fixed-top" id="desktop">
+
+                <nav class="nav navbar-nav navbar-right">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="nav-item">
+										<aside class="card__image-container">
+
+											<a class="menu-button js-menu-button">
+												<div class="menu-icon">
+													<span></span>
+													<span></span>
+													<span></span>
+												</div>
+											</a>
+
+										</aside>
+                                    
+                                </div> <!-- fin class="nav-item"-->
+                            </div><!-- fin class="col-md-6"-->
+
+                            <div class="col-md-6">
+                                <div class="nav-item">
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+										<a href="{{ path('profil') }}">				
+											<button  class="compte_client ">
+												<img src="{{ app.user.photo }}" width="30" height="30" 
+													 class="img-fluid" alt="connexion compte client" title="connexion"> 
+											</button>
+										</a>
+                                    {% else %}
+                                        <a href="{{ path('connexion') }}" class="js-menu-client-button">
+											<button class="compte_client ">
+                                        		<img src="{{asset('img/header/compte_client.png')}}" width="30" height="30" 
+													 class="img-fluid" alt="connexion compte client" title="connexion"> 
+											</button> 
+										</a>
+                                    {% endif %}
+                                </div> <!-- fin class="nav-item"-->
+                            </div> <!-- fin class="col-md-6"-->
+                        </div> <!-- fin class="row"-->
+                    </div> <!-- fin class="container-fluid"-->
+                </nav> <!-- fin class="nav navbar-nav navbar-right"-->
+
+                <nav class="navbar navbar-expand-sm justify-content-center">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="nav-item">
+                                <a class="navbar-brand" href="{{ path('accueil') }}">
+                                    <img src="{{asset('img/logo.png')}}" width="160" height="40" class="img-fluid" alt="hedee.co">
+                                </a>
+                            </div> <!-- fin class="col-md-12"-->
+                        </div> <!-- fin class="row"-->
+                    </div> <!-- fin class="container-fluid"-->
+                </nav> <!-- fin class="navbar navbar-expand-sm justify-content-center"-->
+                
+                <nav class"nav navbar-nav navbar-right" style="float: right;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+									<a href="{{ path('enseigne') }}"> <img src="{{asset('img/header/recup_argent.png')}}" width="230" height="50" class="img-fluid" alt="connexion compte client" title="connexion"> </a>
+                                </div>
+                            </div> <!-- fin class="col-md-12"-->
+                        </div> <!-- fin class="row"-->
+					</div> <!-- fin class="container-fluid"-->
+                </nav> <!-- fin class="nav navbar-nav navbar-right"-->
+
+            </div> <!-- fin class="navbar fixed-top"-->
+			<!-- *******FIN MENU DESKTOP ET TABLETTE****** -->
+
+
+
+			<!-- *******MENU MOBILE****** -->
+			<div class="navbar fixed-top" id="mobile">
+
+                <nav class="nav navbar-nav navbar-right burger_et_logo">
+                                <div class="nav-item second_menu">
+									<div class="col-md-3 burger1">
+										<aside class="card__image-container">
+											<a class="menu-button js-menu-button">
+												<div class="menu-icon" class="img-fluid">
+													<span></span>
+													<span></span>
+													<span></span>
+												</div>
+											</a>
+										</aside>
+									</div> <!-- fin class="burger1"-->
+
+									<div class="col-md-9 logo">
+										<div class="first">
+											<a class="navbar-brand" href="{{ path('accueil') }}">
+												<img src="{{asset('img/logo.png')}}" width="160" height="40" class="img-fluid" alt="hedee.co">
+											</a>
+										</div>
+                            		</div> <!-- fin class="col-md-6 logo"-->
+
+                                </div> <!-- fin class="nav-item second"--> 
+								  
+                </nav> <!-- fin class="nav navbar-nav navbar-right"-->
+                
+                
+                            
+                
+
+            </div> <!-- fin class="navbar fixed-top"-->
+
+			<!-- *******FIN MENU MOBILE****** -->
+
+			<div class="fullscreen-menu-container js-menu-container">
+
+				<a class="menu-button js-menu-close">
+					<div class="menu-icon is-active">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</a>
+
+				<div class="fullscreen-menu">
+
+					<div class="entete_menu_open">
+							<div class="logo_h_entete">
+								<a href="{{ path('accueil') }}"> <img src="{{asset('img/header/logo_hedee.png')}}" width="150" height="130" class="img-fluid" alt=""> </a>
+							</div>
+					</div>
+				
+
+					<nav class="fullscreen-menu__nav">
+						<ul>
+
+							<li>
+								<a href="{{ path('a_propos') }}">Pourquoi hedee ?</a>
+							</li>
+								<hr class="trait_menu1">
+							<li>
+								<a href="{{ path('comment_ca_marche') }}">Comment fonctionne hedee ?</a>
+							</li>
+								<hr class="trait_menu2">
+							<li>
+								<a href="{{ path('foire_aux_questions') }}">Vos questions</a>
+							</li>
+							
+						</ul>
+					</nav>
+
+					<div class="bas">
+						<div class="compte_h_entete">
+							<a href="{{ path('connexion') }}" class="js-menu-client-button"> 
+								<img src="{{asset('img/header/mon_compte.png')}}" width="200" height="130" class="img-fluid" alt=""> 
+							</a>	
+						</div>
+					
+						<div class="recup_argent_h_entete">
+							<a href="{{ path('enseigne') }}"> 
+								<img src="{{asset('img/header/recup_argent.png')}}" width="250" height="100" class="img-fluid" alt=""> 
+							</a>
+						</div>
+					</div>
+
+					{#<div class="container-fluid">
+					<div class="reseau_menu">
+						<div class="title_reseau">
+							<p>Retrouvez hedee sur les réseaux sociaux !</p>
+						</div> <!--fin class="title_reseau"-->
+						<div class="justify-content-center logo_reseau_menu">
+							<div class="fb_orange">
+								<a href="#"> <img src="img/header/fb_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+							</div>
+							<div class="twitter_orange">
+								<a href="#"> <img src="img/header/twitter_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+							</div>
+							<div class="insta_orange">
+								<a href="#"> <img src="img/header/insta_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+							</div>
+							<div class="linkedin_orange">
+								<a href="#"> <img src="img/header/linkedin_orange.png" width="90" height="90" class="img-fluid" alt=""> </a>
+							</div>
+						</div> <!--fin class="logo_reseau_menu"-->
+					</div> <!--fin class="reseau_menu"-->
+					</div>#}
+
+			</div> <!--fin class="fullscreen-menu-container js-menu-container"-->
+		
+		</header>
+	
+		{#MAIN#}
+		<main>
+			{#<div class="screen-connection js-menu-connection">
+				<div class="bloc_popup">
+					<div class="block_left1 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<div id="switch_inscription" class="switch">			
+								<button class="btn switch_first">Je rejoins hedee</button>
+								<button class="btn switch_second1"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
+							
+						</div>
+					</div>
+					<div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<button class="close js-menu-client-close"><i class="fa fa-close" style="font-size:24px"></i></button>
+						<form action="{{ path('connexion') }}" method="post" id="connexion">
+							<h3> J'ai déjà un compte </h3> 
+							
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							<input type="text" id="username" name="_username" placeholder="Votre adresse mail"/>
+
+							<input type="password" id="password" name="_password" placeholder="Votre mot de passe"/>
+							
+							<input type="hidden" name="_target_path" value="/profil" />
+							<a href="{{path('request_resetting')}}" target="blank">Mot de passe oublié</a>
+							<br>
+							<button class="blue_button">Je me connecte</button>
+						</form>
+					</div>
+				</div>
+			</div> <!--fin class="screen-connection js-menu-connection"-->
+
+
+			<div class="screen-inscription js-menu-inscription">
+				<div class="bloc_popup">
+					<div class="block_left1 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<div id="switch_connection" class="switch">			
+								<button class="btn switch_first">Je rejoins hedee</button>
+								<button class="btn switch_second1"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
+							
+						</div>
+					</div>
+					<div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<button class="close js-menu-client-close"><i class="fa fa-close" style="font-size:24px"></i></button>
+						<form action="{{ path('inscription') }}" method="post" id="inscription">
+							<h3> Rejoindre hedee </h3> 
+							
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							<input type="text" name="_username" placeholder="Votre adresse mail"/>
+
+							<input type="password"  name="_password" placeholder="Votre mot de passe"/>
+
+							<input type="password"  name="_password2" placeholder="Confirmer le mot de passe"/>
+
+							<br>
+							<button class="orange_button">Je crée mon compte</button>
+						</form>
+					</div>
+				</div>
+			</div> <!--fin class="screen-inscription js-menu-inscrption"--> #}
+
+
+			
+			{% block main %}
+			{% endblock %}
+        </main>
+
+		<footer>
+			<div class="container-fluid footer_bleu">
+					<div class="row">
+						<div class="col-md-12  reseau_sociaux">
+							<div class="text-center mt-5 mb-3 title_reseau">
+								<h5>Retrouvez hedee sur les réseaux sociaux !</h5>
+							</div>
+							
+							<div class="row justify-content-center mb-5 logos_reseau">
+								<div class="col-4-md-4 mr-3 facebook">
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="{{asset('img/footer/fb_bleu.png')}}" alt="" > </a>
+								</div>
+
+								<div class="col-4-md-4 mr-3 twitter">
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="{{asset('img/footer/twitter_bleu.png')}}" alt="" > </a>
+								</div>
+
+								<div class="col-4-md-4 mr-3 instagram">
+									<a href="#">  <img width="50" height="50" class="img-fluid" src="{{asset('img/footer/insta_bleu.png')}}" alt="" > </a>
+								</div>
+
+								<div class="col-4-md-4 mr-3 linkedin">
+									<a href="#">  <img width="50" href=#ight="50" class="img-fluid" src="{{asset('img/footer/linkedin_bleu.png')}}" alt="" > </a>
+								</div>
+							</div>
+						</div> <!--fin class="reseau_sociaux"-->
+						
+						<div class="container">
+						<div class="row justify-content-center hedee_footer">
+							
+							<div class="col-md-4 okk">
+								<div class="sous_title_reseau">
+									<h4>Tout sur hedee</h4>
+								</div>
+
+								<div class="list_footer">
+									<ul>
+										<li><a href="{{ path('a_propos') }}">Pourquoi hedee ?</a></li>
+										<li><a href="{{ path('comment_ca_marche') }}">Comment fonctionne hedee ?</a></li>
+										<li><a href="{{ path('foire_aux_questions') }}">Vos questions</a></li>
+									</ul>
+								</div>
+
+							</div>
+
+							<div class="col-md-4">
+								<div class="sous_title_reseau">
+									<h4>Hedee et vous</h4>
+								</div>
+
+								<div class="list_footer">
+									<ul>
+										<li><a href="{{ path('mentions_legales') }}">Mentions légales</a></li>
+										<li><a href="{{ path('cgu') }}">CGU</a></li>
+										<li><a href="{{ path('donnees_perso') }}">Données personnelles</a></li>
+									</ul>
+								</div>
+
+							</div>
+
+							<div class="col-md-4">
+								<div class="bouton_footer">
+									<a href="{{ path('contact') }}"><center>  
+										<img width="200" height="30" class="img-fluid mt-4" src="{{asset('img/footer/bouton_footer.png')}}" alt="" > 
+									</center></a>
+								</div>
+							</div>
+							
+						</div></div> <!--fin class="row justify-content-center hedee_footer"-->
+
+						
+							<div class="col-md-12 mt-5 text-center copyright">
+								<hr class="mb-3 trait_footer">
+								<p>&#169;2019 hedee.co tous droits réservés.</p>
+							</div>
+						
+
+					</div><!--fin class="row footer_bleu"-->
+			</div><!--fin class="container-fluid"-->
+		</footer>
+		
+	
+		<script src="{{ asset('js/cookiechoices.js') }}"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function(event){
+				cookieChoices.showCookieConsentBar('Ce site utilise des cookies pour vous offrir le meilleur service. En poursuivant votre navigation, vous acceptez l’utilisation des cookies.', 
+				'J’accepte', 
+				'En savoir plus', 
+				'{{ path("mentions_legales") }}'
+				);
+			});
+		</script>
+		<script src="{{asset('jquery/jquery-steps/build/jquery.steps.js')}}"></script>
+		<script src="{{asset('jquery/jquery-validate/dist/jquery.validate.js')}}"></script>
+		<script src="{{asset('js/fonctions.js')}}"></script>
+		<script>
+			$('.js-menu-client-close').click(function(){
+				window.location.href = "{{ path('accueil') }}"
+			})
+
+			jQuery(document).ready(function($){ // When everything has finished loading
+				//Fonction pour fermer les messages
+				$('.flash-notice-close').click(function(){
+					temp = $(this).parent().next()
+					$(this).parent().fadeOut()
+				})
+		
+				// Fonctions pour le menu déroulant
+				function openMenu() {
+					$('.js-menu-container').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+					$('.navbar.fixed-top').fadeToggle('1200');
+				}
+				function closeMenu() {
+					$('.js-menu-container').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+					$('.navbar.fixed-top').fadeToggle('1200');
+				}
+				//$('.js-menu-cookie').addClass('is-open');
+				$('.js-menu-button').click(function(){ // When the element with the class 'js-menu-button' is clicked
+					openMenu(); // Run the openMenu function
+				});
+				$('.js-menu-close').click(function(){ // When the element with the class 'js-menu-close' is clicked
+					closeMenu(); // Run the closeMenu function
+				});
+			});
+			// Keyboard Accessibility
+			jQuery(document).keyup(function(e) { // Listen for keyboard presses
+				if (e.keyCode === 27) { // 'Esc' key
+					if ($('.js-menu-container').hasClass('is-open')) { // If the menu is open close it
+					closeMenu(); // Run the closeMenu function
+					}
+				}
+			});
+
+				function openInscriptionMenu() {
+						$('.js-menu-inscription').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+						$('footer').fadeToggle('1200');
+
+					}
+					function closeInscriptionMenu() {
+						$('.js-menu-inscription').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+						//$('.footer').fadeToggle('1200');
+					}
+
+					function openConnectionMenu() {
+						$('.js-menu-connection').addClass('is-open'); // Find element with the class 'js-menu-container' and apply an additional class of 'is-open'
+						$('footer').fadeToggle('1200');
+
+					}
+					function closeConnectionMenu() {
+						$('.js-menu-connection').removeClass('is-open'); // Find element with the class 'js-menu-container' and remove the class 'is-open'
+						//$('.footer').fadeToggle('1200');
+					}
+
+				// Document Ready
+					jQuery(document).ready(function($){
+						// When everything has finished loading
+						$('.js-menu-client-button').click(function(){
+							openConnectionMenu(); // Run the openMenu function
+						});
+						$('.js-menu-client-close').click(function(){
+							// When the element with the class 'js-menu-close' is clicked
+							closeInscriptionMenu(); // Run the closeMenu function
+							closeConnectionMenu()
+						});
+						$('#switch_inscription').click(function(){
+							$('.js-menu-inscription').addClass('is-open');
+							$('.js-menu-connection').removeClass('is-open');
+							openInscriptionMenu();
+						});
+						$('#switch_connection').click(function(){
+							$('.js-menu-connection').addClass('is-open');
+							$('.js-menu-inscription').removeClass('is-open');
+							openConnectionMenu();
+						});
+				});
+				
+				// Keyboard Accessibility
+					jQuery(document).keyup(function(e) { // Listen for keyboard presses
+						if (e.keyCode === 27) { // 'Esc' key
+							if ($('.js-menu-container').hasClass('is-open')) { // If the menu is open close it
+								closeMenu(); // Run the closeMenu function
+							}
+						}
+				});
+
+
+			
+		</script>
+					
+		{% block javascript %}
+		{% endblock %}
+	</body>
+</html>

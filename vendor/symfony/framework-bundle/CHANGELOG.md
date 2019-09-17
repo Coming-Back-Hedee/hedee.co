@@ -4,6 +4,7 @@ CHANGELOG
 4.3.0
 -----
 
+ * Deprecated the `framework.templating` option, configure the Twig bundle instead.
  * Added `WebTestAssertionsTrait` (included by default in `WebTestCase`)
  * Renamed `Client` to `KernelBrowser`
  * Not passing the project directory to the constructor of the `AssetsInstallCommand` is deprecated. This argument will
@@ -15,7 +16,7 @@ CHANGELOG
  * [BC Break] When using Messenger, the default transport changed from
    using Symfony's serializer service to use `PhpSerializer`, which uses
    PHP's native `serialize()` and `unserialize()` functions. To use the
-   original serialization method, set the `framework.messenger.defaut_serializer`
+   original serialization method, set the `framework.messenger.default_serializer`
    config option to `messenger.transport.symfony_serializer`. Or set the
    `serializer` option under one specific `transport`.
  * [BC Break] The `framework.messenger.serializer` config key changed to

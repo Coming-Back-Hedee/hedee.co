@@ -45,8 +45,7 @@ class DoctrineDataCollector extends DataCollector
     /**
      * Adds the stack logger for a connection.
      *
-     * @param string     $name
-     * @param DebugStack $logger
+     * @param string $name
      */
     public function addLogger($name, DebugStack $logger)
     {
@@ -120,7 +119,7 @@ class DoctrineDataCollector extends DataCollector
         return 'db';
     }
 
-    private function sanitizeQueries($connectionName, $queries)
+    private function sanitizeQueries(string $connectionName, array $queries)
     {
         foreach ($queries as $i => $query) {
             $queries[$i] = $this->sanitizeQuery($connectionName, $query);
@@ -129,7 +128,7 @@ class DoctrineDataCollector extends DataCollector
         return $queries;
     }
 
-    private function sanitizeQuery($connectionName, $query)
+    private function sanitizeQuery(string $connectionName, $query)
     {
         $query['explainable'] = true;
         if (null === $query['params']) {
@@ -137,6 +136,9 @@ class DoctrineDataCollector extends DataCollector
         }
         if (!\is_array($query['params'])) {
             $query['params'] = [$query['params']];
+        }
+        if (!\is_array($query['types'])) {
+            $query['types'] = [];
         }
         foreach ($query['params'] as $j => $param) {
             if (isset($query['types'][$j])) {

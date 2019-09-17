@@ -1,4 +1,4 @@
-
+                 
                     <div class="code_postal">
                         {{ form_label(form1.ville) }}
                         
@@ -41,11 +41,13 @@
                     </div>
 
 
+
     {% block javascript %}
-        <script>
+        {#<script>
             var url_marques = "{{ path('admin_utility_marques') }}";
             var url_villes = "{{ path('admin_utility_villes') }}";
             
+            /*
             $.ajax({
                 dataType: "json",
                 url: url_villes,
@@ -64,8 +66,8 @@
                         minLength: 2,
                         delay: 100,
                     })
-                    $('#mar').bind('change', function(){
-                        this.value = $.ucfirst(this.value)
+                    $('#cp').bind('change', function(){
+                        this.value = ucfirst(this.value)
                     });
                 }
             });
@@ -89,9 +91,9 @@
                         delay: 100,
                     })
                     $('#mar').bind('change', function(){
-                        this.value = $.ucfirst(this.value)
+                        this.value = ucfirst(this.value)
                     });
                 }
-            });
+            });#}
         </script>  
         {% endblock %}

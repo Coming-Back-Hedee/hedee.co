@@ -91,6 +91,11 @@ class ProfilController extends AbstractController
                     $modeVersement->bis_construct($post);
                     $user->setModeVersement($modeVersement);
                 }
+                else{
+                    $repo2 = $this->getDoctrine()->getRepository(ModeVersement::class);
+                    $aSupprimer = $repo2->findBy(['clients' => $user]);
+                    $em->remove($aSupprimer);
+                }
                 $flashbag->add("success", "Le nouveau mode de versement a bien été pris en compte"); 
             }
             else{
@@ -143,6 +148,11 @@ class ProfilController extends AbstractController
                     $adresse = new Adresses();
                     $adresse->bis_construct($post);
                     $user->setAdresse($adresse);
+                }
+                else{
+                    $repo2 = $this->getDoctrine()->getRepository(Adresses::class);
+                    $aSupprimer = $repo2->findBy(['clients' => $user]);
+                    $em->remove($aSupprimer);
                 }
                 $flashbag->add("success", "Vos modifications ont bien été prises en compte"); 
             }

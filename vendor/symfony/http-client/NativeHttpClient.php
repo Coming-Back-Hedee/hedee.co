@@ -73,13 +73,13 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
 
         $options['body'] = self::getBodyAsString($options['body']);
 
-        if ('' !== $options['body'] && 'POST' === $method && !isset($options['headers']['content-type'])) {
-            $options['request_headers'][] = 'content-type: application/x-www-form-urlencoded';
+        if ('' !== $options['body'] && 'POST' === $method && !isset($options['normalized_headers']['content-type'])) {
+            $options['headers'][] = 'Content-Type: application/x-www-form-urlencoded';
         }
 
-        if ($gzipEnabled = \extension_loaded('zlib') && !isset($options['headers']['accept-encoding'])) {
+        if ($gzipEnabled = \extension_loaded('zlib') && !isset($options['normalized_headers']['accept-encoding'])) {
             // gzip is the most widely available algo, no need to deal with deflate
-            $options['request_headers'][] = 'accept-encoding: gzip';
+            $options['headers'][] = 'Accept-Encoding: gzip';
         }
 
         if ($options['peer_fingerprint']) {
@@ -98,9 +98,9 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
             'http_code' => 0,
             'redirect_count' => 0,
             'start_time' => 0.0,
-            'fopen_time' => 0.0,
             'connect_time' => 0.0,
             'redirect_time' => 0.0,
+            'pretransfer_time' => 0.0,
             'starttransfer_time' => 0.0,
             'total_time' => 0.0,
             'namelookup_time' => 0.0,
@@ -118,7 +118,7 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
             $onProgress = static function (...$progress) use ($onProgress, &$lastProgress, &$info) {
                 $progressInfo = $info;
                 $progressInfo['url'] = implode('', $info['url']);
-                unset($progressInfo['fopen_time'], $progressInfo['size_body']);
+                unset($progressInfo['size_body']);
 
                 if ($progress && -1 === $progress[0]) {
                     // Response completed
@@ -133,14 +133,14 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
 
         // Always register a notification callback to compute live stats about the response
         $notification = static function (int $code, int $severity, ?string $msg, int $msgCode, int $dlNow, int $dlSize) use ($onProgress, &$info) {
-            $now = microtime(true);
-            $info['total_time'] = $now - $info['start_time'];
+            $info['total_time'] = microtime(true) - $info['start_time'];
 
             if (STREAM_NOTIFY_PROGRESS === $code) {
+                $info['starttransfer_time'] = $info['starttransfer_time'] ?: $info['total_time'];
                 $info['size_upload'] += $dlNow ? 0 : $info['size_body'];
                 $info['size_download'] = $dlNow;
             } elseif (STREAM_NOTIFY_CONNECT === $code) {
-                $info['connect_time'] += $now - $info['fopen_time'];
+                $info['connect_time'] = $info['total_time'];
                 $info['debug'] .= $info['request_header'];
                 unset($info['request_header']);
             } else {
@@ -160,12 +160,12 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
 
         [$host, $port, $url['authority']] = self::dnsResolve($url, $this->multi, $info, $onProgress);
 
-        if (!isset($options['headers']['host'])) {
-            $options['request_headers'][] = 'host: '.$host.$port;
+        if (!isset($options['normalized_headers']['host'])) {
+            $options['headers'][] = 'Host: '.$host.$port;
         }
 
-        if (!isset($options['headers']['user-agent'])) {
-            $options['request_headers'][] = 'user-agent: Symfony HttpClient/Native';
+        if (!isset($options['normalized_headers']['user-agent'])) {
+            $options['headers'][] = 'User-Agent: Symfony HttpClient/Native';
         }
 
         $context = [
@@ -208,7 +208,7 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
 
         $resolveRedirect = self::createRedirectResolver($options, $host, $proxy, $noProxy, $info, $onProgress);
         $context = stream_context_create($context, ['notification' => $notification]);
-        self::configureHeadersAndProxy($context, $host, $options['request_headers'], $proxy, $noProxy);
+        self::configureHeadersAndProxy($context, $host, $options['headers'], $proxy, $noProxy);
 
         return new NativeResponse($this->multi, $context, implode('', $url), $options, $gzipEnabled, $info, $resolveRedirect, $onProgress, $this->logger);
     }
@@ -220,7 +220,7 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
     {
         if ($responses instanceof NativeResponse) {
             $responses = [$responses];
-        } elseif (!\is_iterable($responses)) {
+        } elseif (!is_iterable($responses)) {
             throw new \TypeError(sprintf('%s() expects parameter 1 to be an iterable of NativeResponse objects, %s given.', __METHOD__, \is_object($responses) ? \get_class($responses) : \gettype($responses)));
         }
 
@@ -310,7 +310,7 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
                 throw new TransportException(sprintf('Could not resolve host "%s".', $host));
             }
 
-            $info['namelookup_time'] += microtime(true) - $now;
+            $info['namelookup_time'] = microtime(true) - ($info['start_time'] ?: $now);
             $multi->dnsCache[$host] = $ip = $ip[0];
             $info['debug'] .= "* Added {$host}:0:{$ip} to DNS cache\n";
         } else {
@@ -335,12 +335,12 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
         $redirectHeaders = [];
         if (0 < $maxRedirects = $options['max_redirects']) {
             $redirectHeaders = ['host' => $host];
-            $redirectHeaders['with_auth'] = $redirectHeaders['no_auth'] = array_filter($options['request_headers'], static function ($h) {
+            $redirectHeaders['with_auth'] = $redirectHeaders['no_auth'] = array_filter($options['headers'], static function ($h) {
                 return 0 !== stripos($h, 'Host:');
             });
 
-            if (isset($options['headers']['authorization']) || isset($options['headers']['cookie'])) {
-                $redirectHeaders['no_auth'] = array_filter($options['request_headers'], static function ($h) {
+            if (isset($options['normalized_headers']['authorization']) || isset($options['normalized_headers']['cookie'])) {
+                $redirectHeaders['no_auth'] = array_filter($options['headers'], static function ($h) {
                     return 0 !== stripos($h, 'Authorization:') && 0 !== stripos($h, 'Cookie:');
                 });
             }
@@ -368,10 +368,9 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
                 return null;
             }
 
-            $now = microtime(true);
             $info['url'] = $url;
             ++$info['redirect_count'];
-            $info['redirect_time'] = $now - $info['start_time'];
+            $info['redirect_time'] = microtime(true) - $info['start_time'];
 
             // Do like curl and browsers: turn POST to GET on 301, 302 and 303
             if (\in_array($info['http_code'], [301, 302, 303], true)) {
@@ -394,7 +393,7 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
             if (false !== (parse_url($location, PHP_URL_HOST) ?? false)) {
                 // Authorization and Cookie headers MUST NOT follow except for the initial host name
                 $requestHeaders = $redirectHeaders['host'] === $host ? $redirectHeaders['with_auth'] : $redirectHeaders['no_auth'];
-                $requestHeaders[] = 'host: '.$host.$port;
+                $requestHeaders[] = 'Host: '.$host.$port;
                 self::configureHeadersAndProxy($context, $host, $requestHeaders, $proxy, $noProxy);
             }
 

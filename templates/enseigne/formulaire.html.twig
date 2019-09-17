@@ -22,8 +22,9 @@
                         </div>
                     </div>
                     <div id="form_demande">
-                    
-                    </div>           
+                        <div id="form_internet"></div>
+                        <div id="form_magasin"></div> 
+                    </div>          
                 </section> <!-- fin étape 1 formulaire -->
                 
                 <h3 style="display: none;">Identification</h3>
@@ -133,26 +134,59 @@
         
         step(form)
         $('body').on('change', 'input[name=choix]', function() {
+            //console.log($('#form_demande').html() == "")
             
-
             if($("[name='choix']:checked").val() == "internet"){
                 var url = "{{ path('internet') }}";
-                $.ajax({
+                if($('#form_demande').html() == ""){
+                    //if(document.getElementById('url') == null){
+                        $('#form_internet').load("{{ path('internet') }}")
+                    //}
+                }
+                else{
+                    $('#form_magasin').hide()
+                    if(document.getElementById('url') == null){
+                        $('#form_internet').load("{{ path('internet') }}")
+                        $('#form_internet').show()
+                    }
+                    else{
+                        $('#form_internet').show()
+                    }
+                }                 
+                /*$.ajax({
                     type: 'get',
                     url: url,
                     success: function (data) {
                         $('#form_demande').html(data);
                         var form = $("#form-enseigne");
                         //step(form)
-                        recap = '<label for="recap_url">Url de la page du produit</label><input id="recap_url" type="text" readonly><br>'   
-                        $('#recap_produit').html(recap);             
+                                    
                     }
-                });
+                });*/
+                
+                recap = '<label for="recap_url">Url de la page du produit</label><input id="recap_url" type="text" readonly><br>'   
+                $('#recap_produit').html(recap); 
             }
             if($("[name='choix']:checked").val() == "magasin"){
-                var url = "{{ path('mag') }}";
-                
-                $.ajax({
+                var url = "{{ path('mag') }}";    
+                  if($('#form_demande').html() == ""){
+                    //if(document.getElementById('url') == null){
+                        $('#form_magasin').load("{{ path('mag') }}")
+                    //}
+                }
+                else{
+                    $('#form_internet').hide()
+                    console.log(document.getElementById('mar'))
+                    if(document.getElementById('mar') == null){
+                        console.log('ici')
+                        $('#form_magasin').load("{{ path('mag') }}")
+                        $('#form_magasin').show()
+                    }
+                    else{
+                        $('#form_magasin').show()
+                    }
+                }            
+                /*$.ajax({
                     type: 'get',
                     url: url,
                     success: function (data) {
@@ -164,7 +198,12 @@
                                             
                         $('#recap_produit').html(recap);  
                     }
-                });
+                });*/
+                //$('#form_demande').load("{{ path('mag') }}")
+                recap = '<label for="recap_marque">Marque</label><input id="recap_marque" type="text" readonly><br>'
+                recap += '<label for="recap_ref">Référence</label><input id="recap_ref" type="text" readonly><br>'
+                                            
+                $('#recap_produit').html(recap); 
             }               
         });
             
@@ -414,12 +453,18 @@
                                         //contentType: false ,  // indique à jQuery de ne pas configurer le contentType           
                         });
                     }
+                    $( document ).ajaxStart(function() {
+                        $( "#chargement" ).show();
+                    });
+                    $( document ).ajaxStop(function() {
+                        $("#chargement").hide();
+                    });
                     $.ajax({
                         type: 'get',
                         url: "{{path('felicitation')}}",
                         success: function (data) {
-                            $('#bloc_header').html(data); 
-                            $('#form_location').html(""); 
+                            $('#bloc_header').html("<h1 class='header_title'>Félicitations</h1>"); 
+                            $('#form_location').html(data); 
 
                         }
                     });

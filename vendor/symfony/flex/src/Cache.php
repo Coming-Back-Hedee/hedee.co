@@ -25,32 +25,16 @@ class Cache extends BaseCache
     private $versionParser;
     private $symfonyRequire;
     private $symfonyConstraints;
+    private $downloader;
+    private $io;
 
-    public function setSymfonyRequire(string $symfonyRequire, array $versions, IOInterface $io = null)
+    public function setSymfonyRequire(string $symfonyRequire, Downloader $downloader, IOInterface $io = null)
     {
         $this->versionParser = new VersionParser();
         $this->symfonyRequire = $symfonyRequire;
         $this->symfonyConstraints = $this->versionParser->parseConstraints($symfonyRequire);
-
-        foreach ($versions['splits'] as $name => $vers) {
-            foreach ($vers as $i => $v) {
-                $v = $this->versionParser->normalize($v);
-
-                if (!$this->symfonyConstraints->matches(new Constraint('==', $v))) {
-                    if (null !== $io) {
-                        $io->writeError(sprintf('<info>Restricting packages listed in "symfony/symfony" to "%s"</info>', $this->symfonyRequire));
-                        $io = null;
-                    }
-                    unset($vers[$i]);
-                }
-            }
-
-            if (!$vers || $vers === $versions['splits'][$name]) {
-                unset($versions['splits'][$name]);
-            }
-        }
-
-        $this->versions = $versions;
+        $this->downloader = $downloader;
+        $this->io = $io;
     }
 
     public function read($file)
@@ -71,12 +55,16 @@ class Cache extends BaseCache
         }
 
         foreach ($data['packages'] as $name => $versions) {
-            if (!isset($this->versions['splits'][$name]) || null === $devMasterAlias = $versions['dev-master']['extra']['branch-alias']['dev-master'] ?? null) {
+            if (!isset($this->getVersions()['splits'][$name])) {
                 continue;
             }
 
             foreach ($versions as $version => $composerJson) {
                 if ('dev-master' === $version) {
+                    if (null === $devMasterAlias = $versions['dev-master']['extra']['branch-alias']['dev-master'] ?? null) {
+                        continue;
+                    }
+
                     $normalizedVersion = $this->versionParser->normalize($devMasterAlias);
                 } elseif (!isset($composerJson['version_normalized'])) {
                     continue;
@@ -85,6 +73,10 @@ class Cache extends BaseCache
                 }
 
                 if (!$this->symfonyConstraints->matches(new Constraint('==', $normalizedVersion))) {
+                    if (null !== $this->io) {
+                        $this->io->writeError(sprintf('<info>Restricting packages listed in "symfony/symfony" to "%s"</info>', $this->symfonyRequire));
+                        $this->io = null;
+                    }
                     unset($versions[$version]);
                 }
             }
@@ -115,5 +107,31 @@ class Cache extends BaseCache
         }
 
         return $data;
+    }
+
+    private function getVersions(): array
+    {
+        if (null !== $this->versions) {
+            return $this->versions;
+        }
+
+        $versions = $this->downloader->getVersions();
+        $this->downloader = null;
+
+        foreach ($versions['splits'] as $name => $vers) {
+            foreach ($vers as $i => $v) {
+                $v = $this->versionParser->normalize($v);
+
+                if (!$this->symfonyConstraints->matches(new Constraint('==', $v))) {
+                    unset($vers[$i]);
+                }
+            }
+
+            if (!$vers || $vers === $versions['splits'][$name]) {
+                unset($versions['splits'][$name]);
+            }
+        }
+
+        return $this->versions = $versions;
     }
 }

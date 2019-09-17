@@ -387,7 +387,7 @@ class TextDescriptor extends Descriptor
             return;
         }
 
-        return $this->describeContainerDefinition($builder->getDefinition((string) $alias), array_merge($options, ['id' => (string) $alias]));
+        $this->describeContainerDefinition($builder->getDefinition((string) $alias), array_merge($options, ['id' => (string) $alias]));
     }
 
     /**
@@ -540,7 +540,7 @@ class TextDescriptor extends Descriptor
 
         try {
             if (\is_array($controller)) {
-                $r = new \ReflectionMethod($controller);
+                $r = new \ReflectionMethod($controller[0], $controller[1]);
             } elseif ($controller instanceof \Closure) {
                 $r = new \ReflectionFunction($controller);
             } elseif (method_exists($controller, '__invoke')) {
@@ -557,8 +557,11 @@ class TextDescriptor extends Descriptor
         }
 
         $fileLink = $this->fileLinkFormatter->format($r->getFileName(), $r->getStartLine());
+        if ($fileLink) {
+            return sprintf('<href=%s>%s</>', $fileLink, $anchorText);
+        }
 
-        return sprintf('<href=%s>%s</>', $fileLink, $anchorText);
+        return $anchorText;
     }
 
     private function formatCallable($callable): string

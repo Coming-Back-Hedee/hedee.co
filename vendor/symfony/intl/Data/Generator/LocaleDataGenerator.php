@@ -65,9 +65,9 @@ class LocaleDataGenerator extends AbstractDataGenerator
     protected function preGenerate()
     {
         // Write parents locale file for the Translation component
-        \file_put_contents(
+        file_put_contents(
             __DIR__.'/../../../Translation/Resources/data/parents.json',
-            \json_encode($this->localeParents, \JSON_PRETTY_PRINT).\PHP_EOL
+            json_encode($this->localeParents, \JSON_PRETTY_PRINT).\PHP_EOL
         );
     }
 
@@ -79,7 +79,7 @@ class LocaleDataGenerator extends AbstractDataGenerator
         // Don't generate aliases, as they are resolved during runtime
         // Unless an alias is needed as fallback for de-duplication purposes
         if (isset($this->localeAliases[$displayLocale]) && !$this->generatingFallback) {
-            return;
+            return null;
         }
 
         // Generate locale names for all locales that have translations in
@@ -124,7 +124,7 @@ class LocaleDataGenerator extends AbstractDataGenerator
             $data['Names'] = array_diff($data['Names'], $fallbackData['Names']);
         }
         if (!$data['Names']) {
-            return;
+            return null;
         }
 
         return $data;
