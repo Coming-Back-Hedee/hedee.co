@@ -48,7 +48,7 @@ class InscriptionController extends AbstractController
             return $this->redirectToRoute('inscription');
         }
 
-        $bodyMail = $mailer->createBodyMail('inscription/mail2.html.twig', [
+        $bodyMail = $mailer->createBodyMail('inscription/mail3.html.twig', [
             'user' => $user
         ]);
         

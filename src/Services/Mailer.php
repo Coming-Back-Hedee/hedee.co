@@ -21,13 +21,15 @@ class Mailer
 
     public function sendAdminMessage($from, $to, $subject, $body, $attachement = null)
     {
+        
         $mail = (new \Swift_Message($subject))
             ->setFrom("hello@hedee.co")
             ->setTo($to)
             ->setSubject($subject)
             ->setBody($body)
             ->setReplyTo($from)
-            ->setContentType('text/html');
+            ->setContentType('text/html')
+            ->attach(new \Swift_Attachment($attachement, "test.pdf", 'application/pdf'));
 
         $this->mailer->send($mail);
     }
@@ -41,6 +43,7 @@ class Mailer
             ->setBody($body)
             ->setReplyTo($from)
             ->setContentType('text/html');
+            
 
         $this->mailer->send($mail);
     }

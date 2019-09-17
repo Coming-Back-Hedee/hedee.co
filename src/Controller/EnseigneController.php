@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormTypeInterface;
 
+use setasign\Fpdi\Tcpdf\Fpdi;
+use setasign\Fpdi\PdfReader;
+
 use App\Security\FormLoginAuthenticator;
 use App\Form\EligibiliteType;
 use App\Form\DemandesMagasinType;
@@ -33,6 +36,7 @@ use App\Entity\Demandes;
 use App\Entity\Magasins;
 
 use App\Services\Mailer;
+use App\Services\Facture;
 
 /**
  * @Route("/demande-remboursement")
@@ -254,7 +258,7 @@ class EnseigneController extends AbstractController
 
 
     public function handle_form($em, $user, $demande, $form, Request $request, 
-                    Mailer $mailer, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $authenticator, 
+                    Mailer $mailer, Facture $facture, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $authenticator, 
                         UserPasswordEncoderInterface $passwordEncoder){
         $session = $request->getSession();
         $clientFile = null;
@@ -307,10 +311,11 @@ class EnseigneController extends AbstractController
             $em->flush();
 
             
-            $bodyMail = $mailer->createBodyMail('enseigne/mail2.html', [ 'user' => $user,
+            $bodyMail = $mailer->createBodyMail('enseigne/mail2.html.twig', [ 'user' => $user,
                 'demande' => $demande
             ]);
-            $mailer->sendAdminMessage('hello@hedee.co', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail);
+            $this->forward('App\Controller\PdfController::depot', ['pdf'  => $pdf, 'num' => $demande->getId()]);
+            $mailer->sendAdminMessage('hello@hedee.co', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail, $pdf->Output('', 'S'));
 
             return $this->redirectToRoute('profil');
         }

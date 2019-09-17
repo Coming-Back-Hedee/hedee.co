@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Un Email Responsive</title>
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
         <style type="text/css">
             body {margin: 0; padding: 0; min-width: 100%!important;}
             .content {width: 100%; max-width: 600px;}  
@@ -10,7 +11,6 @@
             @media only screen and (min-device-width: 601px) {
             .content {width: 600px !important;}
             }
-
             .header {padding: 40px 30px 20px 30px;}
         </style>
     </head>
@@ -31,8 +31,11 @@
                             <td>
                                 <p>
                                     Bonjour {{user.prenom}},
-                                    Nous avons bien reçu votre demande de prise en charge n° {{ demande.numeroDossier }}. Notre service s'occupe de tout !
-                                    Vous trouverez en pièce jointe un récapitulatif de votre demande.                       
+                                    Hedee vous remercie d’avoir renseigné votre achat n° {{ demande.numeroDossier }}. 
+                                    Vous serez alerté par mail dès qu’hedee aura trouvé moins cher.
+                                    Pas d’inquiétude, hedee procédera à votre demande de remboursement. 
+                                    Si vous n’êtes pas alerté, le dépôt de votre achat contribuera sûrement au
+remboursement d’un autre client.                      
                                 </p>
                             </td>
                         </tr>

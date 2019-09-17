@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use setasign\Fpdi\Tcpdf\Fpdi;
+use setasign\Fpdi\PdfReader;
 
 use App\Entity\Categories;
 use App\Entity\Demandes;
@@ -49,6 +51,11 @@ class AccueilController extends AbstractController
      */
     public function contact(Request $request, Mailer $mailer)
     {
+        /*$attachment = 'factures/vv-vl7ByNv5O70KncOcXBe_-wy7mw1Uk4K4hguRM5cI.pdf';
+        $pdf = new FPDI();
+        //$path_pdf = "/factures/" . $attachement;
+        $this->forward('App\Controller\PdfController::recup_pdf', ['pdf'  => $pdf,  'path'  => $attachment]);
+        $mailer->sendAdminMessage("skm.jeremy@gmail.com", "davidslk230@hotmail.fr", "test" , "Ceci est un test", $pdf->Output('', 'S'));*/
         $flashbag = $this->get('session')->getFlashBag();
         $session = $request->getSession();
         if($request->getMethod() == 'POST'){
@@ -63,9 +70,9 @@ class AccueilController extends AbstractController
         return $this->render('utile/contact.html.twig');
     }
 
-    /**
+    /*
      * @Route("/test/{id}", name="recap", requirements={"id"="\d+"})
-     */
+     
     public function recapitulatif(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -79,5 +86,5 @@ class AccueilController extends AbstractController
         return $this->render('test.html.twig', ['dossier' => $dossier]);
 
     }
-
+    */
 }

@@ -15,6 +15,7 @@ use setasign\Fpdi\Tcpdf\Fpdi;
 use setasign\Fpdi\PdfReader;
 
 use App\Entity\Enseignes;
+use App\Entity\Demandes;
 use App\Entity\AlertePrix;
 
 class PdfController extends AbstractController
@@ -83,6 +84,36 @@ class PdfController extends AbstractController
         
     }
 
+    public function depot($pdf, $num){  
+        $repo = $this->getDoctrine()->getRepository(Demandes::class);
+        $demande = $repo->find($num);
+
+        //$pdf = new \FPDF();
+        $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        // remove default header/footer
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+
+        // set default monospaced font
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // set margins
+        $pdf->SetMargins(PDF_MARGIN_LEFT, 0, PDF_MARGIN_RIGHT);
+
+        // set auto page breaks
+        $pdf->SetAutoPageBreak(FALSE);
+        $pdf->SetTextColor(40, 0, 220);
+        $pdf->AddPage();
+        $dir = getcwd();
+        $bgImg = $dir . "/img/facture/bg.png";
+        $pdf->Image($bgImg, 0, 0, $pdf->getPageWidth(), $pdf->getPageHeight());
+        $pdf->SetFont('dejavusans', '', 10);
+      
+        $this->entete_facture($pdf, $demande);      
+        $this->cooordonnes_client($pdf, $demande);
+        $this->details_table(80, $pdf, $demande);
+    }
+
     public function rectangle_w_title($pdf, $x, $y, $w, $h, $style, $x1_blank, $x2_blank, $title){
         $pdf->SetDrawColor(0); // Couleur des filets
         $pdf->SetFillColor(255);
@@ -97,22 +128,21 @@ class PdfController extends AbstractController
         $pdf->Text($x_text, $y_text, $title);
     }
 
-    public function entete_facture($enseigne, $pdf, $post, $session){
-        $numCommande = $post['numeroCommande'];
-        $dateAchat = $session->get('date_achat');
+    public function entete_facture($pdf, $demande){
+        $numCommande = $demande->getNumeroCommande();
         $pdf->SetFont('dejavusans', 'B', 24);
-        $pdf->text(PDF_MARGIN_LEFT, 35, $enseigne->getNomEnseigne());
+        $pdf->text(PDF_MARGIN_LEFT, 35, $demande->getEnseigne());
         //$pdf->SetXY(40,71);
         //$pdf->Cell(28,7,$dateAchat,1,0,'L',0);
     }
 
-    public function cooordonnes_client($pdf, $post){
-        $nom = ucfirst($post['client']['nom']);
-        $prenom = ucfirst($post['client']['prenom']);
-        $telephone = $post['client']['numeroTelephone'];
-        $nom_rue = $post['client']['adresse']['nomRue'];
-        $ville = ucfirst($post['client']['adresse']['ville']);
-        $code_postal = $post['client']['adresse']['codePostal'];
+    public function cooordonnes_client($pdf, $demande){
+        $nom = ucfirst($demande->getClient()->getNom());
+        $prenom = ucfirst($demande->getClient()->getPrenom());
+        $telephone = $demande->getClient()->getNumeroTelephone();
+        $nom_rue = $demande->getClient()->getAdresse()->getNomRue();
+        $ville = ucfirst($demande->getClient()->getAdresse()->getVille());
+        $code_postal = $demande->getClient()->getAdresse()->getCodePostal();
         $adresse = "$nom_rue\n$ville $code_postal\n0$telephone";
         $pdf->SetXY(140,35);
         $pdf->SetFont('dejavusans', 'B', 12);
@@ -123,9 +153,9 @@ class PdfController extends AbstractController
         $pdf->Write(5, $adresse);
     }
 
-    public function details_table($position, $pdf, $post, $session){
-        $categorie = $session->get('categorie');
-        $prix = $session->get('prix');
+    public function details_table($position, $pdf, $demande){
+        $categorie = $demande->getCategorieProduit();
+        $prix = $demande->getPrixAchat();
         $details = "Catégorie : ";
         $points = "............................................................................................";
         $pdf->SetXY(PDF_MARGIN_LEFT, $position + 2);
@@ -133,13 +163,13 @@ class PdfController extends AbstractController
         $pdf->SetLeftMargin(PDF_MARGIN_LEFT);
         //
         //$pdf->Cell(50,$position-2, "test 1 2 1 2",0,0,'C',0);
-        if($session->get('choix') == 'magasin'){
+        if($demande->getUrlProduit() == null){
             $details .= "\nEnseigne : ";
             $details .= "\nRéference : ";
             $details .= "\nMontant de l'achat : ";
             $pdf->Write(10, $details);
-            $marque = $post['marqueProduit'];
-            $reference = $post['referenceProduit'];
+            $marque = $demande->getMarqueProduit();
+            $reference = $demande->getReferenceProduit();
             $points .= "\n...........................................................................................";
             $points .= "\n...........................................................................................";
             $points .= "\n...........................................................................................";
@@ -157,7 +187,7 @@ class PdfController extends AbstractController
             $pdf->Cell(37,25,$reference,0,0,'C',0);*/
         }
         else{
-            $url = $post['urlProduit'];
+            $url = $demande->getUrlProduit();
             
             $nbLignes = ($pdf->GetStringWidth($url) / ($pdf->GetPageWidth() - PDF_MARGIN_RIGHT - PDF_MARGIN_LEFT - 70));
             $details .= "\nMontant de l'achat : ";

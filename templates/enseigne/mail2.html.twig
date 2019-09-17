@@ -6,7 +6,7 @@
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <link rel="stylesheet" media="all" href="/assets/application-mailer-dbc5154d3c4160e8fa7ef52fa740fa402760c39b5d22c8f6d64ad5999499d263.css" />
    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
-   <title>Alerte baisse de prix</title>
+   <title>Hedee vous remercie pour votre achat</title>
    
     
  </head>
@@ -22,8 +22,8 @@
       <!--<div class="text-center mb-3">
         <img class="mx-auto" width="100" height="100" src="../img/emailing/emoji1.png">
       </div>-->
-      <h4 class="text-center" style="color:#2800dc;"><strong>Bonjour {{dossier.client.prenom}},</strong></h4>
-      <h4 class="text-center" style="color:#2800dc;"><strong>Bonne nouvelle! hedee vient de trouver votre produit à un prix inférieur.</strong></h4>
+      <h4 class="text-center" style="color:#2800dc;"><strong>Bonjour {{user.prenom}},</strong></h4>
+      <h4 class="text-center" style="color:#2800dc;"><strong>Hedee vous remercie pour votre achat n° {{ demande.numeroDossier }}.</strong></h4>
       <!--<h5 class="text-muted text-center">September 21, 2017 at 6:54 PM</h5>-->
 
       <hr/>
@@ -33,9 +33,9 @@
         <tbody>
           <tr>
             <td style="border-top: 0;">
-                <p style="color:#2800dc;">Vous êtes donc éligible à un remboursement de la différence de prix.</p>
-                <p style="color:#2800dc;">2ème bonne nouvelle, vous n’avez pas de démarche à effectuer. Soyez sereins, hedee s’occupe de tout !</p>
-                <p style="color:#2800dc;">Si le remboursement vous a été accordé, vous recevrez votre argent sur votre compte déduit de notre commission de 25%.</p>
+                <p style="color:#2800dc;">Vous serez alerté par mail dès qu’hedee aura trouvé moins cher.</p>
+                <p style="color:#2800dc;">Pas d’inquiétude, hedee procédera à votre demande de remboursement.</p>
+                <p style="color:#2800dc;">Ne payez pas en avance, hedee se rémunère que si vous gagnez de l’argent.</p>                     
             </td>
           </tr>
           <tr>
@@ -50,9 +50,9 @@
 
   <div class="card w-100 mb-4">
     <div class="card-body" >
-      <h4 class="text-center" style="color:#2800dc;"><strong>N’oubliez pas de renseigner vos coordonnées bancaires sur votre tableau de bord pour percevoir votre remboursement.</strong></h4>
+      <h4 class="text-center" style="color:#2800dc;"><strong>Avec hedee, payez vos achats au juste prix !</strong></h4>
       <div class="text-center">
-          <a href="{{absolute_url(path('profil'))}}" style="color: #ff3c00; font-weight:bold; text-align:center; font-size: 24px; text-decoration:underline; text-align:center;">Voir mon espace personnel</a>
+          <a href="{{absolute_url(path('profil'))}}" style="color: #ff3c00; font-weight:bold; text-align:center; font-size: 24px; text-decoration:underline; text-align:center;">Voir ma demande</a>
         
       </div>
       
