@@ -609,6 +609,12 @@ body {
 
 #chargement{
     background: url('../img/ajax-loader.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
+    margin-top: 20%;
+    display: none;
+}
+
+#anch1 + #chargement{
+    background: url('../img/ajax-loader.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
     margin-top: 40%;
     display: none;
 }
@@ -1000,9 +1006,6 @@ input.error, select.error{
     .logos_reseau {
         margin-top: 50px
     }
-
-    
-
  }
 
 
@@ -1030,5 +1033,6 @@ input.error, select.error{
     .fullscreen-menu-container {
         height: 55vh;
     }
+    
     
 }

@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use setasign\Fpdi\PdfReader;
 
+use App\Entity\AlertePrix;
 use App\Entity\Categories;
 use App\Entity\Demandes;
 use App\Entity\EligibiliteTest;
@@ -52,7 +53,7 @@ class AccueilController extends AbstractController
      */
     public function contact(Request $request, Mailer $mailer, Facture $facture)
     {
-        $pdf = $facture->depot(3, $this->getDoctrine()->getRepository(Demandes::class));
+        
 
         /*$attachment = 'factures/vv-vl7ByNv5O70KncOcXBe_-wy7mw1Uk4K4hguRM5cI.pdf';
         $pdf = new FPDI();

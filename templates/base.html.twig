@@ -220,65 +220,6 @@
 	
 		{#MAIN#}
 		<main>
-			{#<div class="screen-connection js-menu-connection">
-				<div class="bloc_popup">
-					<div class="block_left1 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<div id="switch_inscription" class="switch">			
-								<button class="btn switch_first">Je rejoins hedee</button>
-								<button class="btn switch_second1"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
-							
-						</div>
-					</div>
-					<div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<button class="close js-menu-client-close"><i class="fa fa-close" style="font-size:24px"></i></button>
-						<form action="{{ path('connexion') }}" method="post" id="connexion">
-							<h3> J'ai déjà un compte </h3> 
-							
-							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-							<input type="text" id="username" name="_username" placeholder="Votre adresse mail"/>
-
-							<input type="password" id="password" name="_password" placeholder="Votre mot de passe"/>
-							
-							<input type="hidden" name="_target_path" value="/profil" />
-							<a href="{{path('request_resetting')}}" target="blank">Mot de passe oublié</a>
-							<br>
-							<button class="blue_button">Je me connecte</button>
-						</form>
-					</div>
-				</div>
-			</div> <!--fin class="screen-connection js-menu-connection"-->
-
-
-			<div class="screen-inscription js-menu-inscription">
-				<div class="bloc_popup">
-					<div class="block_left1 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<div id="switch_connection" class="switch">			
-								<button class="btn switch_first">Je rejoins hedee</button>
-								<button class="btn switch_second1"><i class="fa fa-arrow-right" style="font-size:24px"></i></button>
-							
-						</div>
-					</div>
-					<div class="block_right col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<button class="close js-menu-client-close"><i class="fa fa-close" style="font-size:24px"></i></button>
-						<form action="{{ path('inscription') }}" method="post" id="inscription">
-							<h3> Rejoindre hedee </h3> 
-							
-							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-							<input type="text" name="_username" placeholder="Votre adresse mail"/>
-
-							<input type="password"  name="_password" placeholder="Votre mot de passe"/>
-
-							<input type="password"  name="_password2" placeholder="Confirmer le mot de passe"/>
-
-							<br>
-							<button class="orange_button">Je crée mon compte</button>
-						</form>
-					</div>
-				</div>
-			</div> <!--fin class="screen-inscription js-menu-inscrption"--> #}
-
-
-			
 			{% block main %}
 			{% endblock %}
         </main>

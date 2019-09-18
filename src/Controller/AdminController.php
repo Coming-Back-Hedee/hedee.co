@@ -169,6 +169,8 @@ class AdminController extends AbstractController
         $form1->handleRequest($request);
         $form2->handleRequest($request);
 
+        $pdf = null;
+
         $em = $this->getDoctrine()->getManager();
         if ($request->isMethod('POST')) {
             $pdf = new FPDI();
@@ -209,12 +211,13 @@ class AdminController extends AbstractController
                 $mail_objet = "Alerte baisse de prix";             
 
                 //On modifie le récapitulatif
-                $this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf]);
+                $pdf = $facture->alerte($repo, $dossier->getId(), $alerte);
+                /*$this->forward('App\Controller\PdfController::footer', ['pdf'  => $pdf]);
                 $this->forward('App\Controller\PdfController::details_footer', [
                     'pdf'  => $pdf,
                     'alerte' => $alerte, 
                     'session' => $request->getSession(),
-                    ]);
+                    ]);*/
                 $dossier->setStatut('Alerte prix');
                 
                 $em->persist($alerte);
@@ -224,7 +227,7 @@ class AdminController extends AbstractController
             }
             //$test1 = $pdf->Output($path_pdf, 'F');
             
-            $mailer->sendAdminMessage('hello@hedee.co', $dossier->getClient()->getEmail(), $mail_objet, $bodyMail);
+            $mailer->sendAdminMessage('hello@hedee.co', $dossier->getClient()->getEmail(), $mail_objet, $bodyMail, $pdf);
         }
 
         return $this->render('admin/dossier_client.html.twig', [

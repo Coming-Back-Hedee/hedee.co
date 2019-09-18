@@ -46,7 +46,7 @@ class EnseigneController extends AbstractController
     /**
      * @Route("/", name="enseigne")
      */
-    public function index(Request $request, Mailer $mailer, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $authenticator, 
+    public function index(Request $request, Mailer $mailer, Facture $facture, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $authenticator, 
             UserPasswordEncoderInterface $passwordEncoder)
     {
         //On récupère les informations de la page d'accueil
@@ -89,13 +89,11 @@ class EnseigneController extends AbstractController
                 if($request->request->get('choix') == "internet"){
                         
                     $formInternet->submit($form);
-                    $this->handle_form($em, $user, $demande, $formInternet, $request, $mailer, $guardHandler,  $authenticator, 
-                        $passwordEncoder);
+                    $this->handle_form($em, $user, $demande, $formInternet, $request, $mailer, $facture);
                 }
                 if($request->request->get('choix') == "magasin"){
                     $formMagasin->submit($form);
-                    $this->handle_form($em, $user, $demande, $formMagasin, $request, $mailer, $guardHandler,  $authenticator, 
-                    $passwordEncoder);
+                    $this->handle_form($em, $user, $demande, $formMagasin, $request, $mailer, $facture);
                 }
                 //$form->submit($request->request->get($form->getName()));
             }
@@ -170,7 +168,6 @@ class EnseigneController extends AbstractController
             return new RedirectResponse($url);
         }
     }
-
 
     /**
      * @Route("/internet", name="internet")
@@ -258,8 +255,7 @@ class EnseigneController extends AbstractController
 
 
     public function handle_form($em, $user, $demande, $form, Request $request, 
-                    Mailer $mailer, Facture $facture, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $authenticator, 
-                        UserPasswordEncoderInterface $passwordEncoder){
+                    Mailer $mailer, Facture $facture){
         $session = $request->getSession();
         $clientFile = null;
         if(($request->request->get('choix') == 'magasin')){
@@ -314,7 +310,7 @@ class EnseigneController extends AbstractController
             $bodyMail = $mailer->createBodyMail('enseigne/mail2.html.twig', [ 'user' => $user,
                 'demande' => $demande
             ]);
-            //$pdf = $facture->depot()
+            $pdf = $facture->depot($this->getDoctrine()->getRepository(Demandes::class), $demande->getId());
             $mailer->sendAdminMessage('hello@hedee.co', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail, $pdf->Output('', 'S'));
 
             return $this->redirectToRoute('profil');

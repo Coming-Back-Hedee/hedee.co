@@ -19,7 +19,7 @@
     <div id="form_location">
         {% include 'enseigne/eligibilite.html.twig' %}
     </div>
-    <div id="chargement">Chargement en cours...</div>
+
 
 {% endblock %} {# fin main #}
 
@@ -28,25 +28,18 @@
 <script>
     function loadForm(){
         if($("#form-eligibilite").valid()){
-            /*$( document ).ajaxStart(function() {
-                $("#form_location").hide();
+            $( document ).ajaxStart(function() {
+                if($(".form_elig") != null)
+                    $(".form_elig").hide();
                 $( "#chargement" ).show();
             });
             $( document ).ajaxStop(function() {
-                $("#chargement").hide();
-                $("#form_location").show();
-            });*/
+                $("#chargement").remove();
+                //$("#form_location").show();
+            });
             var donnees = $('#form-eligibilite').serialize()
             $.post('/demande-remboursement/', donnees, function(data,status){
             });
-            //var url = "{{ path('formulaire') }}";
-            /*$.ajax({
-                type: 'get',
-                url: url,
-                    success: function (data) {
-                        $('#form_location').html(data);           
-                }
-            });*/
             $('#form_location').load("{{ path('formulaire') }}")
         }
     } /***** fin fonction loadForm *****/ 

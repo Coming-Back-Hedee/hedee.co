@@ -5,6 +5,7 @@ namespace App\Services;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use setasign\Fpdi\PdfReader;
 
+use App\Entity\AlertePrix;
 use App\Entity\Demandes;
 use App\Repository\DemandesRepository;
 
@@ -13,7 +14,7 @@ use App\Repository\DemandesRepository;
  */
 class Facture
 {
-    public function depot($num, DemandesRepository $repo){  
+    public function depot(DemandesRepository $repo, $num){  
         //$repo = $this->getDoctrine()->getRepository(Demandes::class);
         $demande = $repo->find($num);
 
@@ -45,9 +46,11 @@ class Facture
         return $pdf;
     }
 
-    public function alerte($num, DemandesRepository $repo){ 
+    public function alerte(DemandesRepository $repo, $num, AlertePrix $alerte){ 
         $pdf = $this->depot($num, $repo); 
-        $this->depot($pdf); 
+        $this->footer($pdf); 
+        $this->details_footer($pdf, $alerte);
+        return $pdf;
 
     }
 
@@ -144,5 +147,30 @@ class Facture
         $pdf->Rect(15,210,45,30,'D');
         $pdf->Rect(82.5,210,45,30,'D');
         $pdf->Rect(150,210,45,30,'D');
+    }
+
+    public function details_footer($pdf, AlertePrix $alerte){
+        $mid_x = $pdf->GetPageWidth()/2; // the middle of the "PDF screen", fixed by now.
+        $pdf->SetFont('dejavusans', '', 24);
+        $diffPrix = $alerte->getDifferencePrix() . "€";
+        $prix = $alerte->getPrix() . "€";
+        $enseigne = $alerte->getEnseigne();
+        $date = date_format($alerte->getDate(),'d/m/Y');
+        $pdf->Text($mid_x - ($pdf->GetStringWidth("Vous pouvez gagner") / 2), 155, "Vous pouvez gagner");      
+        $pdf->Text($mid_x - ($pdf->GetStringWidth($diffPrix) / 2), 165,$diffPrix);
+        $pdf->SetFont('dejavusans', 'B', 9);
+        $pdf->Text(37.5 - ($pdf->GetStringWidth("Magasin:") / 2), 200, "Magasin:");
+        $pdf->Text(105 - ($pdf->GetStringWidth("Date du constat:") / 2), 200, "Date du constat:");
+        $pdf->Text(172.5 - ($pdf->GetStringWidth("Prix le moins cher") / 2), 200, "Prix le moins cher"); 
+
+        $pdf->SetXY(15,210);
+        
+        $pdf->Cell(45,30, $enseigne,0,0,'C',0);
+        $pdf->SetXY(82.5,210);
+        
+        $pdf->Cell(45,30, $date,0,0,'C',0);
+        $pdf->SetXY(150,210);
+            
+        $pdf->Cell(45,30, $prix, 0, 0,'C',0);
     }
 }

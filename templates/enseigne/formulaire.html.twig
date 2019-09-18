@@ -134,7 +134,7 @@
         step(form)
         $('body').on('change', 'input[name=choix]', function() {
             //console.log($('#form_demande').html() == "")
-            
+
             if($("[name='choix']:checked").val() == "internet"){
                 var url = "{{ path('internet') }}";
                 if($('#form_demande').html() == ""){
@@ -151,33 +151,18 @@
                     else{
                         $('#form_internet').show()
                     }
-                }                 
-                /*$.ajax({
-                    type: 'get',
-                    url: url,
-                    success: function (data) {
-                        $('#form_demande').html(data);
-                        var form = $("#form-enseigne");
-                        //step(form)
-                                    
-                    }
-                });*/
-                
+                }                                 
                 recap = '<label for="recap_url">Url de la page du produit</label><input id="recap_url" type="text" readonly><br>'   
                 $('#recap_produit').html(recap); 
             }
             if($("[name='choix']:checked").val() == "magasin"){
                 var url = "{{ path('mag') }}";    
-                  if($('#form_demande').html() == ""){
-                    //if(document.getElementById('url') == null){
-                        $('#form_magasin').load("{{ path('mag') }}")
-                    //}
+                if($('#form_demande').html() == ""){
+                    $('#form_magasin').load("{{ path('mag') }}")
                 }
                 else{
                     $('#form_internet').hide()
-                    console.log(document.getElementById('mar'))
                     if(document.getElementById('mar') == null){
-                        console.log('ici')
                         $('#form_magasin').load("{{ path('mag') }}")
                         $('#form_magasin').show()
                     }
@@ -185,20 +170,6 @@
                         $('#form_magasin').show()
                     }
                 }            
-                /*$.ajax({
-                    type: 'get',
-                    url: url,
-                    success: function (data) {
-                        $('#form_demande').html(data);
-                        var form = $("#form-enseigne");
-                        //step(form)
-                        recap = '<label for="recap_marque">Marque</label><input id="recap_marque" type="text" readonly><br>'
-                        recap += '<label for="recap_ref">Référence</label><input id="recap_ref" type="text" readonly><br>'
-                                            
-                        $('#recap_produit').html(recap);  
-                    }
-                });*/
-                //$('#form_demande').load("{{ path('mag') }}")
                 recap = '<label for="recap_marque">Marque</label><input id="recap_marque" type="text" readonly><br>'
                 recap += '<label for="recap_ref">Référence</label><input id="recap_ref" type="text" readonly><br>'
                                             
@@ -321,20 +292,6 @@
                         
                         if($('[name=connect]:checked').length != 1 && {{app.user|json_encode|raw}} == null)
                             return false;
-
-                        /*if($("[name='connect']:checked").val() == "pmembre"){
-                            if(form.valid()){
-                                $.ajax({
-                                    type: 'post',
-                                    url: "{{ path('birth') }}",
-                                    async: false,
-                                    success: function (data, status){
-                                        if (document.getElementById("birth") == undefined)
-                                            $('.nom').after(data); 
-                                    }
-                                })
-                            }
-                        }*/
                     }
                     
                     form.validate().settings.ignore = ":disabled,:hidden";
@@ -391,11 +348,6 @@
                             $('#cp_perso').val("0".concat($('#cp_perso').val()))
                     }
                     if (currentIndex == 3){
-                        /*var url = "{{ path('facture') }}";
-                        var donnees = form.serialize();
-                            
-                        $.post(url, donnees, function(data,status){                         
-                        });*/
             
                         /*array_cat = ['Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
                                 'Santé et beauté', 'Auto et moto', 'Sports et mode'];*/
@@ -461,11 +413,15 @@
                         });
                     }
                     $( document ).ajaxStart(function() {
+                        $('#bloc_header').after('<div id="chargement">Chargement en cours...</div>')
                         $( "#chargement" ).show();
                     });
                     $( document ).ajaxStop(function() {
                         $("#chargement").hide();
                     });
+                    var page = $('.bloc_header'); // Page cible
+                    var speed = 750; // Durée de l'animation (en ms)
+                    $('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
                     $.ajax({
                         type: 'get',
                         url: "{{path('felicitation')}}",
