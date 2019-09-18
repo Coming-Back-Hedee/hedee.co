@@ -2,11 +2,11 @@ doctrine:
     dbal:
         # configure these for your database server
         driver: 'pdo_mysql'
-        host: 'sql25'
+        host: 'localhost'
         port: '3306'
-        dbname: 'vki80272'
-        user: 'vki80272'
-        password: 'YbqoEKwdujKu'
+        dbname: 'coming_back'
+        user: 'root'
+        password: ''
         server_version: '5.7'
         charset: utf8mb4
         default_table_options:

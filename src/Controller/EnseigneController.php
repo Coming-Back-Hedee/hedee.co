@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -16,24 +14,22 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormTypeInterface;
-
+use setasign\Fpdi\Tcpdf\Fpdi;
+use setasign\Fpdi\PdfReader;
 use App\Security\FormLoginAuthenticator;
 use App\Form\EligibiliteType;
 use App\Form\DemandesMagasinType;
 use App\Form\DemandesInternetType;
 use App\Form\InscriptionType;
-
 use App\Repository\CientsRepository;
-
 use App\Entity\EligibiliteTest;
 use App\Entity\Adresses;
 use App\Entity\Clients;
 use App\Entity\Enseignes;
 use App\Entity\Demandes;
 use App\Entity\Magasins;
-
 use App\Services\Mailer;
-
+use App\Services\Facture;
 /**
  * @Route("/demande-remboursement")
  */
@@ -51,16 +47,12 @@ class EnseigneController extends AbstractController
         
         //On stocke les informations de la page d'accueil
         $session = $request->getSession();
-
          
         $user = $this->getUser();
-
         $test = new EligibiliteTest();
         $formE= $this->createForm(EligibiliteType::class, $test);
-
         $demande = new Demandes();
         $demande->setClient($user);
-
         $formMagasin = $this->createForm(DemandesMagasinType::class, $demande,[
            'validation_groups' => array('User', 'inscription'),
         ]);
@@ -73,15 +65,12 @@ class EnseigneController extends AbstractController
             if($request->request->has('demandes')){
                 $form = $request->request->get('demandes');
                 //$form['dateAchat'] = (\DateTime::createFromFormat('d-m-Y',$form['dateAchat']));
-
                 if($user == null){
-
                     $repo = $em->getRepository(Clients::class);
                     $user = $repo->findOneBy(['email' => $form['client']['email']]);
                     $user->bis_construct($form['client']);  
                     
                 }
-
                 if($request->request->get('choix') == "internet"){
                         
                     $formInternet->submit($form);
@@ -104,7 +93,6 @@ class EnseigneController extends AbstractController
                 $session->set('categorie', $array_cat[$post1['categorie']-1]);
                 $session->set('prix', $post1['prix']);
                 $session->set('path', $post1['_token']);
-
             }
         }
         
@@ -117,7 +105,6 @@ class EnseigneController extends AbstractController
             'user' => $user,
         ]);
     }
-
     
     /**
      * @Route("/formulaire", name="formulaire")
@@ -131,18 +118,15 @@ class EnseigneController extends AbstractController
                 'validation_groups' => array('User', 'inscription'),
             ]);
             $formMagasin->handleRequest($request);
-
             return $this->render('enseigne/formulaire.html.twig', [
                 'form1' => $formMagasin->CreateView(), 
                 'user' => $user]);
         }
         else{
             $url = $router->generate('accueil');
-
             return new RedirectResponse($url);
         }
     }
-
     /**
      * @Route("/magasin", name="mag")
      */
@@ -155,19 +139,15 @@ class EnseigneController extends AbstractController
                 'validation_groups' => array('User', 'inscription'),
             ]);
             $formMagasin->handleRequest($request);
-
             return $this->render('enseigne/magasin.html.twig', [
                 'form1' => $formMagasin->CreateView(), 
                 'user' => $user]);
         }
         else{
             $url = $router->generate('accueil');
-
             return new RedirectResponse($url);
         }
     }
-
-
     /**
      * @Route("/internet", name="internet")
      */
@@ -178,34 +158,29 @@ class EnseigneController extends AbstractController
             $demande->setClient($user);
             $formInternet = $this->createForm(DemandesInternetType::class, $demande);
             $formInternet->handleRequest($request); 
-
             return $this->render('enseigne/internet.html.twig', [
                 'form1' => $formInternet->CreateView(), 
                 'user' => $user]);
         }
         else{
             $url = $router->generate('accueil');
-
             return new RedirectResponse($url);
         }
     }
-
     /**
      * @Route("/pmembre", name="pmembre")
      */
     public function formInscript(Request $request, RouterInterface $router){
-        //if($request->isXmlHttpRequest()){
+        if($request->isXmlHttpRequest()){
             $demande = new Demandes();
             $formInternet = $this->createForm(DemandesInternetType::class, $demande);
             return $this->render('enseigne/inscription.html.twig', ['form1' => $formInternet->CreateView()]);
-        //}
-        /*else{
+        }
+        else{
             $url = $router->generate('accueil');
-
             return new RedirectResponse($url);
-        }*/
+        }
     }
-
     /**
      * @Route("/felicitations", name="felicitation")
      */
@@ -215,27 +190,23 @@ class EnseigneController extends AbstractController
         }
         else{
             $url = $router->generate('accueil');
-
             return new RedirectResponse($url);
         }
     }
-
     /**
      * @Route("/membre", name="membre")
      */
     public function formIConnect(Request $request, RouterInterface $router){
-        //if($request->isXmlHttpRequest()){
+        if($request->isXmlHttpRequest()){
             $demande = new Demandes();
             $formInternet = $this->createForm(DemandesInternetType::class, $demande);
             return $this->render('enseigne/connexion.html.twig', ['form1' => $formInternet->CreateView()]);
-        /*}
+        }
         else{
             $url = $router->generate('accueil');
-
             return new RedirectResponse($url);
-        }*/     
+        }    
     }
-
     /**
      * @Route("/birth", name="birth")
      */
@@ -247,14 +218,11 @@ class EnseigneController extends AbstractController
         }
         else{
             $url = $router->generate('accueil');
-
             return new RedirectResponse($url);
         }
     }
-
-
     public function handle_form($em, $user, $demande, $form, Request $request, 
-                    Mailer $mailer, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $authenticator, 
+                    Mailer $mailer, Facture $facture, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $authenticator, 
                         UserPasswordEncoderInterface $passwordEncoder){
         $session = $request->getSession();
         $clientFile = null;
@@ -262,18 +230,15 @@ class EnseigneController extends AbstractController
             $file = $request->files->get('demandes');
             $clientFile = $file['pieceJointe'];
         }
-
         $post = $request->request->get('demandes');
         
         if ($form->isSubmitted()){
             if($form->isValid()) {
             $status = array('status' => "success", "fileUploaded" => false);
-
             if (!is_null($clientFile)) {
                 $originalFilename = pathinfo($clientFile->getClientOriginalName(), PATHINFO_FILENAME);
                 //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
                 $newFilename = uniqid().'.'.$clientFile->guessExtension();
-
                 try {
                     $clientFile->move(
                         $this->getParameter('upload_files_directory'),
@@ -285,10 +250,8 @@ class EnseigneController extends AbstractController
                 }
                 $demande->setPieceJointe($newFilename);
             }
-
             $dateAchat = \DateTime::createFromFormat('d-m-Y', $session->get('date_achat'));
             $path = "/factures/" . $session->get('path') . ".pdf";
-
             $demande->setPrixAchat($session->get('prix'));
             $demande->setCategorieProduit($session->get('categorie'));
             $demande->setEnseigne($session->get('enseigne'));            
@@ -301,17 +264,15 @@ class EnseigneController extends AbstractController
             $demande->setClient($user);
             $em->persist($demande);
             $em->flush();
-
             $count = $demande->getId() + 1417;
             $demande->setNumeroDossier($count);
             $em->flush();
-
             
             $bodyMail = $mailer->createBodyMail('enseigne/mail2.html.twig', [ 'user' => $user,
                 'demande' => $demande
             ]);
-            $mailer->sendAdminMessage('hello@hedee.co', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail);
-
+            $this->forward('App\Controller\PdfController::depot', ['pdf'  => $pdf, 'num' => $demande->getId()]);
+            $mailer->sendAdminMessage('hello@hedee.co', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail, $pdf->Output('', 'S'));
             return $this->redirectToRoute('profil');
         }
     }
