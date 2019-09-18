@@ -115,6 +115,7 @@
 		$('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
 
         $('#coming_back').click(function(){
+            $(this).hide()
             $('#sidebar-wrapper').show()
             $('#page-content-wrapper').hide()
             $('.active').removeClass('active')
@@ -143,6 +144,7 @@
                     if(window.innerWidth < 1025){
                         $('#sidebar-wrapper').hide()
                         $('#page-content-wrapper').show()
+                        $('#coming_back').show();
                     }
                     else{
                         $( document ).ajaxStart(function() {

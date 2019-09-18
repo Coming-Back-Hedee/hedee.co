@@ -24,6 +24,7 @@ use App\Repository\DemandesRepository;
 
 use App\Form\EligibiliteType;
 use App\Services\Mailer;
+use App\Services\Facture;
 
 class AccueilController extends AbstractController
 {
@@ -49,13 +50,15 @@ class AccueilController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact(Request $request, Mailer $mailer)
+    public function contact(Request $request, Mailer $mailer, Facture $facture)
     {
+        $pdf = $facture->depot(3, $this->getDoctrine()->getRepository(Demandes::class));
+
         /*$attachment = 'factures/vv-vl7ByNv5O70KncOcXBe_-wy7mw1Uk4K4hguRM5cI.pdf';
         $pdf = new FPDI();
         //$path_pdf = "/factures/" . $attachement;
-        $this->forward('App\Controller\PdfController::recup_pdf', ['pdf'  => $pdf,  'path'  => $attachment]);
-        $mailer->sendAdminMessage("skm.jeremy@gmail.com", "davidslk230@hotmail.fr", "test" , "Ceci est un test", $pdf->Output('', 'S'));*/
+        $this->forward('App\Controller\PdfController::recup_pdf', ['pdf'  => $pdf,  'path'  => $attachment]);*/
+        $mailer->sendAdminMessage("skm.jeremy@gmail.com", "davidslk230@hotmail.fr", "test" , "Ceci est un test", $pdf->Output('', 'S'));
         $flashbag = $this->get('session')->getFlashBag();
         $session = $request->getSession();
         if($request->getMethod() == 'POST'){
@@ -69,22 +72,4 @@ class AccueilController extends AbstractController
 
         return $this->render('utile/contact.html.twig');
     }
-
-    /*
-     * @Route("/test/{id}", name="recap", requirements={"id"="\d+"})
-     
-    public function recapitulatif(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $repo = $this->getDoctrine()->getRepository(Demandes::class);
-        $dossier = $repo->findOneBy(["numeroDossier" => $id]);
-        if(!$dossier || $dossier->getClient() != $user){
-            throw $this->createNotFoundException('');
-        }
-
-        return $this->render('test.html.twig', ['dossier' => $dossier]);
-
-    }
-    */
 }

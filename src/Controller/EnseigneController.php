@@ -314,7 +314,7 @@ class EnseigneController extends AbstractController
             $bodyMail = $mailer->createBodyMail('enseigne/mail2.html.twig', [ 'user' => $user,
                 'demande' => $demande
             ]);
-            $this->forward('App\Controller\PdfController::depot', ['pdf'  => $pdf, 'num' => $demande->getId()]);
+            //$pdf = $facture->depot()
             $mailer->sendAdminMessage('hello@hedee.co', $demande->getClient()->getEmail(), 'Confirmation du dépot de dossier', $bodyMail, $pdf->Output('', 'S'));
 
             return $this->redirectToRoute('profil');
