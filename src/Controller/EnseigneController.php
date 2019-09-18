@@ -29,7 +29,7 @@ use App\Entity\Enseignes;
 use App\Entity\Demandes;
 use App\Entity\Magasins;
 use App\Services\Mailer;
-use App\Services\Facture;
+
 /**
  * @Route("/demande-remboursement")
  */
@@ -222,7 +222,7 @@ class EnseigneController extends AbstractController
         }
     }
     public function handle_form($em, $user, $demande, $form, Request $request, 
-                    Mailer $mailer, Facture $facture, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $authenticator, 
+                    Mailer $mailer,  GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $authenticator, 
                         UserPasswordEncoderInterface $passwordEncoder){
         $session = $request->getSession();
         $clientFile = null;
