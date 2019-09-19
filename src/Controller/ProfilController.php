@@ -36,6 +36,8 @@ class ProfilController extends AbstractController
      */
     public function index(Request $request)
     {
+        /* URL du profil de l'utilisateur
+        */
         $user = $this->getUser();
         $session = $request->getSession();
         //$session->clear();       
@@ -54,6 +56,8 @@ class ProfilController extends AbstractController
      */
     public function demandes(Request $request)
     {
+        /* URL de la page demande de l'utilisateur
+        */
         $user = $this->getUser();
         $session = $request->getSession();
         $session->clear();       
@@ -72,6 +76,8 @@ class ProfilController extends AbstractController
      */
     public function remboursements(Request $request, RouterInterface $router)
     {
+        /* URL de la page porte-monnaie de l'utilisateur
+        */
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $repo = $this->getDoctrine()->getRepository(Demandes::class);
@@ -133,6 +139,8 @@ class ProfilController extends AbstractController
      */
     public function informations(Request $request, RouterInterface $router)
     {
+        /* URL de la page informations personnelles de l'utilisateur
+        */
         $emojis = ["", ";).png", "=D.png", "=o.png"];
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
@@ -181,6 +189,8 @@ class ProfilController extends AbstractController
      */
     public function mode_versement(Request $request, RouterInterface $router )
     {
+        /* URL de la page d'ajout de versement de l'utilisateur
+        */
         if($request->isXmlHttpRequest()){
             $form = $this->createForm(ModeVersementType::class);
             $flashbag = $this->get('session')->getFlashBag();
@@ -194,11 +204,12 @@ class ProfilController extends AbstractController
         }
     }
 
-    /**
+    /*/**
      * @Route("/dossier/{id}", name="recap1", requirements={"id"="\d+"})
-     */
+     *
     public function recapitulatif(Request $request, RouterInterface $router, $id)
     {
+        
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $repo = $this->getDoctrine()->getRepository(Demandes::class);
@@ -208,11 +219,11 @@ class ProfilController extends AbstractController
         }
 
         return $this->render('test.html.twig', ['dossier' => $dossier]);
-    }
+    }*/
 
-    /**
+    /*/**
      * @Route("/suppression", name="suppression")
-     */
+     *
     public function suppression_compte(Request $request, RouterInterface $router)
     {
         $em = $this->getDoctrine()->getManager();
@@ -222,5 +233,5 @@ class ProfilController extends AbstractController
 
         return $this->render('profil/suppression.html.twig');
 
-    }
+    }*/
 }

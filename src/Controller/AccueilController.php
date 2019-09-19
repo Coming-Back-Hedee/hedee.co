@@ -53,13 +53,6 @@ class AccueilController extends AbstractController
      */
     public function contact(Request $request, Mailer $mailer, Facture $facture)
     {
-        
-
-        /*$attachment = 'factures/vv-vl7ByNv5O70KncOcXBe_-wy7mw1Uk4K4hguRM5cI.pdf';
-        $pdf = new FPDI();
-        //$path_pdf = "/factures/" . $attachement;
-        $this->forward('App\Controller\PdfController::recup_pdf', ['pdf'  => $pdf,  'path'  => $attachment]);*/
-        $mailer->sendAdminMessage("skm.jeremy@gmail.com", "davidslk230@hotmail.fr", "test" , "Ceci est un test", $pdf->Output('', 'S'));
         $flashbag = $this->get('session')->getFlashBag();
         $session = $request->getSession();
         if($request->getMethod() == 'POST'){

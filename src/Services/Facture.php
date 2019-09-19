@@ -14,11 +14,14 @@ use App\Repository\DemandesRepository;
  */
 class Facture
 {
-    public function depot(DemandesRepository $repo, $num){  
-        //$repo = $this->getDoctrine()->getRepository(Demandes::class);
+
+    public function depot(DemandesRepository $repo, $num){ 
+        /*  Fonction qui permet de créer la facture en y insérant les informations d'achat concernant
+            le dépot de dossier d'identifiant $num spécifié en argument 
+        */
+
         $demande = $repo->find($num);
 
-        //$pdf = new \FPDF();
         $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         // remove default header/footer
         $pdf->setPrintHeader(false);
@@ -47,14 +50,17 @@ class Facture
     }
 
     public function alerte(DemandesRepository $repo, $num, AlertePrix $alerte){ 
-        $pdf = $this->depot($num, $repo); 
+        $pdf = $this->depot($repo, $num); 
         $this->footer($pdf); 
         $this->details_footer($pdf, $alerte);
+
         return $pdf;
 
     }
 
     public function entete_facture($pdf, $demande){
+        /*  Fonction qui permet de renseigner le nom de l'enseigne 
+        */
         $numCommande = $demande->getNumeroCommande();
         $pdf->SetFont('dejavusans', 'B', 24);
         $pdf->text(PDF_MARGIN_LEFT, 35, $demande->getEnseigne());
@@ -63,6 +69,9 @@ class Facture
     }
 
     public function cooordonnes_client($pdf, $demande){
+        /*  Fonction qui permet de renseigner les informations concernant le client
+            qui dépose la demande  spécifiéen en argument
+        */
         $nom = ucfirst($demande->getClient()->getNom());
         $prenom = ucfirst($demande->getClient()->getPrenom());
         $telephone = $demande->getClient()->getNumeroTelephone();
@@ -80,6 +89,9 @@ class Facture
     }
 
     public function details_table($position, $pdf, $demande){
+        /*  Fonction qui permet de renseigner les informations concernant l'achat pour la 
+            demande spécifiée en argument
+        */
         $categorie = $demande->getCategorieProduit();
         $prix = $demande->getPrixAchat();
         $details = "Catégorie : ";
@@ -133,6 +145,9 @@ class Facture
     }
 
     public function footer($pdf){
+        /*  Fonction qui permet d'informer d'une alerte prix émanant d"hedee et de modifer
+            la facture pdf demande spécifiée en argument
+        */
         $pdf->SetFillColor(255);
         $pdf->Rect(0, 155, $pdf->GetPageWidth(), $pdf->GetPageHeight(), 'F');
         $pdf->SetTextColor(40, 0, 220);
@@ -150,6 +165,9 @@ class Facture
     }
 
     public function details_footer($pdf, AlertePrix $alerte){
+        /*  Fonction qui permet de renseigner les informations de l'alerte prix spécifiée
+             en argument et de modifier la facture pdf
+        */
         $mid_x = $pdf->GetPageWidth()/2; // the middle of the "PDF screen", fixed by now.
         $pdf->SetFont('dejavusans', '', 24);
         $diffPrix = $alerte->getDifferencePrix() . "€";

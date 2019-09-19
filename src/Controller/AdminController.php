@@ -10,6 +10,7 @@ use App\Form\ClotureType;
 use App\Form\AlerteType;
 
 use App\Services\Mailer;
+use App\Services\Facture;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ class AdminController extends AbstractController
 {
     private $dispatcher;
 
-    const ADMIN = ["bouyagui@hedee.co", "skm.jeremy@gmail.com", "davidslk230@hotmail.fr"];
+    const ADMIN = ["bouyagui@hedee.co", "skm.jeremy@gmail.com"];
 
     /**
      * @Route("/connexion", name="admin_connect")
@@ -164,7 +165,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/dossier-{numeroDossier}", name="dossier", requirements={"numeroDossier"="\d+"})
      */
-    public function dossierClient(Request $request, Mailer $mailer, $numeroDossier)
+    public function dossierClient(Request $request, Mailer $mailer, Facture $facture, $numeroDossier)
     {
         $repo = $this->getDoctrine()->getRepository(Demandes::class);
         $dossier = $repo->findOneBy(["numeroDossier" => $numeroDossier]);
@@ -240,7 +241,7 @@ class AdminController extends AbstractController
             }
             //$test1 = $pdf->Output($path_pdf, 'F');
             
-            $mailer->sendAdminMessage('hello@hedee.co', $dossier->getClient()->getEmail(), $mail_objet, $bodyMail, $pdf);
+            $mailer->sendAdminMessage('hello@hedee.co', $dossier->getClient()->getEmail(), $mail_objet, $bodyMail, $pdf->Output('', 'S'));
         }
 
         return $this->render('admin/dossier_client.html.twig', [

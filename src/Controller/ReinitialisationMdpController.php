@@ -26,6 +26,9 @@ class ReinitialisationMdpController extends AbstractController
      */
     public function request(Request $request, Mailer $mailer, TokenGeneratorInterface $tokenGenerator)
     {
+        /*  URL pour la demande de réinitialisation de mot de passe
+        */
+
         // création d'un formulaire "à la volée", afin que l'internaute puisse renseigner son mail
         $form = $this->createFormBuilder()
             ->add('email', EmailType::class, [
@@ -74,32 +77,20 @@ class ReinitialisationMdpController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    // si supérieur à 10min, retourne false
-    // sinon retourne false
-    private function isRequestInTime(\Datetime $passwordRequestedAt = null)
-    {
-        if ($passwordRequestedAt === null)
-        {
-            return false;        
-        }
-        
-        $now = new \DateTime();
-        $interval = $now->getTimestamp() - $passwordRequestedAt->getTimestamp();
-
-        $daySeconds = 60 * 10;
-        $response = $interval > $daySeconds ? false : $reponse = true;
-        return $response;
-    }
 
     /**
      * @Route("/{id}/{token}", name="resetting")
      */
     public function resetting(Clients $user, $token, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        /*  URL accessible uniquement par un lien envoyé mail à un utilisateur qui a 
+            demandé à réinitialiser son mot de passe. 
+        */
+
         // interdit l'accès à la page si:
         // le token associé au membre est null
         // le token enregistré en base et le token présent dans l'url ne sont pas égaux
-        // le token date de plus de 10 minutes
+        // le token date dépasse l'intervalle de validité
        if ($user->getToken() === null || $token !== $user->getToken() || !$this->isRequestInTime($user->getPasswordRequestedAt()))
         {
             throw new AccessDeniedHttpException();
@@ -131,5 +122,26 @@ class ReinitialisationMdpController extends AbstractController
             'form' => $form->createView()
         ]);
         
+    }
+
+    
+    // si supérieur à 10min, retourne false
+    // sinon retourne true
+    private function isRequestInTime(\Datetime $passwordRequestedAt = null)
+    {
+        /* Fonction qui configure la durée de validité d'une de mande de réinitialisation de mot de passe.
+            Possibilité de changer la durée grâce à la variable $daySeconds
+        */
+        if ($passwordRequestedAt === null)
+        {
+            return false;        
+        }
+        
+        $now = new \DateTime();
+        $interval = $now->getTimestamp() - $passwordRequestedAt->getTimestamp();
+
+        $daySeconds = 60 * 10; 
+        $response = $interval > $daySeconds ? false : $reponse = true;
+        return $response;
     }
 }

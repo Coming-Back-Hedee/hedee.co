@@ -35,7 +35,8 @@ class SecurityController extends AbstractController
     public function login(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
                         UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider)
     {
-
+        /* Fonction qui connecte l'utilisateur grâce à une vérification de la base de données
+        */
         if($this->isGranted('ROLE_USER')){
             return $this->redirectToRoute('profil');
         }
@@ -48,16 +49,10 @@ class SecurityController extends AbstractController
         if($this->isGranted('ROLE_USER')){
             return $this->redirectToRoute('profil');
         }
-        $user = new Clients();
-        // instancie le formulaire avec les contraintes par défaut, + la contrainte registration pour que la saisie du mot de passe soit obligatoire
-        $form = $this->createForm(InscriptionType::class, $user,[
-           'validation_groups' => array('User', 'inscription'),
-        ]);        
             
         return $this->render('security/index.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
-            'form'          => $form->createView(),
         ));
     }
 
@@ -67,6 +62,9 @@ class SecurityController extends AbstractController
     public function login2(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
                         UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider, RouterInterface $router)
     {
+        /* Fonction de vérification pour le formulaire de l'existence d'un utilisateur 
+            dans la base de données et de l'exactitude de son mot de passe.
+        */
         if($request->isXmlHttpRequest()){
             $isAvailable = false;
             $post = $request->request;
@@ -100,6 +98,8 @@ class SecurityController extends AbstractController
     public function login3(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
                         UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider, RouterInterface $router)
     {
+        /* Fonction qui va chercher les informations d'un cleint pour pré-remplir le formulaire
+        */
         if($request->isXmlHttpRequest()){
             $post = $request->request;
             $repo = $this->getDoctrine()->getRepository(Clients::class);
@@ -129,6 +129,9 @@ class SecurityController extends AbstractController
     public function login4(Request $request, Mailer $mailer, AuthenticationUtils $authUtils, 
                         UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider, RouterInterface $router)
     {
+        /* Fonction qui connecte automatiquement un utilisateur lorsqu'il se connecte 
+            pendant le dépot de son achat
+        */
         if($request->isXmlHttpRequest()){
             $post = $request->request;
             $repo = $this->getDoctrine()->getRepository(Clients::class);
