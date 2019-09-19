@@ -349,11 +349,14 @@
                     }
                     if (currentIndex == 3){
             
-                        /*array_cat = ['Produits électroniques', 'Maisons et jardins', 'Jeux vidéos et jouets',
-                                'Santé et beauté', 'Auto et moto', 'Sports et mode'];*/
-                        $('#recap_ens').val("{{app.session.get('enseigne')}}");
+                        array_cat = ['', 'High-Tech et électroménagers', 'Maison et jardin',
+                                'Santé et beauté', 'Mode et Sports'];
+                        /*$('#recap_ens').val("{{app.session.get('enseigne')}}");
                         $('#recap_cat').val("{{app.session.get('categorie')}}");
-                        $('#recap_prix').val("{{app.session.get('prix')}}");
+                        $('#recap_prix').val("{{app.session.get('prix')}}");*/
+                        $('#recap_ens').val(enseigne);
+                        $('#recap_cat').val(categorie);
+                        $('#recap_prix').val(prix);
                         if($("[name='choix']:checked").val() == "magasin"){
                             $('#recap_marque').val($('#mar').val());
                             $('#recap_ref').val($('#ref').val());

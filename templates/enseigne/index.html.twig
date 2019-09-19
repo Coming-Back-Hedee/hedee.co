@@ -26,8 +26,14 @@
 {% block javascript %}
 {{ parent() }}
 <script>
+    var enseigne;
+    var categorie;
+    var prix;
     function loadForm(){
         if($("#form-eligibilite").valid()){
+            categorie = $('#cat_produit option:selected').text();
+            enseigne = $('#select_enseigne').val();
+            prix = $('#form_prix').val();
             $( document ).ajaxStart(function() {
                 if($(".form_elig") != null)
                     $(".form_elig").hide();

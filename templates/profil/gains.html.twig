@@ -17,6 +17,11 @@
             <p class="euros">{{ controller_name }}€</p>  
             <p>Depuis votre inscription</p>                       
         </div>
+         {% for message in app.flashes('success') %}
+            <div class="flash-notice-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div id="mv_location">
             <p>Mon mode de versement</p>
             <div class="media border p-3">

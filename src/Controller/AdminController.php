@@ -37,18 +37,21 @@ class AdminController extends AbstractController
 {
     private $dispatcher;
 
+    const ADMIN = ["bouyagui@hedee.co", "skm.jeremy@gmail.com", "davidslk230@hotmail.fr"];
+
     /**
      * @Route("/connexion", name="admin_connect")
      */
     public function connexion(Request $request, AuthenticationUtils $authUtils, 
                     UserPasswordEncoderInterface $passwordEncoder, UserProviderInterface $userProvider, RouterInterface $router)
     {
-        $admin = ["bouyagui@hedee.co", "skm.jeremy@gmail.com"];
+        //$admin = ["bouyagui@hedee.co", "skm.jeremy@gmail.com", "davidslk230@hotmail.fr"];
         $isAvailable = false;
         $post = $request->request;
         $repo = $this->getDoctrine()->getRepository(Clients::class);
         $lastUsername = "";
         $session = $request->getSession();
+        $flashbag = $this->get('session')->getFlashBag();
 
         if($this->getUser() != null){
             if(!in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
@@ -80,25 +83,35 @@ class AdminController extends AbstractController
                         return $this->redirectToRoute('admin');
                     }
                     else{
-                        // get the login error if there is one
-                        $error = "Connexion non autorisée";
-                        $flashbag = $this->get('session')->getFlashBag();
+                        if(in_array($user->getEmail(), $this::ADMIN) && $passwordEncoder->isPasswordValid($user, $plainPassword)){
+                            
+                            $em = $this->getDoctrine()->getManager();
+                            $user->setRoles(["ROLE_ADMIN"]);
+                            $flashbag->add("success_hedee", "Veuillez confirmer votre mot de passe..");
+                            $session->set("usermail", $post->get('_username'));
+                            $em->flush();
+                            return $this->redirectToRoute('confirm');
+                        }
+                        else{
+                            // get the login error if there is one
+                            $error = "Connexion non autorisée ";
 
-                        // Add flash message
-                        $flashbag->add("warning", $error);
-                        
+                            // Add flash message
+                            $flashbag->add("warning", $error);
+                            
 
-                        // last username entered by the user
-                        $lastUsername = $post->get('_username');
+                            // last username entered by the user
+                            $lastUsername = $post->get('_username');
 
-                        return $this->render('admin/connexion.html.twig', array(
-                            'last_username' => $lastUsername
-                        ));
+                            return $this->render('admin/connexion.html.twig', array(
+                                'last_username' => $lastUsername
+                            ));
+                        }                    
                     }
                 }
             }
             else{
-                if(in_array($post->get('_username'), $admin)){
+                if(in_array($post->get('_username'), ADMIN)){
                     $user = new Clients();        
                     $user->setEmail($post->get('_username'));
                     $session->set("usermail", $post->get('_username'));

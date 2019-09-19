@@ -23,11 +23,7 @@
                     </div>
                 {{ form_end(form) }}
         </div>
-        {% for message in app.flashes('success') %}
-            <div class="flash-notice-sucess">
-                {{ message }}
-            </div>
-        {% endfor %}
+       
         {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
         <script src="{{asset('jquery/jquery-validate/dist/jquery.validate.js')}}"></script>
         <script>    
