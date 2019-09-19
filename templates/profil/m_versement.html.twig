@@ -1,6 +1,6 @@
 <div  id="form_versement">
             <h3>Merci de remplir vos <span class="bank">coordonnées bancaires</span></h3>
-                {{ form_start(form) }}
+                {{ form_start(form, {'attr': {'id': 'mode_versement'}}) }}
                     {{ form_label(form.proprietaire) }}
                     {{ form_widget(form.proprietaire) }} 
                     {{ form_label(form.swiftBic) }}
@@ -23,13 +23,22 @@
                     </div>
                 {{ form_end(form) }}
         </div>
-        {% for message in app.flashes('success') %}
-            <div class="flash-notice-sucess">
-                {{ message }}
-            </div>
-        {% endfor %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script>       
+        
+        {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
+        <script src="{{asset('jquery/jquery-validate/dist/jquery.validate.js')}}"></script>
+        <script>    
+            var form = $('#mode_versement');
+                        
+            form.validate({
+                rules: {
+                    "mode_versement[iban]":{
+                        "iban": true,
+                    },
+                    "mode_versement[swiftBic]":{
+                        "bic": true,
+                    }
+                },
+            });   
             $('#mode_versement_proprietaire').val("{{ app.user.prenom ~ " " ~ app.user.nom }}");
             var annulations = document.getElementsByClassName('cancel');
             Array.from(annulations).forEach(function(annulation){

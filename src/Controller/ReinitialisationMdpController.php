@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use App\Form\ReinitialisationMdpType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 /**
  * @Route("/renouvellement-mot-de-passe")
  */
@@ -39,13 +36,9 @@ class ReinitialisationMdpController extends AbstractController
         if($this->getUser() != null){
             return $this->redirectToRoute("profil");
         }
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
-
             $user = $em->getRepository(Clients::class)->loadUserByUsername($form->getData()['email']);
-
             // aucun email associé à ce compte.
             if (!$user) {
                 $session = $request->getSession();
@@ -53,23 +46,19 @@ class ReinitialisationMdpController extends AbstractController
                 $bool = false;
                 return $this->redirectToRoute("request_resetting");
             } 
-
             // création du token
             $user->setToken($tokenGenerator->generateToken());
             // enregistrement de la date de création du token
             $user->setPasswordRequestedAt(new \Datetime());
             $em->flush();
-
             // on utilise le service Mailer créé précédemment
             $bodyMail = $mailer->createBodyMail('reinitialisation_mdp/mail.html.twig', [
                 'user' => $user
             ]);
             $mailer->sendAdminMessage('hello@hedee.co', $user->getEmail(), 'Renouvellement du mot de passe', $bodyMail);
             $request->getSession()->getFlashBag()->add('success', "Un mail va vous être envoyé afin que vous puissiez renouveller votre mot de passe. Le lien que vous recevrez sera valide 10 minutes.");
-
             //return $this->redirectToRoute("connexion");
         }
-
         return $this->render('reinitialisation_mdp/requete.html.twig', [
             'form' => $form->createView()
         ]);
@@ -85,12 +74,10 @@ class ReinitialisationMdpController extends AbstractController
         
         $now = new \DateTime();
         $interval = $now->getTimestamp() - $passwordRequestedAt->getTimestamp();
-
         $daySeconds = 60 * 10;
         $response = $interval > $daySeconds ? false : $reponse = true;
         return $response;
     }
-
     /**
      * @Route("/{id}/{token}", name="resetting")
      */
@@ -104,29 +91,21 @@ class ReinitialisationMdpController extends AbstractController
         {
             throw new AccessDeniedHttpException();
         }
-
         $form = $this->createForm(ReinitialisationMdpType::class, $user);
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid())
         {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-
             // réinitialisation du token à null pour qu'il ne soit plus réutilisable
             $user->setToken(null);
             $user->setPasswordRequestedAt(null);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-
             $request->getSession()->getFlashBag()->add('success', "Votre mot de passe a été renouvelé.");
-
             return $this->redirectToRoute('connexion');
-
         }
-
         return $this->render('reinitialisation_mdp/index.html.twig', [
             'form' => $form->createView()
         ]);

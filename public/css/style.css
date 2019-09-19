@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --orange_perso: #ff3c00;
     --orange-pale: #ffd5d2;
     --bleu_perso: #2800dc;
@@ -17,7 +17,7 @@ main{
 }
 
 body {
-    font-family: 'Work sans';
+    font-family: 'Work Sans', sans-serif;
     width: 100%;
     min-height:960px;
 }
@@ -607,12 +607,6 @@ body {
         }
 }
 
-#chargement{
-    background: url('../img/ajax-loader.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
-    margin-top: 40%;
-    display: none;
-}
-
 /**************FIN RAJOUT CSS A RANGER**************/
 
 
@@ -664,6 +658,7 @@ main {
 /*.label_2 {
     margin-right: 6px
 }
+
 .question_2 .btn  {
     width: 20px;
     height: 20px;
@@ -955,6 +950,9 @@ input.error, select.error{
 
 /* **************  POUR MOBILE  ********************* */
 @media screen and (max-width:767.98px){
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
 
     .bloc_header_pre > div {
         font-size: 12px;
@@ -999,16 +997,13 @@ input.error, select.error{
     .logos_reseau {
         margin-top: 50px
     }
-
-    
-
  }
-
-
 
 /* **************  POUR TABLETTE  ********************* */
 @media (min-width: 768px) and (max-width:1024.98px){ 
-
+    body {
+        font-family: 'Work Sans', sans-serif;
+    } 
 
     #desktop {
         visibility: visible

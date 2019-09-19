@@ -138,6 +138,7 @@ class AdminController extends AbstractController
         if ($dossier == null){
             return $this->render('enseigne/404_enseigne.html.twig');
         }
+        $flashbag = $this->get('session')->getFlashBag();
         $alerte = new AlertePrix();
         $alerte->setDossier($dossier);
         $form1= $this->createForm(AlerteType::class, $alerte);
@@ -159,6 +160,7 @@ class AdminController extends AbstractController
                     $dossier->setStatut('Non remboursé');
                     $em->flush();
                     $bodyMail = $mailer->createBodyMail('admin/mail_nremboursement.html.twig', ['dossier' => $dossier]);
+                    
                 }
                 if(array_key_exists('clotureR', $post->get('cloture'))){
                     $statut = 'Remboursé';
@@ -167,9 +169,10 @@ class AdminController extends AbstractController
                     $dossier->setMontantRemboursement($montant);
                     $em->flush();
                     $bodyMail = $mailer->createBodyMail('admin/mail_remboursement.html.twig', [
-                        'dossier' => $dossier, 
+                        'dossier' => $dossier
                         ]);
                 }
+                $flashbag->add("success", "Email bien envoyé");
             }
             
             if ($form1->isSubmitted() && $form1->isValid()) {
@@ -187,8 +190,9 @@ class AdminController extends AbstractController
                 $em->persist($alerte);
                 $em->flush();
                 $bodyMail = $mailer->createBodyMail('admin/mail_alerte.html.twig', ['dossier' => $dossier]);
+                $flashbag->add("success", "Alerte bien envoyée");
             }
-            $test1 = $pdf->Output($path_pdf, 'F');
+            //$test1 = $pdf->Output($path_pdf, 'F');
             
             $mailer->sendAdminMessage('hello@hedee.co', $dossier->getClient()->getEmail(), $mail_objet, $bodyMail);
         }

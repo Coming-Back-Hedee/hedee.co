@@ -2,7 +2,7 @@
 
 {% block title %}Mon compte{% endblock %}
  {% block stylesheets %}
- <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/style_espace_client.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
     <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
@@ -58,8 +58,9 @@
                                     <a href="{{path('logout')}}" title="Je me déconnecte">
                                         <button class="compte_button">                                       
                                             Je me déconnecte
+                                        </button>
                                     </a>
-                                    </button>
+                                    
                                 </li>
                             </ul>
                             
@@ -74,6 +75,9 @@
                         <div class="row">
                             <div class="col-md-12 well">
                                 <legend id="anch1"></legend>
+                                <div id="chargement">
+                                    Chargement en cours...
+                                </div>
 
                             </div>
                         </div>
@@ -99,10 +103,19 @@
 
 <script>        
     $(document).ready(function() {
+        $( document ).ajaxStart(function() {
+            $("#anch1").hide();
+            $( "#chargement" ).show();
+        });
+        $( document ).ajaxStop(function() {
+            $("#chargement").hide();
+            $("#anch1").show();
+        });
         var page = $('.bloc_header'); // Page cible
 		var speed = 750; // Durée de l'animation (en ms)
 		$('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
         $('#coming_back').click(function(){
+            $(this).hide()
             $('#sidebar-wrapper').show()
             $('#page-content-wrapper').hide()
             $('.active').removeClass('active')
@@ -129,6 +142,17 @@
                     if(window.innerWidth < 1025){
                         $('#sidebar-wrapper').hide()
                         $('#page-content-wrapper').show()
+                        $('#coming_back').show();
+                    }
+                    else{
+                        $( document ).ajaxStart(function() {
+                            $("#anch1").hide();
+                            $( "#chargement" ).show();
+                        });
+                        $( document ).ajaxStop(function() {
+                            $("#chargement").hide();
+                            $("#anch1").show();
+                        });
                     }
                 }
             switch(id){
@@ -141,8 +165,11 @@
                     title = "Mon porte-monnaie";
                     break;
                 default:
-                   url = "{{path('demandes')}}"
-                title = "Mes demandes de remboursement"; 
+                    url = "{{path('demandes')}}"
+                    title = "Mes demandes de remboursement";
+                    $('.active').removeClass('active')
+                    $('#demandes-remboursement').parent().addClass('active')
+                    break;
             }  
             $("#header_title").html(title)
             $.ajax({
@@ -175,8 +202,7 @@
                         //console.logdocument.getElementsByClassName("icon")();
                     }
                 }
-            });   
-                  
+            });                     
         }
         
           

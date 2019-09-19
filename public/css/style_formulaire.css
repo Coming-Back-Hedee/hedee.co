@@ -206,7 +206,7 @@ textarea{
     padding-bottom: 45px
 }
 
-.les_infos {
+ .les_infos {
     position: relative;
     padding-top : 30px;
     padding-bottom: 40px;
@@ -817,4 +817,4 @@ a:visited, a{
         height: 40px;  
     }    
 
- } 
+ }

@@ -777,6 +777,13 @@ form[name=info_client] button{
         line-height: 1.2;
         letter-spacing: normal;
     }
+
+    #info_client_prenom, #info_client_nom, #info_client_dateNaissance_day, 
+    #info_client_dateNaissance_month, #info_client_dateNaissance_year, 
+    #mail, #info_client_numeroTelephone, #info_client_adresse_nomRue, 
+    #info_client_adresse_ville, #info_client_adresse_codePostal {
+        width: 100%;
+    }
     
     /*********** MES INFORMATONS ***********/
     .table1  {

@@ -1,4 +1,4 @@
-            {% for label, messages in app.flashes(['warning', 'error', 'success']) %}
+{% for label, messages in app.flashes(['warning', 'error', 'success']) %}
                 {% for message in messages %}
                     <div class="flash notice-{{ label }}">
                         {{ message }}
@@ -57,10 +57,8 @@
 
                 {{ form_widget(form.submit) }} 
 
-                {{ form_end(form, {'render_rest': false} ) }}
+                {{ form_end(form) }}
                 
                 
                 
             </div>
-            
- 

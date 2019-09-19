@@ -245,7 +245,8 @@ body {
     }
 
     .garantie_prix_bas {
-        font-size : 32px
+        font-size : 32px;
+        padding-top: 30px;
     }
 
     .bloc2 {
@@ -271,6 +272,10 @@ body {
     .title3 > h1{
         font-size : 27px;
         margin: auto; 
+        width: 90%;
+    }
+
+    .title3 > h1, .title2 > h1, .title1 > p {
         width: 90%;
     }
 

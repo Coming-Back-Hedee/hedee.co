@@ -1,4 +1,4 @@
-            <div>
+<div>
                 <div class="filters">
                     <form>
                         Trier par :
@@ -30,7 +30,6 @@
                 all_demandes(this.value)
             });
         var table = document.getElementById("mes-demandes");
-
         var all_demandes = function (ordre){
             empty_section(table)
             if(ordre == "Date décroissante")
@@ -58,7 +57,7 @@
                             const date = new Date(demande.dateAchat.timestamp*1000)
                             td1.innerHTML = produit +"<br>"
                             var span1 = document.createElement('SPAN');
-                            span1.innerHTML += "<br>" + date.toLocaleDateString()
+                            span1.innerHTML = "Dossier n°" + demande.numeroDossier + "<br>Acheté le" + date.toLocaleDateString()
                             span1.setAttribute('class', 'normal_font')
                             td1.append(span1)                        
                             td2.innerHTML = demande.statut                     
@@ -87,7 +86,6 @@
             //$(a).after('<div id="nav"></div>');
             document.getElementById('nav').innerHTML = "";
             nav = "#nav"
-
             var rowsShown = 5;
             var rowsTotal = nb;
             var numPages = rowsTotal/rowsShown;

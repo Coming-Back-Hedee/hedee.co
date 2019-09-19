@@ -116,6 +116,14 @@ form button{
         margin-right: initial;
     }
 
+    .flash-notice {
+        width: 350px;
+        height: 80px;
+        padding: 30px;
+        margin-bottom: 2%;
+        margin-top: 2%;
+    }
+
     .orange_button {
         margin-top: 20px
     }

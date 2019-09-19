@@ -1,4 +1,4 @@
-{% if user.modeVersement is null %} 
+ {% if user.modeVersement is null %} 
         <div id="empty_mv">
             <h2>Vous n'avez pas encore de mode de versement...</h2>
             <p>Ajoutez-en un pour vous faire rembourser ! </p>
@@ -16,6 +16,11 @@
             <p class="euros">{{ controller_name }}€</p>  
             <p>Depuis votre inscription</p>                       
         </div>
+        {% for message in app.flashes('success') %}
+            <div class="flash-notice-sucess">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div id="mv_location">
             <p>Mon mode de versement</p>
             <div class="media border p-3">
@@ -31,7 +36,7 @@
         </div>
     {% endif %}
     <div id="mv_location"></div>
-                        
+        <script src="{{asset('jquery/jquery-validate/dist/additional-methods.js')}}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>
             function add(e, link){

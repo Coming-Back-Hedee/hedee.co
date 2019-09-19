@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %} 
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="{{asset('css/style_formulaire.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/iconselect.css')}}" >
     <script type="text/javascript" src="{{asset('js/iconselect.js')}}"></script>
@@ -14,10 +15,11 @@
     <div id="bloc_header" class="bloc_header">
         <h1 class="header_title">Je récupère mon argent</h1>
     </div>
+    
     <div id="form_location">
         {% include 'enseigne/eligibilite.html.twig' %}
     </div>
-    <div id="chargement">Chargement en cours...</div>
+
 
 {% endblock %} {# fin main #}
 
@@ -26,14 +28,14 @@
 <script>
     function loadForm(){
         if($("#form-eligibilite").valid()){
-            $( document ).ajaxStart(function() {
+            /*$( document ).ajaxStart(function() {
                 $("#form_location").hide();
                 $( "#chargement" ).show();
             });
             $( document ).ajaxStop(function() {
                 $("#chargement").hide();
                 $("#form_location").show();
-            });
+            });*/
             var donnees = $('#form-eligibilite').serialize()
             $.post('/demande-remboursement/', donnees, function(data,status){
             });

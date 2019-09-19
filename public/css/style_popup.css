@@ -214,12 +214,16 @@ input{
     .block_right{
         order: -1;
         height: 300px;
-        width: 300px;
+        width: 95%;
+    }
+
+    .blue_button {
+        padding: 14.5px;
     }
 
     .block_left1{
         height: 300px;
-        width: 300px;
+        width: 95%;
         background-image: url("../img/popup/Groupe194.png");
         background-size: cover;
         background-repeat: no-repeat;
@@ -229,7 +233,7 @@ input{
     .block_left2{
         background-image: url("../img/popup/Groupe194b.png");
         height: 300px;
-        width: 300px;
+        width: 95%;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center ;
